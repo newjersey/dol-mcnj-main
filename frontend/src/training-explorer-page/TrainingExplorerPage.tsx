@@ -13,6 +13,8 @@ import { useContentful } from "../utils/useContentful";
 import { useTranslation } from "react-i18next";
 import pageImage from "../images/ogImages/trainingExplorer.jpg";
 import { TrainingExplorerHeading } from "../components/TrainingExplorerHeading";
+import { HeroBanner } from "../components/HeroBanner";
+import trainingImage from "../images/training.png";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -105,6 +107,31 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
             </div>
           }
         >
+          <HeroBanner
+            eyebrow={pageData.title}
+            heading={t("ExplorerPage.bannerSubheading")}
+            message={t("ExplorerPage.bannerMessageCopy")}
+            steps={steps}
+            buttons={[
+              {
+                text: "Search trainings",
+                href: "/training-explorer",
+                icon: "ArrowDown",
+                onClick: () => {
+                  const element = document.getElementById("search-block");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center" });
+                    const input = document.getElementById("search-input");
+                    if (input) {
+                      input.focus();
+                    }
+                  }
+                },
+              },
+            ]}
+            image={trainingImage}
+            theme="green"
+          />
           <TrainingExplorerHeading
             steps={steps}
             title={pageData.title}

@@ -94,7 +94,7 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
   }, []);
 
   return (
-    <section className="search-block">
+    <section className="search-block" id="search-block">
       <form
         onSubmit={(e) => {
           e.preventDefault();
