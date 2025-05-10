@@ -1,10 +1,11 @@
 .industry-selector {
+  margin-top: $size-32;
   .container {
     @media screen and (max-width: ($tablet-md - 1)) {
       padding: 0;
     }
     .inner {
-      background-color: $base-extra-light;
+      background-color: $tertiary-extra-light;
       padding: $size-32;
       border-radius: $size-16;
       display: flex;
