@@ -65,7 +65,11 @@ export const HeroBanner = ({
           </div>
           {image && (
             <div className="image">
-              <img src={image} alt="" loading="lazy" />
+              <img
+                src={image}
+                alt={heading ? `${heading} image` : "Hero Banner Image"}
+                loading="lazy"
+              />
             </div>
           )}
         </div>
