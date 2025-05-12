@@ -33,14 +33,7 @@ export const TrainingExplorerHeading = ({
       <div className="container">
         <SearchBlock drawerContent={drawerContent} />
         <HowTo className="mobile-only" />
-        <div className="learn-more">
-          <p>
-            Trainings and programs on the Training Explorer are accredited.{" "}
-            <LinkObject url="/faq#etpl-program-general-information" copy="Learn more">
-              Learn more.
-            </LinkObject>
-          </p>
-        </div>
+
         <div className="cta">
           <Heading level={2}>Not ready to search for training yet?</Heading>
           <div className="btns">

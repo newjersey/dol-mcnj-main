@@ -112,7 +112,7 @@ export const CareerPathwaysPage = (props: Props): ReactElement<Props> => {
             theme="purple"
             buttons={[
               {
-                text: "Start exploring",
+                text: "Start Exploring",
                 href: "/career-pathways#industry-selector",
                 icon: "ArrowDown",
                 onClick: () => {

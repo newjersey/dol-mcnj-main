@@ -114,17 +114,20 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
             steps={steps}
             buttons={[
               {
-                text: "Search trainings",
-                href: "/training-explorer",
+                text: "Search Trainings",
+                href: "/training-explorer#search-block",
                 icon: "ArrowDown",
                 onClick: () => {
                   const element = document.getElementById("search-block");
                   if (element) {
                     element.scrollIntoView({ behavior: "smooth", block: "center" });
-                    const input = document.getElementById("search-input");
-                    if (input) {
-                      input.focus();
-                    }
+
+                    setTimeout(() => {
+                      const input = document.getElementById("search-input");
+                      if (input) {
+                        input.focus();
+                      }
+                    }, 300); // Adjust delay if needed
                   }
                 },
               },
