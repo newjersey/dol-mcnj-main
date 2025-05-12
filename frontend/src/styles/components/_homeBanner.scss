@@ -14,7 +14,7 @@
   }
 
   .copy {
-    width: 51%;
+    width: calc(50% - $size-32);
     display: flex;
     flex-direction: column;
     gap: $size-16;
@@ -52,7 +52,8 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-gap: $size-24;
-    width: 49%;
+    width: 50%;
+    max-height: $size-300;
 
     @media (max-width: $tablet) {
       width: 100%;
