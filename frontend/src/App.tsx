@@ -11,7 +11,7 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
-import { FaqRoutes } from "./faqs/FaqRoutes";
+// import { FaqRoutes } from "./faqs/FaqRoutes";
 import {
   ContextualInfo,
   ContextualInfoContext,
@@ -46,9 +46,9 @@ const TermsOfServicePage = React.lazy(() =>
     default: module.SmsUsePolicyPage,
   })),
 );
-const FaqPage = React.lazy(() =>
-  import("./faq-page/FaqPage").then((module) => ({ default: module.FaqPage })),
-);
+// const FaqPage = React.lazy(() =>
+//   import("./faq-page/FaqPage").then((module) => ({ default: module.FaqPage })),
+// );
 const TrainingProviderPage = React.lazy(() =>
   import("./training-provider-page/TrainingProviderPage").then((module) => ({
     default: module.TrainingProviderPage,
@@ -152,7 +152,7 @@ export const App = (props: Props): ReactElement => {
               <Router>
                 <LandingPage path="/" client={props.client} />
                 <TrainingExplorerPage path="/training" client={props.client} />
-                {FaqRoutes({ client: props.client })}
+                {/* {FaqRoutes({ client: props.client })} */}
                 <SearchResultsPage path="/training/search" client={props.client} />
                 <SearchResultsPage path="/training/search?q=:searchQuery" client={props.client} />
                 <TrainingPage path="/training/:id" client={props.client} />
@@ -160,7 +160,7 @@ export const App = (props: Props): ReactElement => {
                 <OccupationPage path="/occupation/:soc" client={props.client} />
                 <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
                 <TermsOfServicePage path="/sms-use-policy" client={props.client} />
-                <FaqPage path="/faq" client={props.client} />
+                {/* <FaqPage path="/faq" client={props.client} /> */}
                 <ContactUsPage path="/contact" client={props.client} />
                 <TrainingProviderPage path="/training-provider-resources" client={props.client} />
                 <AllSupportPage path="/support-resources" client={props.client} />

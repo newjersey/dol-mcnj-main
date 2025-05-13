@@ -4,11 +4,11 @@ import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { TrainingExplorerPageProps } from "../types/contentful";
 import { HowTo } from "../components/HowTo";
-import { Accordion } from "../components/Accordion";
+// import { Accordion } from "../components/Accordion";
 import { Interrupter } from "../components/Interrupter";
 import { CtaBanner } from "../components/CtaBanner";
-import { IconNames } from "../types/icons";
-import { SectionHeading } from "../components/modules/SectionHeading";
+// import { IconNames } from "../types/icons";
+// import { SectionHeading } from "../components/modules/SectionHeading";
 import { useContentful } from "../utils/useContentful";
 import { useTranslation } from "react-i18next";
 import pageImage from "../images/ogImages/trainingExplorer.jpg";
@@ -79,7 +79,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
           seo={seoObject}
           footerComponent={
             <div className="cta-collection">
-              <CtaBanner
+              {/* <CtaBanner
                 heading="Don’t see your question? Go to our FAQ page."
                 noIndicator
                 inlineButtons
@@ -94,7 +94,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                   },
                 ]}
                 theme="blue"
-              />
+              /> */}
               <CtaBanner
                 heading={pageData?.footerCtaHeading}
                 inlineButtons
@@ -113,7 +113,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
 
           <HowTo {...howToContent} />
           <Interrupter {...interrupterContent} />
-          <section className="landing-faq">
+          {/* <section className="landing-faq">
             <div className="container">
               <SectionHeading heading="Frequently Asked Questions" headingLevel={3} />
 
@@ -126,7 +126,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                 />
               ))}
             </div>
-          </section>
+          </section> */}
         </Layout>
       )}
     </>
