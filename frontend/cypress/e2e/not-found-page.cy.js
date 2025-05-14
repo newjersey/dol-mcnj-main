@@ -3,12 +3,12 @@ describe("Not Found Page", () => {
     cy.visit("/badroute");
     cy.injectAxe();
 
-    cy.contains("Sorry, we can't seem to find that page").should("exist");
+    cy.contains("We're sorry, we can't find the page you're looking for.").should("exist");
 
     cy.checkA11y();
   });
 
-/*  it("404s on failed training lookups", () => {
+  /*  it("404s on failed training lookups", () => {
     cy.visit("/training/not-a-valid-id");
     cy.contains("Training not found").should("exist");
   });*/

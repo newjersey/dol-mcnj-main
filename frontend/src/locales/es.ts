@@ -28,6 +28,20 @@ export const es = {
     somethingWentWrongHeader: "Perdón, algo salió mal",
     somethingWentWrongText: "Por favor, inténtelo de nuevo más tarde",
   },
+  SystemErrorPage: {
+    fourOhFourHeading: "Página no encontrada",
+    fourOhFourSubheading: "Lo sentimos, no podemos encontrar la página que estás buscando.",
+    fourOhFourCopy:
+      "Si escribiste la URL directamente, revisa la ortografía y el uso de mayúsculas. Nuestras URLs se ven así: **<mycareer.nj.gov/example-one/>**\n\nVisita nuestra página de inicio para encontrar herramientas y recursos útiles, o contáctanos y te guiaremos en la dirección correcta.",
+    buttonOne: "Visitar página de inicio",
+    buttonTwo: "Contáctanos",
+    errorText: "Código de error:",
+    faqHeading: "La página de Preguntas Frecuentes está siendo mejorada",
+    faqSubheading: "Gracias por tu paciencia mientras mejoramos esta página.",
+    faqCopy:
+      "Aún puedes explorar las herramientas de empleo, capacitación y carreras de My Career NJ. Contáctanos si tienes alguna pregunta.",
+  },
+
   ExplorerPage: {
     bannerSubheading: "Encuentre programas de capacitación laboral de calidad:",
     bannerMessageCopy:
