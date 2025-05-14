@@ -2,26 +2,28 @@ import { IconSelector } from "./IconSelector";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const HeroBanner = ({
+  buttons,
   eyebrow,
   heading,
-  subheading,
-  message,
   image,
+  message,
+  steps,
+  subheading,
   theme = "blue",
-  buttons,
 }: {
-  eyebrow?: string;
-  heading?: string;
-  subheading?: string;
-  message?: string;
-  image?: string;
-  theme?: "blue" | "green" | "purple" | "navy";
   buttons?: {
     text: string;
     href: string;
     onClick?: () => void;
     icon?: string;
   }[];
+  eyebrow?: string;
+  heading?: string;
+  image?: string;
+  message?: string;
+  steps?: string[];
+  subheading?: string;
+  theme?: "blue" | "green" | "purple" | "navy";
 }) => {
   return (
     <section className={`heroBanner${theme ? ` theme-${theme}` : ""}`}>
@@ -63,10 +65,30 @@ export const HeroBanner = ({
           </div>
           {image && (
             <div className="image">
-              <img src={image} alt="" loading="lazy" />
+              <img
+                src={image}
+                alt={heading ? `${heading} image` : "Hero Banner Image"}
+                loading="lazy"
+              />
             </div>
           )}
         </div>
+        {steps && (
+          <div className="steps">
+            <ol className="unstyled">
+              {steps.map((step, index) => (
+                <li key={step}>
+                  <div className="list-num-container">
+                    <div className="list-num">{index + 1}</div>
+                  </div>
+                  <div className="list-info">
+                    <p>{step}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
       </div>
     </section>
   );
