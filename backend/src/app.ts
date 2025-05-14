@@ -310,6 +310,10 @@ app.use("/api/signup", signUpRouter);
 app.use("/api/emails", emailSubmissionRouter);
 app.use("/api/contentful", contentfulRouter);
 
+app.get("/faq", (req, res) => {
+  res.status(503).send("Service Unavailable: The FAQ page is down for maintenance.");
+});
+
 // Routes for handling root and unknown routes...
 app.get("/", (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
