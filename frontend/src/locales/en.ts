@@ -376,7 +376,7 @@ export const en = {
       "To sign up for this training opportunity, please contact the provider at the details below.",
     trainingStepOneDescription: "Search by occupation, provider, and more",
     trainingStepTwoDescription: "Filter and compare results",
-    trainingStepThreeDescription: "Visit training provider’s website to enroll",
+    trainingStepThreeDescription: "Dive into training details",
   },
   PrivacyPolicy: {
     copy: `## Privacy Policy and Information Collection Statement

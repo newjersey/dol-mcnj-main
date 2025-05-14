@@ -58,7 +58,7 @@ export const TrainingPage = (props: Props): ReactElement => {
   usePageTitle(`${training?.name} | Training | ${process.env.REACT_APP_SITE_NAME}`);
 
   useEffect(() => {
-    setLoading(true);  // Start loading
+    setLoading(true); // Start loading
     const idToFetch = props.id ? props.id : "";
     props.client.getTrainingById(idToFetch, {
       onSuccess: (result: Training) => {

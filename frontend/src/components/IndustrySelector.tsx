@@ -98,7 +98,7 @@ export const IndustrySelector = () => {
   }, [activePanel]);
 
   return (
-    <section className="industry-selector">
+    <section className="industry-selector" id="industry-selector">
       <div className="container">
         <div className="inner">
           <Heading level={2}>{content.industrySelector.heading}</Heading>
