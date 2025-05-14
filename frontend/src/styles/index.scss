@@ -18,6 +18,7 @@
 @import "pages/home-page";
 @import "pages/in-demand-page";
 @import "pages/industry-page";
+@import "pages/tools-page";
 @import "pages/landing-page";
 @import "pages/not-found-page";
 @import "pages/occupation-page";
@@ -59,6 +60,7 @@
 @import "components/faq-collection";
 @import "components/filterControls";
 @import "components/footer-cta";
+@import "components/heroBanner";
 @import "components/homeBanner";
 @import "components/how-to";
 @import "components/industry-block";
@@ -66,6 +68,7 @@
 @import "components/industry-selector";
 @import "components/interrupter";
 @import "components/introBlocks";
+@import "components/itemCard";
 @import "components/labelBox";
 @import "components/occupation-block";
 @import "components/page-banner";
@@ -75,10 +78,10 @@
 @import "components/resourceCard";
 @import "components/resourceList";
 @import "components/river";
-@import "components/updateNotifier";
 @import "components/search-block";
 @import "components/stepper";
 @import "components/tab-content";
+@import "components/updateNotifier";
 
 button:not([disabled]):focus,
 input:not([disabled]):focus,

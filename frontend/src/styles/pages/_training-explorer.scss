@@ -73,8 +73,6 @@
 }
 
 .training-explorer-heading {
-  background-color: $base-lightest;
-
   p {
     line-height: 1;
   }
@@ -116,27 +114,9 @@
     }
   }
 
-  .learn-more {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: $size-32 0;
-
-    p {
-      background-color: white;
-      border-radius: $size-80;
-      padding: $size-16;
-      font-size: $size-18;
-      display: inline-block;
-
-      @media screen and (max-width: ($tablet-md)) {
-        font-size: $size-16;
-        border-radius: $size-16;
-      }
-    }
-  }
-
   .cta {
+    margin-top: $size-32;
+
     .heading-tag {
       font-size: $size-22;
       margin-bottom: $size-16;

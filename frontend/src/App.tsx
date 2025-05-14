@@ -20,6 +20,8 @@ import {
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { IndustryPage } from "./career-pathways-page/IndustryPage";
+import { ToolsPage } from "./tools-page/ToolsPage";
+
 import { useTranslation } from "react-i18next";
 
 // Lazy load pages
@@ -178,6 +180,8 @@ export const App = (props: Props): ReactElement => {
                 <AllSupportPage path="/support-resources" client={props.client} />
                 <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
                 <SystemErrorPage default client={props.client} code="404" />
+                <ToolsPage path="/tools" client={props.client} />
+                {/* <NotFoundPage default client={props.client} /> */}
 
                 <Redirect from="/search" to="/training/search" />
                 <Redirect
