@@ -167,9 +167,9 @@ export const es = {
   },
   LandingPage: {
     bannerHeading: "My Career NJ",
-    bannerSubheading: "Herramientas de Carrera de Última Generación:",
+    bannerSubheading: "Las herramientas que necesitas para donde estás",
     bannerMessageCopy:
-      "Encuentre el programa de capacitación adecuado, obtenga coincidencias personalizadas de empleo y explore las carreras más demandadas de Nueva Jersey con nuestras potentes herramientas digitales.",
+      "Encuentre el programa de capacitación adecuado, obtenga coincidencias laborales personalizadas y explore las carreras profesionales más demandadas de Nueva Jersey con estas poderosas herramientas digitales.",
     topToolsHeader: "Herramientas principales",
     topToolNavigatorHeading: "Navegador de Carreras de NJ",
     topToolNavigatorDescription:
