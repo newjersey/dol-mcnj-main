@@ -159,9 +159,9 @@ export const en = {
   },
   LandingPage: {
     bannerHeading: "My Career NJ",
-    bannerSubheading: "Cutting Edge Career Tools:",
+    bannerSubheading: "The tools you need for where you are",
     bannerMessageCopy:
-      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
+      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
     topToolsHeader: "Top tools",
     topToolNavigatorHeading: "NJ Career Navigator",
     topToolNavigatorDescription:
