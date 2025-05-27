@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
-import { CircleNotch, EnvelopeSimple, X } from "@phosphor-icons/react";
+import { CircleNotch, EnvelopeSimple, Megaphone, X } from "@phosphor-icons/react";
 import { useTranslation } from "react-i18next";
 
 export const SignUpFormModal = () => {
@@ -166,7 +166,7 @@ export const SignUpFormModal = () => {
           setIsOpen(!isOpen);
         }}
       >
-        {t("SignUpFormModal.buttonText")}
+        <Megaphone size={20} weight="bold" /> {t("SignUpFormModal.buttonText")}
       </Button>
 
       <div className={`signUpModal${isOpen ? " open" : ""}`}>
