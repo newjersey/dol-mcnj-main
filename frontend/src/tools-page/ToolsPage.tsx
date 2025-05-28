@@ -150,7 +150,7 @@ export const ToolsPage = (props: Props): ReactElement => {
             description: t("LandingPage.topToolPathwaysDescription"),
             icon: "Path",
             link: {
-              href: "/training",
+              href: "/career-pathways",
               text: t("LandingPage.topToolPathwaysButtonText"),
             },
           }}
