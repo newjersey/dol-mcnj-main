@@ -94,7 +94,7 @@
     "cypress-axe": "^1.6.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-cypress": "^3.6.0",
+    "eslint-plugin-cypress": "^5.0.0",
     "good-fences": "^1.2.0",
     "prettier": "3.5.3",
     "react-to-print": "^2.14.15"
