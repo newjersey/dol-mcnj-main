@@ -167,9 +167,9 @@ export const es = {
   },
   LandingPage: {
     bannerHeading: "My Career NJ",
-    bannerSubheading: "Las herramientas que necesitas para donde estás",
+    bannerSubheading: "Herramientas de Carrera de Última Generación:",
     bannerMessageCopy:
-      "Encuentre el programa de capacitación adecuado, obtenga coincidencias laborales personalizadas y explore las carreras profesionales más demandadas de Nueva Jersey con estas poderosas herramientas digitales.",
+      "Encuentre el programa de capacitación adecuado, obtenga coincidencias personalizadas de empleo y explore las carreras más demandadas de Nueva Jersey con nuestras potentes herramientas digitales.",
     topToolsHeader: "Herramientas principales",
     topToolNavigatorHeading: "Navegador de Carreras de NJ",
     topToolNavigatorDescription:
@@ -405,8 +405,7 @@ export const es = {
     trainingStepTwoDescriptionP3:
       " para identificar el programa que mejor se adapta a tus necesidades.",
     trainingStepThree: "Visit a el sitio web del proveedor de la capacitación",
-    trainingStepThreeDescription:
-      "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse.",
+    trainingStepThreeDescription: "Profundice en los detalles de la capacitación",
   },
   PrivacyPolicy: {
     copy: `## Política de Privacidad y Declaración de Recopilación de Información

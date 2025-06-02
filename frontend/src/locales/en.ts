@@ -159,9 +159,9 @@ export const en = {
   },
   LandingPage: {
     bannerHeading: "My Career NJ",
-    bannerSubheading: "The tools you need for where you are",
+    bannerSubheading: "Cutting Edge Career Tools:",
     bannerMessageCopy:
-      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
+      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
     topToolsHeader: "Top tools",
     topToolNavigatorHeading: "NJ Career Navigator",
     topToolNavigatorDescription:
@@ -389,7 +389,7 @@ export const en = {
       "To sign up for this training opportunity, please contact the provider at the details below.",
     trainingStepOneDescription: "Search by occupation, provider, and more",
     trainingStepTwoDescription: "Filter and compare results",
-    trainingStepThreeDescription: "Visit training provider’s website to enroll",
+    trainingStepThreeDescription: "Dive into training details",
   },
   PrivacyPolicy: {
     copy: `## Privacy Policy and Information Collection Statement
