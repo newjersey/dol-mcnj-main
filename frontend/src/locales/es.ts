@@ -405,7 +405,8 @@ export const es = {
     trainingStepTwoDescriptionP3:
       " para identificar el programa que mejor se adapta a tus necesidades.",
     trainingStepThree: "Visit a el sitio web del proveedor de la capacitación",
-    trainingStepThreeDescription: "Profundice en los detalles de la capacitación",
+    trainingStepThreeDescription:
+      "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse.",
   },
   PrivacyPolicy: {
     copy: `## Política de Privacidad y Declaración de Recopilación de Información

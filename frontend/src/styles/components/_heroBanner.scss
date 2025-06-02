@@ -1,16 +1,6 @@
 .heroBanner {
   padding: $size-64 0 $size-48;
 
-  .container {
-    display: flex;
-    flex-direction: column;
-    gap: $size-32;
-    &:before,
-    &:after {
-      content: none;
-    }
-  }
-
   .inner {
     display: flex;
     gap: $size-64;
@@ -100,62 +90,6 @@
     }
   }
 
-  .steps {
-    background-color: $base-lightest;
-    padding: $size-16;
-    margin: $size-32 auto 0;
-    border-radius: $size-16;
-    width: 100%;
-
-    @media screen and (min-width: ($tablet-md + 1)) {
-      width: auto;
-      border-radius: $size-80;
-    }
-
-    ol {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      gap: $size-16;
-
-      @media screen and (max-width: ($tablet-md)) {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      li {
-        display: flex;
-        align-items: center;
-        gap: $size-8;
-        font-size: $size-16;
-
-        @media screen and (min-width: ($tablet-md + 1)) {
-          font-size: $size-18;
-          font-weight: 600;
-        }
-
-        p {
-          line-height: 1;
-        }
-      }
-
-      .list-num {
-        align-items: center;
-        background-color: $base;
-        border-radius: 100%;
-        color: $white;
-        display: flex;
-        font-size: $size-16;
-        font-weight: bold;
-        height: $size-24;
-        justify-content: center;
-        padding-top: $size-3;
-        width: $size-24;
-      }
-    }
-  }
-
   &.theme-blue {
     .eyebrow {
       color: $primary;
@@ -167,14 +101,6 @@
 
       &:hover {
         background-color: $primary-darker;
-      }
-    }
-
-    .steps {
-      background-color: $primary-lighter;
-
-      .list-num {
-        background-color: $primary;
       }
     }
   }
@@ -196,14 +122,6 @@
         color: $secondary;
       }
     }
-
-    .steps {
-      background-color: $secondary-lighter;
-
-      .list-num {
-        background-color: $secondary;
-      }
-    }
   }
 
   &.theme-purple {
@@ -223,14 +141,6 @@
         color: $tertiary;
       }
     }
-
-    .steps {
-      background-color: $tertiary-lighter;
-
-      .list-num {
-        background-color: $tertiary;
-      }
-    }
   }
 
   &.theme-navy {
@@ -248,14 +158,6 @@
 
       &.usa-button--outline {
         color: $info-darker;
-      }
-    }
-
-    .steps {
-      background-color: $info-lighter;
-
-      .list-num {
-        background-color: $info-darker;
       }
     }
   }
