@@ -3,7 +3,7 @@ describe("Not Found Page", () => {
     cy.visit("/badroute");
     cy.injectAxe();
 
-    cy.contains("We're sorry, we can't find the page you're looking for.").should("exist");
+    cy.contains("Sorry, we can't seem to find that page").should("exist");
 
     cy.checkA11y();
   });

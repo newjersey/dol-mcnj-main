@@ -166,17 +166,58 @@ export const es = {
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
-    bannerSubheading: "Herramientas profesionales de vanguardia:",
+    bannerHeading: "My Career NJ",
+    bannerSubheading: "Herramientas de Carrera de Última Generación:",
     bannerMessageCopy:
-      "Encuentre el programa de capacitación adecuado, obtenga coincidencias laborales personalizadas y explore las carreras profesionales más demandadas de Nueva Jersey con nuestras poderosas herramientas digitales.",
-    headerText:
-      "Encuentre capacitaciones que lo prepare mejor para una promoción, un mejor trabajo o incluso un cambio de carrera",
-    searchBoxPlaceholder: "Ingrese ocupación, certificación, proveedor, o código SOC",
-    swimLaneHeader: "Instrucciones útiles",
-    columnOneHeader: "Solicitantes de formación",
-    columnTwoHeader: "Para consejeros y entrenadores",
-    columnThreeHeader: "Para proveedores de capacitación",
-    columnButtonText: "Aprende más",
+      "Encuentre el programa de capacitación adecuado, obtenga coincidencias personalizadas de empleo y explore las carreras más demandadas de Nueva Jersey con nuestras potentes herramientas digitales.",
+    topToolsHeader: "Herramientas principales",
+    topToolNavigatorHeading: "Navegador de Carreras de NJ",
+    topToolNavigatorDescription:
+      "Cargue su currículum para ver recomendaciones personalizadas de empleos y programas de capacitación.",
+    topToolNavigatorButtonText: "Comenzar",
+    topToolExplorerHeading: "Explorador de Capacitación",
+    topToolExplorerDescription:
+      "Busque por empleo, programa de capacitación y más para encontrar la capacitación que le convenga.",
+    topToolExplorerButtonText: "Buscar capacitación",
+    topToolPathwaysHeading: "Trayectorias Profesionales",
+    topToolPathwaysDescription:
+      "Explore industrias populares para ver lo que se necesita para ingresar o avanzar en ellas.",
+    topToolPathwaysButtonText: "Explorar trayectorias",
+    resourcesHeading: "¿Cómo puede ayudarle My Career NJ?",
+    resourcesDescription: "Elija una opción y vea una lista de recursos útiles.",
+    resourcesCard1: "Quiero encontrar un trabajo",
+    resourcesCard2: "Quiero buscar capacitación",
+    resourcesCard3: "Quiero explorar oportunidades profesionales",
+    resourcesCard4: "Necesito recursos adicionales",
+  },
+  ToolsPage: {
+    heroBannerEyebrow: "Herramientas y Recursos por Categoría",
+    heroBannerHeading: "Descubra las herramientas de My Career NJ por categoría",
+    jobHeading: "Todos los Recursos y Herramientas para la Búsqueda de Empleo",
+    jobLink1Heading: "Intercambio Nacional de Empleo",
+    jobLink1Description: "Buscar empleos",
+    jobLink2Heading: "Perspectivas del Mercado Laboral",
+    jobLink2Description: "Aprenda sobre el mercado laboral en NJ",
+    jobLink3Heading: "Programas de Aprendizaje",
+    jobLink3Description: "Conozca oportunidades de aprendizaje",
+    trainingHeading: "Todos los Recursos y Herramientas de Capacitación",
+    trainingLink1Heading: "Recursos de Asistencia para Matrícula",
+    trainingLink1Description: "Conozca formas de obtener ayuda para pagar su educación",
+    trainingLink2Heading: "Recursos para Proveedores de Capacitación",
+    trainingLink2Description: "Información importante para proveedores de capacitación",
+    careerHeading: "Todos los Recursos y Herramientas para la Exploración de Carreras",
+    careerLink1Heading: "Lista de Ocupaciones en Demanda",
+    careerLink1Description: "Vea las carreras con vacantes actuales y futuras en NJ",
+    supportHeading: "Todos los Recursos de Apoyo y Asistencia",
+    supportLink1Heading: "Apoyo Profesional",
+    supportLink1Description:
+      "Orientación profesional, ayuda con la búsqueda de empleo y reintegración al mercado laboral",
+    supportLink2Heading: "Asistencia para la Matrícula",
+    supportLink2Description: "Capacitación laboral, colegios comunitarios y más",
+    supportLink3Heading: "Apoyo para Residentes",
+    supportLink3Description: "Vivienda, transporte, atención médica y más",
+    supportLink4Heading: "Preguntas Frecuentes",
+    supportLink4Description: "Preguntas Frecuentes",
   },
   OccupationPage: {
     header: "Ocupación",
@@ -364,8 +405,7 @@ export const es = {
     trainingStepTwoDescriptionP3:
       " para identificar el programa que mejor se adapta a tus necesidades.",
     trainingStepThree: "Visit a el sitio web del proveedor de la capacitación",
-    trainingStepThreeDescription:
-      "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse.",
+    trainingStepThreeDescription: "Profundice en los detalles de la capacitación",
   },
   PrivacyPolicy: {
     copy: `## Política de Privacidad y Declaración de Recopilación de Información
