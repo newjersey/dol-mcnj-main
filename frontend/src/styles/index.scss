@@ -370,65 +370,31 @@ ol {
   }
 
   h1,
-  .heading-1,
-  h2,
-  .heading-2 {
+  h2 {
     margin-bottom: $size-16;
   }
 
-  h1,
-  .heading-1 {
+  h1 {
     font-size: $size-40;
   }
 
-  h2,
-  .heading-2 {
+  h2 {
     font-size: $size-32;
   }
 
-  h3,
-  .heading-3 {
+  h3 {
     font-size: $size-24;
   }
 
-  h4,
-  .heading-4 {
+  h4 {
     font-size: $size-22;
   }
 
-  h5,
-  .heading-5 {
+  h5 {
     font-size: $size-20;
   }
 
-  h6,
-  .heading-6 {
+  h6 {
     font-size: $size-18;
-  }
-}
-
-.systemErrorPage {
-  .heading-3 span {
-    display: block;
-    @media screen and (min-width: ($tablet-md)) {
-      max-width: 810px;
-      margin-left: 0;
-    }
-  }
-  .inner-copy {
-    @media screen and (min-width: ($tablet-md)) {
-      max-width: 580px;
-      margin-left: 0;
-    }
-  }
-
-  .buttons {
-    display: flex;
-    gap: $size-8;
-    margin-top: $size-24;
-
-    @media screen and (max-width: ($mobile)) {
-      flex-direction: column;
-    }
   }
 }

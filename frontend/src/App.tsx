@@ -11,7 +11,7 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
-// import { FaqRoutes } from "./faqs/FaqRoutes";
+import { FaqRoutes } from "./faqs/FaqRoutes";
 import {
   ContextualInfo,
   ContextualInfoContext,
@@ -21,8 +21,6 @@ import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { IndustryPage } from "./career-pathways-page/IndustryPage";
 import { ToolsPage } from "./tools-page/ToolsPage";
-
-import { useTranslation } from "react-i18next";
 
 // Lazy load pages
 const SearchResultsPage = React.lazy(() =>
@@ -49,19 +47,17 @@ const TermsOfServicePage = React.lazy(() =>
     default: module.SmsUsePolicyPage,
   })),
 );
-// const FaqPage = React.lazy(() =>
-//   import("./faq-page/FaqPage").then((module) => ({ default: module.FaqPage })),
-// );
-
+const FaqPage = React.lazy(() =>
+  import("./faq-page/FaqPage").then((module) => ({ default: module.FaqPage })),
+);
 const TrainingProviderPage = React.lazy(() =>
   import("./training-provider-page/TrainingProviderPage").then((module) => ({
     default: module.TrainingProviderPage,
   })),
 );
-const SystemErrorPage = React.lazy(() =>
-  import("./error/SystemError").then((module) => ({ default: module.SystemErrorPage })),
+const NotFoundPage = React.lazy(() =>
+  import("./error/NotFoundPage").then((module) => ({ default: module.NotFoundPage })),
 );
-
 const InDemandOccupationsPage = React.lazy(() =>
   import("./in-demand-occupations-page/InDemandOccupationsPage").then((module) => ({
     default: module.InDemandOccupationsPage,
@@ -126,7 +122,6 @@ export const App = (props: Props): ReactElement => {
     initialComparisonState,
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
-  const { t } = useTranslation();
 
   useEffect(() => {
     ReactGA.initialize("G-THV625FWWB", { testMode: process.env.NODE_ENV === "test" });
@@ -158,7 +153,7 @@ export const App = (props: Props): ReactElement => {
               <Router>
                 <LandingPage path="/" client={props.client} />
                 <TrainingExplorerPage path="/training" client={props.client} />
-                {/* {FaqRoutes({ client: props.client })} */}
+                {FaqRoutes({ client: props.client })}
                 <SearchResultsPage path="/training/search" client={props.client} />
                 <SearchResultsPage path="/training/search?q=:searchQuery" client={props.client} />
                 <TrainingPage path="/training/:id" client={props.client} />
@@ -166,22 +161,13 @@ export const App = (props: Props): ReactElement => {
                 <OccupationPage path="/occupation/:soc" client={props.client} />
                 <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
                 <TermsOfServicePage path="/sms-use-policy" client={props.client} />
-                {/* <FaqPage path="/faq" client={props.client} /> */}
-                <SystemErrorPage
-                  path="/faq"
-                  client={props.client}
-                  code="503"
-                  heading={t("SystemErrorPage.faqHeading")}
-                  subheading={t("SystemErrorPage.faqSubheading")}
-                  copy={t("SystemErrorPage.faqCopy")}
-                />
+                <FaqPage path="/faq" client={props.client} />
                 <ContactUsPage path="/contact" client={props.client} />
                 <TrainingProviderPage path="/training-provider-resources" client={props.client} />
                 <AllSupportPage path="/support-resources" client={props.client} />
                 <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
-                <SystemErrorPage default client={props.client} code="404" />
                 <ToolsPage path="/tools" client={props.client} />
-                {/* <NotFoundPage default client={props.client} /> */}
+                <NotFoundPage default client={props.client} />
 
                 <Redirect from="/search" to="/training/search" />
                 <Redirect

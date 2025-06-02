@@ -28,19 +28,6 @@ export const en = {
     somethingWentWrongHeader: "Sorry, something went wrong",
     somethingWentWrongText: "Please try again later",
   },
-  SystemErrorPage: {
-    fourOhFourHeading: "Page not found",
-    fourOhFourSubheading: "We're sorry, we can't find the page you're looking for.",
-    fourOhFourCopy:
-      "If you typed the URL directly, check your spelling and capitalization. Our URLs look like this **<mycareer.nj.gov/example-one/>**\n\nVisit our homepage for helpful tools and resources, or contact us and we'll point you in the right direction.",
-    buttonOne: "Visit homepage",
-    buttonTwo: "Contact us",
-    errorText: "Error code:",
-    faqHeading: "The FAQ page is being improved",
-    faqSubheading: "Thank you for your patience while we improve this page.",
-    faqCopy:
-      "You can still explore My Career NJ’s job, training, and career tools. Contact us if you have any questions.",
-  },
   ExplorerPage: {
     bannerSubheading: "Find Quality Job Training Programs:",
     bannerMessageCopy:

@@ -9,8 +9,6 @@ interface NavSubMenuProps extends TopLevelNavItemProps {
 }
 
 export const NavSubMenu = (props: NavSubMenuProps) => {
-  const filteredItems = props.subItemsCollection?.items.filter((item) => item.url !== "/faq");
-
   return (
     <>
       <button
@@ -28,7 +26,7 @@ export const NavSubMenu = (props: NavSubMenuProps) => {
       </button>
       {props.open && (
         <ul className="sub-menu unstyled">
-          {filteredItems?.map((subItem) => (
+          {props.subItemsCollection?.items.map((subItem) => (
             <li key={subItem.sys?.id}>
               <LinkObject className="sub-nav-item" icons={props.icons} {...subItem} />
             </li>

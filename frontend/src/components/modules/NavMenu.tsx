@@ -91,24 +91,22 @@ export const NavMenu = ({
                     )}
                     {hasSub && (
                       <ul className="unstyled">
-                        {item.subItemsCollection?.items
-                          .filter((subItem) => subItem.url !== "/faq")
-                          .map((subItem) => {
-                            const subNoLink = subItem.url === "##nolink";
-                            return (
-                              <Fragment key={subItem.sys?.id}>
-                                {subNoLink ? (
-                                  <>
-                                    <span>{subItem.copy}</span>
-                                  </>
-                                ) : (
-                                  <li key={subItem.sys?.id}>
-                                    <LinkObject icons={icons} {...subItem} />
-                                  </li>
-                                )}
-                              </Fragment>
-                            );
-                          })}
+                        {item.subItemsCollection?.items.map((subItem) => {
+                          const subNoLink = subItem.url === "##nolink";
+                          return (
+                            <Fragment key={subItem.sys?.id}>
+                              {subNoLink ? (
+                                <>
+                                  <span>{subItem.copy}</span>
+                                </>
+                              ) : (
+                                <li key={subItem.sys?.id}>
+                                  <LinkObject icons={icons} {...subItem} />
+                                </li>
+                              )}
+                            </Fragment>
+                          );
+                        })}
                       </ul>
                     )}
                   </>
