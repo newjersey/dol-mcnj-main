@@ -1,3 +1,4 @@
+import { AlertBar } from "./AlertBar";
 import { IconSelector } from "./IconSelector";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,6 +10,7 @@ export const HeroBanner = ({
   message,
   steps,
   subheading,
+  infoBar,
   theme = "blue",
 }: {
   buttons?: {
@@ -23,6 +25,12 @@ export const HeroBanner = ({
   message?: string;
   steps?: string[];
   subheading?: string;
+  infoBar?:
+    | {
+        text: string;
+        type?: "error" | "warning" | "info" | "success";
+      }
+    | string;
   theme?: "blue" | "green" | "purple" | "navy";
 }) => {
   return (
@@ -61,6 +69,13 @@ export const HeroBanner = ({
                   );
                 })}
               </div>
+            )}
+
+            {infoBar && (
+              <AlertBar
+                type={typeof infoBar === "string" ? "info" : infoBar.type || "info"}
+                copy={typeof infoBar === "string" ? infoBar : infoBar.text}
+              />
             )}
           </div>
           {image && (

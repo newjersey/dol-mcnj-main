@@ -160,9 +160,11 @@ export const es = {
   },
   InDemandPage: {
     pageTitle: "Ocupaciones en demanda",
-    header: "Ocupaciones en demanda",
+    header: "Lista de Ocupaciones en Demanda",
     description:
-      "Esta es una lista de ocupaciones que se espera que tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Las capacitaciones relacionadas con las ocupaciones en esta lista pueden ser elegibles para recibir financiamiento del Estado.",
+      "Descubre las principales ocupaciones en Nueva Jersey con más proyecciones de vacantes",
+    infoBar:
+      "La capacitación para estas ocupaciones puede ser elegible para financiamiento estatal. [Obtén más información sobre el financiamiento.](https://www.nj.gov/labor/education-and-training/funding-opportunities/)",
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
