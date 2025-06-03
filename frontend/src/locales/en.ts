@@ -151,9 +151,10 @@ export const en = {
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
-    header: "In-Demand Occupations",
-    description:
-      "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State. Some occupations qualify for local or regional wavers and are noted below.",
+    header: "In-Demand Occupations List",
+    description: "Discover New Jersey's top occupations with the most projected openings",
+    infoBar:
+      "Training for these occupations may be eligible for state funding. [Learn more about funding.](https://www.nj.gov/labor/education-and-training/funding-opportunities/)",
     descriptionTextLink: "Learn more about local and regional waivers",
     typeaheadPlaceholder: "Search for occupations",
   },
