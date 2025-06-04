@@ -333,6 +333,20 @@ export const en = {
     missingDataExplanation:
       "* This information is missing because we haven't received enough data from this institute.",
   },
+  FaqPage: {
+    header: "Get answers to commonly asked questions",
+    eyebrow: "Frequently Asked Questions",
+  },
+  ContactPage: {
+    header: "Need help with My Career NJ? Reach out today",
+    eyebrow: "Contact Us",
+  },
+  TrainingProviderPage: {
+    header: "Training provider data collection, ETPL, and quality assurance guidance",
+    infoBar:
+      "Looking to get you program on the ETPL? [Visit Intelligrants and sign up.](https://intelligrants.nj.gov/)",
+    eyebrow: "Training Provider Resources",
+  },
   TrainingPage: {
     header: "Training Opportunity",
     avgSalaryTitle: "Avg Salary after Program",
