@@ -27,6 +27,7 @@ export const HeroBanner = ({
   subheading?: string;
   infoBar?:
     | {
+        heading?: string;
         text: string;
         type?: "error" | "warning" | "info" | "success";
       }
@@ -73,6 +74,7 @@ export const HeroBanner = ({
 
             {infoBar && (
               <AlertBar
+                heading={typeof infoBar === "string" ? undefined : infoBar.heading || undefined}
                 type={typeof infoBar === "string" ? "info" : infoBar.type || "info"}
                 copy={typeof infoBar === "string" ? infoBar : infoBar.text}
               />
