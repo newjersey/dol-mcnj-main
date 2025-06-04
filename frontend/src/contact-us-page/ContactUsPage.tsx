@@ -2,12 +2,13 @@ import { ReactElement, useEffect, useState } from "react";
 import { RouteComponentProps, WindowLocation } from "@reach/router";
 import { Client } from "../domain/Client";
 import { Layout } from "../components/Layout";
-import { PageBanner } from "../components/PageBanner";
 
 import ContactInfo from "./ContactInfo";
 import ContactForm from "./ContactForm";
 import ContactSuccess from "./ContactSuccess";
 import ContactError from "./ContactError";
+import { HeroBanner } from "../components/HeroBanner";
+import { useTranslation } from "react-i18next";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -15,6 +16,7 @@ interface Props extends RouteComponentProps {
 }
 export const ContactUsPage = (props: Props): ReactElement<Props> => {
   const [formSuccess, setFormSuccess] = useState<boolean | undefined>(undefined);
+  const { t } = useTranslation();
 
   const bgColor = () => {
     switch (formSuccess) {
@@ -79,22 +81,7 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
         url: props.location?.pathname,
       }}
     >
-      <PageBanner
-        title="Contact Us"
-        breadcrumbTitle="Contact Us"
-        subheading="New Jersey Training Provider Information Hub:"
-        description="If you have questions about the New Jersey Career Central, please fill out the form below."
-        theme="green"
-        section="support"
-        breadcrumbsCollection={{
-          items: [
-            {
-              url: "/",
-              copy: "Home",
-            },
-          ],
-        }}
-      />
+      <HeroBanner eyebrow={t("ContactPage.eyebrow")} heading={t("ContactPage.header")} />
       <section className="contact-page-content">
         <ContactInfo />
         <div className={`contact-container form-container ${bgColor()}`}>
