@@ -345,6 +345,17 @@ export const es = {
     missingDataExplanation:
       "* Falta esta información porque no hemos recibido suficientes datos de este instituto.",
   },
+  FaqPage: {
+    header: "Obtén respuestas a las preguntas más frecuentes",
+    eyebrow: "Preguntas Frecuentes",
+  },
+  TrainingProviderPage: {
+    header:
+      "Recopilación de datos de proveedores de capacitación, ETPL y orientación sobre aseguramiento de la calidad",
+    infoBar:
+      "¿Deseas incluir tu programa en el ETPL? [Visita Intelligrants y regístrate.](https://intelligrants.nj.gov/)",
+    eyebrow: "Recursos para Proveedores de Capacitación",
+  },
   TrainingPage: {
     costGroupHeader: "Costo",
     localExceptionCountiesTitle: "En demanda en {{countiesList}}.",
