@@ -53,8 +53,8 @@ export const RESOURCE_CATEGORY_QUERY = `query ResourceCategory($slug: String!) {
   }
 }`;
 
-export const RESOURCE_LISTING_QUERY = `query ResourceListing($tags: [String!]) {
-  resources: resourceItemCollection(where: {tags: {title_in: $tags}}) {
+export const RESOURCE_LISTING_QUERY = `query ResourceListing {
+  resources: resourceItemCollection {
     items {
       sys {
         id
