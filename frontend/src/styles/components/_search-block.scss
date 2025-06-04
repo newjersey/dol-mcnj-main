@@ -1,6 +1,7 @@
 .search-block {
   background-color: $secondary-lighter;
   padding: $size-32 $size-16;
+  border: 1px solid $black;
   border-radius: $size-16;
 
   @media screen and (max-width: ($tablet-md)) {

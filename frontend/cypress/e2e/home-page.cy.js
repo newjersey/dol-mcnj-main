@@ -3,24 +3,39 @@ describe("Home Page", () => {
     cy.visit("/");
     cy.injectAxe();
 
-    cy.contains("Top tools:").should("exist");
+    cy.contains("Explore Tools").should("exist");
     cy.checkA11y();
   });
 
   it("displays all cards", () => {
     const testData = [
-      { title: "NJ Career Navigator", link: "/navigator" },
+      { title: "Find a Job", link: "#jobs" },
+      { title: "Get Training", link: "#training" },
+      // { title: "Explore Careers", link: "#explore" },
+      { title: "Support and Assistance", link: "#support" },
+      { title: "CareerOneStop Job Board", link: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=25&source=NLX&curPage=1&referer=%2FToolkit%2FJobs%2Ffind-jobs.aspx" },
+      { title: "Career Navigator", link: "/navigator" },
+      { title: "In-Demand Occupations List", link: "/in-demand-occupations" },
+      {
+        title: "Apprenticeship Programs",
+        link: "https://www.nj.gov/labor/career-services/apprenticeship/",
+      },
       { title: "Training Explorer", link: "/training" },
-      { title: "Career Pathways", link: "/career-pathways" },
-      { title: "I want to find a job", link: "/tools#jobs" },
-      { title: "I want to search for training", link: "/tools#training" },
-      { title: "I want to explore career opportunities", link: "/tools#career" },
-      { title: "I need additional resources", link: "/tools#resources" },
+      { title: "Tuition Assistance Resources", link: "/support-resources/tuition-assistance" },
+      { title: "SkillUp", link: "https://nj.metrixlearning.com/landing.cfm" },
+      { title: "Training Provider Resources", link: "/training-provider-resources" },
+      // { title: "Career Pathways", link: "/career-pathways" },
+      // { title: "Career Navigator", link: "/navigator" },
+      { title: "Browse Support by Category", link: "/support-resources" },
+      { title: "Career Support", link: "/support-resources/career-support" },
+      { title: "Tuition Assistance", link: "/support-resources/tuition-assistance" },
+      { title: "Other Assistance", link: "/support-resources/other" },
+      // { title: "Frequently Asked Questions", link: "/faq" },
     ];
 
     cy.visit("/");
     testData.forEach((testItem) => {
-      cy.get(".itemCard")
+      cy.get(".iconCard")
         .contains(testItem.title)
         .closest("a")
         .should("have.attr", "href", testItem.link);
