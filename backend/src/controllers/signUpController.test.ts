@@ -26,12 +26,12 @@ describe("submitSignupForm Controller", () => {
       firstName: "John",
       lastName: "Doe",
       email: "test@example.com",
-      phone: "1234567890",
+      // phone: "1234567890",
     };
 
     await submitSignupForm(mockReq as Request, mockRes as Response);
 
-    expect(addSubscriberToMailchimp).toHaveBeenCalledWith("John", "Doe", "test@example.com", "1234567890");
+    expect(addSubscriberToMailchimp).toHaveBeenCalledWith("John", "Doe", "test@example.com", /*"1234567890"*/);
     expect(mockRes.status).toHaveBeenCalledWith(200);
     expect(mockRes.json).toHaveBeenCalledWith({ message: "Signup successful" });
   });
@@ -43,7 +43,7 @@ describe("submitSignupForm Controller", () => {
       firstName: "John",
       lastName: "Doe",
       email: "test@example.com",
-      phone: "1234567890",
+      // phone: "1234567890",
     };
 
     await submitSignupForm(mockReq as Request, mockRes as Response);
@@ -61,7 +61,7 @@ describe("submitSignupForm Controller", () => {
       firstName: "John",
       lastName: "Doe",
       email: "invalid-email",
-      phone: "1234567890",
+      // phone: "1234567890",
     };
 
     await submitSignupForm(mockReq as Request, mockRes as Response);
@@ -72,23 +72,23 @@ describe("submitSignupForm Controller", () => {
     });
   });
 
-  test("should return 400 for an invalid phone number", async () => {
-    (addSubscriberToMailchimp as jest.Mock).mockRejectedValueOnce(new Error("phone number invalid"));
+  // test("should return 400 for an invalid phone number", async () => {
+  //   (addSubscriberToMailchimp as jest.Mock).mockRejectedValueOnce(new Error("phone number invalid"));
 
-    mockReq.body = {
-      firstName: "John",
-      lastName: "Doe",
-      email: "test@example.com",
-      phone: "123",
-    };
+  //   mockReq.body = {
+  //     firstName: "John",
+  //     lastName: "Doe",
+  //     email: "test@example.com",
+  //     phone: "123",
+  //   };
 
-    await submitSignupForm(mockReq as Request, mockRes as Response);
+  //   await submitSignupForm(mockReq as Request, mockRes as Response);
 
-    expect(mockRes.status).toHaveBeenCalledWith(400);
-    expect(mockRes.json).toHaveBeenCalledWith({
-      error: `The phone number "123" is not valid. Please enter a US phone number in the format XXX-XXX-XXXX.`,
-    });
-  });
+  //   expect(mockRes.status).toHaveBeenCalledWith(400);
+  //   expect(mockRes.json).toHaveBeenCalledWith({
+  //     error: `The phone number "123" is not valid. Please enter a US phone number in the format XXX-XXX-XXXX.`,
+  //   });
+  // });
 
   test("should return 400 for an unexpected error", async () => {
     (addSubscriberToMailchimp as jest.Mock).mockRejectedValueOnce(new Error("Some unexpected error"));
@@ -97,7 +97,7 @@ describe("submitSignupForm Controller", () => {
       firstName: "John",
       lastName: "Doe",
       email: "test@example.com",
-      phone: "1234567890",
+      // phone: "1234567890",
     };
 
     await submitSignupForm(mockReq as Request, mockRes as Response);

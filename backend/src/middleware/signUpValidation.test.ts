@@ -1,6 +1,6 @@
 import { validateSignupForm } from "./signUpValidations";
 import { isValidEmail } from "../helpers/emailValidator";
-import { isValidPhoneNumber } from "../helpers/phoneValidator";
+// import { isValidPhoneNumber } from "../helpers/phoneValidator";
 import { isValidName } from "../helpers/nameValidator";
 import { Request, Response, NextFunction } from "express";
 
@@ -9,9 +9,9 @@ jest.mock("../helpers/emailValidator", () => ({
   isValidEmail: jest.fn(),
 }));
 
-jest.mock("../helpers/phoneValidator", () => ({
-  isValidPhoneNumber: jest.fn(),
-}));
+// jest.mock("../helpers/phoneValidator", () => ({
+//   isValidPhoneNumber: jest.fn(),
+// }));
 
 jest.mock("../helpers/nameValidator", () => ({
   isValidName: jest.fn(),
@@ -34,11 +34,11 @@ describe("validateSignupForm Middleware", () => {
   test("should call next() if all fields are valid", async () => {
     (isValidEmail as jest.Mock).mockResolvedValue(true);
     (isValidName as jest.Mock).mockReturnValue(true);
-    (isValidPhoneNumber as jest.Mock).mockReturnValue(true);
+    // (isValidPhoneNumber as jest.Mock).mockReturnValue(true);
 
     mockReq.body = {
       email: "test@example.com",
-      phone: "1234567890",
+      // phone: "1234567890",
       fname: "John",
       lname: "Doe",
     };
@@ -89,23 +89,23 @@ describe("validateSignupForm Middleware", () => {
     expect(mockRes.json).toHaveBeenCalledWith({ error: "Invalid last name" });
   });
 
-  test("should return 400 if phone number is invalid", async () => {
-    (isValidEmail as jest.Mock).mockResolvedValue(true);
-    (isValidName as jest.Mock).mockReturnValue(true);
-    (isValidPhoneNumber as jest.Mock).mockReturnValue(false);
+  // test("should return 400 if phone number is invalid", async () => {
+  //   (isValidEmail as jest.Mock).mockResolvedValue(true);
+  //   (isValidName as jest.Mock).mockReturnValue(true);
+  //   // (isValidPhoneNumber as jest.Mock).mockReturnValue(false);
 
-    mockReq.body = {
-      email: "test@example.com",
-      phone: "123", // Invalid phone number
-    };
+  //   mockReq.body = {
+  //     email: "test@example.com",
+  //     // phone: "123", // Invalid phone number
+  //   };
 
-    await validateSignupForm(mockReq as Request, mockRes as Response, next);
+  //   await validateSignupForm(mockReq as Request, mockRes as Response, next);
 
-    expect(mockRes.status).toHaveBeenCalledWith(400);
-    expect(mockRes.json).toHaveBeenCalledWith({ error: "Invalid phone number format" });
-  });
+  //   expect(mockRes.status).toHaveBeenCalledWith(400);
+  //   expect(mockRes.json).toHaveBeenCalledWith({ error: "Invalid phone number format" });
+  // });
 
-  test("should allow missing optional fields (fname, lname, phone)", async () => {
+  test("should allow missing optional fields (fname, lname)", async () => {
     (isValidEmail as jest.Mock).mockResolvedValue(true);
 
     mockReq.body = {

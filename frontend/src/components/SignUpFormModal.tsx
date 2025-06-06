@@ -13,8 +13,8 @@ export const SignUpFormModal = () => {
   const [lastNameError, setLastNameError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
-  const [phone, setPhone] = useState("");
-  const [phoneError, setPhoneError] = useState<string>("");
+  // const [phone, setPhone] = useState("");
+  // const [phoneError, setPhoneError] = useState<string>("");
   const [hasErrors, setHasErrors] = useState<string>("");
   const [resetForm, setResetForm] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -34,8 +34,9 @@ export const SignUpFormModal = () => {
         (firstName.length !== 0 && firstName.length < 2) ||
         (lastName.length !== 0 && lastName.length < 2) ||
         !email ||
-        (email && !emailRegex.test(email)) ||
+        (email && !emailRegex.test(email)) /*||
         (phone && phone.length < 12)
+        */
       ) {
         return true;
       }
@@ -63,11 +64,11 @@ export const SignUpFormModal = () => {
       setEmailError("");
     }
 
-    if (phone && phone.length < 12) {
-      setPhoneError(t("SignUpFormModal.phoneError"));
-    } else {
-      setPhoneError("");
-    }
+    // if (phone && phone.length < 12) {
+    //   setPhoneError(t("SignUpFormModal.phoneError"));
+    // } else {
+    //   setPhoneError("");
+    // }
 
     if (allErrorCheck()) {
       setSubmitting(false);
@@ -80,7 +81,7 @@ export const SignUpFormModal = () => {
       firstName,
       lastName,
       email,
-      phone,
+      // phone,
     };
 
     try {
@@ -110,17 +111,17 @@ export const SignUpFormModal = () => {
     setSubmitting(false);
   };
 
-  function formatPhoneNumber(input: string): string {
-    const cleaned = input.replace(/\D/g, "");
+  // function formatPhoneNumber(input: string): string {
+  //   const cleaned = input.replace(/\D/g, "");
 
-    if (cleaned.length <= 3) {
-      return cleaned;
-    } else if (cleaned.length <= 6) {
-      return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
-    } else {
-      return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
-    }
-  }
+  //   if (cleaned.length <= 3) {
+  //     return cleaned;
+  //   } else if (cleaned.length <= 6) {
+  //     return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
+  //   } else {
+  //     return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+  //   }
+  // }
 
   useEffect(() => {
     if (isOpen) {
@@ -131,7 +132,7 @@ export const SignUpFormModal = () => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (firstNameError || lastNameError || emailError || phoneError) {
+    if (firstNameError || lastNameError || emailError /*|| phoneError*/) {
       if (!resetForm) {
         setHasErrors(t(""));
       } else {
@@ -140,7 +141,7 @@ export const SignUpFormModal = () => {
     } else {
       setHasErrors("");
     }
-  }, [firstNameError, lastNameError, emailError, phoneError]);
+  }, [firstNameError, lastNameError, emailError, /*phoneError*/]);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -265,6 +266,7 @@ export const SignUpFormModal = () => {
                   </div>
                   {emailError && <div className="errorMessage">{emailError}</div>}
                 </label>
+                {/*
                 <label htmlFor="phone" className={phoneError ? "error" : ""}>
                   <span>{t("SignUpFormModal.phoneLabel")}</span>
                   {t("SignUpFormModal.usPhoneOnlyLabel")}
@@ -282,6 +284,7 @@ export const SignUpFormModal = () => {
                   />
                   {phoneError && <div className="errorMessage">{phoneError}</div>}
                 </label>
+                */}
                 {hasErrors && (
                   <div className="usa-alert usa-alert--error" role="alert">
                     <div className="usa-alert__body">
@@ -311,10 +314,10 @@ export const SignUpFormModal = () => {
                       setFirstName("");
                       setLastName("");
                       setEmail("");
-                      setPhone("");
+                      // setPhone("");
                       setFirstNameError("");
                       setLastNameError("");
-                      setPhoneError("");
+                      // setPhoneError("");
                       setEmailError("");
                       setHasErrors("");
                       setResetForm(true);
@@ -334,16 +337,16 @@ export const SignUpFormModal = () => {
                   style={{ fontSize: "16px" }}
                 >
                   {t("SignUpFormModal.privacyPolicy")}
-                </a>{" "}
-                {t("SignUpFormModal.andOur")}{" "}
-                <a
+                </a>
+                {/* {t("SignUpFormModal.andOur")}{" "} */}
+                {/* <a
                   href="/sms-use-policy"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ fontSize: "16px" }}
                 >
                   {t("SignUpFormModal.smsUsePolicy")}
-                </a>
+                </a> */}
                 .
               </p>
             </>

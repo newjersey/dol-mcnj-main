@@ -22,7 +22,7 @@ if (!DATACENTER) {
 
 const MAILCHIMP_URL = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${LIST_ID}/members`;
 
-export const addSubscriberToMailchimp = async (fname: string, lname: string, email: string, phone: string) => {
+export const addSubscriberToMailchimp = async (fname: string, lname: string, email: string, /*phone: string*/) => {
   if (!email) {
     throw new Error("Email address is required.");
   }
@@ -36,7 +36,7 @@ export const addSubscriberToMailchimp = async (fname: string, lname: string, ema
         merge_fields: {
           FNAME: fname,
           LNAME: lname,
-          PHONE: phone,
+          // PHONE: phone,
         },
       },
       {

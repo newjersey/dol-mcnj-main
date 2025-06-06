@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { isValidEmail } from "../helpers/emailValidator";
-import { isValidPhoneNumber } from "../helpers/phoneValidator";
+// import { isValidPhoneNumber } from "../helpers/phoneValidator";
 import { isValidName } from "../helpers/nameValidator";
 
 export const validateSignupForm = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, phone, fname, lname } = req.body;
+  const { email, /*phone,*/ fname, lname } = req.body;
 
   // Validate email (Required)
   if (!email) {
@@ -28,9 +28,9 @@ export const validateSignupForm = async (req: Request, res: Response, next: Next
   }
 
   // Validate phone number (Optional but must be valid if provided)
-  if (phone && !isValidPhoneNumber(phone)) {
-    return res.status(400).json({ error: "Invalid phone number format" });
-  }
+  // if (phone && !isValidPhoneNumber(phone)) {
+  //   return res.status(400).json({ error: "Invalid phone number format" });
+  // }
 
   next();
 };

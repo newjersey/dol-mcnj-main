@@ -1,6 +1,6 @@
 import { isValidPhoneNumber } from "./phoneValidator";
 
-describe("isValidPhoneNumber", () => {
+describe.skip("isValidPhoneNumber", () => {
     test("should return true for a valid 10-digit phone number", () => {
         expect(isValidPhoneNumber("1234567890")).toBe(true);
     });
