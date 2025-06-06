@@ -5,17 +5,17 @@ interface ResourceListHeadingProps {
   tags: TagProps[];
   count: number;
   totalCount: number;
-  theme: "blue" | "purple" | "green" | "navy";
+  searchQuery?: string;
+  setSearchQuery?: (query: string) => void;
 }
 
 export const ResourceListHeading = ({
   tags,
   count,
-  theme,
   totalCount,
+  setSearchQuery,
+  searchQuery,
 }: ResourceListHeadingProps) => {
-  const showing = count > 0 ? count : tags.length > 0 ? count : totalCount;
-
   const inputClick = (inputId: string) => {
     const input = document.getElementById(inputId) as HTMLInputElement | null;
     if (!input) return;
@@ -28,6 +28,25 @@ export const ResourceListHeading = ({
       <div>
         <span className="label">filtered by:</span>
         <div className="tags">
+          {searchQuery && (
+            <button
+              onClick={() => {
+                if (setSearchQuery) {
+                  setSearchQuery("");
+                }
+              }}
+            >
+              <Tag
+                title={`"${searchQuery}"`}
+                color="gray"
+                icon="X"
+                iconSize={20}
+                iconWeight="bold"
+                suffix
+              />
+            </button>
+          )}
+
           {tags.map((tag) => (
             <button
               key={tag.sys.id}
@@ -37,7 +56,15 @@ export const ResourceListHeading = ({
             >
               <Tag
                 title={tag.title}
-                color={tag.category.slug === "audience" ? "blue" : theme}
+                color={
+                  tag.category.slug === "audience"
+                    ? "blue"
+                    : tag.category.title === "Career Support"
+                      ? "purple"
+                      : tag.category.title === "Tuition Assistance"
+                        ? "green"
+                        : "navy"
+                }
                 icon="X"
                 iconSize={20}
                 iconWeight="bold"
@@ -48,7 +75,7 @@ export const ResourceListHeading = ({
         </div>
       </div>
       <span className="label">
-        {showing} of {totalCount} items
+        {count} of {totalCount} items
       </span>
     </div>
   );

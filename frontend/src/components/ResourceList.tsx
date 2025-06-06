@@ -9,6 +9,7 @@ import { FilterControls } from "./FilterControls";
 import { ResourceCard } from "./ResourceCard";
 import { ResourceListHeading } from "./modules/ResourceListHeading";
 import { FooterCta } from "./FooterCta";
+import Fuse from "fuse.js";
 
 interface ResourceTagListProps {
   audience: TagProps[];
@@ -32,6 +33,8 @@ export const ResourceList = ({
 }: ResourceTagListProps) => {
   const [selectedTags, setSelectedTags] = useState<TagProps[]>([]);
   const [filteredResources, setFilteredResources] = useState<ResourceItemProps[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<ResourceItemProps[] | null>(null);
 
   useEffect(() => {
     if (resources && resources?.length > 0) {
@@ -42,14 +45,40 @@ export const ResourceList = ({
         });
         setFilteredResources(filtered);
       } else {
-        console.log(resources);
         setFilteredResources(resources);
       }
     }
-  }, [selectedTags]);
+  }, [searchQuery, selectedTags]);
 
   const themeColor =
     category === "Career Support" ? "purple" : category === "Tuition Assistance" ? "green" : "navy";
+
+  const cards =
+    ((searchResults ?? []).length > 0
+      ? searchResults
+      : searchQuery
+        ? searchResults
+        : filteredResources) ?? [];
+  const alphaSortedCards = cards.sort((a, b) => a.title.localeCompare(b.title));
+
+  const allTags =
+    tags.length > 0
+      ? tags.map((tagGroup) => ({
+          heading: tagGroup.category.title,
+          items: tagGroup.tags || [],
+        }))
+      : [
+          {
+            heading: "Tags",
+            items: [],
+          },
+        ];
+
+  useEffect(() => {
+    if (searchQuery === "") {
+      setSearchResults(null);
+    }
+  }, [searchQuery]);
 
   return (
     <section className="resource-list">
@@ -57,6 +86,27 @@ export const ResourceList = ({
         <div className="container">
           <div className="sidebar">
             <FilterControls
+              setSearchQuery={setSearchQuery}
+              searchQuery={searchQuery}
+              onType={(type) => {
+                setSearchQuery(type);
+
+                if (!type || !filteredResources.length) {
+                  setSearchResults(null);
+                  return;
+                }
+
+                const fuse = new Fuse(filteredResources, {
+                  keys: ["title", "description"],
+                  threshold: 0.4,
+                  distance: 10,
+                  minMatchCharLength: 2,
+                  ignoreLocation: true,
+                });
+
+                const results = fuse.search(type).map((r) => r.item);
+                setSearchResults(results);
+              }}
               onChange={(selected) =>
                 setSelectedTags(
                   selected
@@ -66,10 +116,7 @@ export const ResourceList = ({
               }
               boxLabel="Filters"
               groups={[
-                ...tags.map((tagGroup) => ({
-                  heading: tagGroup.category.title,
-                  items: tagGroup.tags || [],
-                })),
+                ...allTags,
                 {
                   heading: "Audience",
                   items: audience || [],
@@ -83,15 +130,16 @@ export const ResourceList = ({
             <div className="listing-header">
               <ResourceListHeading
                 tags={selectedTags}
-                count={filteredResources.length}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                count={alphaSortedCards.length}
                 totalCount={resources.length}
-                theme={themeColor}
               />
             </div>
 
-            {filteredResources.map((resource) => {
-              return <ResourceCard {...resource} theme={themeColor} key={resource.sys.id} />;
-            })}
+            {alphaSortedCards.map((resource) => (
+              <ResourceCard {...resource} theme={themeColor} key={resource.sys.id} />
+            ))}
             <FooterCta heading={cta.footerCtaHeading} link={cta.footerCtaLink} />
           </div>
         </div>
