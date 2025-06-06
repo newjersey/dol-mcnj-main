@@ -1,14 +1,18 @@
 import { RouteComponentProps } from "@reach/router";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
-import { AllSupportPageProps } from "../types/contentful";
-import { PageBanner } from "../components/PageBanner";
-import { IconCard } from "../components/IconCard";
-import { FooterCta } from "../components/FooterCta";
+import {
+  AllSupportPageProps,
+  ResourceCategoryPageProps,
+  ResourceItemProps,
+  TagProps,
+} from "../types/contentful";
 import { usePageTitle } from "../utils/usePageTitle";
-import { useContentful } from "../utils/useContentful";
+import { fetchContentful, useContentful } from "../utils/useContentful";
 import pageImage from "../images/ogImages/supportAssistance.jpg";
+import { ResourceList } from "../components/ResourceList";
+import { HeroBanner } from "../components/HeroBanner";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -18,11 +22,40 @@ export const AllSupportPage = (props: Props): ReactElement => {
   const data: AllSupportPageProps = useContentful({
     path: `/all-support`,
   });
+  const [categoryDetailsArray, setCategoryDetailsArray] = useState<
+    { slug: string; data: ResourceCategoryPageProps }[]
+  >([]);
+  const [resourceItems, setResourceItems] = useState<ResourceItemProps[]>([]);
 
-  // sort categories by title
+  useEffect(() => {
+    if (!data?.categories?.items?.length) return;
+
+    const fetchAllCategoryDetails = async () => {
+      const results = await Promise.all(
+        data.categories.items.map(async (category) => {
+          const res = await fetchContentful<ResourceCategoryPageProps>(
+            `/resource-category/${category.slug}`,
+          );
+          return { slug: category.slug, data: res };
+        }),
+      );
+      setCategoryDetailsArray(results);
+    };
+    const fetchAllResources = async () => {
+      const results = await fetchContentful<{
+        resources: {
+          items: ResourceItemProps[];
+        };
+      }>(`/resource-listing`);
+      setResourceItems(results.resources.items);
+    };
+
+    fetchAllCategoryDetails();
+    fetchAllResources();
+  }, [data]);
+
   data?.categories.items.sort((a, b) => a.title.localeCompare(b.title));
 
-  // filter out categories that is titled "Other Assistance"
   const filteredCategories: AllSupportPageProps["categories"]["items"] =
     data?.categories.items.filter((category) => category.title !== "Other Assistance");
 
@@ -30,7 +63,6 @@ export const AllSupportPage = (props: Props): ReactElement => {
     (category) => category.title === "Other Assistance",
   );
 
-  // add "Other Assistance" to the end of the list
   if (otherAssistance) {
     filteredCategories.push(otherAssistance);
   }
@@ -57,41 +89,73 @@ export const AllSupportPage = (props: Props): ReactElement => {
     url: props.location?.pathname || "/support-resources",
   };
 
+  const tags = Array.from(
+    new Map(
+      categoryDetailsArray.flatMap((cat) => cat.data.tags.items).map((item) => [item.sys.id, item]),
+    ).values(),
+  );
+
+  type GroupedTag = {
+    category: {
+      title: string;
+      slug: string;
+    };
+    tags: TagProps[];
+  };
+
+  const groupedTags: GroupedTag[] = Object.values(
+    tags.reduce(
+      (acc, tag) => {
+        const key = tag.category.slug;
+
+        if (!acc[key]) {
+          acc[key] = {
+            category: {
+              title: tag.category.title,
+              slug: tag.category.slug,
+            },
+            tags: [],
+          };
+        }
+
+        acc[key].tags.push({
+          ...tag,
+        });
+
+        return acc;
+      },
+      {} as Record<string, GroupedTag>,
+    ),
+  );
+
+  const audience = Array.from(
+    new Map(
+      categoryDetailsArray
+        .flatMap((cat) => cat.data.audience.items)
+        .map((item) => [item.sys.id, item]),
+    ).values(),
+  );
+
   return (
     <>
       {data && (
-        <Layout
-          client={props.client}
-          theme="support"
-          seo={seoObject}
-          footerComponent={
-            data && (
-              <FooterCta
-                heading={data.page.footerCtaHeading}
-                link={data.page.footerCtaLink}
-                headingLevel={2}
-              />
-            )
-          }
-        >
-          <PageBanner {...data.page.pageBanner} theme="navy" />
-          <section className="all-support-cards">
-            <div className="container">
-              <div className="flex-card-row section-padding">
-                {filteredCategories.map((card) => (
-                  <IconCard
-                    svg="SupportBold"
-                    title={card.title}
-                    theme="navy"
-                    url={`/support-resources/${card.slug}`}
-                    key={card.sys.id}
-                    description={card.description}
-                    titleType="h2"
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
+        <Layout client={props.client} theme="support" seo={seoObject}>
+          <HeroBanner
+            eyebrow="Helpful Resources"
+            heading="Helpful links to programs, resources, and services beyond My Career NJ"
+            infoBar="The information on this page is for general purposes. This is not a complete list of all resources."
+          />
+
+          <ResourceList
+            category="Title Goes Here!!!"
+            tags={groupedTags}
+            audience={audience}
+            resources={resourceItems}
+            cta={{
+              footerCtaHeading: data.page.footerCtaHeading,
+              footerCtaLink: data.page.footerCtaLink,
+            }}
+          />
         </Layout>
       )}
     </>

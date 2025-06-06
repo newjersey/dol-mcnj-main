@@ -89,11 +89,12 @@
   .list-heading {
     display: flex;
     align-items: flex-start;
-    flex-wrap: wrap;
     justify-content: space-between;
+    gap: $size-16;
+    flex-direction: column;
 
-    @media screen and (max-width: ($tablet-lg - 1)) {
-      flex-direction: column;
+    @media screen and (min-width: ($tablet)) {
+      flex-direction: row;
     }
 
     > .label {
@@ -110,17 +111,13 @@
       }
     }
 
-    > div {
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        order: 2;
-      }
-      @media screen and (min-width: ($tablet-lg)) {
-        width: calc(100% - 180px);
-      }
-    }
-
     .label {
       font-weight: bold;
+
+      &.lrg {
+        font-size: $size-24;
+        margin-bottom: $size-16;
+      }
     }
 
     .tags {
@@ -137,6 +134,38 @@
     .tag-item {
       padding: 0.5rem;
       border-radius: 0.3rem;
+    }
+
+    .sort {
+      display: flex;
+      flex-direction: column;
+      gap: $size-8;
+      width: 100%;
+      font-weight: bold;
+
+      @media screen and (min-width: ($tablet)) {
+        width: $size-256;
+      }
+
+      span {
+        position: relative;
+      }
+
+      select {
+        appearance: none;
+        width: 100%;
+        border: $size-2 solid $base-light;
+        padding: $size-12 $size-14;
+        border-radius: $size-4;
+      }
+
+      svg {
+        position: absolute;
+        top: 50%;
+        right: $size-14;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
     }
   }
 

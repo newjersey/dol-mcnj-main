@@ -4,7 +4,7 @@ import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { ResourceCategoryPageProps } from "../types/contentful";
 import { PageBanner } from "../components/PageBanner";
-import { ResourceList } from "../components/ResourceList";
+// import { ResourceList } from "../components/ResourceList";
 import { useContentful } from "../utils/useContentful";
 
 interface Props extends RouteComponentProps {
@@ -50,14 +50,14 @@ export const ResourceCategoryPage = (props: Props): ReactElement => {
           />
 
           <section className="all-support-cards">
-            <ResourceList
+            {/* <ResourceList
               category={data.page.items[0].title}
               tags={data.tags.items}
               info={data.page.items[0].infoBox}
               audience={data.audience.items}
               cta={data.cta}
               related={data.page.items[0].related?.items}
-            />
+            /> */}
           </section>
         </Layout>
       )}

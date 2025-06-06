@@ -159,6 +159,8 @@
 }
 
 .alert-bar {
+  border-radius: $size-8;
+  overflow: hidden;
   .usa-alert__body {
     max-width: $desktop-xl + 30px;
     padding-right: $size-80;
