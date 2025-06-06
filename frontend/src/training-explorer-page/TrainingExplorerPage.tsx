@@ -3,17 +3,16 @@ import { ReactElement } from "react";
 import { Layout } from "../components/Layout";
 import { Client } from "../domain/Client";
 import { TrainingExplorerPageProps } from "../types/contentful";
-import { PageBanner } from "../components/PageBanner";
-import { SearchBlock } from "../components/SearchBlock";
 import { HowTo } from "../components/HowTo";
-import { Accordion } from "../components/Accordion";
+// import { Accordion } from "../components/Accordion";
 import { Interrupter } from "../components/Interrupter";
 import { CtaBanner } from "../components/CtaBanner";
-import { IconNames } from "../types/icons";
-import { SectionHeading } from "../components/modules/SectionHeading";
+// import { IconNames } from "../types/icons";
+// import { SectionHeading } from "../components/modules/SectionHeading";
 import { useContentful } from "../utils/useContentful";
 import { useTranslation } from "react-i18next";
 import pageImage from "../images/ogImages/trainingExplorer.jpg";
+import { TrainingExplorerHeading } from "../components/TrainingExplorerHeading";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -66,6 +65,12 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
     url: props.location?.pathname || "/training",
   };
 
+  const steps = [
+    t("TrainingPage.trainingStepOneDescription"),
+    t("TrainingPage.trainingStepTwoDescription"),
+    t("TrainingPage.trainingStepThreeDescription"),
+  ];
+
   return (
     <>
       {data && (
@@ -74,7 +79,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
           seo={seoObject}
           footerComponent={
             <div className="cta-collection">
-              <CtaBanner
+              {/* <CtaBanner
                 heading="Don’t see your question? Go to our FAQ page."
                 noIndicator
                 inlineButtons
@@ -89,7 +94,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                   },
                 ]}
                 theme="blue"
-              />
+              /> */}
               <CtaBanner
                 heading={pageData?.footerCtaHeading}
                 inlineButtons
@@ -100,70 +105,15 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
             </div>
           }
         >
-          <PageBanner {...pageData?.pageBanner} theme="green" />
-          <section>
-            <div className="container">
-              <div id="how-to-steps-section">
-                <div className="sectionHeading">
-                  <h2 className="heading-tag">{t("TrainingPage.trainingProviderStepsHeader")}:</h2>
-                </div>
-                <div>
-                  <ul>
-                    <li>
-                      <div className="list-num-container">
-                        <div className="list-num">
-                          1
-                        </div>
-                      </div>
-                      <div className="list-info">
-                        <h3>
-                          {t("TrainingPage.trainingStepOne")}
-                        </h3>
-                        <div>
-                          {t("TrainingPage.trainingStepOneDescription")}
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="list-num-container">
-                        <div className="list-num">
-                          2
-                        </div>
-                      </div>
-                      <div className="list-info">
-                        <h3>
-                          {t("TrainingPage.trainingStepTwo")}
-                        </h3>
-                        <div>
-                          {t("TrainingPage.trainingStepTwoDescriptionP1")}<a href="/training-provider-resources#etpl
-  ">{t("TrainingPage.trainingStepTwoDescriptionP2")}</a>{t("TrainingPage.trainingStepTwoDescriptionP3")}
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="list-num-container">
-                        <div className="list-num">
-                          3
-                        </div>
-                      </div>
-                      <div className="list-info">
-                        <h3>
-                          {t("TrainingPage.trainingStepThree")}
-                        </h3>
-                        <div>
-                          {t("TrainingPage.trainingStepThreeDescription")}
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <SearchBlock drawerContent={pageData.drawerContent} />
-          </section>
+          <TrainingExplorerHeading
+            steps={steps}
+            title={pageData.title}
+            drawerContent={pageData.drawerContent}
+          />
+
           <HowTo {...howToContent} />
           <Interrupter {...interrupterContent} />
-          <section className="landing-faq">
+          {/* <section className="landing-faq">
             <div className="container">
               <SectionHeading heading="Frequently Asked Questions" headingLevel={3} />
 
@@ -176,7 +126,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
                 />
               ))}
             </div>
-          </section>
+          </section> */}
         </Layout>
       )}
     </>

@@ -9,9 +9,9 @@ import CardRow from "../components/CardRow";
 import { IconCard } from "../components/IconCard";
 import { SectionHeading } from "../components/modules/SectionHeading";
 import { IntroBlocks } from "../components/IntroBlocks";
-import { UpdateNotifier } from "../components/UpdateNotifier";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/homePage.jpg";
+import { useTranslation } from "react-i18next";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -23,12 +23,14 @@ export const LandingPage = (props: Props): ReactElement => {
   });
 
   const pageData = data?.homePage;
+  const { t } = useTranslation();
 
   usePageTitle(pageData?.title);
 
   const seoObject = {
     title: pageData?.title || (process.env.REACT_APP_SITE_NAME as string),
-    pageDescription: "Explore My Career NJ to find job training, career resources, and employment opportunities with the New Jersey Department of Labor.",
+    pageDescription:
+      "Explore My Career NJ to find job training, career resources, and employment opportunities with the New Jersey Department of Labor.",
     image: pageData?.ogImage?.url || pageImage,
     keywords: pageData?.keywords,
     url: props.location?.pathname || "/",
@@ -56,7 +58,8 @@ export const LandingPage = (props: Props): ReactElement => {
               heading={pageData.title}
               buttonCopy={pageData.bannerButtonCopy}
               image={pageData.bannerImage}
-              subheading={pageData.bannerMessage}
+              subheading={t("LandingPage.bannerSubheading")}
+              message={t("LandingPage.bannerMessageCopy")}
               preload
             />
             {pageData.introBlocks && <IntroBlocks {...pageData.introBlocks} />}
@@ -81,25 +84,36 @@ export const LandingPage = (props: Props): ReactElement => {
             </div>
             <CardRow
               sectionId="jobs"
+              allSameIcon
               cards={pageData.jobSearchToolLinksCollection.items}
               heading="All Job Search Tools"
               theme="blue"
             />
             <CardRow
               sectionId="training"
+              allSameIcon
               cards={pageData.trainingToolLinksCollection.items}
               heading="All Training Tools"
               theme="green"
             />
+            {process.env.REACT_APP_FEATURE_CAREER_PATHWAYS === "true" && (
+              <CardRow
+                sectionId="explore"
+                allSameIcon
+                cards={pageData.careerExplorationToolLinksCollection.items}
+                heading="All Career Exploration Resources"
+                theme="purple"
+              />
+            )}
             <CardRow
               sectionId="support"
+              allSameIcon
               cards={pageData.supportAndAssistanceLinksCollection.items}
               heading="All Support and Assistance Resources"
               theme="navy"
             />
           </>
         )}
-        {process.env.REACT_APP_FEATURE_PINPOINT === "true" && <UpdateNotifier />}
       </div>
     </Layout>
   );

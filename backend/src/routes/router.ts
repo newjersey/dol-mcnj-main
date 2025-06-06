@@ -6,7 +6,6 @@ import {
   GetOccupationDetail,
   GetOccupationDetailByCIP,
 } from "../domain/types";
-import { Error } from "../domain/Error";
 import { Occupation, OccupationDetail } from "../domain/occupations/Occupation";
 import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
@@ -30,28 +29,52 @@ export const routerFactory = ({
 }: RouterActions): Router => {
   const router = Router();
 
-  router.get("/trainings/search", (req: Request, res: Response<TrainingResult[]>) => {
-    searchTrainings(req.query.query as string)
-      .then((trainings: TrainingResult[]) => {
-        res.status(200).json(trainings);
-      })
-      .catch((e) => res.status(500).send(e));
-  });
+  router.get(
+    "/trainings/search",
+    (req: Request, res: Response<TrainingResult[] | { error: string }>) => {
+      searchTrainings(req.query.query as string)
+        .then((trainings: TrainingResult[]) => {
+          console.log(`Successfully retrieved training programs: `, trainings);
 
-  router.get("/trainings/:id", (req: Request, res: Response<Training>) => {
-    findTrainingsBy(Selector.ID, [req.params.id as string])
-      .then((trainings: Training[]) => {
-        res.status(200).json(trainings[0]);
-      })
-      .catch((e) => {
-        if (e === Error.NOT_FOUND) {
-          res.status(404).send();
-        }
-        res.status(500).send();
-      });
-  });
+          if (!req.query.query) {
+            console.warn("Empty search query provided; returning an empty array.");
+            return res.status(200).json(trainings);
+          }
 
-  router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
+          if (trainings.length === 0) {
+            res.set("X-Robots-Tag", "noindex");
+            console.log(`No trainings found for the query: ${req.query.query}`);
+            return res.status(404).json({ error: "No trainings found for the given query" });
+          }
+
+          res.status(200).json(trainings);
+        })
+        .catch((error: unknown) => {
+          console.error(`Error caught in catch block:`, error);
+          return res.status(500).json({ error: "Internal server error" });
+        });
+    },
+  );
+
+    router.get("/trainings/:id", (req: Request, res: Response<Training | { error: string }>) => {
+        findTrainingsBy(Selector.ID, [req.params.id as string])
+            .then((trainings: Training[]) => {
+                if (trainings.length === 0) {
+                    res.set("X-Robots-Tag", "noindex");
+                    return res.status(404).json({ error: "Not found" });
+                }
+                return res.status(200).json(trainings[0]);
+            })
+            .catch((e) => {
+                if (e?.message === "NOT_FOUND") {
+                    res.set("X-Robots-Tag", "noindex");
+                    return res.status(404).json({ error: "Not found" });
+                }
+                return res.status(500).json({ error: "Server error" });
+            });
+    });
+
+    router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
     getInDemandOccupations()
       .then((occupations: Occupation[]) => {
         res.status(200).json(occupations);
@@ -62,6 +85,10 @@ export const routerFactory = ({
   router.get("/occupations/:soc", (req: Request, res: Response<OccupationDetail>) => {
     getOccupationDetail(req.params.soc as string)
       .then((occupationDetail: OccupationDetail) => {
+        if (!occupationDetail) {
+          res.status(404).send();
+          throw new Error("NOT_FOUND");
+        }
         res.status(200).json(occupationDetail);
       })
       .catch(() => res.status(500).send());
@@ -82,7 +109,6 @@ export const routerFactory = ({
   });
 
   router.get("/occupations/cip/:cip", (req: Request, res: Response<OccupationDetail[]>) => {
-    console.log("here");
     getOccupationDetailByCIP(req.params.cip as string)
       .then((occupationDetails: OccupationDetail[]) => {
         res.status(200).json(occupationDetails);

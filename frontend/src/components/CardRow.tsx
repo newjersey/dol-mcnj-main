@@ -5,25 +5,31 @@ import { SectionHeading } from "./modules/SectionHeading";
 interface CardRowProps {
   heading?: string;
   sectionId?: string;
+  allSameIcon?: boolean;
   cards: IconLinkProps[];
   theme?: "blue" | "green" | "purple" | "navy";
 }
 
-const CardRow = ({ cards, heading, theme, sectionId }: CardRowProps) => {
+const CardRow = ({ cards, heading, theme, allSameIcon, sectionId }: CardRowProps) => {
+  // cards but filter out items with url === "/faqs"
+  const filteredCards = cards.filter((card) => card.url !== "/faq");
+
   return (
     <div className="card-row" id={sectionId}>
       <div className="container">
         <div className="inner">
           {heading && <SectionHeading heading={heading} theme={theme} />}
+
           <div className="slider-container">
-            {cards.map((card) => {
+            {filteredCards.map((card) => {
               const isExternal = card.url.includes("http");
+              const cardId = allSameIcon ? sectionId || card.sectionIcon : card.sectionIcon;
               const svgName =
-                card.sectionIcon === "explore"
+                cardId === "explore"
                   ? "ExploreBold"
-                  : card.sectionIcon === "jobs"
+                  : cardId === "jobs"
                     ? "JobsBold"
-                    : card.sectionIcon === "support"
+                    : cardId === "support"
                       ? "SupportBold"
                       : "TrainingBold";
               return (

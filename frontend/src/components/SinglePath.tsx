@@ -65,7 +65,8 @@ export const SinglePath = ({
                   <p className="title">
                     <strong>{item.shortTitle || item.title}</strong>
                   </p>
-                  {item.salaryRangeStart && item.salaryRangeEnd && (
+
+                  {item.salaryRangeStart && item.salaryRangeEnd ? (
                     <div className="salary">
                       <p>Salary Range</p>
                       <p>
@@ -75,6 +76,15 @@ export const SinglePath = ({
                         </strong>
                       </p>
                     </div>
+                  ) : item.medianSalary ? (
+                    <div className="salary median">
+                      <p>Median Range</p>
+                      <p>
+                        <strong>${numberShorthand(item.medianSalary)}</strong>
+                      </p>
+                    </div>
+                  ) : (
+                    ""
                   )}
                   {item.educationLevel && (
                     <div className="education">

@@ -93,12 +93,12 @@
 
           &:hover {
             @media screen and (min-width: ($tablet-md)) {
-              outline: $size-4 solid $primary;
+              outline: $size-4 solid $tertiary;
             }
           }
         }
         &:nth-of-type(4n-2) {
-          outline: $size-2 solid $tertiary;
+          outline: $size-2 solid $primary;
 
           &:hover {
             @media screen and (min-width: ($tablet-md)) {
@@ -130,11 +130,11 @@
 
           &:nth-of-type(4n-1) {
             outline: none;
-            background-color: $primary;
+            background-color: $tertiary;
           }
           &:nth-of-type(4n-2) {
             outline: none;
-            background-color: $tertiary;
+            background-color: $primary;
           }
           &:nth-of-type(4n-3) {
             outline: none;

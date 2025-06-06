@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 
 interface Props {
   variant: "primary" | "secondary" | "outline" | "custom";
+  disabled?: boolean;
   children: React.ReactNode;
   onClick?:
     | (() => void)
@@ -33,7 +34,7 @@ export const Button = (props: Props): ReactElement => {
     .join(" ");
 
   return (
-    <button className={className} onClick={props.onClick}>
+    <button className={className} disabled={props.disabled} onClick={props.onClick}>
       {props.children}
     </button>
   );

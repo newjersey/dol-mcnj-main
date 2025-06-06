@@ -13,16 +13,17 @@
 
 // PAGES
 @import "pages/career-navigator";
+@import "pages/career-pathways";
 @import "pages/contact-page";
 @import "pages/home-page";
 @import "pages/in-demand-page";
+@import "pages/industry-page";
 @import "pages/landing-page";
 @import "pages/not-found-page";
 @import "pages/occupation-page";
 @import "pages/search-results-page";
-@import "pages/training-page";
-@import "pages/career-pathways";
 @import "pages/training-explorer";
+@import "pages/training-page";
 
 // GLOBAL
 @import "global/betaBanner";
@@ -316,7 +317,7 @@ ol {
 .section-padding {
   padding: 4rem 0;
 
-  @media screen and (max-width: ($tablet-md - 1)) {
+  @media screen and (max-width: ($tablet-md)) {
     padding: 2rem 0;
   }
 }
@@ -324,7 +325,7 @@ ol {
 .mobile-only {
   display: none;
 
-  @media screen and (max-width: ($tablet-md - 1)) {
+  @media screen and (max-width: ($tablet-md)) {
     display: block;
   }
 }
@@ -332,11 +333,99 @@ ol {
 .desktop-only {
   display: block;
 
-  @media screen and (max-width: ($tablet-md - 1)) {
+  @media screen and (max-width: ($tablet-md)) {
     display: none;
   }
 }
 
 .beta-alert {
   margin-top: 0;
+}
+
+.copy-block {
+  display: flex;
+  flex-direction: column;
+  gap: $size-16;
+  margin-top: $size-32;
+
+  > * {
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    display: flex;
+    flex-direction: column;
+    gap: $size-4;
+    margin: 0;
+
+    ul,
+    ol {
+      margin-top: $size-16;
+      margin-bottom: $size-16;
+    }
+  }
+
+  h1,
+  .heading-1,
+  h2,
+  .heading-2 {
+    margin-bottom: $size-16;
+  }
+
+  h1,
+  .heading-1 {
+    font-size: $size-40;
+  }
+
+  h2,
+  .heading-2 {
+    font-size: $size-32;
+  }
+
+  h3,
+  .heading-3 {
+    font-size: $size-24;
+  }
+
+  h4,
+  .heading-4 {
+    font-size: $size-22;
+  }
+
+  h5,
+  .heading-5 {
+    font-size: $size-20;
+  }
+
+  h6,
+  .heading-6 {
+    font-size: $size-18;
+  }
+}
+
+.systemErrorPage {
+  .heading-3 span {
+    display: block;
+    @media screen and (min-width: ($tablet-md)) {
+      max-width: 810px;
+      margin-left: 0;
+    }
+  }
+  .inner-copy {
+    @media screen and (min-width: ($tablet-md)) {
+      max-width: 580px;
+      margin-left: 0;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: $size-8;
+    margin-top: $size-24;
+
+    @media screen and (max-width: ($mobile)) {
+      flex-direction: column;
+    }
+  }
 }

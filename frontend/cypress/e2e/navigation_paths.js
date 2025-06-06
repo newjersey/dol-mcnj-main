@@ -5,12 +5,12 @@ const navigation_paths = [
   { path: path + "/training/search", label: "Search Page" },
   { path: path + "/training/35895", label: "Training Page" },
   { path: path + "/occupation/15-1254", label: "Occupation Page" },
-/*
+  /*
   { path: path + "/career-pathways/:slug", label: "Career Pathways Page" },
 */
 
   { path: path + "/privacy-policy", label: "Privacy Policy Page" },
-  { path: path + "/terms-of-service", label: "Terms of Service Page" },
+  { path: path + "/sms-use-policy", label: "SMS Use Policy Page" },
   {
     path: path + "/in-demand-occupations",
     label: "Indemand Occupations Page",
@@ -30,7 +30,7 @@ const navigation_paths = [
     label: "Training Provider Resources Page",
   },
   // faq pages
-  { path: path + "/faq", label: "FAQ Page" },
+  // { path: path + "/faq", label: "FAQ Page" },
 ];
 
 export default navigation_paths;

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from "react-helmet-async";
 import "@newjersey/njwds/dist/css/styles.css";
 import "./styles/index.scss";
 import * as serviceWorker from "./serviceWorker";

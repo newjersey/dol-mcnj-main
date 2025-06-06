@@ -8,7 +8,7 @@ import { JobsBold } from "./Icons/JobsBold";
 import { SupportBold } from "./Icons/SupportBold";
 import { TrainingBold } from "./Icons/TrainingBold";
 
-interface SelectorProps {
+export interface SelectorProps {
   name:
     | "exploreBold"
     | "jobsBold"

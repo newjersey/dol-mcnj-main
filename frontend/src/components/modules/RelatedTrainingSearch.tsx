@@ -1,5 +1,5 @@
 import { CircularProgress } from "@material-ui/core";
-import { ArrowUpRight, GraduationCap, Hourglass, MapPinLine, Warning } from "@phosphor-icons/react";
+import { GraduationCap, Hourglass, MapPinLine, Warning } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Client } from "../../domain/Client";
 import { TrainingResult } from "../../domain/Training";
@@ -41,10 +41,7 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
           {trainings?.slice(0, 3).map((train) => (
             <li key={train.id}>
               <a href={`/training/${train.id}`} target="_blank" rel="noopener noreferrer">
-                <p className="title">
-                  {train.name}
-                  <ArrowUpRight size={24} />
-                </p>
+                <p className="title">{train.name}</p>
                 <span className="span-grid">
                   <span>
                     <GraduationCap size={32} />
@@ -61,9 +58,10 @@ export const RelatedTrainingSearch = ({ query, client }: { query: string; client
                         ? `${calendarLength(train.calendarLength)} to complete`
                         : "--"}
                     </span>
-                    <span className="salary">
-                      {train.totalCost && toUsCurrency(train.totalCost)}
-                    </span>
+
+                    {train.totalCost !== 0 && (
+                      <span className="salary">{toUsCurrency(train.totalCost)}</span>
+                    )}
                   </span>
                 </span>
               </a>

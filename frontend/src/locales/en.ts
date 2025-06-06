@@ -28,7 +28,23 @@ export const en = {
     somethingWentWrongHeader: "Sorry, something went wrong",
     somethingWentWrongText: "Please try again later",
   },
+  SystemErrorPage: {
+    fourOhFourHeading: "Page not found",
+    fourOhFourSubheading: "We're sorry, we can't find the page you're looking for.",
+    fourOhFourCopy:
+      "If you typed the URL directly, check your spelling and capitalization. Our URLs look like this **<mycareer.nj.gov/example-one/>**\n\nVisit our homepage for helpful tools and resources, or contact us and we'll point you in the right direction.",
+    buttonOne: "Visit homepage",
+    buttonTwo: "Contact us",
+    errorText: "Error code:",
+    faqHeading: "The FAQ page is being improved",
+    faqSubheading: "Thank you for your patience while we improve this page.",
+    faqCopy:
+      "You can still explore My Career NJ’s job, training, and career tools. Contact us if you have any questions.",
+  },
   ExplorerPage: {
+    bannerSubheading: "Find Quality Job Training Programs:",
+    bannerMessageCopy:
+      "Access 5,000+ training programs and certifications to further your career.  Compare program details, costs, and locations to make an informed choice.",
     header: "Power up your search to find your next training opportunity",
     sectionOneHeader: "Get Started",
     sectionOneText:
@@ -142,14 +158,57 @@ export const en = {
     typeaheadPlaceholder: "Search for occupations",
   },
   LandingPage: {
-    headerText:
-      "Find training to better prepare you for a promotion, better job, or even a career change",
-    searchBoxPlaceholder: "Enter occupation, certification, provider, or SOC code",
-    swimLaneHeader: "Helpful how-to’s",
-    columnOneHeader: "For Training Seekers",
-    columnTwoHeader: "For Counselors and Coaches",
-    columnThreeHeader: "For Training Providers",
-    columnButtonText: "Learn More",
+    bannerHeading: "My Career NJ",
+    bannerSubheading: "Cutting Edge Career Tools:",
+    bannerMessageCopy:
+      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
+    topToolsHeader: "Top tools",
+    topToolNavigatorHeading: "NJ Career Navigator",
+    topToolNavigatorDescription:
+      "Upload your resume to see personalized job and training recommendations.",
+    topToolNavigatorButtonText: "Get Started",
+    topToolExplorerHeading: "Training Explorer",
+    topToolExplorerDescription:
+      "Search by job, training program, and more to find a training that works for you.",
+    topToolExplorerButtonText: "Search Training",
+    topToolPathwaysHeading: "Career Pathways",
+    topToolPathwaysDescription:
+      "Explore popular industries to see what it takes to enter or progress in them.",
+    topToolPathwaysButtonText: "Explore Pathways",
+    resourcesHeading: "How can My Career NJ help you?",
+    resourcesDescription: "Choose an option and see a list of helpful resources.",
+    resourcesCard1: "I want to find a job",
+    resourcesCard2: "I want to search for training",
+    resourcesCard3: "I want to explore career opportunities",
+    resourcesCard4: "I need additional resources",
+  },
+  ToolsPage: {
+    heroBannerEyebrow: "Tools and Resources by Category",
+    heroBannerHeading: "Discover My Career NJ’s tools by category",
+    jobHeading: "All Job Search Resources and Tools",
+    jobLink1Heading: "National Labor Exchange",
+    jobLink1Description: "Search For Jobs",
+    jobLink2Heading: "Labor Market Insights",
+    jobLink2Description: "Learn about the labor market in NJ",
+    jobLink3Heading: "Apprenticeship Programs",
+    jobLink3Description: "Learn about apprenticeship opportunities",
+    trainingHeading: "All Training Resources and Tools",
+    trainingLink1Heading: "Tuition assistance resources",
+    trainingLink1Description: "Learn about ways to get help paying for education",
+    trainingLink2Heading: "Training Provider Resources",
+    trainingLink2Description: "Important information for training providers.",
+    careerHeading: "All Career Exploration Resources and Tools",
+    careerLink1Heading: " In-demand Occupations List",
+    careerLink1Description: "See careers with opening now and in the future in NJ",
+    supportHeading: "All Support and Assistance Resources",
+    supportLink1Heading: "Career Support",
+    supportLink1Description: "Career Guidance, Job Search Help, and Re-entering the Workforce",
+    supportLink2Heading: "Tuition Assistance ",
+    supportLink2Description: "Job Training, Community College, and More",
+    supportLink3Heading: "Resident Support",
+    supportLink3Description: "Housing, Transportation, Healthcare, and More",
+    supportLink4Heading: "Frequently Asked Questions",
+    supportLink4Description: "Frequently Asked Questions",
   },
   OccupationPage: {
     header: "Occupation",
@@ -157,7 +216,8 @@ export const en = {
     jobsOpenTitle: "Jobs Open in NJ",
     jobsOpenTooltip: "The number of jobs currently posted for this occupation in the State of NJ.",
     jobsOpenSource: "National Labor Exchange",
-    jobsOpenDiscrepencyDisclaimer: "The number of jobs shown may differ from the number of jobs shown on the CareerOneStop Job Finder and/or in National Labor Exchange (NLx) data.",
+    jobsOpenDiscrepencyDisclaimer:
+      "The number of jobs shown may differ from the number of jobs shown on the CareerOneStop Job Finder and/or in National Labor Exchange (NLx) data.",
     salaryTitle: "Median Salary",
     salaryTooltip: "On average, workers in this occupation earn this amount in the State of NJ.",
     searchOpenJobsText: "Search job openings in New Jersey >",
@@ -327,15 +387,190 @@ export const en = {
       "You will leave My Career NJ and be taken to the provider's website",
     providerWebsiteMissingLabel:
       "To sign up for this training opportunity, please contact the provider at the details below.",
-    trainingProviderStepsHeader: "Follow these steps",
-    trainingStepOne: "Search for Training",
-    trainingStepOneDescription: "Enter a field of study you are interested in exploring.",
-    trainingStepTwo: "Filter and Compare",
-    trainingStepTwoDescriptionP1: "Filter and compare ",
-    trainingStepTwoDescriptionP2: "accredited programs from the ETPL",
-    trainingStepTwoDescriptionP3: " to identify the best fit for you.",
-    trainingStepThree: "Visit Training Provider Website",
-    trainingStepThreeDescription:
-      "Call or visit the provider's website to learn more about the training or to sign up.",
+    trainingStepOneDescription: "Search by occupation, provider, and more",
+    trainingStepTwoDescription: "Filter and compare results",
+    trainingStepThreeDescription: "Dive into training details",
+  },
+  PrivacyPolicy: {
+    copy: `## Privacy Policy and Information Collection Statement
+
+We respect your personal privacy and want you to be familiar with how we collect, disclose, and otherwise use ("Process") your information. This Information Collection Statement describes our practices in connection with the information we collect through this Website. Please read the following to learn more about our privacy practices.
+
+### Definition of Personal Information
+
+For purposes of this Information Collection Statement, "Personal Information" means any information that can be used to distinguish or trace an individual’s identity, either alone or when combined with other personal or identifying information that is linked or linkable to a specific individual.
+
+### What We Collect
+
+The User Created Content that you voluntarily provide to us or post to the Website or use to access the Website, which may include personal information or training search-related information and documentation, including:
+
+- Support inquiries (e.g., technical, training-related), feedback, and other communications
+- Site-generated data, including recommendations provided to you
+- Interactions with the Website and related metadata
+- Information about the devices you use to access the site
+- Website analytics data
+
+This User Created Content will be used solely for the purposes of providing you the stated service on the Website, enabling us to monitor and improve the Website, and reporting aggregate data about the use of the Website.
+
+We take reasonable steps to protect the information you provide us from loss, misuse, and unauthorized access, disclosure, alteration, and destruction. We have implemented appropriate physical, electronic, and managerial procedures to help safeguard and secure your information. Unfortunately, no security system is 100% secure; thus, we cannot ensure the security of all information you provide to us via our services.
+
+Under no circumstances shall any User Created Information, except for that which is publicly posted and visible to all, be sold, rented, given, or provided to any third party.
+
+Other information we may collect about you:
+
+- **Cookies:** Our services may use "cookies" and similar technologies (collectively, "Cookies"). Cookies are small text files that this website sends to your computer for record-keeping purposes and are stored on your computer’s hard drive. Cookies make web browsing easier by saving your preferences to improve your next visit to our website.
+  - One of the purposes of cookies is to simplify the use of the website. A cookie may save a user’s login details, for example, so the user does not need to log in every time.
+  - Cookies are also used for statistical purposes, to determine how the website is used.
+
+- **Google Analytics:** We may use Google Analytics to help us better understand how visitors use this website.
+  - The information generated by the Google Analytics cookie about your use of this website is transmitted to and stored by Google. If you do not want your activity on this website to be tracked by Google Analytics, you may opt out using this link: [http://tools.google.com/dlpage/gaoptout?hl=en](http://tools.google.com/dlpage/gaoptout?hl=en).
+
+- **From Other Sources:** We may receive your personal information from other sources, such as public databases, social media platforms, people with whom you are connected on social media platforms, as well as from other third parties. For example, if you connect your social media account to your website account, certain personal information from your social media account will be shared with us, which may include personal information that is part of your public profile or your friends' public profiles.
+
+- **Other Non-Personal Information:** In addition to any personal information or other information that you choose to provide to us on our services, we and our third-party service providers may use various technologies that automatically collect certain website usage information whenever you visit or interact with our services. This information may include browser type, operating system, pages visited, time, source of the request, and other similar information. We may use this information for various purposes, including enhancing or improving our services. We may also collect your IP address or another unique identifier for the device you use to access the Internet ("Device Identifier"). A Device Identifier is a number automatically assigned to your device, and we may identify your device by its Device Identifier. We may associate your Device Identifier or website usage information with the personal information you provide, but we will treat the combined information as personal information.
+
+We use non-personal information in various ways, including analyzing site traffic, understanding user needs and trends, and improving our services. We may use your non-personal information alone or aggregate it with information from others. We may share your non-personal information with third parties to achieve these objectives, but aggregate information is anonymous and does not personally identify you. We may provide our analysis and certain non-personal information to third parties to provide additional services tailored to your needs, but this will not involve disclosing your personally identifiable information.
+
+Because aggregated or anonymized information does not constitute personal information, we may use it for any purpose. If we combine anonymized or aggregated data with personal information, we will treat the combined information as personal information according to this Privacy Notice.
+
+We may process personal information in connection with any of the following:
+
+1. **Our business transactions with you**, including but not limited to:
+   - Responding to your inquiries and fulfilling your requests
+   - Sending administrative information to you, such as information regarding the services
+   - Completing and fulfilling any requests for services
+
+2. **For our legitimate interests**, including but not limited to:
+   - Personalizing your experience with our services
+   - Conducting data analysis, audits, fraud monitoring and prevention, internal quality assurance, developing new services, enhancing or modifying our services, identifying usage trends, and ensuring compliance with our Legal Statement and Disclaimers
+
+3. **With your consent**, when provided. In some cases, you have the right to decline to provide your consent, and if provided, to withdraw your consent at any time.
+
+4. **For legal reasons**, including but not limited to:
+   - Compliance with applicable law
+   - Responding to legal processes
+   - Responding to requests from public and government authorities, including those outside your state or country of residence
+
+### When We Disclose Your Information
+
+We may disclose your information as follows:
+
+- **Among New Jersey Agencies and Departments, and Rutgers University:** To better provide you with services and ensure a consistent user experience, we may, in accordance with applicable laws, share your information between New Jersey Agencies and Departments and Rutgers University.
+
+- **Vendors and Service Providers:** We may disclose your information to vendors and service providers retained in connection with our services, such as financial services companies, website hosting, data analysis, payment processing, IT and infrastructure providers, email delivery, credit card processing, legal advisers, accountants, or auditors.
+
+- **Message Boards:** We may make reviews, message boards, blogs, and other user-generated content available. Any information disclosed in these areas becomes public, and you should be careful when deciding to disclose your personal information. We are not responsible for the privacy practices of other users or websites.
+
+- **Disclosure Permitted by Law:** We may disclose your personal information to law enforcement authorities, other government or public agencies, regulators, or other entities with appropriate legal authority if required or permitted by law to protect our rights, interests, privacy, property, or safety, and/or that of our affiliates, you, or other third parties.
+
+### Other Important Information
+
+- **Applications and Social Media Sites:** We are not responsible for the information collection, usage, and disclosure policies and practices of other organizations, such as Facebook, Apple, Google, Microsoft, or any app developer, provider, or social media platform.
+
+- **International Transfers:** Users of our services may come from all over the world. Therefore, we may, subject to applicable law, transfer your information outside the country where you are located. We will utilize appropriate safeguards for the transfer and use of your personal information. If you would like more details on these safeguards, you can contact us at [TrainingEvaluationUnit@dol.nj.gov](mailto:TrainingEvaluationUnit@dol.nj.gov).`,
+  },
+  SmsUsePolicy: {
+    copy: `## The State of New Jersey - Department of Labor and Workforce Development SMS Use Policy
+
+### Consent
+
+We will only send you SMS (text message) communications related to My Career NJ updates, programs, financial aid information, important deadlines, and other relevant notifications if you have explicitly opted in to receive them.
+
+You can provide consent by:
+
+- Checking a box on a designated form or website indicating your agreement to receive SMS messages.
+- Texting a specific keyword (provided on official materials) to a designated short code.
+
+We will clearly explain what types of messages you can expect to receive and the approximate frequency.
+
+We will never sell your phone number to any third parties or share it without your explicit consent, except as required by law.
+
+### Opt-Out
+
+You can opt out of receiving SMS messages at any time by:
+
+- Texting "STOP" to any message you receive from us.
+- Replying with any of the opt-out keywords provided in our messages (e.g., "UNSUBSCRIBE," "QUIT").
+- Contacting the New Jersey Department of Labor and Workforce Development directly through the provided contact information.
+
+Once you opt out, you will no longer receive SMS messages from us unless you opt back in at a later time.
+
+### Message Frequency
+
+We respect your time and will not send an excessive number of SMS messages. We will strive to provide clear expectations about message frequency at the time of opt-in.
+
+If you feel you are receiving too many messages, you can contact us to adjust your preferences or opt out completely.
+
+### Message Content
+
+SMS messages will primarily contain information related to:
+
+- My Career NJ news and updates in New Jersey.
+- Career tips including resume writing, job interview skills, creating a community network, benefits, and changing careers.
+- Finding a job with Career Navigator, getting new skills with Training Explorer, qualifying for additional support, and more.
+
+We will never send you any inappropriate, offensive, or unsolicited commercial content.
+
+### Message and Data Rates
+
+Standard message and data rates may apply to any SMS messages you receive from us. These rates are determined by your mobile carrier and are beyond our control.
+
+Please consult your mobile carrier's plan for specific information on messaging costs.
+
+### Privacy
+
+We are committed to protecting your privacy. Your personal information will be handled in accordance with all applicable state and federal privacy laws, including the New Jersey Privacy Act.
+
+We will not use your phone number for any purpose other than sending you the SMS communications you have opted in to receive.
+
+### Changes to this Policy
+
+This SMS Use Policy may be updated periodically to reflect changes in our practices or applicable laws.
+
+Any significant changes to the policy will be communicated to you via SMS or through other official channels.
+
+### Contact Us
+
+If you have any questions, concerns, or would like to update your SMS communication preferences, please contact the New Jersey Department of Labor and Workforce Development using the [Contact Us](/contact) link.
+
+### Disclaimer
+
+This SMS Use Policy is subject to the laws and regulations of the State of New Jersey.
+
+The New Jersey Department of Labor and Workforce Development reserves the right to modify or terminate this service at any time.`,
+  },
+  SignUpFormModal: {
+    buttonText: "Sign Up for Updates",
+    formTitle: "My Career NJ User Sign-Up Form",
+    formDescription:
+      "Sign up for emails to learn about tools and resources to help you advance your career.",
+    firstNameLabel: "First Name",
+    firstNameError: "First name must be 2 or more characters.",
+    lastNameLabel: "Last Name",
+    lastNameError: "Last name must be 2 or more characters.",
+    emailLabel: "Email",
+    emailRequired: "Email is required.",
+    emailError: "Please enter a valid email address.",
+    phoneLabel: "Mobile Phone Number",
+    usPhoneOnlyLabel: "US phone numbers only",
+    phoneError: "Please enter a valid phone number",
+    submitButton: "Submit form",
+    successMessage: "Success!  You're all set to receive My Career NJ updates.",
+    errorMessage: "There was an error submitting the form. Please try again.",
+    serverErrorMessage: "There was an error connecting to the server. Please try again later.",
+    loadingMessage: "Submitting",
+    alreadyRegisteredMessage: "You are already registered with this email.",
+    attentionRequired: "There are items that require your attention.",
+    backToHomepage: "Back to My Career NJ",
+    close: "Close",
+    resetForm: "Reset form",
+    requiredFieldIndicator: {
+      part1: "A red asterisk ",
+      part2: " indicates a required field.",
+    },
+    readAboutOur: "Read about our",
+    privacyPolicy: "privacy policy",
+    andOur: "and our",
+    smsUsePolicy: "sms use policy",
   },
 };

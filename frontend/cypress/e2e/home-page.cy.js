@@ -30,7 +30,7 @@ describe("Home Page", () => {
       { title: "Career Support", link: "/support-resources/career-support" },
       { title: "Tuition Assistance", link: "/support-resources/tuition-assistance" },
       { title: "Other Assistance", link: "/support-resources/other" },
-      { title: "Frequently Asked Questions", link: "/faq" },
+      // { title: "Frequently Asked Questions", link: "/faq" },
     ];
 
     cy.visit("/");

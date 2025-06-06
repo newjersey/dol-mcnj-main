@@ -28,7 +28,24 @@ export const es = {
     somethingWentWrongHeader: "Perdón, algo salió mal",
     somethingWentWrongText: "Por favor, inténtelo de nuevo más tarde",
   },
+  SystemErrorPage: {
+    fourOhFourHeading: "Página no encontrada",
+    fourOhFourSubheading: "Lo sentimos, no podemos encontrar la página que estás buscando.",
+    fourOhFourCopy:
+      "Si escribiste la URL directamente, revisa la ortografía y el uso de mayúsculas. Nuestras URLs se ven así: **<mycareer.nj.gov/example-one/>**\n\nVisita nuestra página de inicio para encontrar herramientas y recursos útiles, o contáctanos y te guiaremos en la dirección correcta.",
+    buttonOne: "Visitar página de inicio",
+    buttonTwo: "Contáctanos",
+    errorText: "Código de error:",
+    faqHeading: "La página de Preguntas Frecuentes está siendo mejorada",
+    faqSubheading: "Gracias por tu paciencia mientras mejoramos esta página.",
+    faqCopy:
+      "Aún puedes explorar las herramientas de empleo, capacitación y carreras de My Career NJ. Contáctanos si tienes alguna pregunta.",
+  },
+
   ExplorerPage: {
+    bannerSubheading: "Encuentre programas de capacitación laboral de calidad:",
+    bannerMessageCopy:
+      "Accede a más de 5000 programas de capacitación y certificaciones para impulsar tu carrera. Compara detalles, costos y ubicaciones de los programas para tomar una decisión informada.",
     header: "Arranque su búsqueda para encontrar su próxima oportunidad de formación profesional.",
     sectionOneHeader: "Empecemos!",
     sectionOneText:
@@ -139,7 +156,7 @@ export const es = {
     localExceptionCountiesTitle: "En demanda en {{counties}}.",
     localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     inDemandText: "Este entrenamiento puede calificar para recibir fondos de su oficina local de",
-    inDemandLinkText: "Career One-Stop"
+    inDemandLinkText: "Career One-Stop",
   },
   InDemandPage: {
     pageTitle: "Ocupaciones en demanda",
@@ -149,14 +166,58 @@ export const es = {
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
-    headerText:
-      "Encuentre capacitaciones que lo prepare mejor para una promoción, un mejor trabajo o incluso un cambio de carrera",
-    searchBoxPlaceholder: "Ingrese ocupación, certificación, proveedor, o código SOC",
-    swimLaneHeader: "Instrucciones útiles",
-    columnOneHeader: "Solicitantes de formación",
-    columnTwoHeader: "Para consejeros y entrenadores",
-    columnThreeHeader: "Para proveedores de capacitación",
-    columnButtonText: "Aprende más",
+    bannerHeading: "My Career NJ",
+    bannerSubheading: "Herramientas de Carrera de Última Generación:",
+    bannerMessageCopy:
+      "Encuentre el programa de capacitación adecuado, obtenga coincidencias personalizadas de empleo y explore las carreras más demandadas de Nueva Jersey con nuestras potentes herramientas digitales.",
+    topToolsHeader: "Herramientas principales",
+    topToolNavigatorHeading: "Navegador de Carreras de NJ",
+    topToolNavigatorDescription:
+      "Cargue su currículum para ver recomendaciones personalizadas de empleos y programas de capacitación.",
+    topToolNavigatorButtonText: "Comenzar",
+    topToolExplorerHeading: "Explorador de Capacitación",
+    topToolExplorerDescription:
+      "Busque por empleo, programa de capacitación y más para encontrar la capacitación que le convenga.",
+    topToolExplorerButtonText: "Buscar capacitación",
+    topToolPathwaysHeading: "Trayectorias Profesionales",
+    topToolPathwaysDescription:
+      "Explore industrias populares para ver lo que se necesita para ingresar o avanzar en ellas.",
+    topToolPathwaysButtonText: "Explorar trayectorias",
+    resourcesHeading: "¿Cómo puede ayudarle My Career NJ?",
+    resourcesDescription: "Elija una opción y vea una lista de recursos útiles.",
+    resourcesCard1: "Quiero encontrar un trabajo",
+    resourcesCard2: "Quiero buscar capacitación",
+    resourcesCard3: "Quiero explorar oportunidades profesionales",
+    resourcesCard4: "Necesito recursos adicionales",
+  },
+  ToolsPage: {
+    heroBannerEyebrow: "Herramientas y Recursos por Categoría",
+    heroBannerHeading: "Descubra las herramientas de My Career NJ por categoría",
+    jobHeading: "Todos los Recursos y Herramientas para la Búsqueda de Empleo",
+    jobLink1Heading: "Intercambio Nacional de Empleo",
+    jobLink1Description: "Buscar empleos",
+    jobLink2Heading: "Perspectivas del Mercado Laboral",
+    jobLink2Description: "Aprenda sobre el mercado laboral en NJ",
+    jobLink3Heading: "Programas de Aprendizaje",
+    jobLink3Description: "Conozca oportunidades de aprendizaje",
+    trainingHeading: "Todos los Recursos y Herramientas de Capacitación",
+    trainingLink1Heading: "Recursos de Asistencia para Matrícula",
+    trainingLink1Description: "Conozca formas de obtener ayuda para pagar su educación",
+    trainingLink2Heading: "Recursos para Proveedores de Capacitación",
+    trainingLink2Description: "Información importante para proveedores de capacitación",
+    careerHeading: "Todos los Recursos y Herramientas para la Exploración de Carreras",
+    careerLink1Heading: "Lista de Ocupaciones en Demanda",
+    careerLink1Description: "Vea las carreras con vacantes actuales y futuras en NJ",
+    supportHeading: "Todos los Recursos de Apoyo y Asistencia",
+    supportLink1Heading: "Apoyo Profesional",
+    supportLink1Description:
+      "Orientación profesional, ayuda con la búsqueda de empleo y reintegración al mercado laboral",
+    supportLink2Heading: "Asistencia para la Matrícula",
+    supportLink2Description: "Capacitación laboral, colegios comunitarios y más",
+    supportLink3Heading: "Apoyo para Residentes",
+    supportLink3Description: "Vivienda, transporte, atención médica y más",
+    supportLink4Heading: "Preguntas Frecuentes",
+    supportLink4Description: "Preguntas Frecuentes",
   },
   OccupationPage: {
     header: "Ocupación",
@@ -165,7 +226,8 @@ export const es = {
     jobsOpenTooltip:
       "El número de puestos de trabajo publicados actualmente para esta ocupación en el estado de NJ.",
     jobsOpenSource: "Bolsa Nacional de Trabajo",
-    jobsOpenDiscrepencyDisclaimer: "El número de trabajos en este resultado puede ser diferente al número de trabajos disponibles en el  portal de Búsqueda de Trabajo de CareerOneStop, o de los datos encontrados en la Bolsa Nacional de Trabajo (NLx).",
+    jobsOpenDiscrepencyDisclaimer:
+      "El número de trabajos en este resultado puede ser diferente al número de trabajos disponibles en el  portal de Búsqueda de Trabajo de CareerOneStop, o de los datos encontrados en la Bolsa Nacional de Trabajo (NLx).",
     salaryTitle: "Salario medio",
     salaryTooltip:
       "En promedio, los trabajadores en esta ocupación ganan esta cantidad en el estado de NJ.",
@@ -343,7 +405,189 @@ export const es = {
     trainingStepTwoDescriptionP3:
       " para identificar el programa que mejor se adapta a tus necesidades.",
     trainingStepThree: "Visit a el sitio web del proveedor de la capacitación",
-    trainingStepThreeDescription:
-      "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse.",
+    trainingStepThreeDescription: "Profundice en los detalles de la capacitación",
+  },
+  PrivacyPolicy: {
+    copy: `## Política de Privacidad y Declaración de Recopilación de Información
+
+Respetamos su privacidad personal y queremos que esté familiarizado con cómo recopilamos, divulgamos y utilizamos ("Procesamos") su información. Esta Declaración de Recopilación de Información describe nuestras prácticas en relación con la información que recopilamos a través de este sitio web. Por favor, lea lo siguiente para conocer más sobre nuestras prácticas de privacidad.
+
+### Definición de Información Personal
+
+A los efectos de esta Declaración de Recopilación de Información, "Información Personal" significa cualquier información que pueda utilizarse para distinguir o rastrear la identidad de una persona, ya sea sola o combinada con otra información personal o identificativa que esté vinculada o pueda vincularse a un individuo específico.
+
+### Qué Recopilamos
+
+El Contenido Creado por el Usuario que nos proporcione voluntariamente o publique en el sitio web o utilice para acceder al mismo, que puede incluir información personal o relacionada con la búsqueda de capacitación y documentación, incluyendo:
+
+- Consultas de soporte (por ejemplo, técnicas, relacionadas con la capacitación), comentarios y otras comunicaciones
+- Datos generados por el sitio, incluyendo recomendaciones proporcionadas a usted
+- Interacciones con el sitio web y metadatos relacionados
+- Información sobre los dispositivos que utiliza para acceder al sitio
+- Datos de análisis del sitio web
+
+Este Contenido Creado por el Usuario se utilizará únicamente con el propósito de brindarle el servicio especificado en el sitio web, permitirnos monitorear y mejorar el sitio, y reportar datos agregados sobre el uso del sitio.
+
+Tomamos medidas razonables para proteger la información que nos proporciona contra pérdida, mal uso y acceso, divulgación, alteración o destrucción no autorizados. Hemos implementado procedimientos físicos, electrónicos y administrativos apropiados para ayudar a proteger y asegurar su información. Desafortunadamente, ningún sistema de seguridad es 100% seguro; por lo tanto, no podemos garantizar la seguridad de toda la información que nos proporcione a través de nuestros servicios.
+
+Bajo ninguna circunstancia, cualquier Información Creada por el Usuario, excepto aquella que se publique públicamente y sea visible para todos, será vendida, alquilada, entregada o proporcionada a terceros.
+
+Otra información que podemos recopilar sobre usted:
+
+- **Cookies:** Nuestros servicios pueden utilizar "cookies" y tecnologías similares (colectivamente, "Cookies"). Las cookies son pequeños archivos de texto que este sitio web envía a su computadora con fines de registro y se almacenan en el disco duro de su computadora. Las cookies facilitan la navegación web al guardar sus preferencias para mejorar su próxima visita a nuestro sitio web.
+  - Uno de los propósitos de las cookies es simplificar el uso del sitio web. Por ejemplo, una cookie puede guardar los detalles de inicio de sesión de un usuario para que no tenga que iniciar sesión cada vez.
+  - Las cookies también se utilizan con fines estadísticos, para determinar cómo se utiliza el sitio web.
+
+- **Google Analytics:** Podemos usar Google Analytics para ayudarnos a comprender mejor cómo los visitantes usan este sitio web.
+  - La información generada por la cookie de Google Analytics sobre su uso de este sitio web se transmite y almacena en Google. Si no desea que su actividad en este sitio web sea rastreada por Google Analytics, puede optar por no participar usando este enlace: [http://tools.google.com/dlpage/gaoptout?hl=es](http://tools.google.com/dlpage/gaoptout?hl=es).
+
+- **De Otras Fuentes:** Podemos recibir su información personal de otras fuentes, como bases de datos públicas, plataformas de redes sociales, personas con las que está conectado en redes sociales, así como de otros terceros. Por ejemplo, si conecta su cuenta de redes sociales a su cuenta del sitio web, cierta información personal de su cuenta de redes sociales se compartirá con nosotros, lo que puede incluir información personal que forma parte de su perfil público o de los perfiles públicos de sus amigos.
+
+- **Otra Información No Personal:** Además de cualquier información personal u otra información que elija proporcionarnos en nuestros servicios, nosotros y nuestros proveedores de servicios externos podemos usar diversas tecnologías que recopilan automáticamente cierta información de uso del sitio web cada vez que visita o interactúa con nuestros servicios. Esta información puede incluir el tipo de navegador, el sistema operativo, las páginas visitadas, la hora, la fuente de la solicitud y otra información similar. Podemos utilizar esta información para diversos fines, incluyendo mejorar nuestros servicios. También podemos recopilar su dirección IP u otro identificador único para el dispositivo que utiliza para acceder a Internet ("Identificador de Dispositivo"). Un Identificador de Dispositivo es un número que se asigna automáticamente a su dispositivo, y podemos identificar su dispositivo por su Identificador de Dispositivo. Podemos asociar su Identificador de Dispositivo o la información de uso del sitio web con la información personal que proporciona, pero trataremos la información combinada como información personal.
+
+Usamos información no personal de diversas maneras, incluyendo el análisis del tráfico del sitio, la comprensión de las necesidades y tendencias de los usuarios y la mejora de nuestros servicios. Podemos usar su información no personal de forma individual o agregarla con información de otros. Podemos compartir su información no personal con terceros para lograr estos objetivos, pero la información agregada es anónima y no lo identifica personalmente. Podemos proporcionar nuestro análisis y cierta información no personal a terceros para que brinden servicios adicionales adaptados a sus necesidades, pero esto no implicará la divulgación de su información personal identificable.
+
+Dado que la información agregada o anonimizada no constituye información personal, podemos usarla para cualquier propósito. Si combinamos datos anonimizados o agregados con información personal, trataremos la información combinada como información personal de acuerdo con este Aviso de Privacidad.
+
+Podemos procesar información personal en relación con cualquiera de los siguientes:
+
+1. **Nuestras transacciones comerciales con usted**, incluyendo, pero no limitado a:
+   - Responder a sus consultas y cumplir con sus solicitudes
+   - Enviarle información administrativa, como información sobre los servicios
+   - Completar y cumplir cualquier solicitud de servicios
+
+2. **Para nuestros intereses legítimos**, incluyendo, pero no limitado a:
+   - Personalizar su experiencia con nuestros servicios
+   - Realizar análisis de datos, auditorías, monitoreo y prevención de fraudes, control de calidad interno, desarrollo de nuevos servicios, mejora o modificación de nuestros servicios, identificación de tendencias de uso y asegurar el cumplimiento de nuestra Declaración Legal y Exenciones de Responsabilidad
+
+3. **Con su consentimiento**, cuando sea proporcionado. En algunos casos, tiene derecho a negarse a proporcionar su consentimiento y, si se proporciona, a retirarlo en cualquier momento.
+
+4. **Por razones legales**, incluyendo, pero no limitado a:
+   - Cumplimiento de la legislación aplicable
+   - Responder a procesos legales
+   - Responder a solicitudes de autoridades públicas y gubernamentales, incluyendo aquellas fuera de su estado o país de residencia
+
+### Cuándo Divulgamos Su Información
+
+Podemos divulgar su información de la siguiente manera:
+
+- **Entre Agencias y Departamentos de Nueva Jersey, y la Universidad de Rutgers:** Para brindarle mejor los servicios y garantizar una experiencia de usuario coherente, podemos, de acuerdo con las leyes aplicables, compartir su información entre las agencias y departamentos de Nueva Jersey y la Universidad de Rutgers.
+
+- **Proveedores y Prestadores de Servicios:** Podemos divulgar su información a proveedores y prestadores de servicios contratados en relación con nuestros servicios, como compañías de servicios financieros, alojamiento de sitios web, análisis de datos, procesamiento de pagos, proveedores de TI e infraestructura, entrega de correos electrónicos, procesamiento de tarjetas de crédito, asesores legales, contadores o auditores.
+
+- **Foros de Discusión:** Podemos habilitar reseñas, foros de discusión, blogs y otros contenidos generados por el usuario. Cualquier información divulgada en estas áreas se convierte en información pública, y debe tener cuidado al decidir divulgar su información personal. No somos responsables de las prácticas de privacidad de otros usuarios o sitios web.
+
+- **Divulgación Permitida por la Ley:** Podemos divulgar su información personal a las autoridades policiales, otras agencias gubernamentales o públicas, reguladores u otras entidades con autoridad legal apropiada si así lo requiere o permite la ley para proteger nuestros derechos, intereses, privacidad, propiedad o seguridad, y/o los de nuestros afiliados, usted u otros terceros.
+
+### Otra Información Importante
+
+- **Aplicaciones y Sitios de Redes Sociales:** No somos responsables de la recopilación, uso y divulgación de políticas y prácticas de otras organizaciones, como Facebook, Apple, Google, Microsoft o cualquier desarrollador de aplicaciones, proveedor o plataforma de redes sociales.
+
+- **Transferencias Internacionales:** Los usuarios de nuestros servicios pueden provenir de todo el mundo. Por lo tanto, podemos, sujeto a la legislación aplicable, transferir su información fuera del país donde se encuentra. Utilizaremos las salvaguardas apropiadas para la transferencia y el uso de su información personal. Si desea más detalles sobre estas salvaguardas, puede contactarnos en [TrainingEvaluationUnit@dol.nj.gov](mailto:TrainingEvaluationUnit@dol.nj.gov).`,
+  },
+  SmsUsePolicy: {
+    copy: `## El Estado de Nueva Jersey - Política de Uso de SMS del Departamento de Trabajo y Desarrollo Laboral
+
+### Consentimiento
+
+Solo le enviaremos comunicaciones por SMS (mensaje de texto) relacionadas con actualizaciones de My Career NJ, programas, información sobre ayuda financiera, fechas límite importantes y otras notificaciones relevantes si ha optado explícitamente por recibirlas.
+
+Puede dar su consentimiento de las siguientes maneras:
+
+- Marcando una casilla en un formulario o sitio web designado que indique su acuerdo para recibir mensajes SMS.
+- Enviando un mensaje de texto con una palabra clave específica (proporcionada en materiales oficiales) a un código corto designado.
+
+Le explicaremos claramente qué tipo de mensajes puede esperar recibir y la frecuencia aproximada.
+
+Nunca venderemos su número de teléfono a terceros ni lo compartiremos sin su consentimiento explícito, excepto cuando sea requerido por la ley.
+
+### Cancelación de Suscripción
+
+Puede cancelar la suscripción para dejar de recibir mensajes SMS en cualquier momento de las siguientes maneras:
+
+- Enviando un mensaje de texto con la palabra "STOP" a cualquier mensaje que reciba de nosotros.
+- Respondiendo con cualquiera de las palabras clave de cancelación proporcionadas en nuestros mensajes (por ejemplo, "UNSUBSCRIBE," "QUIT").
+- Contactando directamente con el Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey a través de la información de contacto proporcionada.
+
+Una vez que se dé de baja, ya no recibirá mensajes SMS de nuestra parte a menos que vuelva a suscribirse en el futuro.
+
+### Frecuencia de Mensajes
+
+Respetamos su tiempo y no enviaremos un número excesivo de mensajes SMS. Nos esforzaremos por proporcionar expectativas claras sobre la frecuencia de los mensajes al momento de la suscripción.
+
+Si siente que está recibiendo demasiados mensajes, puede ponerse en contacto con nosotros para ajustar sus preferencias o cancelar su suscripción por completo.
+
+### Contenido de los Mensajes
+
+Los mensajes SMS contendrán principalmente información relacionada con:
+
+- Noticias y actualizaciones de My Career NJ en Nueva Jersey.
+- Consejos profesionales, incluyendo redacción de currículums, habilidades para entrevistas de trabajo, creación de redes comunitarias, beneficios y cambio de carrera.
+- Búsqueda de empleo con Career Navigator, adquisición de nuevas habilidades con Training Explorer, calificación para apoyo adicional y más.
+
+Nunca le enviaremos contenido inapropiado, ofensivo o comercial no solicitado.
+
+### Tarifas de Mensajes y Datos
+
+Pueden aplicarse tarifas estándar de mensajes y datos a cualquier SMS que reciba de nuestra parte. Estas tarifas son determinadas por su operador móvil y están fuera de nuestro control.
+
+Consulte el plan de su operador móvil para obtener información específica sobre los costos de mensajería.
+
+### Privacidad
+
+Estamos comprometidos a proteger su privacidad. Su información personal será manejada de acuerdo con todas las leyes estatales y federales de privacidad aplicables, incluyendo la Ley de Privacidad de Nueva Jersey.
+
+No utilizaremos su número de teléfono para ningún propósito distinto al envío de las comunicaciones por SMS a las que se haya suscrito.
+
+### Cambios en esta Política
+
+Esta Política de Uso de SMS puede actualizarse periódicamente para reflejar cambios en nuestras prácticas o en las leyes aplicables.
+
+Cualquier cambio significativo en la política se le comunicará por SMS o a través de otros canales oficiales.
+
+### Contáctenos
+
+Si tiene preguntas, inquietudes o desea actualizar sus preferencias de comunicación por SMS, comuníquese con el Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey mediante el siguiente enlace: [Contáctenos](/contact).
+
+### Descargo de Responsabilidad
+
+Esta Política de Uso de SMS está sujeta a las leyes y regulaciones del Estado de Nueva Jersey.
+
+El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el derecho de modificar o cancelar este servicio en cualquier momento.`,
+  },
+  SignUpFormModal: {
+    buttonText: "Regístrate para recibir actualizaciones",
+    formTitle: "Formulario de registro de usuario de My Career NJ",
+    formDescription:
+      "Regístrese para recibir correos electrónicos y conocer herramientas y recursos que lo ayudarán a avanzar en su carrera.",
+    firstNameLabel: "Nombre",
+    firstNameError: "El nombre debe tener 2 o más caracteres.",
+    lastNameLabel: "Apellido",
+    lastNameError: "El apellido debe tener 2 o más caracteres.",
+    emailLabel: "Correo electrónico",
+    emailRequired: "El correo electrónico es obligatorio.",
+    emailError: "Por favor, introduce una dirección de correo electrónico válida.",
+    phoneLabel: "Número de teléfono móvil",
+    usPhoneOnlyLabel: "Solo números de teléfono de EE.UU.",
+    phoneError: "Por favor, introduce un número de teléfono válido.",
+    submitButton: "Enviar formulario",
+    successMessage: "¡Éxito!  Está todo listo para recibir actualizaciones de My Career NJ.",
+    errorMessage: "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
+    serverErrorMessage:
+      "Hubo un error al conectar con el servidor. Por favor, inténtalo más tarde.",
+    loadingMessage: "Enviando",
+    alreadyRegisteredMessage: "Ya estás registrado con este correo electrónico.",
+    attentionRequired: "Hay elementos que requieren tu atención.",
+    backToHomepage: "Volver a My Career NJ",
+    close: "Cerrar",
+    resetForm: "Restablecer formulario",
+    requiredFieldIndicator: {
+      part1: "Un asterisco rojo ",
+      part2: " indica un campo obligatorio.",
+    },
+    readAboutOur: "Lee sobre nuestra",
+    privacyPolicy: "política de privacidad",
+    andOur: "y nuestra",
+    smsUsePolicy: "política de uso de SMS",
   },
 };

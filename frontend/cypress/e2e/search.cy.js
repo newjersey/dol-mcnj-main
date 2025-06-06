@@ -7,22 +7,20 @@ describe("Search", () => {
     cy.wait(1000);
     cy.checkA11y();
 
-    cy.contains("Search by training, provider, certification, SOC code, CIP code, or keyword").should(
-      "exist",
-    );
+    cy.contains("Search for training").should("exist");
 
     cy.wait(1000);
     // input search
     cy.get('input[aria-label="search"]').type("baking");
     cy.wait(1000);
-    cy.get("a#search-button").contains("Search").click({ force: true });
+    cy.get("button#search-button").contains("Search").click({ force: true });
 
     // on search results page
     cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+    cy.contains("Baking and Pastry").should(
       "exist",
     );
 
@@ -30,10 +28,8 @@ describe("Search", () => {
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("baking skills").should("exist");
-
     cy.contains(
-      "...individuals with developmental disabilities. Teaches basic culinary or baking skills for successful employment in a food production environment such...",
+      "...program offers hands-on courses in the fundamentals of baking and pastry. It will also prepare you for the National...",
     ).should("exist");
   });
 
@@ -75,7 +71,7 @@ describe("Search", () => {
     cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
 
     // matches by title
-    cy.contains("Culinary Opportunity Program for Adults with Developmental Disabilities").should(
+    cy.contains("Baking and Pastry").should(
       "exist",
     );
 
@@ -83,7 +79,7 @@ describe("Search", () => {
     cy.contains("Art of International Bread Baking").should("not.exist");
 
     // matches by description
-    cy.contains("Culinary Arts").should("exist");
+    cy.contains("Baking and Pastry").should("exist");
 
     // removes others
     cy.contains("Welding Workshops").should("not.exist");
@@ -120,7 +116,6 @@ describe("Search", () => {
 
   it("tags trainings on in-demand", () => {
     cy.visit("/training/search?q=social%20work");
-
 
     cy.contains("In Demand").should("exist");
 

@@ -49,6 +49,8 @@ export interface OccupationNodeProps {
   educationLevel: string;
   advancement?: string;
   tasks?: string;
+  howToGetStarted?: string;
+  howToGetHere?: string;
   education?: string;
   credentials?: string;
   skills?: string;
@@ -104,13 +106,14 @@ export interface PageBannerProps {
   date?: Date;
   theme?: ThemeColors;
   title: string;
+  subheading?: string;
   noCrumbs?: boolean;
   breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
   section: SectionIcons;
-  message?: ContentfulRichText;
+  message?: ContentfulRichText | string;
   description?: string;
   ctaHeading?: string;
   ctaLinksCollection?: {
@@ -272,10 +275,6 @@ export interface CareerPathwaysPageData {
     pageBanner: PageBannerProps;
     industries: {
       items: IndustryProps[];
-    };
-    stepsHeading: string;
-    stepsCollection: {
-      items: IconCardProps[];
     };
     exploreHeading: string;
     exploreButtonsCollection: { items: LinkObjectProps[] };
