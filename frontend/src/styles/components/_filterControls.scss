@@ -1,12 +1,20 @@
 .filterControls {
-  .content {
-    display: flex;
-    flex-direction: column;
-    gap: $size-30;
-    align-items: flex-start;
+  .labelBox {
+    &.labelBox.toggleBox {
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: $size-30;
+        align-items: flex-start;
 
-    > div {
-      width: 100%;
+        &.open {
+          display: flex;
+        }
+
+        > div {
+          width: 100%;
+        }
+      }
     }
   }
 
