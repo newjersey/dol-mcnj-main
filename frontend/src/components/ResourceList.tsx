@@ -35,6 +35,7 @@ export const ResourceList = ({
   const [filteredResources, setFilteredResources] = useState<ResourceItemProps[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<ResourceItemProps[] | null>(null);
+  const [sortOrder, setSortOrder] = useState<"aToZ" | "zToA">("aToZ");
 
   useEffect(() => {
     if (resources && resources?.length > 0) {
@@ -59,7 +60,6 @@ export const ResourceList = ({
       : searchQuery
         ? searchResults
         : filteredResources) ?? [];
-  const alphaSortedCards = cards.sort((a, b) => a.title.localeCompare(b.title));
 
   const allTags =
     tags.length > 0
@@ -74,6 +74,22 @@ export const ResourceList = ({
           },
         ];
 
+  const sortedCards = [...cards];
+
+  if (sortOrder === "aToZ") {
+    sortedCards.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sortOrder === "zToA") {
+    sortedCards.sort((a, b) => b.title.localeCompare(a.title));
+  }
+
+  const alphaSortedCards = [...cards].sort((a, b) => {
+    if (sortOrder === "aToZ") {
+      return a.title.localeCompare(b.title);
+    } else if (sortOrder === "zToA") {
+      return b.title.localeCompare(a.title);
+    }
+    return 0; // no sort applied
+  });
   useEffect(() => {
     if (searchQuery === "") {
       setSearchResults(null);
@@ -134,6 +150,8 @@ export const ResourceList = ({
                 setSearchQuery={setSearchQuery}
                 count={alphaSortedCards.length}
                 totalCount={resources.length}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
               />
             </div>
 
