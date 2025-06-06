@@ -1,93 +1,121 @@
 .filterControls {
-  width: 100%;
-
-  .labelBox {
-    .content {
-      background-color: $lighter-green;
-      width: 100%;
-
-      @media screen and (max-width: ($tablet-lg - 1)) {
-        border: $size-1 solid $base-lighter;
-      }
-
-      &.open {
-        @media screen and (max-width: ($tablet-lg - 1)) {
-          position: absolute;
-          left: 0;
-          max-height: calc(100vh - 41px);
-          overflow: auto;
-          -webkit-overflow-scrolling: touch;
-        }
-      }
-    }
-
-    .group-heading {
-      justify-content: center;
-    }
-  }
-
-  .group-heading {
-    font-weight: 500;
-    font-size: 1.5rem;
-    margin: 0;
-  }
-
-  .heading {
-    width: 100%;
-    justify-content: space-between;
+  .content {
     display: flex;
-    align-items: center;
-    margin: $size-16 0;
-  }
+    flex-direction: column;
+    gap: $size-30;
+    align-items: flex-start;
 
-  .clear {
-    margin: $size-16 0 0;
-  }
-
-  .clear-all {
-    padding: 0.8rem 1.3rem;
+    > div {
+      width: 100%;
+    }
   }
 
   button {
-    width: auto;
+    &.usa-button--unstyled {
+      border-radius: 0;
+
+      font-weight: normal;
+      color: $base-darker;
+      text-underline-offset: $size-4;
+    }
   }
 
-  label:before,
-  .usa-checkbox {
-    background-color: transparent;
+  .toggle-heading {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .usa-checkbox__input:checked + [class*="__label"]::before {
-    background-color: $navy;
-    box-shadow: 0 0 0 $size-2 $navy;
-  }
-
-  .usa-checkbox__input:focus + [class*="__label"]::before {
-    outline: 0.25rem solid $navy;
-  }
-
-  .usa-button--outline {
-    background-color: transparent;
-    box-shadow: inset 0 0 0 $size-2 $navy;
-    color: $navy;
-    border-radius: 5px;
+  .clear-all {
+    padding: $size-12 $size-20;
+    border-radius: $size-4;
+    font-size: $size-16;
+    font-weight: bold;
+    box-shadow: inset 0 0 0 $size-2 $info-darker;
+    color: $info-darker;
 
     &:hover {
-      box-shadow: inset 0 0 0 $size-2 $primary;
-
-      color: $primary;
-    }
-
-    &:focus {
-      outline: 0.25rem solid $navy;
+      background-color: $info-darker;
+      color: $white;
     }
   }
 
-  .usa-button.usa-button--unstyled {
-    color: $navy;
+  .content,
+  .usa-checkbox {
+    background-color: $base-extra-light;
+  }
 
-    &:focus {
-      outline: 0.25rem solid $navy;
+  .usa-checkbox__label::before {
+    box-shadow: 0 0 0 2px $base-light;
+  }
+
+  .usa-label {
+    margin-top: 0;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    gap: $size-8;
+  }
+
+  .input-wrapper {
+    position: relative;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: $size-16;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    input {
+      width: 100%;
+      border: $size-2 solid $base-light;
+      border-radius: $size-4;
+      margin: 0;
+      padding: $size-16 $size-16 $size-16 $size-48;
+      min-height: fit-content;
+    }
+  }
+
+  .usa-button {
+    &.clear {
+      margin-top: $size-16;
+      font-weight: normal;
+    }
+  }
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .heading-tag {
+      font-size: $size-22;
+    }
+
+    svg {
+      transform: rotate(0deg);
+    }
+  }
+
+  .group {
+    .items {
+      display: none;
+      margin-left: $size-26;
+    }
+
+    &.open {
+      .heading {
+        svg {
+          transform: rotate(90deg);
+        }
+      }
+
+      .items {
+        display: block;
+      }
     }
   }
 }
