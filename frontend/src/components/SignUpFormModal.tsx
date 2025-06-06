@@ -337,7 +337,7 @@ export const SignUpFormModal = () => {
                   style={{ fontSize: "16px" }}
                 >
                   {t("SignUpFormModal.privacyPolicy")}
-                </a>{" "}
+                </a>
                 {/* {t("SignUpFormModal.andOur")}{" "} */}
                 {/* <a
                   href="/sms-use-policy"
