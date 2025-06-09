@@ -3,6 +3,7 @@ import { TagProps } from "../types/contentful";
 import { LabelBox } from "./modules/LabelBox";
 import { Heading } from "./modules/Heading";
 import { CaretRight, MagnifyingGlass } from "@phosphor-icons/react";
+import { slugify } from "../utils/slugify";
 
 interface FilterControlsProps {
   boxLabel: string;
@@ -33,7 +34,12 @@ const Group = ({
   return (
     <div key={group.heading} className={`group${isOpen ? " open" : ""}`}>
       <div className="heading">
-        <button className="toggle-heading" type="button" onClick={() => setIsOpen(!isOpen)}>
+        <button
+          id={slugify(group.heading)}
+          className="toggle-heading"
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           <CaretRight size={20} className="caret-icon" weight="bold" />
           <Heading className="group-heading" level={3}>
             {group.heading}
@@ -41,6 +47,7 @@ const Group = ({
         </button>
         <button
           type="button"
+          id={slugify(group.heading) + " select-all"}
           className="usa-button  usa-button--unstyled"
           onClick={() => {
             setSelected(
@@ -106,7 +113,7 @@ const FilterControls = ({
   }, [selected]);
 
   return (
-    <aside className={`filterControls${className ? ` ${className}` : ""}`}>
+    <div className={`filterControls${className ? ` ${className}` : ""}`}>
       <LabelBox title={boxLabel} color="navy" toggle>
         <div>
           <label htmlFor="resource-search" className="usa-label">
@@ -153,7 +160,7 @@ const FilterControls = ({
           />
         ))}
       </LabelBox>
-    </aside>
+    </div>
   );
 };
 
