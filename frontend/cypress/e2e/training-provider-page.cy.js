@@ -3,9 +3,9 @@ describe("Training Provider Resources Page", () => {
     cy.visit("/training-provider-resources");
     cy.injectAxe();
 
-    cy.contains(
-      "As a training program provider, you may have questions about data collection requirements",
-    ).should("exist");
+    cy.contains("Training provider data collection, ETPL, and quality assurance guidance").should(
+      "exist",
+    );
     cy.checkA11y();
   });
 });

@@ -42,13 +42,13 @@
 
   &.color-green {
     background-color: $secondary-extra-light;
-    color: $secondary-dark;
+    color: $secondary-darker;
     border-color: $secondary-light;
   }
 
   &.color-blue {
     background-color: $primary-extra-light;
-    color: $primary-dark;
+    color: $primary-darker;
     border-color: $primary-light;
   }
 
@@ -60,7 +60,7 @@
 
   &.color-navy {
     background-color: $info-lighter;
-    color: $info-dark;
+    color: $info-darker;
     border-color: $info-light;
   }
 
