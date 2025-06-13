@@ -17,10 +17,6 @@ const navigation_paths = [
   },
   { path: path + "/support-resources", label: "Support Resource Page" },
   {
-    path: path + "/support-resources/career-support",
-    label: "Career Support Page",
-  },
-  {
     path: path + "/support-resources/tuition-assistance",
     label: "Tuition Assistance Page",
   },

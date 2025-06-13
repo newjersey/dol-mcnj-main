@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useReducer, useState, useMemo, Suspense } from "react";
-import { Router, Redirect, globalHistory } from "@reach/router";
+import { Router, Redirect, globalHistory, navigate, RouteComponentProps } from "@reach/router";
 import ReactGA from "react-ga";
 import * as Sentry from "@sentry/react";
 import { Client } from "./domain/Client";
@@ -82,11 +82,11 @@ const AllSupportPage = React.lazy(() =>
     default: module.AllSupportPage,
   })),
 );
-const ResourceCategoryPage = React.lazy(() =>
-  import("./resource-category-page/ResourceCategoryPage").then((module) => ({
-    default: module.ResourceCategoryPage,
-  })),
-);
+// const ResourceCategoryPage = React.lazy(() =>
+//   import("./resource-category-page/ResourceCategoryPage").then((module) => ({
+//     default: module.ResourceCategoryPage,
+//   })),
+// );
 const LandingPage = React.lazy(() =>
   import("./landing-page/LandingPage").then((module) => ({ default: module.LandingPage })),
 );
@@ -117,6 +117,14 @@ globalHistory.listen(({ location }) => {
     ReactGA.initialize("G-THV625FWWB", {});
   }
 });
+
+export const SupportRedirect = (_props: RouteComponentProps) => {
+  useEffect(() => {
+    navigate("/support-resources", { replace: true });
+  }, []);
+
+  return null;
+};
 
 export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer(sortReducer, initialSortState);
@@ -178,7 +186,7 @@ export const App = (props: Props): ReactElement => {
                 <ContactUsPage path="/contact" client={props.client} />
                 <TrainingProviderPage path="/training-provider-resources" client={props.client} />
                 <AllSupportPage path="/support-resources" client={props.client} />
-                <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
+                <SupportRedirect path="/support-resources/*" />
                 <SystemErrorPage default client={props.client} code="404" />
                 <ToolsPage path="/tools" client={props.client} />
                 {/* <NotFoundPage default client={props.client} /> */}

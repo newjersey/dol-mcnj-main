@@ -3,7 +3,9 @@ describe("Support Resources Page", () => {
     cy.visit("/support-resources");
     cy.injectAxe();
 
-    cy.contains("Browse support and assistance resources by category.").should("exist");
+    cy.contains("Helpful links to programs, resources, and services beyond My Career NJ").should(
+      "exist",
+    );
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500);
     cy.checkA11y();

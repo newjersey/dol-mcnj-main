@@ -22,9 +22,9 @@
   }
 
   .title {
-    background: $primary;
+    background: $info-darker;
     color: $ink;
-    padding: $size-10 15px;
+    padding: $size-16 15px;
     width: 100%;
     margin: 0;
     font-size: $size-16;
@@ -53,7 +53,7 @@
 
   &.color-blue {
     .title {
-      background: $primary;
+      background: $info-darker;
       color: $white;
     }
   }

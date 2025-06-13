@@ -4,7 +4,7 @@ import { IconSelector } from "../IconSelector";
 interface TagProps {
   chip?: boolean;
   className?: string;
-  color: "blue" | "purple" | "green" | "navy" | "orange";
+  color: "blue" | "purple" | "green" | "navy" | "orange" | "gray";
   icon?: string;
   iconSize?: number;
   iconWeight?: "regular" | "bold" | "thin" | "light" | "duotone" | "fill";

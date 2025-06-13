@@ -19,6 +19,7 @@
     "axios",
     "dayjs",
     "dompurify",
+    "fuse.js",
     "graphql-request",
     "i18next",
     "libphonenumber-js",

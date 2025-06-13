@@ -512,6 +512,7 @@ export interface TagProps {
   };
   title: string;
   category: {
+    title: string;
     slug: string;
   };
 }

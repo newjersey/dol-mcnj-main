@@ -1,19 +1,21 @@
 import { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
-import { PageBanner } from "../components/PageBanner";
 import { TrainingProviderData } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { TabContent } from "../components/TabContent";
 import { usePageTitle } from "../utils/usePageTitle";
 import { useContentful } from "../utils/useContentful";
 import pageImage from "../images/ogImages/trainingProviderResources.jpg";
+import { HeroBanner } from "../components/HeroBanner";
+import { useTranslation } from "react-i18next";
 
 interface Props extends RouteComponentProps {
   client: Client;
 }
 
 export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
+  const { t } = useTranslation();
   const data: TrainingProviderData = useContentful({
     path: "/training-provider",
   });
@@ -45,7 +47,11 @@ export const TrainingProviderPage = (props: Props): ReactElement<Props> => {
     <>
       {data && (
         <Layout client={props.client} theme="training" seo={seoObject}>
-          <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
+          <HeroBanner
+            eyebrow={t("TrainingProviderPage.eyebrow")}
+            heading={t("TrainingProviderPage.header")}
+            infoBar={t("TrainingProviderPage.infoBar")}
+          />
           <TabContent items={data?.page.tabs.items} />
         </Layout>
       )}

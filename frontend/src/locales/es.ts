@@ -160,9 +160,11 @@ export const es = {
   },
   InDemandPage: {
     pageTitle: "Ocupaciones en demanda",
-    header: "Ocupaciones en demanda",
+    header: "Lista de Ocupaciones en Demanda",
     description:
-      "Esta es una lista de ocupaciones que se espera que tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Las capacitaciones relacionadas con las ocupaciones en esta lista pueden ser elegibles para recibir financiamiento del Estado.",
+      "Descubre las principales ocupaciones en Nueva Jersey con más proyecciones de vacantes",
+    infoBar:
+      "La capacitación para estas ocupaciones puede calificar para financiamiento estatal. [Comunícate con tu Centro de Carrera One-Stop local para obtener más información.](https://www.nj.gov/labor/career-services/contact-us/one-stops/index.shtml)",
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
@@ -342,6 +344,17 @@ export const es = {
     defaultDataSource: "Departamento de Trabajo de Nueva Jersey",
     missingDataExplanation:
       "* Falta esta información porque no hemos recibido suficientes datos de este instituto.",
+  },
+  FaqPage: {
+    header: "Obtén respuestas a las preguntas más frecuentes",
+    eyebrow: "Preguntas Frecuentes",
+  },
+  TrainingProviderPage: {
+    header:
+      "Recopilación de datos de proveedores de capacitación, ETPL y orientación sobre aseguramiento de la calidad",
+    infoBar:
+      "¿Deseas incluir tu programa en el ETPL? [Visita Intelligrants y regístrate.](https://njdol.intelligrants.com/)",
+    eyebrow: "Recursos para Proveedores de Capacitación",
   },
   TrainingPage: {
     costGroupHeader: "Costo",
