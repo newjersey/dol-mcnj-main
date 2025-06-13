@@ -2,7 +2,13 @@
   .labelBox {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    max-height: calc(100vh - 530px);
+    background-color: $base-extra-light;
+    max-height: 100vh;
+
+    @media screen and (min-width: ($tablet-lg)) {
+      max-height: calc(100vh - $size-72);
+      min-height: $size-640;
+    }
 
     &.labelBox.toggleBox {
       .content {

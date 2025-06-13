@@ -164,7 +164,7 @@ export const es = {
     description:
       "Descubre las principales ocupaciones en Nueva Jersey con más proyecciones de vacantes",
     infoBar:
-      "La capacitación para estas ocupaciones puede ser elegible para financiamiento estatal. [Obtén más información sobre el financiamiento.](https://www.nj.gov/labor/education-and-training/funding-opportunities/)",
+      "La capacitación para estas ocupaciones puede calificar para financiamiento estatal. [Comunícate con tu Centro de Carrera One-Stop local para obtener más información.](https://www.nj.gov/labor/career-services/contact-us/one-stops/index.shtml)",
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
