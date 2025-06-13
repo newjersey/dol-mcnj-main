@@ -128,10 +128,7 @@ const FilterControls = ({
                 className="usa-input"
                 onChange={(e) => {
                   const searchTerm = e.target.value.toLowerCase();
-                  const filteredSelected = selected.filter((item) =>
-                    item.title.toLowerCase().includes(searchTerm),
-                  );
-                  setSelected(filteredSelected);
+                  setSearchQuery && setSearchQuery(searchTerm);
                   if (onType) {
                     onType(searchTerm);
                   }

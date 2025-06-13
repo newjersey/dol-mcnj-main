@@ -353,7 +353,7 @@ export const es = {
     header:
       "Recopilación de datos de proveedores de capacitación, ETPL y orientación sobre aseguramiento de la calidad",
     infoBar:
-      "¿Deseas incluir tu programa en el ETPL? [Visita Intelligrants y regístrate.](https://intelligrants.nj.gov/)",
+      "¿Deseas incluir tu programa en el ETPL? [Visita Intelligrants y regístrate.](https://njdol.intelligrants.com/)",
     eyebrow: "Recursos para Proveedores de Capacitación",
   },
   TrainingPage: {
