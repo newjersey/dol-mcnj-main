@@ -154,7 +154,7 @@ export const en = {
     header: "In-Demand Occupations List",
     description: "Discover New Jersey's top occupations with the most projected openings",
     infoBar:
-      "Training for these occupations may be eligible for state funding. [Learn more about funding.](https://www.nj.gov/labor/education-and-training/funding-opportunities/)",
+      "Training for these occupations may qualify for state funding. [Contact your local One-Stop Career Center to learn more.](https://www.nj.gov/labor/career-services/contact-us/one-stops/index.shtml)",
     descriptionTextLink: "Learn more about local and regional waivers",
     typeaheadPlaceholder: "Search for occupations",
   },
