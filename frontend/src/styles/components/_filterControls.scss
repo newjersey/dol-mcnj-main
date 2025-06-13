@@ -1,11 +1,18 @@
 .filterControls {
   .labelBox {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 530px);
+
     &.labelBox.toggleBox {
       .content {
-        display: flex;
         flex-direction: column;
         gap: $size-30;
         align-items: flex-start;
+
+        @media screen and (min-width: ($tablet-lg)) {
+          display: flex;
+        }
 
         &.open {
           display: flex;

@@ -170,4 +170,10 @@
     right: $size-32;
     top: $size-16;
   }
+
+  &.nrp {
+    .usa-alert__body {
+      padding-right: $size-16;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 .resource-list {
-  padding: 3rem 0;
+  padding: $size-32 0;
 
   .labelBox {
     .title {
@@ -120,22 +120,6 @@
       }
     }
 
-    .tags {
-      margin-top: $size-16;
-      display: flex;
-      flex-wrap: wrap;
-      gap: $size-16;
-
-      button {
-        padding: 0;
-      }
-    }
-
-    .tag-item {
-      padding: 0.5rem;
-      border-radius: 0.3rem;
-    }
-
     .sort {
       display: flex;
       flex-direction: column;
@@ -214,5 +198,23 @@
         height: auto;
       }
     }
+  }
+}
+
+.listing-header {
+  .tags {
+    margin-top: $size-16;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $size-16;
+
+    button {
+      padding: 0;
+    }
+  }
+
+  .tag-item {
+    padding: 0.5rem;
+    border-radius: 0.3rem;
   }
 }

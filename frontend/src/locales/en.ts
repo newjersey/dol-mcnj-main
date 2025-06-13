@@ -344,7 +344,7 @@ export const en = {
   TrainingProviderPage: {
     header: "Training provider data collection, ETPL, and quality assurance guidance",
     infoBar:
-      "Looking to get you program on the ETPL? [Visit Intelligrants and sign up.](https://intelligrants.nj.gov/)",
+      "Looking to get you program on the ETPL? [Visit Intelligrants and sign up.](https://njdol.intelligrants.com/)",
     eyebrow: "Training Provider Resources",
   },
   TrainingPage: {
