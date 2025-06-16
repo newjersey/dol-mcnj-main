@@ -1,13 +1,14 @@
 import { ReactElement } from "react";
 import { RouteComponentProps } from "@reach/router";
 import { Client } from "../domain/Client";
-import { PageBanner } from "../components/PageBanner";
 import { FaqCollection } from "../components/FaqCollection";
 import { FaqPageData, LinkObjectProps, ThemeColors } from "../types/contentful";
 import { Layout } from "../components/Layout";
 import { CtaBanner } from "../components/CtaBanner";
 import { useContentful } from "../utils/useContentful";
 import pageImage from "../images/ogImages/faq.jpg";
+import { HeroBanner } from "../components/HeroBanner";
+import { useTranslation } from "react-i18next";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -16,6 +17,7 @@ interface Props extends RouteComponentProps {
 
 export const FaqPage = (props: Props): ReactElement<Props> => {
   const data: FaqPageData = useContentful({ path: "/faq" });
+  const { t } = useTranslation();
 
   const ctaLinkConverter = (links: LinkObjectProps[]) => {
     return links.map((link, index: number) => {
@@ -40,7 +42,8 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     title: data
       ? `${data?.page?.title} | ${process.env.REACT_APP_SITE_NAME}`
       : `Frequently Asked Questions | ${process.env.REACT_APP_SITE_NAME}`,
-    pageDescription: data?.page?.pageDescription || "Get answers to all of your My Career NJ questions",
+    pageDescription:
+      data?.page?.pageDescription || "Get answers to all of your My Career NJ questions",
     image: data?.page?.ogImage?.url || pageImage,
     keywords: data?.page?.keywords || [
       "FAQ",
@@ -58,7 +61,7 @@ export const FaqPage = (props: Props): ReactElement<Props> => {
     <Layout client={props.client} theme="support" seo={seoObject}>
       {data && (
         <>
-          <PageBanner {...data.page.pageBanner} date={data.page.sys.publishedAt} />
+          <HeroBanner eyebrow={t("FaqPage.eyebrow")} heading={t("FaqPage.header")} />
           <FaqCollection items={data?.page.categoriesCollection.items} />
 
           <CtaBanner

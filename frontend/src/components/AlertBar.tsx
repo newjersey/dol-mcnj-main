@@ -43,7 +43,7 @@ export const AlertBar = ({
       id={alertId}
       className={`alert-bar usa-alert usa-alert--${type}${loading || remove ? " hide" : ""}${
         className ? ` ${className}` : ""
-      }`}
+      }${dismissible ? "" : " nrp"}`}
     >
       <div className="usa-alert__body">
         <div>
