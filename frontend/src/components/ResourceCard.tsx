@@ -50,12 +50,22 @@ export const ResourceCard = ({
         }}
       />
 
+      <small>Filter categories:</small>
+
       <div className="tags">
         {tags.items.map((tag) => (
           <Tag
             key={tag.sys.id}
             title={tag.title}
-            color={tag.category.slug === "audience" ? "blue" : theme}
+            color={
+              tag.category.slug === "audience"
+                ? "blue"
+                : tag.category.title === "Career Support"
+                  ? "purple"
+                  : tag.category.title === "Tuition Assistance"
+                    ? "green"
+                    : "navy"
+            }
           />
         ))}
       </div>

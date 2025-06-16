@@ -463,9 +463,9 @@ $gray-warm-90: #171716;
 
 // THEME COLORS
 
-$base-cool: $gray-2;
+$base-cool: $gray-1;
 $base-lightest: $gray-5;
-$base-lighter: $gray-10;
+$base-lighter: $gray-cool-10;
 $base-light: $gray-cool-30;
 $base-extra-light: $gray-3;
 $base: $gray-50;
@@ -599,6 +599,9 @@ $size-536: 33.5rem;
 $size-560: 35rem;
 $size-640: 40rem;
 $size-720: 45rem;
+$size-750: 47.5rem;
+$size-800: 50rem;
+$size-840: 52.5rem;
 $size-880: 55rem;
 $size-1024: 64rem;
 $size-1200: 75rem;

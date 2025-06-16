@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IconSelector } from "../IconSelector";
 import { Heading } from "./Heading";
 import { CaretDown, CaretUp } from "@phosphor-icons/react";
@@ -27,6 +27,17 @@ export const LabelBox = ({
   toggle,
 }: LabelBoxProps) => {
   const [open, setOpen] = useState<boolean>(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleToggle = () => {
+    const nextOpen = !open;
+    setOpen(nextOpen);
+
+    if (nextOpen && buttonRef.current) {
+      buttonRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div
       className={`labelBox${className ? ` ${className}` : ""}${color ? ` color-${color}` : ""}${
@@ -34,12 +45,7 @@ export const LabelBox = ({
       }${toggle ? ` toggleBox` : ""}`}
     >
       {toggle ? (
-        <button
-          className="title toggle"
-          onClick={() => {
-            setOpen(!open);
-          }}
-        >
+        <button ref={buttonRef} className="title toggle" onClick={handleToggle}>
           <Heading level={headingLevel}>
             {icon && <IconSelector name={icon} size={20} weight={iconWeight} />}
             {title}
