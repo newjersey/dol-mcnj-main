@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@contentful/rich-text-html-renderer": "^17.0.0",
+    "@contentful/rich-text-html-renderer": "^17.0.1",
     "@contentful/rich-text-react-renderer": "^16.0.2",
     "@contentful/rich-text-types": "^17.0.1",
     "@hookform/resolvers": "^5.1.1",
@@ -17,7 +17,7 @@
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.6.1",
     "@types/accounting": "^0.4.5",
-    "@types/jest": "^29.5.14",
+    "@types/jest": "^30.0.0",
     "@types/react": "^16.14.55",
     "@types/react-dom": "^16.9.16",
     "@typescript-eslint/parser": "^6.21.0",
