@@ -8,14 +8,14 @@ describe("In Demand Occupations page", () => {
     cy.injectAxe();
 
     cy.contains("Business and Financial Operations").should("exist");
-    cy.contains("Compliance Officers").should("not.exist");
-    cy.contains("Cost Estimators").should("not.exist");
+    cy.contains("CTraining and Development Specialists").should("not.exist");
+    cy.contains("Financial Examiners").should("not.exist");
 
     cy.contains("Business and Financial Operations").click();
 
     cy.contains("Business and Financial Operations").should("exist");
-    cy.contains("Compliance Officers").should("exist");
-    cy.contains("Cost Estimators").should("exist");
+    cy.contains("Training and Development Specialists").should("exist");
+    cy.contains("Financial Examiners").should("exist");
 
     cy.checkA11y();
   });
