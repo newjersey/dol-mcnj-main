@@ -1,7 +1,7 @@
 -- 🔽 Migration UP: clear existing rows, then re‐insert from socs.csv
 DELETE FROM public.indemandcips;
 DELETE FROM public.indemandsocs;
-DELETE public.localexceptioncips;
+DELETE FROM public.localexceptioncips;
 
 -- ▶  Re‐populate indemandcips
 INSERT INTO public.indemandcips (cip, ciptitle, cipcode) VALUES ('01.0205', 'Agricultural Mechanics and Equipment/Machine Technology/Technician.', '010205');
