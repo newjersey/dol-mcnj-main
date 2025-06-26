@@ -143,7 +143,11 @@ export const en = {
     careerOneStopLogo: "Official logo for Career One Stop organization",
   },
   InDemandBlock: {
-    inDemandTitle: "In-Demand in all of New Jersey.",
+    inDemandTitle: "In Demand throughout New Jersey",
+    trainingMessage:
+      "This training may be eligible for funding from your [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
+    occupationMessage:
+      "New Jersey funds New Jersey residents seeking skills training in demand occupations. Contact the [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     inDemandText: "This training may be eligible for funding from your",

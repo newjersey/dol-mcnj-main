@@ -152,7 +152,11 @@ export const es = {
     careerOneStopLogo: "Logotipo oficial de la organización Career One Stop",
   },
   InDemandBlock: {
-    inDemandTitle: "En demanda en todo Nueva Jersey.",
+    inDemandTitle: "Con alta demanda en todo Nueva Jersey",
+    trainingMessage:
+      "Esta capacitación puede ser elegible para financiamiento a través de su [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
+    occupationMessage:
+      "Nueva Jersey financia a residentes del estado que buscan capacitación en ocupaciones con alta demanda. Comuníquese con el [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     localExceptionCountiesTitle: "En demanda en {{counties}}.",
     localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     inDemandText: "Este entrenamiento puede calificar para recibir fondos de su oficina local de",
