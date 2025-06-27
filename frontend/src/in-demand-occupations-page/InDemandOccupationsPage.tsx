@@ -66,7 +66,12 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
       }}
     >
       <div className="container">
-        <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
+        <p style={{ marginBottom: "1rem" }} className="text-l ptd weight-500">
+          {t("InDemandPage.subheader")}
+        </p>
+        <h2 style={{ marginBottom: "1rem" }} className="text-xl weight-500">
+          {t("InDemandPage.header")}
+        </h2>
 
         <p>{t("InDemandPage.description")}</p>
         <div className="pbm search-bar">
