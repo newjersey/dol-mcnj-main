@@ -152,7 +152,11 @@ export const es = {
     careerOneStopLogo: "Logotipo oficial de la organización Career One Stop",
   },
   InDemandBlock: {
-    inDemandTitle: "En demanda en todo Nueva Jersey.",
+    inDemandTitle: "Con alta demanda en todo Nueva Jersey",
+    trainingMessage:
+      "Esta capacitación puede ser elegible para financiamiento a través de su [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
+    occupationMessage:
+      "Nueva Jersey financia a los residentes del estado que buscan capacitación en habilidades para ocupaciones de alta demanda. Comuníquese con su [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     localExceptionCountiesTitle: "En demanda en {{counties}}.",
     localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     inDemandText: "Este entrenamiento puede calificar para recibir fondos de su oficina local de",
@@ -169,9 +173,9 @@ export const es = {
   },
   LandingPage: {
     bannerHeading: "My Career NJ",
-    bannerSubheading: "Las herramientas que necesitas para donde estás",
+    bannerSubheading: "Herramientas de Carrera de Última Generación:",
     bannerMessageCopy:
-      "Encuentre el programa de capacitación adecuado, obtenga coincidencias laborales personalizadas y explore las carreras profesionales más demandadas de Nueva Jersey con estas poderosas herramientas digitales.",
+      "Encuentre el programa de capacitación adecuado, obtenga coincidencias personalizadas de empleo y explore las carreras más demandadas de Nueva Jersey con nuestras potentes herramientas digitales.",
     topToolsHeader: "Herramientas principales",
     topToolNavigatorHeading: "Navegador de Carreras de NJ",
     topToolNavigatorDescription:
@@ -344,17 +348,6 @@ export const es = {
     defaultDataSource: "Departamento de Trabajo de Nueva Jersey",
     missingDataExplanation:
       "* Falta esta información porque no hemos recibido suficientes datos de este instituto.",
-  },
-  FaqPage: {
-    header: "Obtén respuestas a las preguntas más frecuentes",
-    eyebrow: "Preguntas Frecuentes",
-  },
-  TrainingProviderPage: {
-    header:
-      "Recopilación de datos de proveedores de capacitación, ETPL y orientación sobre aseguramiento de la calidad",
-    infoBar:
-      "¿Deseas incluir tu programa en el ETPL? [Visita Intelligrants y regístrate.](https://njdol.intelligrants.com/)",
-    eyebrow: "Recursos para Proveedores de Capacitación",
   },
   TrainingPage: {
     costGroupHeader: "Costo",
