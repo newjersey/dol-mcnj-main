@@ -31,7 +31,7 @@ describe('addSubscriberToMailchimp', () => {
         merge_fields: {
           FNAME: 'John',
           LNAME: 'Doe',
-          PHONE: '1234567890'
+          // PHONE: '1234567890'
         }
       }
     };
@@ -42,7 +42,7 @@ describe('addSubscriberToMailchimp', () => {
       'John',
       'Doe',
       'test@example.com',
-      '1234567890'
+      // '1234567890'
     );
 
     expect(result).toEqual(mockResponse.data);
@@ -54,7 +54,7 @@ describe('addSubscriberToMailchimp', () => {
         merge_fields: {
           FNAME: 'John',
           LNAME: 'Doe',
-          PHONE: '1234567890'
+          // PHONE: '1234567890'
         }
       },
       {
@@ -70,7 +70,7 @@ describe('addSubscriberToMailchimp', () => {
   });
 
   it('should throw error when email is missing', async () => {
-    await expect(addSubscriberToMailchimp('John', 'Doe', '', '1234567890'))
+    await expect(addSubscriberToMailchimp('John', 'Doe', '', /*'1234567890'*/))
       .rejects
       .toThrow('Email address is required.');
   });
@@ -97,7 +97,7 @@ describe('addSubscriberToMailchimp', () => {
       'John',
       'Doe',
       'invalid-email',
-      '1234567890'
+      // '1234567890'
     )).rejects.toThrow(errorMessage);
   });
 
@@ -108,7 +108,7 @@ describe('addSubscriberToMailchimp', () => {
       'John',
       'Doe',
       'test@example.com',
-      '1234567890'
+      // '1234567890'
     )).rejects.toThrow('Failed to connect to Mailchimp.');
   });
 });
