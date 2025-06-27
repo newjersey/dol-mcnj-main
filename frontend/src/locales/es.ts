@@ -159,12 +159,12 @@ export const es = {
     inDemandLinkText: "Career One-Stop",
   },
   InDemandPage: {
-    pageTitle: "Ocupaciones en demanda",
-    header: "Lista de Ocupaciones en Demanda",
-    description:
-      "Descubre las principales ocupaciones en Nueva Jersey con más proyecciones de vacantes",
+    pageTitle: "Ocupaciones en Alta Demanda",
+    header: "Lista de Ocupaciones en Alta Demanda",
+    description: "Descubre las ocupaciones con más proyecciones de vacantes en Nueva Jersey",
     infoBar:
-      "La capacitación para estas ocupaciones puede calificar para financiamiento estatal. [Comunícate con tu Centro de Carrera One-Stop local para obtener más información.](https://www.nj.gov/labor/career-services/contact-us/one-stops/index.shtml)",
+      "Esta es una lista de títulos de trabajo que se espera tengan un alto número de vacantes disponibles en comparación con los trabajadores calificados. La lista se actualiza cada dos años para que los residentes de Nueva Jersey elijan trayectorias educativas y de capacitación alineadas con las necesidades del mercado laboral. El Estado solo financia la capacitación laboral para los residentes de Nueva Jersey que buscan adquirir habilidades en las ocupaciones en demanda que se enumeran aquí.",
+    descriptionTextLink: "Más información sobre exenciones locales y regionales",
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
