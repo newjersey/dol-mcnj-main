@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import { formatCountiesArrayToString } from "../utils/formatCountiesArrayToString";
-import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
+import { parseMarkdownToHTMLWithLinksInNewTab } from "../utils/parseMarkdownToHTML";
 
 interface Props {
   message?: string;
@@ -23,7 +23,9 @@ export const InDemandBlock = (props: Props): ReactElement => {
       <div>
         {props.message ? (
           <div
-            dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(props.message) }}
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTMLWithLinksInNewTab(props.message),
+            }}
             className="inDemandMessage"
           />
         ) : (
