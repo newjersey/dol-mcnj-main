@@ -18,7 +18,7 @@ import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { usePageTitle } from "../utils/usePageTitle";
-import {Helmet} from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   soc?: string;
@@ -149,23 +149,23 @@ export const OccupationPage = (props: Props): ReactElement => {
     return {
       "@context": "https://schema.org/",
       "@type": "Occupation",
-      "name": detail.title,
-      "description": detail.description,
+      name: detail.title,
+      description: detail.description,
       // "qualifications": "Qualifications information",
       // "skills": ["Skills information"],
-      "responsibilities": detail.tasks,
-      "educationRequirements": detail.education,
+      responsibilities: detail.tasks,
+      educationRequirements: detail.education,
       // "experienceRequirements": "Experience requirements information",
-      "occupationalCategory": detail.soc,
-      "estimatedSalary": {
+      occupationalCategory: detail.soc,
+      estimatedSalary: {
         "@type": "MonetaryAmount",
-        "currency": "USD",
-        "value": {
+        currency: "USD",
+        value: {
           "@type": "QuantitativeValue",
-          "value": detail.medianSalary,
-          "unitText": "YEAR"
-        }
-      }
+          value: detail.medianSalary,
+          unitText: "YEAR",
+        },
+      },
     };
   };
 
@@ -219,12 +219,19 @@ export const OccupationPage = (props: Props): ReactElement => {
           </h2>
 
           <div className="stat-block-stack mtm">
-            {occupationDetail.inDemand ? <InDemandBlock /> : <></>}
+            {occupationDetail.inDemand ? (
+              <InDemandBlock message={t("InDemandBlock.occupationMessage")} />
+            ) : (
+              <></>
+            )}
 
             {!occupationDetail.inDemand &&
             occupationDetail.counties &&
             occupationDetail.counties.length !== 0 ? (
-              <InDemandBlock counties={occupationDetail.counties} />
+              <InDemandBlock
+                counties={occupationDetail.counties}
+                message={t("InDemandBlock.occupationMessage")}
+              />
             ) : (
               <></>
             )}
@@ -254,7 +261,6 @@ export const OccupationPage = (props: Props): ReactElement => {
                 backgroundColorClass="bg-light-purple-50"
               />
             </div>
-
           </div>
           <div>
             <a

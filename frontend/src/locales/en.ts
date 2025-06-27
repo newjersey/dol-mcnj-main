@@ -143,7 +143,11 @@ export const en = {
     careerOneStopLogo: "Official logo for Career One Stop organization",
   },
   InDemandBlock: {
-    inDemandTitle: "In-Demand in all of New Jersey.",
+    inDemandTitle: "In Demand throughout New Jersey",
+    trainingMessage:
+      "This training may be eligible for funding from your [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
+    occupationMessage:
+      "New Jersey funds state residents seeking skills training for in-demand occupations. Contact your [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     inDemandText: "This training may be eligible for funding from your",
@@ -151,18 +155,18 @@ export const en = {
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
-    header: "Discover New Jersey's occupations with the most projected openings",
-    subheader: "In-Demand Occupations List",
-    description:
-      "This is a list of job titles that are expected to have a high number of available job openings compared to qualified workers. The list is updated every two years for New Jerseyans to choose education and training paths matched to job market needs. The State only funds New Jersey residents seeking skills training for the demand occupations listed here.",
+    header: "In-Demand Occupations List",
+    description: "Discover New Jersey's top occupations with the most projected openings",
+    infoBar:
+      "Training for these occupations may qualify for state funding. [Contact your local One-Stop Career Center to learn more.](https://www.nj.gov/labor/career-services/contact-us/one-stops/index.shtml)",
     descriptionTextLink: "Learn more about local and regional waivers",
     typeaheadPlaceholder: "Search for occupations",
   },
   LandingPage: {
     bannerHeading: "My Career NJ",
-    bannerSubheading: "Cutting Edge Career Tools:",
+    bannerSubheading: "The tools you need for where you are",
     bannerMessageCopy:
-      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with our powerful digital tools.",
+      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
     topToolsHeader: "Top tools",
     topToolNavigatorHeading: "NJ Career Navigator",
     topToolNavigatorDescription:
@@ -332,6 +336,20 @@ export const en = {
     defaultDataSource: "NJ Dept of Labor",
     missingDataExplanation:
       "* This information is missing because we haven't received enough data from this institute.",
+  },
+  FaqPage: {
+    header: "Get answers to commonly asked questions",
+    eyebrow: "Frequently Asked Questions",
+  },
+  ContactPage: {
+    header: "Need help with My Career NJ? Reach out today",
+    eyebrow: "Contact Us",
+  },
+  TrainingProviderPage: {
+    header: "Training provider data collection, ETPL, and quality assurance guidance",
+    infoBar:
+      "Looking to get you program on the ETPL? [Visit Intelligrants and sign up.](https://njdol.intelligrants.com/)",
+    eyebrow: "Training Provider Resources",
   },
   TrainingPage: {
     header: "Training Opportunity",
