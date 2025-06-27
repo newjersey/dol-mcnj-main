@@ -147,7 +147,7 @@ export const en = {
     trainingMessage:
       "This training may be eligible for funding from your [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     occupationMessage:
-      "New Jersey funds New Jersey residents seeking skills training in demand occupations. Contact the [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
+      "New Jersey funds state residents seeking skills training for in-demand occupations. Contact your [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     inDemandText: "This training may be eligible for funding from your",

@@ -156,7 +156,7 @@ export const es = {
     trainingMessage:
       "Esta capacitación puede ser elegible para financiamiento a través de su [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     occupationMessage:
-      "Nueva Jersey financia a residentes del estado que buscan capacitación en ocupaciones con alta demanda. Comuníquese con el [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
+      "Nueva Jersey financia a los residentes del estado que buscan capacitación en habilidades para ocupaciones de alta demanda. Comuníquese con su [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     localExceptionCountiesTitle: "En demanda en {{counties}}.",
     localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     inDemandText: "Este entrenamiento puede calificar para recibir fondos de su oficina local de",
