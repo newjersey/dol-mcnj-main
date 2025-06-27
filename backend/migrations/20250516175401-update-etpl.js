@@ -21,7 +21,7 @@ exports.setup = function(options, seedLink) {
 exports.up = function(db) {
     const fileName =
       process.env.NODE_ENV === "test"
-        ? "20250516175401-update-etpl-up.sql-TEST"
+        ? "20250516175401-update-etpl-up-TEST.sql"
         : "20250516175401-update-etpl-up.sql";
   var filePath = path.join(__dirname, 'sqls', fileName);
   return new Promise( function( resolve, reject ) {
@@ -40,7 +40,7 @@ exports.up = function(db) {
 exports.down = function(db) {
     const fileName =
       process.env.NODE_ENV === "test"
-        ? "20250516175401-update-etpl-down.sql-TEST"
+        ? "20250516175401-update-etpl-down-TEST.sql"
         : "20250516175401-update-etpl-down.sql";
   var filePath = path.join(__dirname, 'sqls', fileName);
   return new Promise( function( resolve, reject ) {
