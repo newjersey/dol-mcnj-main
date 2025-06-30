@@ -167,7 +167,7 @@ export const SignUpFormModal = () => {
           setIsOpen(!isOpen);
         }}
       >
-        <Megaphone size={20} weight="bold" /> {t("SignUpFormModal.buttonText")}
+        <Megaphone size={20} weight="bold" /> <strong>{t("SignUpFormModal.buttonText")}</strong>
       </Button>
 
       <div className={`signUpModal${isOpen ? " open" : ""}`}>
