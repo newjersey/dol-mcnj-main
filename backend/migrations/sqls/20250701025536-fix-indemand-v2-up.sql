@@ -1,7 +1,7 @@
 TRUNCATE TABLE indemandsocs;
 TRUNCATE TABLE indemandsocs;
 
-INSERT INTO indemandsocs (soc, soctitle) VALUES
+INSERT INTO indemandsocs (soc, occupationtitle) VALUES
                                              ('11-3021', 'Computer and Information Systems Managers'),
                                              ('11-3031', 'Financial Managers'),
                                              ('11-3071', 'Transportation, Storage, and Distribution Managers'),
