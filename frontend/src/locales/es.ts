@@ -159,17 +159,19 @@ export const es = {
     inDemandLinkText: "Career One-Stop",
   },
   InDemandPage: {
-    pageTitle: "Ocupaciones en demanda",
-    header: "Ocupaciones en demanda",
+    pageTitle: "Ocupaciones en Alta Demanda",
+    header: "Descubre las ocupaciones de Nueva Jersey con más vacantes proyectadas",
+    subheader: "Lista de Ocupaciones en Alta Demanda",
     description:
-      "Esta es una lista de ocupaciones que se espera que tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Las capacitaciones relacionadas con las ocupaciones en esta lista pueden ser elegibles para recibir financiamiento del Estado.",
+      "Esta es una lista de títulos de trabajo que se espera tengan un alto número de vacantes disponibles en comparación con los trabajadores calificados. La lista se actualiza cada dos años para que los residentes de Nueva Jersey puedan elegir trayectorias educativas y de capacitación alineadas con las necesidades del mercado laboral. El Estado solo financia a los residentes de Nueva Jersey que buscan capacitación en habilidades para las ocupaciones en demanda que se enumeran aquí.",
+    descriptionTextLink: "Más información sobre exenciones locales y regionales",
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
     bannerHeading: "My Career NJ",
-    bannerSubheading: "Herramientas de Carrera de Última Generación:",
+    bannerSubheading: "Las herramientas que necesitas para donde estás",
     bannerMessageCopy:
-      "Encuentre el programa de capacitación adecuado, obtenga coincidencias personalizadas de empleo y explore las carreras más demandadas de Nueva Jersey con nuestras potentes herramientas digitales.",
+      "Encuentre el programa de capacitación adecuado, obtenga coincidencias laborales personalizadas y explore las carreras profesionales más demandadas de Nueva Jersey con estas poderosas herramientas digitales.",
     topToolsHeader: "Herramientas principales",
     topToolNavigatorHeading: "Navegador de Carreras de NJ",
     topToolNavigatorDescription:
@@ -342,6 +344,17 @@ export const es = {
     defaultDataSource: "Departamento de Trabajo de Nueva Jersey",
     missingDataExplanation:
       "* Falta esta información porque no hemos recibido suficientes datos de este instituto.",
+  },
+  FaqPage: {
+    header: "Obtén respuestas a las preguntas más frecuentes",
+    eyebrow: "Preguntas Frecuentes",
+  },
+  TrainingProviderPage: {
+    header:
+      "Recopilación de datos de proveedores de capacitación, ETPL y orientación sobre aseguramiento de la calidad",
+    infoBar:
+      "¿Deseas incluir tu programa en el ETPL? [Visita Intelligrants y regístrate.](https://njdol.intelligrants.com/)",
+    eyebrow: "Recursos para Proveedores de Capacitación",
   },
   TrainingPage: {
     costGroupHeader: "Costo",
