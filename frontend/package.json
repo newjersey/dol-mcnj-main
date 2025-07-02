@@ -38,7 +38,7 @@
     "react-hook-form": "^7.56.4",
     "react-i18next": "^15.5.2",
     "react-scripts": "5.0.1",
-    "react-tooltip": "^5.28.1",
+    "react-tooltip": "^5.29.1",
     "sass": "^1.89.0",
     "typescript": "^5.8.3",
     "winston": "^3.17.0",
