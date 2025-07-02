@@ -6,6 +6,7 @@ import { InlineIcon } from "./InlineIcon";
 import { ContentfulRichText } from "../types/contentful";
 import { ContentfulRichText as RichText } from "./ContentfulRichText";
 import { CipDrawerContent } from "./CipDrawerContent";
+import { Tooltip } from "react-tooltip";
 
 export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichText }) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
@@ -105,15 +106,14 @@ export const SearchBlock = ({ drawerContent }: { drawerContent?: ContentfulRichT
         <div className="heading">
           <p className="heading-tag">
             <span>Search for training </span>
-            <button
-              type="button"
-              className="unstyled usa-tooltip"
-              data-position="top"
-              title="Search by training, provider, certification, SOC code, CIP code, or keyword."
-            >
-              <Info />
+            <span>
+              <Info
+                data-tooltip-id="totalClockHours-tooltip"
+                data-tooltip-content="Search by training, provider, certification, SOC code, CIP code, or keyword."
+              />
+              <Tooltip id="totalClockHours-tooltip" className="custom-tooltip" />
               <div className="sr-only">Information</div>
-            </button>
+            </span>
           </p>
           <button
             type="button"
