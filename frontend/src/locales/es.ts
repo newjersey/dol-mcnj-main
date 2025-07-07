@@ -45,7 +45,7 @@ export const es = {
   ExplorerPage: {
     bannerSubheading: "Encuentre programas de capacitación laboral de calidad:",
     bannerMessageCopy:
-      "Accede a más de 5000 programas de capacitación y certificaciones para impulsar tu carrera. Compara detalles, costos y ubicaciones de los programas para tomar una decisión informada.",
+      "Accede a más de 4000 programas de capacitación y certificaciones para impulsar tu carrera. Compara detalles, costos y ubicaciones de los programas para tomar una decisión informada.",
     header: "Arranque su búsqueda para encontrar su próxima oportunidad de formación profesional.",
     sectionOneHeader: "Empecemos!",
     sectionOneText:
@@ -565,8 +565,8 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
     buttonText: "Regístrate para recibir actualizaciones",
     formTitle: "Formulario de registro de usuario de My Career NJ",
     formDescription:
-      "Regístrese para recibir correos electrónicos y conocer herramientas y recursos que lo ayudarán a avanzar en su carrera.",
-    firstNameLabel: "Nombre",
+      "Regístrese para recibir correos electrónicos y conocer las herramientas y recursos que le ayudarán a avanzar en su carrera.",
+    firstNameLabel: "Primer Nombre",
     firstNameError: "El nombre debe tener 2 o más caracteres.",
     lastNameLabel: "Apellido",
     lastNameError: "El apellido debe tener 2 o más caracteres.",
@@ -574,7 +574,7 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
     emailRequired: "El correo electrónico es obligatorio.",
     emailError: "Por favor, introduce una dirección de correo electrónico válida.",
     phoneLabel: "Número de teléfono móvil",
-    usPhoneOnlyLabel: "Solo números de teléfono de EE.UU.",
+    usPhoneOnlyLabel: "Solo números de teléfono de los Estados Unidos",
     phoneError: "Por favor, introduce un número de teléfono válido.",
     submitButton: "Enviar formulario",
     successMessage: "¡Éxito!  Está todo listo para recibir actualizaciones de My Career NJ.",
@@ -591,7 +591,7 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
       part1: "Un asterisco rojo ",
       part2: " indica un campo obligatorio.",
     },
-    readAboutOur: "Lee sobre nuestra",
+    readAboutOur: "Lea sobre nuestra",
     privacyPolicy: "política de privacidad",
     andOur: "y nuestra",
     smsUsePolicy: "política de uso de SMS",
