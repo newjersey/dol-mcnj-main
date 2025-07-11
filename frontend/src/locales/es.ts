@@ -181,11 +181,11 @@ export const es = {
     topToolNavigatorDescription:
       "Cargue su currículum para ver recomendaciones personalizadas de empleos y programas de capacitación.",
     topToolNavigatorButtonText: "Comenzar",
-    topToolExplorerHeading: "Explorador de Capacitación",
+    topToolExplorerHeading: "NJ Explorador de Capacitación",
     topToolExplorerDescription:
       "Busque por empleo, programa de capacitación y más para encontrar la capacitación que le convenga.",
     topToolExplorerButtonText: "Buscar capacitación",
-    topToolPathwaysHeading: "Trayectorias Profesionales",
+    topToolPathwaysHeading: "NJ Trayectorias Profesionales",
     topToolPathwaysDescription:
       "Explore industrias populares para ver lo que se necesita para ingresar o avanzar en ellas.",
     topToolPathwaysButtonText: "Explorar trayectorias",
