@@ -1,16 +1,23 @@
 import { Markdown } from "@components/modules/Markdown";
 import { Flex } from "@components/utility/Flex";
+import { ThemeColors } from "@utils/types";
 
 export const Steps = ({
   className,
+  theme = "blue",
   items,
 }: {
   className?: string;
+  theme?: ThemeColors;
   items: string[];
 }) => {
   return (
-    <div className={`steps${className ? ` ${className}` : ""}`}>
-      <div className="container">
+    <div
+      className={`steps${className ? ` ${className}` : ""}${
+        theme ? ` theme-${theme}` : ""
+      }`}
+    >
+      <div className="container narrow">
         <div className="inner">
           <Flex
             alignItems="center"

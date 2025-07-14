@@ -14,6 +14,9 @@ interface CtaProps {
   theme?: ThemeColors;
 }
 
+const headingClasses =
+  "heading-text text-ink text-[20.8px] tabletLg:text-[28px] font-bold mx-auto mb-[16px] leading-[1.2]";
+
 const Cta = ({
   className,
   heading,
@@ -31,14 +34,11 @@ const Cta = ({
     >
       {heading ? (
         headingLevel ? (
-          <Heading
-            className="heading-text text-ink text-[20.8px] tabletLg:text-[32px] font-bold mx-auto mb-[16px] leading-[1.2]"
-            level={headingLevel}
-          >
+          <Heading className={headingClasses} level={headingLevel}>
             {heading}
           </Heading>
         ) : (
-          <p className="heading-text">{heading}</p>
+          <p className={headingClasses}>{heading}</p>
         )
       ) : null}
 
@@ -46,7 +46,7 @@ const Cta = ({
         className={`links flex items-center gap-[16px]${
           linkDirection === "column"
             ? ` flex-col mobile:flex-row justify-center`
-            : " flex-col"
+            : " flex-row justify-center"
         }`}
       >
         {links.map((button, index: number) => {

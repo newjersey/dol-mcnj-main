@@ -2,7 +2,7 @@ import { CtaBannerProps } from "@components/blocks/CtaBanner";
 import { SectionHeadingProps } from "@components/modules/SectionHeading";
 import { ButtonProps, FaqItem } from "@utils/types";
 import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeading";
-import image from "@images/placeholder.png";
+import image from "@images/training.png";
 import { PageHeroProps } from "@components/blocks/PageHero";
 
 export const TRAINING_EXPLORER_PAGE_DATA = {
@@ -45,9 +45,9 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
   en: {
     pageHero: {
       heading: "NJ Training Explorer",
-      subheading: "Find approved job training programs.",
+      subheading: "Find Quality Job Training Programs:",
       description:
-        "Search and compare New Jersey’s approved training providers and programs. Review details and costs, gain new skills, and advance your career with confidence.",
+        "Access 4,000+ training programs and certifications to further your career. Compare program details, costs, and locations to make an informed choice.",
       theme: "green",
       image: {
         src: image.src,
@@ -57,11 +57,18 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
         placeholder: "blur",
         alt: "Training Hero",
       },
+      button: {
+        label: "Search Trainings",
+        type: "link",
+        link: "#trainingSearch",
+        defaultStyle: "secondary",
+        iconSuffix: "ArrowDown",
+      },
     } as PageHeroProps,
     steps: [
       "Search by occupation, provider, and more",
       "Filter and compare results",
-      "Visit training provider's website to enroll",
+      "Dive into training details",
     ],
     search: {
       heading: {
@@ -143,7 +150,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
         icon: "PhoneCall",
       },
     ],
-    resourceHeading: "Check out these other useful resources",
+    resourceHeading: "How to use the Training Explorer",
     interruptor: {
       fullColor: true,
       theme: "navy",
@@ -175,36 +182,6 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
           url: "https://mycareer.nj.gov/contact",
         },
       ],
-    },
-    faqs: {
-      heading: {
-        headingLevel: 3,
-        heading: "Frequently Asked Questions",
-      } as SectionHeadingProps,
-      cta: {
-        heading: "Don't see your question?",
-        inlineButtons: true,
-        items: [
-          {
-            copy: "See all FAQs",
-            url: "/faq",
-          },
-        ],
-      },
-      items: [
-        {
-          question: "How do I search for trainings on this site?",
-          answer: `You can watch this video or read instructions on this page for detailed instructions on how to use the search on this site.`,
-        },
-        {
-          question: "How can I enroll in trainings I find on this site?",
-          answer: `For questions regarding a specific program or to enroll in a specific program, you must contact the school or organization directly. Contact information for each program is available under the "provider details" box within each program listing. This website is for information purposes only.\n\nIf you are interested in financial aid for tuition assistance, we'd advise you to check with your local one-stop before registering.\n\nTrainings that lead to employment in an in-demand occupation may be eligible for tuition assistance. Contact your NJ County One-Stop Career Center for more for more information about eligibility. Connect with a One-Stop Career Center by [making an appointment](https://forms.office.com/Pages/ResponsePage.aspx?id=0cN2UAI4n0uzauCkG9ZCpyMAsRmL_iZGuS3yTOduNF1UMFE1VUIxTU9MTDdXSDZNWlBHU0s4S0lQNSQlQCN0PWcu) or visiting [your local center](https://www.nj.gov/labor/career-services/contact-us/one-stops/index.shtml).`,
-        },
-        {
-          question: "How does tuition assistance work?",
-          answer: `Different tuition assistance opportunities have different requirements. Visit our [tuition assistance](https://training.njcareers.org/tuition-assistance) page to find out more about how funding works.`,
-        },
-      ] as FaqItem[],
     },
   },
   es: {

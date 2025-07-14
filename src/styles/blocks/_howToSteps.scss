@@ -6,8 +6,7 @@
       background-color: s.$secondary-lighter;
       border-radius: s.$size-16;
       padding: s.$size-16 s.$size-32;
-      max-width: s.$desktop-lg - 50;
-      margin: s.$size-32 auto;
+      margin: 0 auto;
 
       @media screen and (min-width: (s.$tablet-lg + 1)) {
         border-radius: s.$size-80;
@@ -45,11 +44,72 @@
         p {
           line-height: 1.2;
           font-size: s.$size-16;
+          font-weight: bold;
 
           @media screen and (min-width: (s.$tablet-lg + 1)) {
             font-size: s.$size-18;
-            font-weight: 600;
           }
+        }
+      }
+    }
+  }
+
+  &.theme-base {
+    > .container {
+      .inner {
+        background-color: s.$base-lighter;
+        .list-num {
+          background-color: s.$base;
+        }
+      }
+    }
+  }
+  &.theme-navy {
+    > .container {
+      .inner {
+        background-color: s.$info-lighter;
+        .list-num {
+          background-color: s.$info-dark;
+        }
+      }
+    }
+  }
+  &.theme-blue {
+    > .container {
+      .inner {
+        background-color: s.$primary-lighter;
+        .list-num {
+          background-color: s.$primary;
+        }
+      }
+    }
+  }
+  &.theme-green {
+    > .container {
+      .inner {
+        background-color: s.$secondary-lighter;
+        .list-num {
+          background-color: s.$secondary;
+        }
+      }
+    }
+  }
+  &.theme-purple {
+    > .container {
+      .inner {
+        background-color: s.$tertiary-lighter;
+        .list-num {
+          background-color: s.$tertiary;
+        }
+      }
+    }
+  }
+  &.theme-orange {
+    > .container {
+      .inner {
+        background-color: s.$accent-warm-lighter;
+        .list-num {
+          background-color: s.$accent-warm;
         }
       }
     }
