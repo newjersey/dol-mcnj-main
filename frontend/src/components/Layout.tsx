@@ -96,13 +96,40 @@ export const Layout = (props: LayoutProps) => {
         {props.footerComponent}
         <BackToTop />
       </main>
+      <div style={{ width: "100%", padding: 0, margin: 0 }}>
+        <div
+            style={{
+              position: "relative",
+              width: "100%",
+              height: 300,
+              overflow: "hidden",
+            }}
+        >
+          <iframe
+              title="Survey"
+              src="http://localhost:3000/s/cmd3r46j3000io301at4wrzxy"
+              frameBorder="0"
+              allow="fullscreen"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: 300,
+                border: "none",
+              }}
+          />
+        </div>
+      </div>
+
+
       {!noFooter && (
-        <Footer
-          items={{
-            footerNav1,
-            footerNav2,
-          }}
-        />
+          <Footer
+              items={{
+                footerNav1,
+                footerNav2,
+              }}
+          />
       )}
     </>
   );

@@ -24,6 +24,8 @@ import { ToolsPage } from "./tools-page/ToolsPage";
 
 import { useTranslation } from "react-i18next";
 
+import formbricks from "@formbricks/js";
+
 // Lazy load pages
 const SearchResultsPage = React.lazy(() =>
   import("./search-results/SearchResultsPage").then((module) => ({
@@ -116,6 +118,11 @@ globalHistory.listen(({ location }) => {
     window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
     ReactGA.initialize("G-THV625FWWB", {});
   }
+});
+
+formbricks.setup({
+  environmentId: "cmd3n57y00004o3017ecofqc9",
+  appUrl: "http://localhost:3000",
 });
 
 export const SupportRedirect = (_props: RouteComponentProps) => {
