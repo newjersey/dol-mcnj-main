@@ -78,6 +78,7 @@ app.use(
         "https://adservice.google.com",
         "https://pagead2.googlesyndication.com",
         "https://*.doubleclick.net",
+        "http://localhost:3000",
       ],
       scriptSrcElem: [
         "'self'",
@@ -90,6 +91,7 @@ app.use(
         "https://adservice.google.com",
         "https://pagead2.googlesyndication.com",
         "https://*.doubleclick.net",
+        "http://localhost:3000",
       ],
       scriptSrcAttr: ["'unsafe-inline'"], // changed from 'none' to allow GTM inline handlers
 
@@ -132,6 +134,7 @@ app.use(
         "https://pagead2.googlesyndication.com",
         "https://www.googleadservices.com",
         "https://*.ctfassets.net",
+        "http://localhost:3000",
       ],
       frameSrc: [
         "'self'",
@@ -141,6 +144,7 @@ app.use(
         "https://www.google.com",
         "https://www.youtube.com",
         "https://www.youtube-nocookie.com",
+        "http://localhost:3000",
       ],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],

@@ -26,6 +26,7 @@ import { useTranslation } from "react-i18next";
 
 import formbricks from "@formbricks/js";
 
+
 // Lazy load pages
 const SearchResultsPage = React.lazy(() =>
   import("./search-results/SearchResultsPage").then((module) => ({
@@ -97,6 +98,13 @@ interface Props {
   client: Client;
 }
 
+
+  formbricks.setup({
+    environmentId: "cmd4657g60009oh01c7l35o38",
+    appUrl: "http://localhost:3000",
+  });
+
+
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [
@@ -113,17 +121,20 @@ Sentry.init({
 // eslint-disable-next-line
 declare const window: any;
 const GA_TRACKING_ID = "G-THV625FWWB";
+formbricks.track("page_view");
+formbricks.track("any_page");
 globalHistory.listen(({ location }) => {
+
   if (typeof window.gtag === "function") {
     window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
     ReactGA.initialize("G-THV625FWWB", {});
   }
+
+
 });
 
-formbricks.setup({
-  environmentId: "cmd3n57y00004o3017ecofqc9",
-  appUrl: "http://localhost:3000",
-});
+
+
 
 export const SupportRedirect = (_props: RouteComponentProps) => {
   useEffect(() => {
@@ -142,9 +153,9 @@ export const App = (props: Props): ReactElement => {
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
   const { t } = useTranslation();
-
   useEffect(() => {
     ReactGA.initialize("G-THV625FWWB", { testMode: process.env.NODE_ENV === "test" });
+
   }, []);
 
   const sortContextValue = useMemo(

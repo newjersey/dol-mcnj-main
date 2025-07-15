@@ -107,7 +107,7 @@ export const Layout = (props: LayoutProps) => {
         >
           <iframe
               title="Survey"
-              src="http://localhost:3000/s/cmd3r46j3000io301at4wrzxy"
+              src={`http://localhost:3000/s/dloli1hqdn965kjr0lwqeu7q?pageLoc=${window.location.pathname}`}
               frameBorder="0"
               allow="fullscreen"
               style={{
