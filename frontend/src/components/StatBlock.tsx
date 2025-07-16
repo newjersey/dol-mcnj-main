@@ -24,17 +24,15 @@ export const StatBlock = (props: Props): ReactElement => {
       ? t("StatBlock.missingDataExplanation")
       : `${t("StatBlock.dataSourceLabel")} ${props.dataSource ?? t("StatBlock.defaultDataSource")}`;
 
-      
   const onClickInfo = useCallback(() => {
     setContextualInfo((prevValue) => ({
       ...prevValue,
       isOpen: true,
       title: props.title,
       body: `${props.tooltipText}. ${dataMissingOrSource ?? ""}`,
-      disclaimer: `${props.disclaimer}`
+      disclaimer: `${props.disclaimer}`,
     }));
   }, [dataMissingOrSource, props.title, props.tooltipText, props.disclaimer, setContextualInfo]);
-
 
   const tooltipTargetIfMobile = (): Record<string, string> | undefined => {
     if (!isTabletAndUp) {
