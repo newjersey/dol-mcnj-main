@@ -172,11 +172,11 @@ export const en = {
     topToolNavigatorDescription:
       "Upload your resume to see personalized job and training recommendations.",
     topToolNavigatorButtonText: "Get Started",
-    topToolExplorerHeading: "Training Explorer",
+    topToolExplorerHeading: "NJ Training Explorer",
     topToolExplorerDescription:
       "Search by job, training program, and more to find a training that works for you.",
     topToolExplorerButtonText: "Search Training",
-    topToolPathwaysHeading: "Career Pathways",
+    topToolPathwaysHeading: "NJ Career Pathways",
     topToolPathwaysDescription:
       "Explore popular industries to see what it takes to enter or progress in them.",
     topToolPathwaysButtonText: "Explore Pathways",
