@@ -1,7 +1,6 @@
-import { PageBannerProps } from "@utils/types";
 import scientist from "@images/scientist.png";
 import welder from "@images/welder.jpg";
-import training from "@images/training.png";
+import robotics from "@images/robotics.png";
 import { FancyBannerProps } from "@utils/types/components";
 
 export const HOMEPAGE_DATA = {
@@ -74,16 +73,16 @@ export const HOMEPAGE_DATA = {
   en: {
     banner: {
       heading: "My Career NJ",
-      subHeading: "The tools you need for where you are",
+      subheading: "The tools you need for where you are",
       message:
         "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
       images: [
         {
-          src: training.src,
+          src: robotics.src,
           alt: "A person working on a computer in a training environment",
-          width: training.width,
-          height: training.height,
-          blurDataURL: training.blurDataURL,
+          width: robotics.width,
+          height: robotics.height,
+          blurDataURL: robotics.blurDataURL,
         },
         {
           src: welder.src,
@@ -280,21 +279,34 @@ export const HOMEPAGE_DATA = {
   },
   es: {
     banner: {
-      title: "Mi Carrera NJ",
-      theme: "blue",
-      buttonCopy: "Explora Mi Carrera NJ",
-      subHeading:
-        "Las herramientas que necesitas para encontrar un trabajo que funcione para ti.",
+      heading: "My Career NJ",
+      subheading: "The tools you need for where you are",
       message:
-        "El trabajo adecuado está ahí afuera, si sabes dónde buscar. MyCareerNJ es un excelente lugar para comenzar, con ofertas de empleo en todo el estado de Nueva Jersey. También podemos ayudarte a descubrir posibilidades de carrera, aprender nuevas habilidades laborales, asistir en cambios de carrera y ofrecer consejos para nuevos empleados. Descubre por ti mismo cómo MyCareerNJ puede ayudarte.",
-      image: {
-        url: "https://images.ctfassets.net/jbdk7q9c827d/JAzMHNRnrmPy5KfO7l3PZ/c39660e2d16c0b5bf98fe3c05ab38dc3/NJCC_Hero_Image.png",
-        description:
-          "Cuatro imágenes de personas trabajando en diversas industrias",
-        height: 521,
-        width: 750,
-      },
-    } as PageBannerProps,
+        "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
+      images: [
+        {
+          src: robotics.src,
+          alt: "A person working on a computer in a training environment",
+          width: robotics.width,
+          height: robotics.height,
+          blurDataURL: robotics.blurDataURL,
+        },
+        {
+          src: welder.src,
+          alt: "A person working on a construction site",
+          width: welder.width,
+          height: welder.height,
+          blurDataURL: welder.blurDataURL,
+        },
+        {
+          src: scientist.src,
+          alt: "A person working in a laboratory",
+          width: scientist.width,
+          height: scientist.height,
+          blurDataURL: scientist.blurDataURL,
+        },
+      ],
+    } as FancyBannerProps,
     introBlocks: {
       heading:
         "No importa en qué etapa de tu carrera te encuentres, Mi Carrera NJ está aquí para ayudarte.",
