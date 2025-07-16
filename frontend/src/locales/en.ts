@@ -44,7 +44,7 @@ export const en = {
   ExplorerPage: {
     bannerSubheading: "Find Quality Job Training Programs:",
     bannerMessageCopy:
-      "Access 5,000+ training programs and certifications to further your career.  Compare program details, costs, and locations to make an informed choice.",
+      "Access 4,000+ training programs and certifications to further your career.  Compare program details, costs, and locations to make an informed choice.",
     header: "Power up your search to find your next training opportunity",
     sectionOneHeader: "Get Started",
     sectionOneText:
