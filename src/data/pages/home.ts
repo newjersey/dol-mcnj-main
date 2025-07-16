@@ -1,4 +1,8 @@
 import { PageBannerProps } from "@utils/types";
+import scientist from "@images/scientist.png";
+import welder from "@images/welder.jpg";
+import training from "@images/training.png";
+import { FancyBannerProps } from "@utils/types/components";
 
 export const HOMEPAGE_DATA = {
   seo: {
@@ -69,19 +73,34 @@ export const HOMEPAGE_DATA = {
   },
   en: {
     banner: {
-      title: "My Career NJ",
-      theme: "blue",
-      buttonCopy: "Explore My Career NJ",
-      subHeading: "The tools you need to find a job that works for you.",
+      heading: "My Career NJ",
+      subHeading: "The tools you need for where you are",
       message:
-        "The right job is out there— if you know where to look for it. MyCareerNJ is a great place to start, with job listings throughout the state of New Jersey. We can also help you discover career possibilities, learn new job skills, assist with career changes, and offer advice for new employees. See for yourself how MyCareerNJ can help you.",
-      image: {
-        url: "https://images.ctfassets.net/jbdk7q9c827d/JAzMHNRnrmPy5KfO7l3PZ/c39660e2d16c0b5bf98fe3c05ab38dc3/NJCC_Hero_Image.png",
-        description: "Four images of people working in various industries",
-        height: 521,
-        width: 750,
-      },
-    } as PageBannerProps,
+        "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
+      images: [
+        {
+          src: training.src,
+          alt: "A person working on a computer in a training environment",
+          width: training.width,
+          height: training.height,
+          blurDataURL: training.blurDataURL,
+        },
+        {
+          src: welder.src,
+          alt: "A person working on a construction site",
+          width: welder.width,
+          height: welder.height,
+          blurDataURL: welder.blurDataURL,
+        },
+        {
+          src: scientist.src,
+          alt: "A person working in a laboratory",
+          width: scientist.width,
+          height: scientist.height,
+          blurDataURL: scientist.blurDataURL,
+        },
+      ],
+    } as FancyBannerProps,
     introBlocks: {
       heading:
         "No matter where you are on your career journey, My Career NJ is here to help you.",
