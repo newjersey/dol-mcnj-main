@@ -1,5 +1,3 @@
-@forward "../../node_modules/@newjersey/njwds/dist/css/styles.css";
-
 // Settings
 @forward "./reset";
 @forward "./typography";
@@ -62,7 +60,6 @@
 @forward "./blocks/cardSlider";
 @forward "./blocks/ctaBanner";
 @forward "./blocks/dropNav";
-@forward "./blocks/fancyBanner";
 @forward "./blocks/faqs";
 @forward "./blocks/fieldSelect";
 @forward "./blocks/filterControl";
