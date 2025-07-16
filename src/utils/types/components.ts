@@ -132,6 +132,20 @@ export interface IconCardProps extends MediaObjectProps {
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
+export interface FancyBannerProps {
+  heading: string;
+  subheading?: string;
+  message?: string;
+  className?: string;
+  images: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    blurDataURL: string;
+  }[];
+}
+
 export interface PageBannerProps {
   className?: string;
   ctaHeading?: string;
