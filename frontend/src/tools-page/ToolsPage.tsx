@@ -82,15 +82,6 @@ export const ToolsPage = (props: Props): ReactElement => {
                 href: "https://www.nj.gov/labor/labormarketinformation/",
               },
             },
-            {
-              heading: t("ToolsPage.jobLink3Heading"),
-              description: t("ToolsPage.jobLink3Description"),
-              icon: "ArrowSquareOut",
-              iconWeight: "regular",
-              link: {
-                href: "https://www.nj.gov/labor/career-services/apprenticeship/",
-              },
-            },
           ]}
           mainCard={{
             heading: t("LandingPage.topToolNavigatorHeading"),
@@ -164,28 +155,12 @@ export const ToolsPage = (props: Props): ReactElement => {
               heading: t("ToolsPage.supportLink1Heading"),
               description: t("ToolsPage.supportLink1Description"),
               link: {
-                href: "/support-resources/career-support",
+                href: "/support-resources",
               },
             },
             {
               heading: t("ToolsPage.supportLink2Heading"),
               description: t("ToolsPage.supportLink2Description"),
-
-              link: {
-                href: "/support-resources/tuition-assistance",
-              },
-            },
-            {
-              heading: t("ToolsPage.supportLink3Heading"),
-              description: t("ToolsPage.supportLink3Description"),
-
-              link: {
-                href: "/support-resources/other",
-              },
-            },
-            {
-              heading: t("ToolsPage.supportLink4Heading"),
-              description: t("ToolsPage.supportLink4Description"),
 
               link: {
                 href: "/faq",
