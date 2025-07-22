@@ -1,0 +1,211 @@
+@use "../settings" as s;
+
+.cardItem {
+  text-decoration: none;
+  outline: s.$size-1 solid s.$black;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: s.$size-16;
+  min-height: s.$size-120;
+  border-radius: s.$size-16;
+  overflow: hidden;
+  padding: s.$size-24;
+  color: s.$black;
+
+  &:hover {
+    color: s.$white;
+    text-decoration: none;
+    box-shadow: s.$shadow-4;
+  }
+
+  &.theme-base {
+    background: s.$base-light;
+
+    &:hover {
+      background: s.$base;
+
+      svg {
+        color: s.$base-light;
+      }
+    }
+
+    &.outline {
+      background-color: s.$white;
+      border-color: s.$base;
+      color: s.$base;
+
+      &:hover {
+        background-color: s.$base-lighter;
+        color: s.$base-dark;
+
+        svg {
+          color: s.$base-dark;
+        }
+      }
+    }
+  }
+
+  &.theme-navy {
+    background: s.$info-lighter;
+
+    &:hover {
+      background: s.$info;
+
+      svg {
+        color: s.$info-light;
+      }
+    }
+
+    &.outline {
+      background-color: s.$white;
+      color: s.$info-darker;
+      outline-color: s.$info-darker;
+
+      &:hover {
+        background-color: s.$info-lighter;
+        color: s.$info-darker;
+
+        svg {
+          color: s.$info-darker;
+        }
+      }
+    }
+  }
+
+  &.theme-blue {
+    background: s.$accent-cool-lighter;
+
+    &:hover {
+      background-color: s.$primary-darker;
+
+      svg {
+        color: s.$accent-cool-lighter;
+      }
+    }
+
+    &.outline {
+      background-color: s.$white;
+      color: s.$primary;
+      outline-color: s.$primary;
+
+      &:hover {
+        background-color: s.$primary-lighter;
+        color: s.$primary-dark;
+
+        svg {
+          color: s.$primary-dark;
+        }
+      }
+    }
+  }
+
+  &.theme-green {
+    background: s.$secondary-light;
+    &:hover {
+      background-color: s.$secondary-dark;
+
+      svg {
+        color: s.$secondary-light;
+      }
+    }
+
+    &.outline {
+      background-color: s.$white;
+      color: s.$secondary;
+      outline-color: s.$secondary;
+
+      &:hover {
+        background-color: s.$secondary-lighter;
+        color: s.$secondary-dark;
+
+        svg {
+          color: s.$secondary-dark;
+        }
+      }
+    }
+  }
+
+  &.theme-purple {
+    background: s.$tertiary-light;
+    &:hover {
+      background-color: s.$tertiary-dark;
+
+      svg {
+        color: s.$tertiary-light;
+      }
+    }
+
+    &.outline {
+      background-color: s.$white;
+      color: s.$tertiary;
+      outline-color: s.$tertiary;
+
+      &:hover {
+        background-color: s.$tertiary-lighter;
+        color: s.$tertiary-dark;
+
+        svg {
+          color: s.$tertiary-dark;
+        }
+      }
+    }
+  }
+
+  &.theme-orange {
+    background: s.$accent-warm-light;
+    &:hover {
+      background-color: s.$accent-warm-dark;
+
+      svg {
+        color: s.$accent-warm-light;
+      }
+    }
+
+    &.outline {
+      background-color: s.$white;
+      color: s.$accent-warm;
+      outline-color: s.$accent-warm;
+
+      &:hover {
+        background-color: s.$accent-warm-lighter;
+        color: s.$accent-warm-dark;
+
+        svg {
+          color: s.$accent-warm-dark;
+        }
+      }
+    }
+  }
+
+  .heading {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: s.$size-8;
+
+    p {
+      margin: 0;
+      font-weight: bolder;
+      line-height: 1.2;
+      font-size: s.$size-20;
+      width: calc(100% - s.$size-32);
+    }
+
+    svg {
+      margin: 0;
+    }
+  }
+
+  .link {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: bold;
+    gap: s.$size-4;
+  }
+}

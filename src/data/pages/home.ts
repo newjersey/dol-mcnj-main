@@ -100,6 +100,88 @@ export const HOMEPAGE_DATA = {
         },
       ],
     } as FancyBannerProps,
+    topTools: {
+      heading: "Top Tools:",
+      items: [
+        {
+          title: "NJ Career Navigator",
+          icon: "Compass",
+          theme: "blue",
+          message:
+            "Upload your resume to see personalized job and training recommendations.",
+          link: {
+            href: "/navigator",
+            copy: "Get Started",
+          },
+        },
+
+        {
+          title: "NJ Training Explorer",
+          icon: "Signpost",
+          theme: "green",
+          message:
+            "Search by job, training program, and more to find a training that works for you.",
+          link: {
+            copy: "Search Training",
+            href: "/training",
+          },
+        },
+
+        {
+          title: "NJ Career Pathways",
+          icon: "Path",
+          theme: "purple",
+          message:
+            "Explore popular industries to see what it takes to enter or progress in them.",
+          link: {
+            copy: "Explore Pathways",
+            href: "/career-pathways",
+          },
+        },
+      ],
+    },
+    toolLinks: {
+      heading: "How can My Career NJ help you?",
+      subheading: "Choose an option and see a list of helpful resources.",
+      items: [
+        {
+          title: "I want to find a job",
+          theme: "blue",
+          outline: true,
+          icon: "Briefcase",
+          link: {
+            href: "/tools#jobs",
+          },
+        },
+        {
+          title: "I want to search for training",
+          theme: "green",
+          outline: true,
+          icon: "Signpost",
+          link: {
+            href: "/tools#training",
+          },
+        },
+        {
+          title: "I want to explore career opportunities",
+          theme: "purple",
+          outline: true,
+          icon: "Path",
+          link: {
+            href: "/tools#career",
+          },
+        },
+        {
+          title: "I need additional resources",
+          theme: "navy",
+          outline: true,
+          icon: "Lifebuoy",
+          link: {
+            href: "/tools#support",
+          },
+        },
+      ],
+    },
     introBlocks: {
       heading:
         "No matter where you are on your career journey, My Career NJ is here to help you.",
@@ -307,6 +389,82 @@ export const HOMEPAGE_DATA = {
         },
       ],
     } as FancyBannerProps,
+    topTools: {
+      heading: "Top Tools:",
+      items: [
+        {
+          title: "NJ Career Navigator",
+          icon: "Compass",
+          theme: "blue",
+          message:
+            "Upload your resume to see personalized job and training recommendations.",
+          link: {
+            href: "/navigator",
+            copy: "Get Started",
+          },
+        },
+        {
+          title: "NJ Training Explorer",
+          icon: "Signpost",
+          theme: "green",
+          message:
+            "Search by job, training program, and more to find a training that works for you.",
+          link: {
+            copy: "Search Training",
+            href: "/training",
+          },
+        },
+        {
+          title: "NJ Career Pathways",
+          icon: "Path",
+          theme: "purple",
+          message:
+            "Explore popular industries to see what it takes to enter or progress in them.",
+          link: {
+            copy: "Explore Pathways",
+            href: "/career-pathways",
+          },
+        },
+      ],
+    },
+    toolLinks: {
+      heading: "How can My Career NJ help you?",
+      subheading: "Choose an option and see a list of helpful resources.",
+      items: [
+        {
+          title: "I want to find a job",
+          theme: "blue",
+          icon: "Briefcase",
+          link: {
+            href: "/tools#jobs",
+          },
+        },
+        {
+          title: "I want to search for training",
+          theme: "green",
+          icon: "Signpost",
+          link: {
+            href: "/tools#training",
+          },
+        },
+        {
+          title: "I want to explore career opportunities",
+          theme: "purple",
+          icon: "Path",
+          link: {
+            href: "/tools#career",
+          },
+        },
+        {
+          title: "I need additional resources",
+          theme: "navy",
+          icon: "Lifebuoy",
+          link: {
+            href: "/tools#support",
+          },
+        },
+      ],
+    },
     introBlocks: {
       heading:
         "No importa en qué etapa de tu carrera te encuentres, Mi Carrera NJ está aquí para ayudarte.",

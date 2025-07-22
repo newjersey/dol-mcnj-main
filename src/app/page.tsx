@@ -1,8 +1,9 @@
 import { FancyBanner } from "@components/blocks/FancyBanner";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
-import { SupportedLanguages } from "@utils/types/types";
+import { SupportedLanguages, ThemeColors } from "@utils/types/types";
 import { cookies } from "next/headers";
+import { Card } from "@components/modules/Card";
 
 export const revalidate = 86400;
 
@@ -35,6 +36,41 @@ export default async function Home() {
     <>
       <div className="page home">
         <FancyBanner {...pageData[lang].banner} />
+        <div className="container flex-col flex gap-24">
+          <div className="flex flex-col gap-6 text-primaryDark mt-4">
+            <h2 className="font-extrabold text-[32px] m-0">
+              {pageData[lang].topTools.heading}
+            </h2>
+            <div className="flex flex-col tablet:flex-row gap-6">
+              {pageData[lang].topTools.items.map((tool) => (
+                <Card
+                  key={tool.title}
+                  {...tool}
+                  theme={tool.theme as ThemeColors}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-6 text-primaryDark mb-16">
+            <div className="flex flex-col gap-2">
+              <h2 className="font-extrabold text-[32px] m-0 leading-[1.2]">
+                {pageData[lang].toolLinks.heading}
+              </h2>
+              <p className="m-0 text-lrg">
+                {pageData[lang].toolLinks.subheading}
+              </p>
+            </div>
+            <div className="grid mobileLg:grid-cols-2 tabletLg:grid-cols-4 gap-6">
+              {pageData[lang].toolLinks.items.map((tool) => (
+                <Card
+                  key={tool.title}
+                  {...tool}
+                  theme={tool.theme as ThemeColors}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

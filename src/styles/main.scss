@@ -1,3 +1,5 @@
+@forward "../../node_modules/@newjersey/njwds/dist/css/styles.css";
+
 // Settings
 @forward "./reset";
 @forward "./typography";
@@ -22,6 +24,7 @@
 @forward "./modules/backToTop";
 @forward "./modules/breadcrumbs";
 @forward "./modules/buttons";
+@forward "./modules/card";
 @forward "./modules/compareTable";
 @forward "./modules/costTable";
 @forward "./modules/cta";
@@ -60,6 +63,7 @@
 @forward "./blocks/cardSlider";
 @forward "./blocks/ctaBanner";
 @forward "./blocks/dropNav";
+@forward "./blocks/fancyBanner";
 @forward "./blocks/faqs";
 @forward "./blocks/fieldSelect";
 @forward "./blocks/filterControl";
