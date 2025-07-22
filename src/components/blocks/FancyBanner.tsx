@@ -10,30 +10,18 @@ export const FancyBanner = ({
   images,
 }: FancyBannerProps) => {
   return (
-    <section
-      className={`${className || ""} pt-[64px] pb-[48px] text-primaryDark`}
-    >
+    <section className={`fancyBanner ${className ? className : ""}`}>
       <div className="container">
-        <div className="flex flex-col tablet:flex-row items-center justify-between gap-[32px]">
-          <div className="w-full tablet:w-[calc(50%-32px)] flex flex-col gap-[16px]">
-            <h1 className="my-0 text-pretty text-[48px] tabletXl:text-[72px] leading-[1.2]">
-              {heading}
-            </h1>
-            {subheading && (
-              <p className="my-0 text-pretty text-[24px] tabletXl:text-[40px] leading-[1.2]">
-                {subheading}
-              </p>
-            )}
-            {message && <p className="my-0 text-pretty">{message}</p>}
+        <div className="inner">
+          <div className="copy">
+            <h1>{heading}</h1>
+            {subheading && <p className="subheading">{subheading}</p>}
+            {message && <p>{message}</p>}
           </div>
-          <div className="grid grid-cols-2 grid-rows-2 gap-[24] w-full tablet:w-1/2 max-h-[300px]">
-            {images?.map((image, i) => (
-              <div
-                className={`overflow-hidden rounded-[16px]${
-                  i === 0 ? " row-span-2" : ""
-                }`}
-                key={image.src}
-              >
+
+          <div className="imageGrid">
+            {images?.map((image) => (
+              <div className="image" key={image.src}>
                 <Image
                   key={image.src}
                   src={image.src}
@@ -42,9 +30,6 @@ export const FancyBanner = ({
                   height={image.height || 200}
                   blurDataURL={image.blurDataURL}
                   placeholder="blur"
-                  className={
-                    "pointer-events-none select-none w-full h-full object-cover block"
-                  }
                 />
               </div>
             ))}
