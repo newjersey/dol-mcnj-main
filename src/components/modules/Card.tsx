@@ -4,15 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
-export const Card = ({
-  title,
-  message,
-  icon,
-  link,
-  className,
-  theme = "base",
-  outline = false,
-}: {
+export interface CardItemProps {
   title: string;
   message?: string;
   icon?: string;
@@ -23,7 +15,19 @@ export const Card = ({
   className?: string;
   theme?: ThemeColors;
   outline?: boolean;
-}) => {
+  iconWeight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
+}
+
+export const Card = ({
+  title,
+  message,
+  icon,
+  link,
+  className,
+  theme = "base",
+  iconWeight = "duotone",
+  outline = false,
+}: CardItemProps) => {
   return (
     <Link
       href={link.href}
@@ -35,7 +39,7 @@ export const Card = ({
     >
       <div className="heading">
         <p>{title}</p>
-        {icon && <IconSelector weight="duotone" name={icon} size={32} />}
+        {icon && <IconSelector weight={iconWeight} name={icon} size={32} />}
       </div>
       {message && (
         <div
