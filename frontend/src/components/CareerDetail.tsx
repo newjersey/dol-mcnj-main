@@ -198,7 +198,7 @@ export const CareerDetail = ({
                 <div className="meta">
                   <div>
                     <p className="title">
-                      Salary Range
+                      Expected Entry Level Salary
                       <button
                         data-position="top"
                         onFocus={(e) => e.preventDefault()}
@@ -221,7 +221,9 @@ export const CareerDetail = ({
                           ? `${toUsCurrency(data.careerMapObject.salaryRangeStart)} - ${toUsCurrency(
                               data.careerMapObject.salaryRangeEnd,
                             )}`
-                          : "Salary data not available"}
+                          : data.careerMapObject.salaryRangeStart
+                            ? toUsCurrency(data.careerMapObject.salaryRangeStart)
+                            : "Salary data not available"}
                       </strong>
                     </p>
                   </div>
