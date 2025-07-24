@@ -107,7 +107,8 @@
     "react-scripts": {
       "typescript": "^5"
     },
-    "nodegit": "npm:empty-npm-package@1.0.0"
+    "nodegit": "npm:empty-npm-package@1.0.0",
+    "form-data": "4.0.4"
   },
   "paths": {
     "react": [
