@@ -9,6 +9,7 @@ import ContactSuccess from "./ContactSuccess";
 import ContactError from "./ContactError";
 import { HeroBanner } from "../components/HeroBanner";
 import { useTranslation } from "react-i18next";
+import { parseMarkdownToHTMLWithLinksInNewTab } from "../utils/parseMarkdownToHTML";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -86,13 +87,11 @@ export const ContactUsPage = (props: Props): ReactElement<Props> => {
         <ContactInfo />
         <div className={`contact-container form-container ${bgColor()}`}>
           {contactUsContent()}
-          <div>
-            Read about our{" "}
-            <a href="https://www.nj.gov/nj/privacy.html" target="_blank" rel="noreferrer noopener">
-              privacy policy
-            </a>
-            .
-          </div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTMLWithLinksInNewTab(t("ContactPage.formFooterText")),
+            }}
+          />
         </div>
       </section>
     </Layout>
