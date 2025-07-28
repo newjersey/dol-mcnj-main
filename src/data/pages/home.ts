@@ -361,78 +361,80 @@ export const HOMEPAGE_DATA = {
   },
   es: {
     banner: {
-      heading: "My Career NJ",
-      subheading: "The tools you need for where you are",
+      heading: "Mi Carrera NJ",
+      subheading: "Las herramientas que necesitas para donde estás",
       message:
-        "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
+        "Encuentra el programa de capacitación adecuado, obtén coincidencias de empleo personalizadas y explora las carreras en demanda de Nueva Jersey con estas poderosas herramientas digitales.",
       images: [
         {
           src: robotics.src,
-          alt: "A person working on a computer in a training environment",
+          alt: "Una persona trabajando en una computadora en un entorno de capacitación",
           width: robotics.width,
           height: robotics.height,
           blurDataURL: robotics.blurDataURL,
         },
         {
           src: welder.src,
-          alt: "A person working on a construction site",
+          alt: "Una persona trabajando en un sitio de construcción",
           width: welder.width,
           height: welder.height,
           blurDataURL: welder.blurDataURL,
         },
         {
           src: scientist.src,
-          alt: "A person working in a laboratory",
+          alt: "Una persona trabajando en un laboratorio",
           width: scientist.width,
           height: scientist.height,
           blurDataURL: scientist.blurDataURL,
         },
       ],
     } as FancyBannerProps,
+
     topTools: {
-      heading: "Top Tools:",
+      heading: "Herramientas Principales:",
       items: [
         {
-          title: "NJ Career Navigator",
+          title: "Navegador de Carreras NJ",
           icon: "Compass",
           theme: "blue",
           message:
-            "Upload your resume to see personalized job and training recommendations.",
+            "Sube tu currículum para ver recomendaciones personalizadas de empleos y programas de capacitación.",
           link: {
             href: "/navigator",
-            copy: "Get Started",
+            copy: "Comenzar",
           },
         },
         {
-          title: "NJ Training Explorer",
+          title: "Explorador de Capacitación NJ",
           icon: "Signpost",
           theme: "green",
           message:
-            "Search by job, training program, and more to find a training that works for you.",
+            "Busca por trabajo, programa de capacitación y más para encontrar una opción que funcione para ti.",
           link: {
-            copy: "Search Training",
+            copy: "Buscar Capacitación",
             href: "/training",
           },
         },
         {
-          title: "NJ Career Pathways",
+          title: "Trayectorias Profesionales NJ",
           icon: "Path",
           theme: "purple",
           message:
-            "Explore popular industries to see what it takes to enter or progress in them.",
+            "Explora industrias populares para ver qué se necesita para ingresar o avanzar en ellas.",
           link: {
-            copy: "Explore Pathways",
+            copy: "Explorar Trayectorias",
             href: "/career-pathways",
           },
         },
       ],
     },
+
     toolLinks: {
-      heading: "How can My Career NJ help you?",
-      subheading: "Choose an option and see a list of helpful resources.",
+      heading: "¿Cómo puede ayudarte Mi Carrera NJ?",
+      subheading: "Elige una opción y consulta una lista de recursos útiles.",
       items: [
         {
-          title: "I want to find a job",
+          title: "Quiero encontrar un trabajo",
           theme: "blue",
           icon: "Briefcase",
           link: {
@@ -440,7 +442,7 @@ export const HOMEPAGE_DATA = {
           },
         },
         {
-          title: "I want to search for training",
+          title: "Quiero buscar capacitación",
           theme: "green",
           icon: "Signpost",
           link: {
@@ -448,7 +450,7 @@ export const HOMEPAGE_DATA = {
           },
         },
         {
-          title: "I want to explore career opportunities",
+          title: "Quiero explorar oportunidades profesionales",
           theme: "purple",
           icon: "Path",
           link: {
@@ -456,7 +458,7 @@ export const HOMEPAGE_DATA = {
           },
         },
         {
-          title: "I need additional resources",
+          title: "Necesito recursos adicionales",
           theme: "navy",
           icon: "Lifebuoy",
           link: {
@@ -465,6 +467,7 @@ export const HOMEPAGE_DATA = {
         },
       ],
     },
+
     introBlocks: {
       heading:
         "No importa en qué etapa de tu carrera te encuentres, Mi Carrera NJ está aquí para ayudarte.",

@@ -1,3 +1,4 @@
+import { Alert } from "@components/modules/Alert";
 import { Button } from "@components/modules/Button";
 import { Heading } from "@components/modules/Heading";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
@@ -13,6 +14,13 @@ export interface PageHeroProps {
   ctaButtons?: ButtonProps[];
   button?: ButtonProps;
   image?: ImageProps;
+  infoBar?:
+    | {
+        heading?: string;
+        text: string;
+        type?: "error" | "warning" | "info" | "success";
+      }
+    | string;
 }
 
 export const PageHero = (props: PageHeroProps) => {
@@ -48,6 +56,26 @@ export const PageHero = (props: PageHeroProps) => {
               <div className="footer-button">
                 <Button {...props.button} />
               </div>
+            )}
+            {props.infoBar && (
+              <Alert
+                className="max-w-[840px] rounded-[8px] overflow-hidden"
+                heading={
+                  typeof props.infoBar === "string"
+                    ? undefined
+                    : props.infoBar.heading || undefined
+                }
+                type={
+                  typeof props.infoBar === "string"
+                    ? "info"
+                    : props.infoBar.type || "info"
+                }
+                copy={
+                  typeof props.infoBar === "string"
+                    ? props.infoBar
+                    : props.infoBar.text
+                }
+              />
             )}
           </div>
           {props.image && (

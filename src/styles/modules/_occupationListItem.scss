@@ -6,30 +6,39 @@
   border-radius: s.$border-radius-5;
 
   button {
-    width: 100%;
-    justify-content: space-between;
-    text-decoration: none;
+    &.primary {
+      &.usa-button {
+        width: 100%;
+        justify-content: space-between;
+        text-decoration: none;
 
-    &:focus {
-      outline: none;
-    }
+        &:focus {
+          outline: none;
+        }
 
-    > span {
-      display: flex;
-      align-items: center;
-      gap: s.$size-16;
-    }
+        > span {
+          display: flex;
+          align-items: center;
+          gap: s.$size-16;
+        }
 
-    svg {
-      width: auto;
-      height: s.$size-24;
-      color: s.$ink;
-    }
+        svg {
+          width: auto;
+          height: s.$size-24;
+          color: s.$ink;
 
-    .occ-icon {
-      svg {
-        width: auto;
-        height: s.$size-40;
+          &.suffix {
+            width: s.$size-18;
+            margin-right: s.$size-8;
+          }
+        }
+
+        .occ-icon {
+          svg {
+            width: auto;
+            height: s.$size-40;
+          }
+        }
       }
     }
   }
