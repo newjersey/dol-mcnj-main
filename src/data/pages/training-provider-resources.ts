@@ -1,5 +1,4 @@
 import { PageHeroProps } from "@components/blocks/PageHero";
-import { PageBannerProps } from "@utils/types";
 
 export const TRAINING_PROVIDER_PAGE_DATA = {
   seo: {
