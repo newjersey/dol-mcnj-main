@@ -16,8 +16,6 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
   const [lastNameError, setLastNameError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
-  const [phone, setPhone] = useState("");
-  const [phoneError, setPhoneError] = useState<string>("");
   const [hasErrors, setHasErrors] = useState<string>("");
   const [resetForm, setResetForm] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -47,8 +45,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
         (firstName.length !== 0 && firstName.length < 2) ||
         (lastName.length !== 0 && lastName.length < 2) ||
         !email ||
-        (email && !emailRegex.test(email)) ||
-        (phone && phone.length < 12)
+        (email && !emailRegex.test(email))
       ) {
         return true;
       } else {
@@ -79,13 +76,6 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
       setEmailError("");
     }
 
-    // check if phone number is valid
-    if (phone && phone.length < 12) {
-      setPhoneError(contentData[lang].form.error.phone);
-    } else {
-      setPhoneError("");
-    }
-
     if (allErrorCheck()) {
       setSubmitting(false);
       setHasErrors(contentData[lang].form.error.attention);
@@ -96,7 +86,6 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
       firstName,
       lastName,
       email,
-      phone,
     };
 
     try {
@@ -135,21 +124,6 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
     setSubmitting(false);
   };
 
-  function formatPhoneNumber(input: string): string {
-    const cleaned = input.replace(/\D/g, "");
-
-    if (cleaned.length <= 3) {
-      return cleaned;
-    } else if (cleaned.length <= 6) {
-      return `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
-    } else {
-      return `${cleaned.slice(0, 3)}-${cleaned.slice(3, 6)}-${cleaned.slice(
-        6,
-        10
-      )}`;
-    }
-  }
-
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -162,7 +136,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (firstNameError || lastNameError || emailError || phoneError) {
+    if (firstNameError || lastNameError || emailError) {
       if (!resetForm) {
         setHasErrors("There are items that require your attention.");
       } else {
@@ -171,7 +145,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
     } else {
       setHasErrors("");
     }
-  }, [firstNameError, lastNameError, emailError, phoneError]);
+  }, [firstNameError, lastNameError, emailError]);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -192,6 +166,8 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
     <>
       <Button
         {...contentData[lang].headerButton}
+        iconPrefix="Megaphone"
+        iconWeight="bold"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
@@ -292,27 +268,6 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
                     setEmail(e.target.value);
                   }}
                 />
-                <label htmlFor="phone" className={phoneError ? "error" : ""}>
-                  <span>{contentData[lang].form.fields.email.label}</span>
-                  {contentData[lang].form.fields.phone.description}
-                  <input
-                    type="text"
-                    value={formatPhoneNumber(phone)}
-                    id="phone"
-                    placeholder={
-                      contentData[lang].form.fields.phone.placeholder
-                    }
-                    onChange={(e) => {
-                      if (e.target.value.length > 11) {
-                        setPhoneError("");
-                      }
-                      setPhone(formatPhoneNumber(e.target.value));
-                    }}
-                  />
-                  {phoneError && (
-                    <div className="errorMessage">{phoneError}</div>
-                  )}
-                </label>
                 {hasErrors && <Alert copy={hasErrors} type="error" />}
                 <div className="buttons">
                   <Button
@@ -337,10 +292,8 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
                       setFirstName("");
                       setLastName("");
                       setEmail("");
-                      setPhone("");
                       setFirstNameError("");
                       setLastNameError("");
-                      setPhoneError("");
                       setEmailError("");
                       setHasErrors("");
                       setResetForm(true);

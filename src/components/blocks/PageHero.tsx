@@ -80,7 +80,14 @@ export const PageHero = (props: PageHeroProps) => {
           </div>
           {props.image && (
             <div className="image">
-              <Image {...props.image} alt="temp image" />
+              <Image
+                src={props.image.src}
+                width={props.image.width}
+                height={props.image.height}
+                blurDataURL={props.image.blurDataURL}
+                placeholder="blur"
+                alt=""
+              />
             </div>
           )}
         </div>

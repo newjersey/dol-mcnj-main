@@ -6,7 +6,9 @@ import welder from "@images/welder.jpg";
 import { IndustrySelectorProps } from "@utils/types/components";
 import placeholder2 from "@images/pathway1.jpg";
 import placeholder1 from "@images/pathway2.jpg";
+import bannerImage from "@images/pathwayBanner.jpg";
 import { ThemeColors } from "@utils/types";
+import { PageHeroProps } from "@components/blocks/PageHero";
 
 export const CAREER_PATHWAYS_PAGE_DATA = {
   seo: {
@@ -34,6 +36,20 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
     },
   },
   en: {
+    pageHero: {
+      heading: "NJ Career Pathways",
+      image: bannerImage,
+      subheading: "Map Out Your Career Path:",
+      description:
+        "The pathways tool is easy to use! It saves you time by bringing everything - high growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, without stress.",
+      theme: "purple",
+      button: {
+        label: "Start Exploring",
+        iconSuffix: "ArrowDown",
+        defaultStyle: "tertiary",
+        link: "#industry-selector",
+      },
+    } as PageHeroProps,
     banner: {
       heading: "Welcome to New Jersey Career Pathways!",
       description:
@@ -201,6 +217,20 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
     } as CtaBannerProps,
   },
   es: {
+    pageHero: {
+      heading: "Trayectorias Profesionales de NJ",
+      subheading: "Planifica tu Trayectoria Profesional:",
+      image: bannerImage,
+      description:
+        "¡La herramienta de trayectorias es fácil de usar! Te ahorra tiempo al reunir todo en un solo lugar — trayectorias profesionales de alto crecimiento, opciones de capacitación y oportunidades laborales — para que explores tus próximos pasos con facilidad y sin estrés.",
+      theme: "purple",
+      button: {
+        label: "Comenzar a Explorar",
+        iconSuffix: "ArrowDown",
+        defaultStyle: "tertiary",
+        link: "#industry-selector",
+      },
+    } as PageHeroProps,
     banner: {
       heading: "¡Bienvenido a New Jersey Career Pathways!",
       description:
