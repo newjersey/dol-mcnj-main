@@ -8,6 +8,7 @@ import { CurrencyDollarSimple, Info } from "@phosphor-icons/react";
 import { zipCodes } from "@utils/zipCodeCoordinates";
 import { encodeForUrl } from "@utils/encodeForUrl";
 import { Flex } from "@components/utility/Flex";
+import { Tooltip } from "react-tooltip";
 import { colors } from "@utils/settings";
 import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeading";
 
@@ -129,17 +130,17 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                   <Heading level={content.heading.level}>
                     {content.heading.heading}
                   </Heading>
-                  <button
-                    type="button"
-                    className="unstyled usa-tooltip"
-                    data-position="top"
-                    title={content.toolTip.copy}
-                  >
-                    <Info size={24} color={colors.primary} />
-                    <div className="sr-only">
-                      {content.toolTip.screenReader}
-                    </div>
-                  </button>
+
+                  <Info
+                    data-tooltip-id="totalClockHours-tooltip"
+                    data-tooltip-content={content.toolTip.copy}
+                    size={24}
+                    color={colors.primary}
+                  />
+                  <Tooltip
+                    id="totalClockHours-tooltip"
+                    className="custom-tooltip"
+                  />
                 </Flex>
                 <Button
                   {...content.clearButton}
