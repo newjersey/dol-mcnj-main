@@ -1,10 +1,9 @@
 import { OccupationList } from "@components/blocks/OccupationList";
-import { Breadcrumbs } from "@components/modules/Breadcrumbs";
-import { Heading } from "@components/modules/Heading";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { IN_DEMAND_OCCUPATIONS_PAGE_DATA as pageData } from "@data/pages/in-demand-occupations";
 import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
+import { PageHero } from "@components/blocks/PageHero";
 
 async function getData() {
   const occupationItems = await fetch(
@@ -63,13 +62,7 @@ export default async function IndemandOccupationsPage() {
 
   return (
     <div className="page inDemandList">
-      <section className="hero">
-        <div className="container">
-          <Breadcrumbs {...pageData[lang].hero.breadcrumbs} />
-          <Heading {...pageData[lang].hero.heading} />
-          <p>{pageData[lang].hero.message}</p>
-        </div>
-      </section>
+      <PageHero {...pageData[lang].pageHero} />
       <section className="listBlock">
         <div className="container">
           <OccupationList items={majorGroups} suggestions={suggestions} />

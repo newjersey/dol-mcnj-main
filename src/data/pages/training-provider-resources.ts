@@ -1,3 +1,4 @@
+import { PageHeroProps } from "@components/blocks/PageHero";
 import { PageBannerProps } from "@utils/types";
 
 export const TRAINING_PROVIDER_PAGE_DATA = {
@@ -28,22 +29,15 @@ export const TRAINING_PROVIDER_PAGE_DATA = {
     },
   },
   en: {
-    banner: {
-      title: "Training Provider Resources",
-      section: "support",
+    pageHero: {
+      heading: "Training Provider Resources",
+      subheading:
+        "Training provider data collection, ETPL, and quality assurance guidance",
       theme: "blue",
-      breadcrumbsCollection: {
-        items: [
-          {
-            sys: {
-              id: "50o1RGfZ173Cis7VEFlBDR",
-            },
-            copy: "Home",
-            url: "/",
-          },
-        ],
+      infoBar: {
+        text: "Looking to get you program on the ETPL? [Visit Intelligrants and sign up.](https://njdol.intelligrants.com/)",
       },
-    } as PageBannerProps,
+    } as PageHeroProps,
     tabs: {
       items: [
         {
@@ -75,22 +69,15 @@ export const TRAINING_PROVIDER_PAGE_DATA = {
     },
   },
   es: {
-    banner: {
-      title: "Recursos para Proveedores de Capacitación",
-      section: "support",
+    pageHero: {
+      heading: "Recursos para Proveedores de Capacitación",
+      subheading:
+        "Recolección de datos de proveedores de capacitación, ETPL y orientación sobre control de calidad",
       theme: "blue",
-      breadcrumbsCollection: {
-        items: [
-          {
-            sys: {
-              id: "50o1RGfZ173Cis7VEFlBDR",
-            },
-            copy: "Inicio",
-            url: "/es",
-          },
-        ],
+      infoBar: {
+        text: "¿Quieres incluir tu programa en la ETPL? [Visita Intelligrants y regístrate.](https://njdol.intelligrants.com/)",
       },
-    } as PageBannerProps,
+    } as PageHeroProps,
     tabs: {
       items: [
         {

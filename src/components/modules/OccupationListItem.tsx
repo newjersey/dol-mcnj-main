@@ -12,7 +12,10 @@ const OccupationListItem = ({
   title,
 }: OccupationListItemProps) => {
   const [open, setOpen] = useState(false);
-  const iconName = `${convertToPascalCase(title).replace(/\s/g, "")}Occupations`;
+  const iconName = `${convertToPascalCase(title).replace(
+    /\s/g,
+    ""
+  )}Occupations`;
 
   const IconElement = Icon[iconName as keyof typeof Icon];
 
@@ -22,6 +25,7 @@ const OccupationListItem = ({
         type="button"
         unstyled
         iconSuffix={open ? "CaretUp" : "CaretDown"}
+        iconWeight="bold"
         onClick={() => {
           setOpen(!open);
         }}

@@ -101,5 +101,12 @@
         display: block;
       }
     }
+
+    .usa-alert {
+      margin-top: s.$size-8;
+      p {
+        font-size: s.$size-16;
+      }
+    }
   }
 }
