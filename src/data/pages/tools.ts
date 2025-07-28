@@ -40,14 +40,6 @@ export const TOOLS_PAGE_DATA = {
               href: "https://www.nj.gov/labor/labormarketinformation/",
             },
           },
-          {
-            title: "Apprenticeship Programs",
-            message: "Learn about apprenticeship opportunities in NJ",
-            icon: "ArrowSquareOut",
-            link: {
-              href: "https://www.nj.gov/labor/career-services/apprenticeship/",
-            },
-          },
         ],
       },
       {
@@ -113,30 +105,13 @@ export const TOOLS_PAGE_DATA = {
         theme: "navy" as ThemeColors,
         items: [
           {
-            title: "Career Support",
+            title: "Helpful Resources",
             link: {
-              href: "/support-resources/career-support",
+              href: "/support-resources",
             },
             message:
-              "Career Guidance, Job Search Help, and Re-entering the Workforce",
+              "Career Support, Tuition Assistance, Resident Support, and More",
           },
-
-          {
-            title: "Tuition Assistance",
-            link: {
-              href: "/support-resources/tuition-assistance",
-            },
-            message: "Job Training, Community College, and More",
-          },
-
-          {
-            title: "Resident Support",
-            link: {
-              href: " /support-other",
-            },
-            message: "Housing, Transportation, Healthcare, and More",
-          },
-
           {
             title: "Frequently Asked Questions",
             link: {
@@ -187,14 +162,6 @@ export const TOOLS_PAGE_DATA = {
               href: "https://www.nj.gov/labor/labormarketinformation/",
             },
           },
-          {
-            title: "Apprenticeship Programs",
-            message: "Learn about apprenticeship opportunities in NJ",
-            icon: "ArrowSquareOut",
-            link: {
-              href: "https://www.nj.gov/labor/career-services/apprenticeship/",
-            },
-          },
         ],
       },
       {
@@ -260,30 +227,13 @@ export const TOOLS_PAGE_DATA = {
         theme: "navy" as ThemeColors,
         items: [
           {
-            title: "Career Support",
+            title: "Helpful Resources",
             link: {
-              href: "/support-resources/career-support",
+              href: "/support-resources",
             },
             message:
-              "Career Guidance, Job Search Help, and Re-entering the Workforce",
+              "Career Support, Tuition Assistance, Resident Support, and More",
           },
-
-          {
-            title: "Tuition Assistance",
-            link: {
-              href: "/support-resources/tuition-assistance",
-            },
-            message: "Job Training, Community College, and More",
-          },
-
-          {
-            title: "Resident Support",
-            link: {
-              href: "/spport-resources/other",
-            },
-            message: "Housing, Transportation, Healthcare, and More",
-          },
-
           {
             title: "Frequently Asked Questions",
             link: {
