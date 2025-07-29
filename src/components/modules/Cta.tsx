@@ -15,7 +15,7 @@ interface CtaProps {
 }
 
 const headingClasses =
-  "heading-text text-ink text-[20.8px] tabletLg:text-[28px] font-bold mx-auto mb-[16px] leading-[1.2]";
+  "heading-text text-ink text-[20.8px] tabletLg:text-[28px] font-bold mx-auto mb-[16px] leading-[1.2] text-pretty";
 
 const Cta = ({
   className,
