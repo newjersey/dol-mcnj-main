@@ -133,14 +133,18 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
 
                   <Info
                     data-tooltip-id="totalClockHours-tooltip"
-                    data-tooltip-content={content.toolTip.copy}
                     size={24}
                     color={colors.primary}
                   />
+
                   <Tooltip
                     id="totalClockHours-tooltip"
                     className="custom-tooltip"
-                  />
+                  >
+                    <div className="max-w-[250px] text-pretty">
+                      {content.toolTip.copy}
+                    </div>
+                  </Tooltip>
                 </Flex>
                 <Button
                   {...content.clearButton}
