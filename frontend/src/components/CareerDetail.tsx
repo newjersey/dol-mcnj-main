@@ -19,6 +19,7 @@ import { Selector } from "../svg/Selector";
 import { InDemandTag } from "./InDemandTag";
 import { CircularProgress } from "@material-ui/core";
 import { parseMarkdownToHTML } from "../utils/parseMarkdownToHTML";
+import { Tooltip } from "react-tooltip";
 
 interface OccupationDataProps {
   careerMapObject: OccupationNodeProps;
@@ -198,21 +199,19 @@ export const CareerDetail = ({
                 <div className="meta">
                   <div>
                     <p className="title">
-                      Salary Range
-                      <button
-                        data-position="top"
-                        onFocus={(e) => e.preventDefault()}
-                        title="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
+                      Expected Entry Level Salary
+                      <Tooltip
                         id="sal-tooltip"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                        type="button"
-                        className="unstyled usa-tooltip"
-                      >
-                        <Info size={20} weight="fill" />
-                      </button>
+                        className="custom-tooltip"
+                        place="top"
+                        content="This salary range is an estimate based on available data and may vary depending on location, experience, and employer."
+                      />
+                      <Info
+                        size={20}
+                        weight="fill"
+                        className="usa-tooltip-icon"
+                        data-tooltip-id="sal-tooltip"
+                      />
                     </p>
                     <p>
                       <strong>
@@ -221,27 +220,27 @@ export const CareerDetail = ({
                           ? `${toUsCurrency(data.careerMapObject.salaryRangeStart)} - ${toUsCurrency(
                               data.careerMapObject.salaryRangeEnd,
                             )}`
-                          : "Salary data not available"}
+                          : data.careerMapObject.salaryRangeStart
+                            ? toUsCurrency(data.careerMapObject.salaryRangeStart)
+                            : "Salary data not available"}
                       </strong>
                     </p>
                   </div>
                   <div>
                     <p className="title">
                       Jobs Open in NJ{" "}
-                      <button
-                        onFocus={(e) => e.preventDefault()}
-                        data-position="top"
+                      <Tooltip
                         id="jobs-tooltip"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                        }}
-                        title="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
-                        type="button"
-                        className="unstyled usa-tooltip"
-                      >
-                        <Info size={20} weight="fill" />
-                      </button>
+                        className="custom-tooltip"
+                        place="top"
+                        content="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."
+                      />
+                      <Info
+                        size={20}
+                        weight="fill"
+                        className="usa-tooltip-icon"
+                        data-tooltip-id="jobs-tooltip"
+                      />
                     </p>
                     <>
                       {loadingJobs ? (

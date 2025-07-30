@@ -66,13 +66,13 @@ export const SinglePath = ({
                     <strong>{item.shortTitle || item.title}</strong>
                   </p>
 
-                  {item.salaryRangeStart && item.salaryRangeEnd ? (
+                  {item.salaryRangeStart ? (
                     <div className="salary">
-                      <p>Salary Range</p>
+                      <p>Expected Entry Level Salary</p>
                       <p>
                         <strong>
-                          ${numberShorthand(item.salaryRangeStart)} - $
-                          {numberShorthand(item.salaryRangeEnd)}
+                          ${numberShorthand(item.salaryRangeStart)}{" "}
+                          {item.salaryRangeEnd ? ` - $${numberShorthand(item.salaryRangeEnd)}` : ""}
                         </strong>
                       </p>
                     </div>
