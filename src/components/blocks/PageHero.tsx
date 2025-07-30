@@ -12,7 +12,7 @@ export interface PageHeroProps {
   description?: string;
   theme?: ThemeColors;
   ctaButtons?: ButtonProps[];
-  button?: ButtonProps;
+  buttons?: ButtonProps[];
   image?: ImageProps;
   infoBar?:
     | {
@@ -52,9 +52,11 @@ export const PageHero = (props: PageHeroProps) => {
                 }}
               />
             )}
-            {props.button && (
+            {props.buttons && props.buttons.length > 0 && (
               <div className="footer-button">
-                <Button {...props.button} />
+                {props.buttons.map((button) => (
+                  <Button key={button.label} {...button} />
+                ))}
               </div>
             )}
             {props.infoBar && (

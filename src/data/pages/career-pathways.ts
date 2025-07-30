@@ -43,12 +43,14 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       description:
         "The pathways tool is easy to use! It saves you time by bringing everything - high growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, without stress.",
       theme: "purple",
-      button: {
-        label: "Start Exploring",
-        iconSuffix: "ArrowDown",
-        defaultStyle: "tertiary",
-        link: "#industry-selector",
-      },
+      buttons: [
+        {
+          label: "Start Exploring",
+          iconSuffix: "ArrowDown",
+          defaultStyle: "tertiary",
+          link: "#industry-selector",
+        },
+      ],
     } as PageHeroProps,
     banner: {
       heading: "Welcome to New Jersey Career Pathways!",
@@ -224,12 +226,14 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       description:
         "¡La herramienta de trayectorias es fácil de usar! Te ahorra tiempo al reunir todo en un solo lugar — trayectorias profesionales de alto crecimiento, opciones de capacitación y oportunidades laborales — para que explores tus próximos pasos con facilidad y sin estrés.",
       theme: "purple",
-      button: {
-        label: "Comenzar a Explorar",
-        iconSuffix: "ArrowDown",
-        defaultStyle: "tertiary",
-        link: "#industry-selector",
-      },
+      buttons: [
+        {
+          label: "Comenzar a Explorar",
+          iconSuffix: "ArrowDown",
+          defaultStyle: "tertiary",
+          link: "#industry-selector",
+        },
+      ],
     } as PageHeroProps,
     banner: {
       heading: "¡Bienvenido a New Jersey Career Pathways!",

@@ -13,7 +13,7 @@ export interface RiverProps {
 const River = ({ className, items, headingLevel = 2 }: RiverProps) => {
   return (
     <section className={`river${className ? ` ${className}` : ""}`}>
-      <div className="container">
+      <div className="container narrow">
         {items.map((item, index) => (
           <div className="item" key={item.heading + index}>
             {item.image && (

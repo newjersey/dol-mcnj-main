@@ -1,7 +1,12 @@
 @use "../settings" as s;
 
 .steps {
-  > .container {
+  display: flex;
+  justify-content: center;
+  > div {
+    display: inline-block;
+    padding: 0 s.$size-16;
+
     .inner {
       background-color: s.$secondary-lighter;
       border-radius: s.$size-16;
@@ -55,7 +60,7 @@
   }
 
   &.theme-base {
-    > .container {
+    > div {
       .inner {
         background-color: s.$base-lighter;
         .list-num {
@@ -65,7 +70,7 @@
     }
   }
   &.theme-navy {
-    > .container {
+    > div {
       .inner {
         background-color: s.$info-lighter;
         .list-num {
@@ -75,7 +80,7 @@
     }
   }
   &.theme-blue {
-    > .container {
+    > div {
       .inner {
         background-color: s.$primary-lighter;
         .list-num {
@@ -85,7 +90,7 @@
     }
   }
   &.theme-green {
-    > .container {
+    > div {
       .inner {
         background-color: s.$secondary-lighter;
         .list-num {
@@ -95,7 +100,7 @@
     }
   }
   &.theme-purple {
-    > .container {
+    > div {
       .inner {
         background-color: s.$tertiary-lighter;
         .list-num {
@@ -105,7 +110,7 @@
     }
   }
   &.theme-orange {
-    > .container {
+    > div {
       .inner {
         background-color: s.$accent-warm-lighter;
         .list-num {
