@@ -112,13 +112,13 @@ export const TOOLS_PAGE_DATA = {
             message:
               "Career Support, Tuition Assistance, Resident Support, and More",
           },
-          {
-            title: "Frequently Asked Questions",
-            link: {
-              href: "/faq",
-            },
-            message: "Frequently Asked Questions",
-          },
+          // {
+          //   title: "Frequently Asked Questions",
+          //   link: {
+          //     href: "/faq",
+          //   },
+          //   message: "Frequently Asked Questions",
+          // },
         ],
       },
     ],
@@ -234,13 +234,13 @@ export const TOOLS_PAGE_DATA = {
             message:
               "Career Support, Tuition Assistance, Resident Support, and More",
           },
-          {
-            title: "Frequently Asked Questions",
-            link: {
-              href: "/faq",
-            },
-            message: "Frequently Asked Questions",
-          },
+          // {
+          //   title: "Frequently Asked Questions",
+          //   link: {
+          //     href: "/faq",
+          //   },
+          //   message: "Frequently Asked Questions",
+          // },
         ],
       },
     ],
