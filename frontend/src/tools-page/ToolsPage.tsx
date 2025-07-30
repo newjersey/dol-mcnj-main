@@ -158,14 +158,6 @@ export const ToolsPage = (props: Props): ReactElement => {
                 href: "/support-resources",
               },
             },
-            {
-              heading: t("ToolsPage.supportLink2Heading"),
-              description: t("ToolsPage.supportLink2Description"),
-
-              link: {
-                href: "/faq",
-              },
-            },
           ]}
         />
       </div>
