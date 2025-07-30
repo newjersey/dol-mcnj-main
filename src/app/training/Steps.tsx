@@ -17,14 +17,14 @@ export const Steps = ({
         theme ? ` theme-${theme}` : ""
       }`}
     >
-      <div className="container narrow">
+      <div>
         <div className="inner">
           <Flex
             alignItems="center"
             justifyContent="space-between"
             columnBreak="lg"
             elementTag="ul"
-            gap="micro"
+            gap="sm"
             className="container unstyled"
           >
             {items.map((item, index) => (
