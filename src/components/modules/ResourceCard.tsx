@@ -8,7 +8,7 @@ export const ResourceCard = ({
   className,
   description,
   link,
-  tagsCollection,
+  tags,
   theme = "green",
   title,
 }: ResourceCardProps) => {
@@ -36,7 +36,7 @@ export const ResourceCard = ({
           }}
         />
         <Flex gap="xs" flexWrap="wrap" className="tags" columnBreak="none">
-          {tagsCollection.items.map((tag) => (
+          {tags.items.map((tag) => (
             <Tag key={tag.sys.id} title={tag.title} color={theme} />
           ))}
         </Flex>

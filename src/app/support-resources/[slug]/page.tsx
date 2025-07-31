@@ -32,12 +32,12 @@ async function getData(slug: string) {
   })) as ResourceCategoryPageProps["listingItems"];
 
   const usedTags = listingItems.resources.items
-    .map((resource) => resource.tagsCollection.items.map((tag) => tag.title))
+    .map((resource) => resource.tags.items.map((tag) => tag.title))
     .flat()
     .filter((tag, index, self) => self.indexOf(tag) === index);
 
   const usedAudience = listingItems.resources.items
-    .map((resource) => resource.tagsCollection.items.map((tag) => tag.title))
+    .map((resource) => resource.tags.items.map((tag) => tag.title))
     .flat()
     .filter((tag, index, self) => self.indexOf(tag) === index);
 
