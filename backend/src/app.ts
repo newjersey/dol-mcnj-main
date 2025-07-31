@@ -22,7 +22,7 @@ import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
 // import { rateLimiter } from "./utils/rateLimiter";
-
+import { createProxyMiddleware, Options } from 'http-proxy-middleware';
 dotenv.config();
 // console.log(process.env);
 
@@ -207,28 +207,37 @@ const router = routerFactory({
       postgresDataClient
   ),
 });
-
-app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
 app.use(express.json());
 app.use("/api", router);
 app.use('/api/contact', contactRouter)
 app.use('/api/signup', signUpRouter)
 app.use('/api/emails', emailSubmissionRouter);
 app.use('/api/contentful', contentfulRouter);
+app.use(
+  /^\/(?!api).*/,
+  (req, res, next) => {
+    console.log(`Proxying to Next.js: ${req.method} ${req.originalUrl}`);
+    next();
+  }
+);
 
-// Routes for handling root and unknown routes...
-app.get("/", (req: Request, res: Response) => {
-  res.setHeader("Cache-Control", "no-cache");
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
-app.get("*", (req: Request, res: Response) => {
-  res.setHeader("Cache-Control", "no-cache");
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
-
-// Error handler for Sentry...
+app.use(
+  /^\/(_next|static|favicon\.ico|robots\.txt|stateSeal\.png)/,
+  createProxyMiddleware({
+    target: 'http://localhost:3000',
+    changeOrigin: true,
+    xfwd: true,
+    // No pathRewrite needed
+    onProxyReq: (proxyReq: any, req: any, res: any) => {
+      if (req.headers['user-agent']) {
+        proxyReq.setHeader('user-agent', req.headers['user-agent']);
+      }
+      if (req.headers.cookie) {
+        proxyReq.setHeader('cookie', req.headers.cookie);
+      }
+    }
+  } as any)
+)
+;
 app.use(Sentry.Handlers.errorHandler());
-
 export default app;

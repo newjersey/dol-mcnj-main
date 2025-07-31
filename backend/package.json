@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node build.js",
+    "build": "tsc",
     "lint": "eslint --max-warnings 0 '{src,migrations}/**/*.{js,ts}'",
     "lint:fix": "eslint --max-warnings 0 '{src,migrations}/**/*.{js,ts}' --fix",
     "start": "npm run db-migrate up -- -e $DB_ENV && node ./dist/server.js --env=production",
@@ -42,6 +42,7 @@
     "express-rate-limit": "^7.2.0",
     "express-validator": "^7.0.1",
     "graphql-request": "^6.1.0",
+    "http-proxy-middleware": "^3.0.5",
     "knex": "^3.0.1",
     "node-cache": "^5.1.2",
     "nodemailer": "^6.9.13",

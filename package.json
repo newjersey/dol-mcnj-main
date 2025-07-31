@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npm --prefix backend run build && npm --prefix backend run start & wait-on tcp:8080 && next build",
+   "build:only": "npm --prefix backend run build && next build",
+	"build": "npm --prefix backend run build && npm --prefix backend run start & wait-on tcp:8080 && next build",
+  "build:prod": "npm --prefix backend run build && next build",
+    "start:backend": "cd backend && node ./dist/server.js",
+    "start:frontend": "next start",
     "check": "prettier --check .",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
