@@ -15,6 +15,7 @@ export interface FilterControlProps {
     heading: string;
     items: ResourceTagProps[];
   }[];
+  selected?: ResourceTagProps[]; // NEW
   onChange?: (selected: ResourceTagProps[]) => void;
 }
 
@@ -24,16 +25,9 @@ export const FilterControl = ({
   className,
   groups,
   onChange,
+  selected = [], // default to empty
 }: FilterControlProps) => {
-  const [selected, setSelected] = useState<ResourceTagProps[]>([]);
   const [open, setOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    // Call the onChange callback when the selected items change
-    if (onChange) {
-      onChange(selected);
-    }
-  }, [selected]);
 
   useEffect(() => {
     const toggle = document.querySelectorAll(".labelBox .title");
@@ -64,7 +58,7 @@ export const FilterControl = ({
           customTextColor="#2e6276"
           customBorderColor="#2e6276"
           type="button"
-          onClick={() => setSelected([])}
+          onClick={() => onChange?.([])}
         />
         {groups.map((group) => (
           <div key={group.heading}>
@@ -77,12 +71,12 @@ export const FilterControl = ({
                 label="Select All"
                 unstyled
                 onClick={() => {
-                  // Select all items in the group and remove duplicates
-                  setSelected(
-                    [...selected, ...group.items].filter(
-                      (item, index, self) => self.indexOf(item) === index,
-                    ),
+                  const combined = [...selected, ...group.items];
+                  const unique = combined.filter(
+                    (item, index, self) =>
+                      self.findIndex((i) => i.sys.id === item.sys.id) === index
                   );
+                  onChange?.(unique);
                 }}
                 customTextColor={colors.baseDark}
               />
@@ -94,13 +88,14 @@ export const FilterControl = ({
                 label={item.title}
                 inputId={item.sys.id}
                 key={item.sys.id}
-                checked={selected.includes(item)}
+                checked={selected.some((i) => i.sys.id === item.sys.id)}
                 onChange={() => {
-                  // Toggle the selected state of the checkbox item
-                  if (selected.includes(item)) {
-                    setSelected(selected.filter((i) => i !== item));
+                  if (selected.some((i) => i.sys.id === item.sys.id)) {
+                    onChange?.(
+                      selected.filter((i) => i.sys.id !== item.sys.id)
+                    );
                   } else {
-                    setSelected([...selected, item]);
+                    onChange?.([...selected, item]);
                   }
                 }}
               />
@@ -112,10 +107,10 @@ export const FilterControl = ({
               unstyled
               customTextColor={colors.baseDark}
               onClick={() => {
-                // Remove the selected items that belong to the current group
-                setSelected(
-                  selected.filter((item) => !group.items.includes(item)),
+                const next = selected.filter(
+                  (item) => !group.items.some((i) => i.sys.id === item.sys.id)
                 );
+                onChange?.(next);
               }}
             />
           </div>

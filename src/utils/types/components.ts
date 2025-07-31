@@ -468,7 +468,7 @@ export interface ResourceCardProps {
   className?: string;
   description: string;
   link: string;
-  tagsCollection: {
+  tags: {
     items: {
       sys: {
         id: string;
