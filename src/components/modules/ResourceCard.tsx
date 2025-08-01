@@ -35,11 +35,26 @@ export const ResourceCard = ({
             __html: parseMarkdownToHTML(description),
           }}
         />
-        <Flex gap="xs" flexWrap="wrap" className="tags" columnBreak="none">
-          {tags.items.map((tag) => (
-            <Tag key={tag.sys.id} title={tag.title} color={theme} />
-          ))}
-        </Flex>
+        <div>
+          <span className="mt-4 mb-2 block text-[14px]">
+            Filter categories:
+          </span>
+          <Flex gap="xs" flexWrap="wrap" className="tags" columnBreak="none">
+            {tags.items.map((tag) => {
+              const tagColor =
+                tag.category.slug === "career-support"
+                  ? "purple"
+                  : tag.category.slug === "other"
+                  ? "blue"
+                  : tag.category.slug === "tuition-assistance"
+                  ? "green"
+                  : "navy";
+              return (
+                <Tag key={tag.sys.id} title={tag.title} color={tagColor} />
+              );
+            })}
+          </Flex>
+        </div>
       </Flex>
     </Box>
   );

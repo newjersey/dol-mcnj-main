@@ -4,10 +4,10 @@
   display: inline-flex;
   align-items: center;
   gap: s.$size-4;
-  padding: s.$size-4 s.$size-12;
+  padding: s.$size-6 s.$size-12;
   border-radius: s.$size-2;
+  font-weight: 500;
   color: s.$ink;
-  border: s.$size-1 solid;
 
   &.small {
     padding: s.$size-2 s.$size-8;
@@ -52,28 +52,28 @@
   }
 
   &.color-green {
-    background-color: s.$secondary-lighter;
-    border-color: s.$secondary-light;
+    background-color: s.$success-lighter;
+    color: s.$secondary-dark;
   }
 
   &.color-blue {
-    background-color: s.$primary-lighter;
-    border-color: s.$primary-light;
+    background-color: s.$primary-extra-light;
+    color: s.$primary-darker;
   }
 
   &.color-purple {
     background-color: s.$tertiary-lighter;
-    border-color: s.$tertiary-light;
+    color: s.$tertiary-darker;
   }
 
   &.color-navy {
     background-color: s.$info-lighter;
-    border-color: s.$info-light;
+    color: s.$info-darker;
   }
 
   &.color-orange {
     background-color: s.$accent-warm-lighter;
-    border-color: s.$accent-warm-light;
+    color: s.$accent-warm-darker;
   }
 }
 

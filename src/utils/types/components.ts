@@ -475,6 +475,8 @@ export interface ResourceCardProps {
       };
       title: string;
       category: {
+        slug: string;
+        title: string;
         sys: {
           id: string;
         };
