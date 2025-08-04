@@ -172,7 +172,7 @@ export const ResourceList = ({
               </p>
             </div>
             <div>
-              <label className="block w-[256px] flex flex-col gap-2 relative">
+              <label className="w-[256px] flex flex-col gap-2 relative">
                 <strong>Sort by:</strong>
                 <select
                   className="w-full"
