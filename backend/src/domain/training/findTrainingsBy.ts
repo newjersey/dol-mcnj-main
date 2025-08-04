@@ -26,7 +26,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
 
               const cipDefinition = await dataClient.findCipDefinitionByCip(program.cipcode);
 
-              return {
+              const training =  {
                 id: program.programid,
                 name: stripSurroundingQuotes(convertToTitleCaseIfUppercase(program.officialname)),
                 cipDefinition: cipDefinition !== undefined ? cipDefinition[0] : null,
@@ -82,6 +82,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                   mapStrNumToBool(program.childcare) ||
                   mapStrNumToBool(program.assistobtainingchildcare),
               };
+              // console.log(JSON.stringify(training));
+              return training;
             } catch (error) {
               console.error(`Error while processing program id ${program.programid}: `, error);
 
