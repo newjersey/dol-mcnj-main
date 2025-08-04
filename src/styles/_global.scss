@@ -680,6 +680,7 @@ iframe:focus {
 }
 
 .resourceList {
+  margin-bottom: s.$size-96;
   .resourceHeading {
     select {
       border: s.$size-2 solid s.$base;
