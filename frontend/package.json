@@ -43,7 +43,7 @@
     "typescript": "^5.9.2",
     "winston": "^3.17.0",
     "winston-cloudwatch": "^6.3.0",
-    "yup": "^1.6.1"
+    "yup": "^1.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
