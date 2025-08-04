@@ -51,6 +51,11 @@
     }
   }
 
+  &.color-base {
+    background-color: s.$base-lighter;
+    color: s.$base-darker;
+  }
+
   &.color-green {
     background-color: s.$success-lighter;
     color: s.$secondary-dark;
@@ -83,6 +88,12 @@ a {
     cursor: pointer;
     &:hover {
       color: s.$white;
+    }
+
+    &.color-base {
+      &:hover {
+        background-color: s.$base;
+      }
     }
 
     &.color-green {

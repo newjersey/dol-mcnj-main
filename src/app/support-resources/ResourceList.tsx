@@ -7,12 +7,15 @@ import { FilterControl } from "@components/blocks/FilterControl";
 import { CtaBanner } from "@components/blocks/CtaBanner";
 import { useEffect, useState } from "react";
 import { Tag } from "@components/modules/Tag";
+import { CaretDownIcon } from "@phosphor-icons/react";
+import Fuse from "fuse.js";
 
 export const ResourceList = ({
   resources,
   tags,
 }: SupportResourcesPageProps) => {
   const [selectedTags, setSelectedTags] = useState<TagProps[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<"aToZ" | "zToA">("aToZ");
   const [filteredResources, setFilteredResources] = useState<
     ResourceCardProps[]
@@ -57,42 +60,81 @@ export const ResourceList = ({
   );
 
   useEffect(() => {
-    if (selectedTags.length > 0) {
-      const filtered = resources.items.filter((resource: ResourceCardProps) => {
-        const resourceTags = resource.tags.items.map((tag) => tag.title);
-        return selectedTags.some((tag) => resourceTags.includes(tag.title));
+    const baseList =
+      selectedTags.length > 0
+        ? resources.items.filter((resource) => {
+            const resourceTags = resource.tags.items.map((tag) => tag.title);
+            return selectedTags.some((tag) => resourceTags.includes(tag.title));
+          })
+        : resources.items;
+
+    let finalList = baseList;
+
+    if (searchQuery) {
+      const fuse = new Fuse(baseList, {
+        keys: ["title", "description"],
+        threshold: 0.4,
+        distance: 10,
+        minMatchCharLength: 2,
+        ignoreLocation: true,
       });
-      const alphabeticalOrder = (
-        a: ResourceCardProps,
-        b: ResourceCardProps
-      ) => {
-        if (sortOrder === "aToZ") {
-          return a.title.localeCompare(b.title);
-        }
-        return b.title.localeCompare(a.title);
-      };
-      filtered.sort(alphabeticalOrder);
-      setFilteredResources(filtered);
-    } else {
-      const alphabeticalOrder = (
-        a: ResourceCardProps,
-        b: ResourceCardProps
-      ) => {
-        if (sortOrder === "aToZ") {
-          return a.title.localeCompare(b.title);
-        }
-        return b.title.localeCompare(a.title);
-      };
-      resources.items.sort(alphabeticalOrder);
-      setFilteredResources(resources.items);
+      finalList = fuse.search(searchQuery).map((r) => r.item);
     }
-  }, [selectedTags]);
+
+    const alphabeticalOrder = (a: ResourceCardProps, b: ResourceCardProps) =>
+      sortOrder === "aToZ"
+        ? a.title.localeCompare(b.title)
+        : b.title.localeCompare(a.title);
+
+    setFilteredResources(finalList.sort(alphabeticalOrder));
+  }, [selectedTags, searchQuery, sortOrder, resources.items]);
 
   return (
     <section className="resourceList">
-      <div className="container flex gap-8 items-start">
+      <div className="container flex flex-col tabletLg:flex-row gap-8 items-start">
         <FilterControl
-          className="w-[400px]"
+          className="w-full tabletLg:w-[400px]"
+          setSearchQuery={setSearchQuery}
+          searchQuery={searchQuery}
+          onType={(type) => {
+            setSearchQuery(type);
+
+            const baseList =
+              selectedTags.length > 0
+                ? resources.items.filter((resource) => {
+                    const resourceTags = resource.tags.items.map(
+                      (tag) => tag.title
+                    );
+                    return selectedTags.some((tag) =>
+                      resourceTags.includes(tag.title)
+                    );
+                  })
+                : resources.items;
+
+            if (!type) {
+              const alphabeticalOrder = (
+                a: ResourceCardProps,
+                b: ResourceCardProps
+              ) =>
+                sortOrder === "aToZ"
+                  ? a.title.localeCompare(b.title)
+                  : b.title.localeCompare(a.title);
+
+              setFilteredResources([...baseList].sort(alphabeticalOrder));
+              return;
+            }
+
+            const fuse = new Fuse(baseList, {
+              keys: ["title", "description"],
+              threshold: 0.4,
+              distance: 10,
+              minMatchCharLength: 2,
+              ignoreLocation: true,
+            });
+
+            const results = fuse.search(type).map((r) => r.item);
+            setFilteredResources(results);
+          }}
           onChange={(selected) => {
             const tagGroup = selected.sort((a, b) => {
               const aCategory = a.category?.slug || "other";
@@ -119,7 +161,7 @@ export const ResourceList = ({
             ]}
           />
         </FilterControl>
-        <div className="w-[calc(100%-400px)] flex flex-col gap-4">
+        <div className="tabletLg:w-[calc(100%-400px)] flex flex-col gap-4">
           <div className="resourceHeading flex justify-between items-start mb-4">
             <div>
               <p className="text-[24px] font-bold m-0">
@@ -130,7 +172,7 @@ export const ResourceList = ({
               </p>
             </div>
             <div>
-              <label className="block w-[256px] flex flex-col gap-2">
+              <label className="block w-[256px] flex flex-col gap-2 relative">
                 <strong>Sort by:</strong>
                 <select
                   className="w-full"
@@ -152,11 +194,30 @@ export const ResourceList = ({
                   <option value="aToZ">A-Z</option>
                   <option value="zToA">Z-A</option>
                 </select>
+                <CaretDownIcon
+                  size={22}
+                  weight="bold"
+                  className="absolute right-2 bottom-size8"
+                />
               </label>
             </div>
           </div>
-          {selectedTags.length > 0 && (
+          {(searchQuery || selectedTags.length > 0) && (
             <div className="flex flex-wrap gap-2 mb-4">
+              {searchQuery && (
+                <button
+                  onClick={() => {
+                    setSearchQuery("");
+                  }}
+                >
+                  <Tag
+                    suffixIcon="X"
+                    iconWeight="bold"
+                    color="base"
+                    title={`"${searchQuery}"`}
+                  />
+                </button>
+              )}
               {selectedTags.map((tag) => {
                 const tagColor =
                   tag.category.slug === "career-support"
