@@ -60,7 +60,7 @@ export const SIGNUP_FORM = {
     form: {
       submitLabel: "Enviar",
       footer:
-        "Lee nuestra [política de privacidad](/privacy-policy) y nuestra [política de uso de SMS](/sms-use-policy).",
+        "Lea nuestra [política de privacidad](https://www.nj.gov/nj/privacy.html).",
       fields: {
         firstName: {
           label: "Nombre",
