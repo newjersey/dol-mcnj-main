@@ -38,15 +38,19 @@ jest.mock("../modules/LinkObject", () => ({
 
 describe("Header Component", () => {
   const globalNav: NavMenuProps = {
-    sys: { id: "globalNav" },
+    itemId: "globalNav",
     title: "Global Navigation",
-    topLevelItemsCollection: { items: [] },
+    en: {
+      topLevelItemsCollection: { items: [] },
+    },
   };
 
   const mainNav: NavMenuProps = {
-    sys: { id: "mainNav" },
+    itemId: "mainNav",
     title: "Main Navigation",
-    topLevelItemsCollection: { items: [] },
+    en: {
+      topLevelItemsCollection: { items: [] },
+    },
   };
 
   it("renders without crashing with default props", () => {
@@ -81,7 +85,7 @@ describe("Header Component", () => {
 
   it("toggles navigation menu on button click", () => {
     const { getByText } = render(
-      <Header mainNav={mainNav} globalNav={globalNav} />,
+      <Header mainNav={mainNav} globalNav={globalNav} />
     );
     const button = getByText("Nav Toggle").parentElement as HTMLElement;
     const navMenu = document.querySelector(".main-nav");
@@ -95,7 +99,7 @@ describe("Header Component", () => {
 
   it("renders contact us link correctly", () => {
     const { getByText } = render(
-      <Header mainNav={mainNav} globalNav={globalNav} />,
+      <Header mainNav={mainNav} globalNav={globalNav} />
     );
     const contactLink = getByText("Contact Us") as HTMLAnchorElement;
     expect(contactLink).toBeInTheDocument();
