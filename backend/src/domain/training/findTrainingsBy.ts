@@ -72,8 +72,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 otherCost: parseFloat(program.othercosts),
                 totalCost: parseFloat(program.totalcost),
                 online: !!program.onlineprogramid,
-                percentEmployed: formatPercentEmployed(program.peremployed2),
-                averageSalary: formatAverageSalary(program.avgquarterlywage2),
                 hasEveningCourses: mapStrNumToBool(program.eveningcourses),
                 languages: formatLanguages(program.languages),
                 isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),

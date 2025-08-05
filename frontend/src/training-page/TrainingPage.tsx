@@ -12,19 +12,16 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { Grouping } from "../components/Grouping";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { Layout } from "../components/Layout";
-import { StatBlock } from "../components/StatBlock";
 import { UnstyledButton } from "../components/UnstyledButton";
 import { CipDrawerContent } from "../components/CipDrawerContent";
 
 import { usePageTitle } from "../utils/usePageTitle";
 
-import { formatPercentEmployed } from "../presenters/formatPercentEmployed";
-
 import { Icon } from "@material-ui/core";
 import { formatMoney } from "accounting";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
-import { PROVIDER_MISSING_INFO, STAT_MISSING_DATA_INDICATOR } from "../constants";
+import { PROVIDER_MISSING_INFO } from "../constants";
 import { Trans, useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { useReactToPrint } from "react-to-print";
@@ -470,31 +467,6 @@ export const TrainingPage = (props: Props): ReactElement => {
             ) : (
               <></>
             )}
-
-            <div className="stat-block-container">
-              <StatBlock
-                title={t("TrainingPage.avgSalaryTitle")}
-                tooltipText={t("TrainingPage.avgSalaryTooltip")}
-                disclaimer={t("")}
-                data={
-                  training.averageSalary
-                    ? formatMoney(training.averageSalary, { precision: 0 })
-                    : STAT_MISSING_DATA_INDICATOR
-                }
-                backgroundColorClass="bg-lightest-purple"
-              />
-              <StatBlock
-                title={t("TrainingPage.employmentRateTitle")}
-                tooltipText={t("TrainingPage.employmentRateTooltip")}
-                disclaimer={t("")}
-                data={
-                  training.percentEmployed
-                    ? formatPercentEmployed(training.percentEmployed)
-                    : STAT_MISSING_DATA_INDICATOR
-                }
-                backgroundColorClass="bg-light-purple-50"
-              />
-            </div>
           </div>
           <ul className="save-controls mobile-only unstyled">
             <li>

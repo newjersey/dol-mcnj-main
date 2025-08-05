@@ -13,6 +13,7 @@ import { DataClient } from "../../domain/DataClient";
 import { Occupation } from "../../domain/occupations/Occupation";
 import { Selector } from "../../domain/training/Selector";
 import { Error } from "../../domain/Error";
+import {mapProgramOutcomeFromDb, ProgramOutcome} from "../../domain/training/outcomes";
 
 const APPROVED = "Approved";
 
@@ -113,10 +114,12 @@ export class PostgresDataClient implements DataClient {
                 .whereIn(`etpl.${column}`, values);
 
 
-            // Apply the status filtering using the APPROVED constant
-            const programs = programsBeforeFilter.filter(program =>
-                program.statusname === APPROVED && program.providerstatusname === APPROVED
-            );
+            const programs = programsBeforeFilter.filter(
+                program => program.statusname === APPROVED && program.providerstatusname === APPROVED
+            ).map(row => ({
+                ...row,
+                outcomes: mapProgramOutcomeFromDb(row) as ProgramOutcome,
+            }));
 
            if (programs.length === 0) {
                 console.warn(`No non-suspended programs found for selector: ${selector} and values: ${values}`);
