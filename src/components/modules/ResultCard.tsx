@@ -2,10 +2,10 @@
 import { toUsCurrency } from "@utils/toUsCurrency";
 import { Heading } from "./Heading";
 import {
-  BookBookmark,
-  Briefcase,
-  Clock,
-  GraduationCap,
+  BookBookmarkIcon,
+  BriefcaseIcon,
+  ClockIcon,
+  GraduationCapIcon,
   MapPin,
 } from "@phosphor-icons/react";
 import { Tag } from "./Tag";
@@ -70,13 +70,13 @@ const ResultCard = (props: ResultCardProps) => {
         <div className="education-row">
           {education && (
             <p className="education">
-              <GraduationCap size={16} />
+              <GraduationCapIcon size={16} />
               <span>{education}</span>
             </p>
           )}
 
           <p className="percentEmployed">
-            <Briefcase size={16} />
+            <BriefcaseIcon size={16} />
             <span>
               {percentEmployed
                 ? `${Math.floor(percentEmployed * 100 * 10) / 10}% employed`
@@ -92,7 +92,7 @@ const ResultCard = (props: ResultCardProps) => {
         )}
         {timeToComplete && (
           <p className="timeToComplete">
-            <Clock size={16} />
+            <ClockIcon size={16} />
             <span>{calendarLength(timeToComplete)} to complete</span>
           </p>
         )}
@@ -105,7 +105,7 @@ const ResultCard = (props: ResultCardProps) => {
                 elementTag="span"
                 columnBreak="none"
               >
-                <BookBookmark size={16} weight="fill" />
+                <BookBookmarkIcon size={16} weight="fill" />
                 <span>CIP: {formatCip(cipDefinition.cipcode)}</span>
               </Flex>
               <b>{cipDefinition.ciptitle}</b>

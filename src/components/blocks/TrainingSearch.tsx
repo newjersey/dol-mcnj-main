@@ -32,6 +32,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
 
   const clearAllInputs = () => {
     const inputs = document.querySelectorAll("input");
+    const selects = document.querySelectorAll("select");
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
     const checkboxArray: HTMLInputElement[] = Array.from(
       checkboxes
@@ -42,6 +43,9 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
     inputs.forEach((input) => {
       input.value = "";
     });
+    selects.forEach((select) => {
+      select.selectedIndex = 0;
+    });
 
     // clear state
     setInPerson(false);
@@ -50,6 +54,8 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
     setOnline(false);
     setZipCode("");
     setSearchTerm("");
+    setZipError(true);
+    setAttempted(false);
   };
 
   useEffect(() => {
@@ -216,6 +222,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                       { key: "100", value: "100" },
                       { key: "200", value: "200" },
                     ]}
+                    value={miles}
                     onChangeSelect={(e: ChangeEvent<HTMLSelectElement>) => {
                       if (
                         e.target.value === content.form.miles.milesPlaceholder
@@ -227,6 +234,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                       setMiles(sanitizedValue(e.target.value));
                     }}
                   />
+
                   <span className="from">from</span>
                   <FormInput
                     type="text"

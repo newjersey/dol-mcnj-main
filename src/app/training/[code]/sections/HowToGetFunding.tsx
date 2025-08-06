@@ -1,6 +1,6 @@
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
-import { ArrowSquareOut } from "@phosphor-icons/react";
+import { ArrowSquareOutIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export const HowToGetFunding = ({
@@ -22,7 +22,7 @@ export const HowToGetFunding = ({
     >
       <p>
         Trainings related to occupations on the{" "}
-        <LinkObject url="/in-demand-occupations">
+        <LinkObject url="/in-demand-occupations" target="_blank">
           In - Demand Occupations List
         </LinkObject>{" "}
         may be eligible for funding. Contact your local One-Stop Career Center
@@ -30,14 +30,18 @@ export const HowToGetFunding = ({
       </p>
       <Link
         className="font-bold underline underline-offset-[4px] decoration-[2px] flex items-center gap-2"
+        target="_blank"
+        rel="noopener noreferrer"
         href="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
       >
         New Jersey&apos;s One-Stop Career Centers
-        <ArrowSquareOut size={24} className="inline-block" />
+        <ArrowSquareOutIcon size={24} className="inline-block" />
       </Link>
       <p>You can also check out other tuition assistance opportunities.</p>
       <Link
         href="/support-resources/tuition-assistance"
+        target="_blank"
+        rel="noopener noreferrer"
         className="font-bold underline underline-offset-[4px] decoration-[2px]"
       >
         View Tuition Assistance Resource

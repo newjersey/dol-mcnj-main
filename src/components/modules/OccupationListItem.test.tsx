@@ -17,7 +17,7 @@ jest.mock("./LinkObject", () => ({
 // Mock the convertToPascalCase function
 jest.mock("../../utils/convertToPascalCase", () => ({
   convertToPascalCase: jest.fn((str) =>
-    str.replace(/(^\w|-\w)/g, (match) => match.replace("-", "").toUpperCase()),
+    str.replace(/(^\w|-\w)/g, (match) => match.replace("-", "").toUpperCase())
   ),
 }));
 
@@ -34,14 +34,14 @@ describe("OccupationListItem", () => {
 
   it("renders correctly with required props", () => {
     const { getByText } = render(
-      <OccupationListItem title="Example" items={items} />,
+      <OccupationListItem title="Example" items={items} />
     );
     expect(getByText("Example")).toBeInTheDocument();
   });
 
   it("toggles the open state when the button is clicked", () => {
     const { getByText, queryByText } = render(
-      <OccupationListItem title="Example" items={items} />,
+      <OccupationListItem title="Example" items={items} />
     );
     expect(queryByText("Job Title 1")).not.toBeInTheDocument();
 
@@ -54,7 +54,7 @@ describe("OccupationListItem", () => {
 
   it("displays the correct icon based on the open state", () => {
     const { getByText, getByTestId } = render(
-      <OccupationListItem title="Example" items={items} />,
+      <OccupationListItem title="Example" items={items} />
     );
     fireEvent.click(getByText("Example"));
     expect(getByTestId("example-icon")).toBeInTheDocument();
@@ -62,7 +62,7 @@ describe("OccupationListItem", () => {
 
   it("renders the list of items when open is true", () => {
     const { getByText } = render(
-      <OccupationListItem title="Example" items={items} />,
+      <OccupationListItem title="Example" items={items} />
     );
     fireEvent.click(getByText("Example"));
     expect(getByText("Job Title 1")).toBeInTheDocument();
@@ -71,29 +71,29 @@ describe("OccupationListItem", () => {
 
   it("renders the LinkObject for each item correctly", () => {
     const { getByText } = render(
-      <OccupationListItem title="Example" items={items} />,
+      <OccupationListItem title="Example" items={items} />
     );
     fireEvent.click(getByText("Example"));
     expect(getByText("Job Title 1").closest("a")).toHaveAttribute(
       "href",
-      "/occupation/12345",
+      "/occupation/12345"
     );
     expect(getByText("Job Title 2").closest("a")).toHaveAttribute(
       "href",
-      "/occupation/67890",
+      "/occupation/67890"
     );
   });
 
   it("displays the correct counties information for each item", () => {
     const { getByText } = render(
-      <OccupationListItem title="Example" items={items} />,
+      <OccupationListItem title="Example" items={items} />
     );
     fireEvent.click(getByText("Example"));
     expect(
-      getByText("(In-demad only in County 1, County 2 Counties)"),
+      getByText("(In-demand only in County 1, County 2 Counties)")
     ).toBeInTheDocument();
     expect(
-      getByText("(In-demad only in County 1, County 2 Counties)"),
+      getByText("(In-demand only in County 1, County 2 Counties)")
     ).toBeInTheDocument();
   });
 });
