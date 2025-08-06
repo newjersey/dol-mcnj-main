@@ -94,7 +94,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 type="link"
                 highlight="orange"
                 label="See something wrong? Report an issue."
-                link="/contact"
+                link={`/contact?path=/training/${training.id}&title=${training.name}`}
                 newTab
                 iconPrefix="Flag"
               />

@@ -10,7 +10,14 @@ import { resetForm } from "./resetForm";
 import { Box } from "@components/utility/Box";
 import { Spinner } from "@components/modules/Spinner";
 
-export const ContactForm = () => {
+export const ContactForm = ({
+  content,
+}: {
+  content?: {
+    path?: string;
+    title?: string;
+  };
+}) => {
   const [messageCharacterCount, setMessageCharacterCount] = useState<number>(0);
   const [email, setEmail] = useState<string>("");
   const [emailError, setEmailError] = useState<boolean>(false);
@@ -19,7 +26,13 @@ export const ContactForm = () => {
   const [error, setError] = useState<boolean>(false);
   const [selectedTopic, setSelectedTopic] = useState<string>("");
   const [topicError, setTopicError] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>(
+    content?.path
+      ? `Issue Report - Training Details Page: ${content.path}, ${content.title}
+---
+Please provide a description of the issue.`
+      : ""
+  );
   const [messageError, setMessageError] = useState<string>("");
 
   const validateEmail = (email: string) => {
@@ -37,7 +50,7 @@ export const ContactForm = () => {
           "Content-Type": "application/json",
         },
         body: formValues,
-      },
+      }
     );
 
     if (response.ok) {
@@ -75,7 +88,9 @@ export const ContactForm = () => {
   return (
     <Box
       radius={5}
-      className={`bg-${success ? "success-lighter" : error ? "error-lighter" : "info-lighter"} form-container`}
+      className={`bg-${
+        success ? "success-lighter" : error ? "error-lighter" : "info-lighter"
+      } form-container`}
     >
       {success ? (
         <>
@@ -198,6 +213,7 @@ export const ContactForm = () => {
                 inputId="message"
                 type="textarea"
                 disabled={loading}
+                defaultValue={message}
                 error={messageError || undefined}
                 onChangeArea={(e) => {
                   setMessageError("");

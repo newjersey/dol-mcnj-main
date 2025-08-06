@@ -49,7 +49,10 @@ export const OccupationGroups = ({
   }, []);
 
   return (
-    <div className={`occupationGroups${activeMap ? "" : " disabled"}`}>
+    <div
+      id="occupationGroups"
+      className={`occupationGroups${activeMap ? "" : " disabled"}`}
+    >
       <div className="container">
         <div className="groups">
           <SectionHeading
@@ -98,6 +101,16 @@ export const OccupationGroups = ({
                           setMapOpen(false);
                           setActivePathway(path);
                           getOccupation(occupation.sys.id);
+                          setTimeout(() => {
+                            const element =
+                              document.getElementById("map-block");
+                            if (element) {
+                              element.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                              });
+                            }
+                          }, 100);
                         }}
                       >
                         {occupation.title}

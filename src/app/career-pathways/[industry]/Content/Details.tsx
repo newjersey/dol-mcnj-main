@@ -235,6 +235,7 @@ export const Details = ({
                 <Button
                   type="link"
                   highlight="green"
+                  newTab
                   link={`/training/search?q=${
                     content.trainingSearchTerms || content.title
                   }`}
@@ -245,6 +246,7 @@ export const Details = ({
                 />
                 <Button
                   highlight="navy"
+                  newTab
                   defaultStyle="quinary"
                   label="Learn more financial assistance opportunities"
                   link="/support-resources/tuition-assistance"
