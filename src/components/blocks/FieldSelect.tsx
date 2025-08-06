@@ -109,6 +109,16 @@ export const FieldSelect = ({
                           setActivePathway(undefined);
                           getCareerMap(map.sys.id);
                           setFullMap(undefined);
+                          setTimeout(() => {
+                            const element =
+                              document.getElementById("occupationGroups");
+                            if (element) {
+                              element.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center",
+                              });
+                            }
+                          }, 100);
                         }}
                       >
                         <span>

@@ -1,7 +1,7 @@
 import {
-  GraduationCap,
-  Hourglass,
-  MapPinLine,
+  GraduationCapIcon,
+  HourglassIcon,
+  MapPinLineIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { calendarLength } from "@utils/calendarLength";
 import { toUsCurrency } from "@utils/toUsCurrency";
@@ -18,16 +18,16 @@ export const RelatedTrainingCard = (trainingItem: TrainingResult) => {
         <p className="title-bar">{trainingItem.name}</p>
         <span className="span-grid">
           <span>
-            <GraduationCap size={32} />
+            <GraduationCapIcon size={32} />
             {trainingItem.providerName}
           </span>
           <span>
-            <MapPinLine size={32} />
+            <MapPinLineIcon size={32} />
             {trainingItem.city}, {trainingItem.county}
           </span>
           <span className="last-line">
             <span>
-              <Hourglass size={32} />
+              <HourglassIcon size={32} />
               {trainingItem.calendarLength
                 ? `${calendarLength(trainingItem.calendarLength)} to complete`
                 : "--"}

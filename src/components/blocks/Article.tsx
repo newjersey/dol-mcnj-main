@@ -3,6 +3,7 @@ import { ContentfulRichText } from "@components/modules/ContentfulRichText";
 import { Spinner } from "@components/modules/Spinner";
 import { List, X } from "@phosphor-icons/react";
 import { parseHeadingsToNestedArray } from "@utils/parseHeadingsToNestedArray";
+import { colors } from "@utils/settings";
 import { slugify } from "@utils/slugify";
 import { ContentfulRichTextProps } from "@utils/types";
 import { useEffect, useState } from "react";
@@ -78,7 +79,7 @@ export const Article = ({ content }: { content: ContentfulRichTextProps }) => {
               className={openNav ? "open" : undefined}
             >
               {headingArray.length === 0 ? (
-                <Spinner color="#005ea2" size={80} />
+                <Spinner color={colors.primary} size={80} />
               ) : (
                 <>
                   <p className="nav-title desktop-only">
