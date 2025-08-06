@@ -9,6 +9,11 @@ describe("arraySorting Function", () => {
       zipCode: "08330",
       totalCost: 1000,
       percentEmployed: 80,
+      cipDefinition: {
+        cipCode: "12345",
+        cipTitle: "CIP Title",
+        cipDefinition: "definition1",
+      } as any,
     },
     {
       id: "2",
@@ -16,6 +21,11 @@ describe("arraySorting Function", () => {
       zipCode: "08330",
       totalCost: 500,
       percentEmployed: 60,
+      cipDefinition: {
+        cipCode: "12345",
+        cipTitle: "CIP Title",
+        cipDefinition: "definition2",
+      } as any,
     },
     {
       id: "3",
@@ -23,6 +33,11 @@ describe("arraySorting Function", () => {
       zipCode: "08330",
       totalCost: 1500,
       percentEmployed: 90,
+      cipDefinition: {
+        cipCode: "12345",
+        cipTitle: "CIP Title",
+        cipDefinition: "definition3",
+      } as any,
     },
     {
       id: "4",
@@ -30,6 +45,7 @@ describe("arraySorting Function", () => {
       zipCode: "08330",
       totalCost: 750,
       percentEmployed: 70,
+      cipDefinition: "definition4",
     },
   ];
 

@@ -113,6 +113,16 @@
         width: s.$size-16;
       }
 
+      &.percentEmployed {
+        svg {
+          width: s.$size-22;
+          height: auto;
+        }
+        span {
+          width: calc(100% - s.$size-30);
+        }
+      }
+
       span {
         width: calc(100% - s.$size-16);
       }

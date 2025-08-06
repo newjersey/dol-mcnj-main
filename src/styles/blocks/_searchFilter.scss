@@ -7,6 +7,8 @@
   width: 0;
   display: block;
   transition-duration: s.$transition-speed;
+  user-select: none;
+  pointer-events: none;
 
   @media screen and (min-width: (s.$tablet-md)) {
     position: sticky;
@@ -27,6 +29,8 @@
 
   &.open {
     bottom: 0;
+    pointer-events: all;
+    user-select: text;
 
     @media screen and (min-width: (s.$tablet)) {
       width: s.$size-320;

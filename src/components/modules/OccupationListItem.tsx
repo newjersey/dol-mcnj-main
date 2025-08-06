@@ -54,7 +54,7 @@ const OccupationListItem = ({
                 </LinkObject>
                 {item.counties.length > 0 && (
                   <span>
-                    (In-demad only in {counties} {multipleCounties})
+                    (In-demand only in {counties} {multipleCounties})
                   </span>
                 )}
               </li>

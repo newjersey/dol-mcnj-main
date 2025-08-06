@@ -57,13 +57,15 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
         placeholder: "blur",
         alt: "Training Hero",
       },
-      button: {
-        label: "Search Trainings",
-        type: "link",
-        link: "#trainingSearch",
-        defaultStyle: "secondary",
-        iconSuffix: "ArrowDown",
-      },
+      buttons: [
+        {
+          label: "Search Trainings",
+          type: "link",
+          link: "#trainingSearch",
+          defaultStyle: "secondary",
+          iconSuffix: "ArrowDown",
+        },
+      ],
     } as PageHeroProps,
     steps: [
       "Search by occupation, provider, and more",
