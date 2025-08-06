@@ -9,6 +9,7 @@ import { Program } from "./Program";
 import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import * as Sentry from "@sentry/node";
+import {mapProgramOutcomeFromDb} from "./outcomes";
 
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
@@ -71,6 +72,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 suppliesToolsCost: parseFloat(program.suppliestoolscost),
                 otherCost: parseFloat(program.othercosts),
                 totalCost: parseFloat(program.totalcost),
+                outcomes: program.outcomes  ,
                 online: !!program.onlineprogramid,
                 hasEveningCourses: mapStrNumToBool(program.eveningcourses),
                 languages: formatLanguages(program.languages),
@@ -80,7 +82,7 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                   mapStrNumToBool(program.childcare) ||
                   mapStrNumToBool(program.assistobtainingchildcare),
               };
-              // console.log(JSON.stringify(training));
+              console.log(JSON.stringify(training));
               return training;
             } catch (error) {
               console.error(`Error while processing program id ${program.programid}: `, error);
