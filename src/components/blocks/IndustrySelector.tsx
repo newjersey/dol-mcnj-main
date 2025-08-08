@@ -5,7 +5,7 @@ import { IndustrySelectorProps } from "@utils/types/components";
 
 export const IndustrySelector = ({ items, heading }: IndustrySelectorProps) => {
   return (
-    <section className="industrySelector">
+    <section className="industrySelector" id="industry-selector">
       <div className="container">
         <div className="inner">
           <Flex direction="column">

@@ -272,13 +272,24 @@ header {
       button {
         &.sign-up-toggle {
           margin: s.$size-4 0;
-          background-color: transparent;
+          background-color: s.$white;
           border: s.$white s.$size-2 solid;
-          color: s.$white;
+          width: auto;
+          color: s.$primary;
           padding: s.$size-8 s.$size-16;
+
+          svg {
+            width: s.$size-20;
+            height: auto;
+          }
 
           &:after {
             content: none;
+          }
+
+          &:hover {
+            background-color: s.$base-lightest;
+            color: s.$primary-dark;
           }
         }
       }

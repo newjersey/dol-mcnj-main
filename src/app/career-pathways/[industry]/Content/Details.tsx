@@ -31,7 +31,7 @@ export const Details = ({
 
   const getJobNumbers = async () => {
     const jobNumbers = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/jobcount/${content.title}`,
+      `${process.env.REACT_APP_API_URL}/api/jobcount/${content.title}`
     );
 
     const jobNumbersArray = await jobNumbers.json();
@@ -117,7 +117,7 @@ export const Details = ({
     const searchTerm = content.trainingSearchTerms || content.title;
     const getTrainingList = async () => {
       const training = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchTerm}`,
+        `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchTerm}`
       );
 
       const trainingArray = await training.json();
@@ -166,7 +166,7 @@ export const Details = ({
           </div>
           <div className="meta">
             <InfoBox
-              eyebrow="Salary Range"
+              eyebrow="Expected Entry Level Salary"
               number={content.salaryRangeStart}
               numberEnd={content.salaryRangeEnd}
               currency
@@ -235,6 +235,7 @@ export const Details = ({
                 <Button
                   type="link"
                   highlight="green"
+                  newTab
                   link={`/training/search?q=${
                     content.trainingSearchTerms || content.title
                   }`}
@@ -245,6 +246,7 @@ export const Details = ({
                 />
                 <Button
                   highlight="navy"
+                  newTab
                   defaultStyle="quinary"
                   label="Learn more financial assistance opportunities"
                   link="/support-resources/tuition-assistance"

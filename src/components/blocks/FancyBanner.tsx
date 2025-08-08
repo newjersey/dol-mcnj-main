@@ -1,57 +1,40 @@
 "use client";
-import { Button } from "@components/modules/Button";
-import { ResponsiveImage } from "@components/modules/ResponsiveImage";
-import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
-import { PageBannerProps } from "@utils/types";
+import { FancyBannerProps } from "@utils/types/components";
+import Image from "next/image";
 
 export const FancyBanner = ({
-  title,
-  message,
   className,
-  image,
-  buttonCopy,
-  subHeading,
-}: PageBannerProps) => {
+  heading,
+  subheading,
+  message,
+  images,
+}: FancyBannerProps) => {
   return (
-    <section className={`fancyBanner${className ? ` ${className}` : ""}`}>
+    <section className={`fancyBanner ${className ? className : ""}`}>
       <div className="container">
-        <div className="copy">
-          <h1>{title}</h1>
-          {subHeading && <p className="subheading">{subHeading}</p>}
-          {message && (
-            <div
-              className="message"
-              data-testid="rich-text"
-              dangerouslySetInnerHTML={{
-                __html: parseMarkdownToHTML(message as string),
-              }}
-            />
-          )}
-          {buttonCopy && (
-            <Button
-              type="button"
-              defaultStyle="cool"
-              label={buttonCopy}
-              iconSuffix="ArrowDown"
-              iconWeight="bold"
-              onClick={() => {
-                const el = document.getElementById("tools");
-                el?.scrollIntoView({ behavior: "smooth" });
-              }}
-            />
-          )}
-        </div>
-
-        {image && (
-          <div className="image">
-            <ResponsiveImage
-              src={image.url}
-              alt={image.description || ""}
-              width={image.width}
-              height={image.height}
-            />
+        <div className="inner">
+          <div className="copy">
+            <h1>{heading}</h1>
+            {subheading && <p className="subheading">{subheading}</p>}
+            {message && <p>{message}</p>}
           </div>
-        )}
+
+          <div className="imageGrid">
+            {images?.map((image) => (
+              <div className="image" key={image.src}>
+                <Image
+                  key={image.src}
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width || 300}
+                  height={image.height || 200}
+                  blurDataURL={image.blurDataURL}
+                  placeholder="blur"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

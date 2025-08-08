@@ -35,9 +35,7 @@ export const Filter = ({
     if (selectedTags.length > 0) {
       const filtered = listingItems.resources.items.filter(
         (resource: ResourceCardProps) => {
-          const resourceTags = resource.tagsCollection.items.map(
-            (tag) => tag.title
-          );
+          const resourceTags = resource.tags.items.map((tag) => tag.title);
           return selectedTags.some((tag) => resourceTags.includes(tag.title));
         }
       );

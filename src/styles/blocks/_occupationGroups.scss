@@ -5,7 +5,7 @@
 
   &.disabled {
     .heading-tag {
-      color: s.$base-light;
+      color: s.$base;
     }
   }
 
@@ -32,7 +32,7 @@
       &[disabled] {
         background: s.$base-lighter;
         border-color: s.$black;
-        color: s.$base-light;
+        color: s.$base;
         cursor: not-allowed;
       }
 

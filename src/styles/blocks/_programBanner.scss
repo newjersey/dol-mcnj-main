@@ -37,7 +37,7 @@
     a,
     button {
       text-decoration: none;
-      color: s.$black;
+      color: s.$primary;
       height: s.$size-32;
       width: s.$size-32;
       border-radius: s.$size-4;
@@ -49,7 +49,7 @@
       }
 
       svg {
-        fill: s.$black;
+        fill: s.$primary;
       }
 
       &:hover {

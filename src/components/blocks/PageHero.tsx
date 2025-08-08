@@ -1,3 +1,4 @@
+import { Alert } from "@components/modules/Alert";
 import { Button } from "@components/modules/Button";
 import { Heading } from "@components/modules/Heading";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
@@ -11,8 +12,15 @@ export interface PageHeroProps {
   description?: string;
   theme?: ThemeColors;
   ctaButtons?: ButtonProps[];
-  button?: ButtonProps;
+  buttons?: ButtonProps[];
   image?: ImageProps;
+  infoBar?:
+    | {
+        heading?: string;
+        text: string;
+        type?: "error" | "warning" | "info" | "success";
+      }
+    | string;
 }
 
 export const PageHero = (props: PageHeroProps) => {
@@ -44,15 +52,44 @@ export const PageHero = (props: PageHeroProps) => {
                 }}
               />
             )}
-            {props.button && (
+            {props.buttons && props.buttons.length > 0 && (
               <div className="footer-button">
-                <Button {...props.button} />
+                {props.buttons.map((button) => (
+                  <Button key={button.label} {...button} />
+                ))}
               </div>
+            )}
+            {props.infoBar && (
+              <Alert
+                className="max-w-[840px] rounded-[8px] overflow-hidden"
+                heading={
+                  typeof props.infoBar === "string"
+                    ? undefined
+                    : props.infoBar.heading || undefined
+                }
+                type={
+                  typeof props.infoBar === "string"
+                    ? "info"
+                    : props.infoBar.type || "info"
+                }
+                copy={
+                  typeof props.infoBar === "string"
+                    ? props.infoBar
+                    : props.infoBar.text
+                }
+              />
             )}
           </div>
           {props.image && (
             <div className="image">
-              <Image {...props.image} alt="temp image" />
+              <Image
+                src={props.image.src}
+                width={props.image.width}
+                height={props.image.height}
+                blurDataURL={props.image.blurDataURL}
+                placeholder="blur"
+                alt=""
+              />
             </div>
           )}
         </div>

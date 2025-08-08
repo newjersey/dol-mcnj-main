@@ -2,7 +2,6 @@ import { CtaBanner } from "@components/blocks/CtaBanner";
 import { Stepper } from "@components/blocks/Stepper";
 import { VideoBlock } from "@components/blocks/VideoBlock";
 import { SectionHeading } from "@components/modules/SectionHeading";
-import { Accordion } from "@components/blocks/Accordion";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { TRAINING_EXPLORER_PAGE_DATA as pageData } from "@data/pages/training";
 import { SupportedLanguages } from "@utils/types/types";
@@ -10,7 +9,6 @@ import { cookies } from "next/headers";
 import { PageHero } from "@components/blocks/PageHero";
 import { Steps } from "./Steps";
 import { TrainingSearch } from "@components/blocks/TrainingSearch";
-import { LinkObject } from "@components/modules/LinkObject";
 import { Cta } from "@components/modules/Cta";
 
 export const revalidate = 1800;
@@ -36,16 +34,10 @@ export default async function TrainingExplorerPage() {
   return (
     <div className="page trainingExplorer">
       <PageHero {...pageData[lang].pageHero} />
-      <Steps items={pageData[lang].steps} className="desktop-only" />
+      <Steps theme="green" items={pageData[lang].steps} />
       <TrainingSearch content={pageData[lang].search} />
-      <Steps items={pageData[lang].steps} className="mobile-only" />
-      <div className="learn-more">
-        <p>
-          {pageData[lang].learnMore.copy}{" "}
-          <LinkObject url={pageData[lang].learnMore.url}>Learn more</LinkObject>
-        </p>
-      </div>
       <Cta
+        className="mt-[32px]"
         linkDirection="row"
         heading={pageData[lang].notReadyCta.copy}
         links={pageData[lang].notReadyCta.buttons}
@@ -58,13 +50,6 @@ export default async function TrainingExplorerPage() {
         </div>
       </section>
       <CtaBanner {...pageData[lang].interruptor} />
-      <section className="faq">
-        <div className="container">
-          <SectionHeading {...pageData[lang].faqs.heading} />
-          <Accordion items={pageData[lang].faqs.items} />
-        </div>
-        <CtaBanner {...pageData[lang].faqs.cta} />
-      </section>
       <CtaBanner {...pageData[lang].footerCta} />
     </div>
   );

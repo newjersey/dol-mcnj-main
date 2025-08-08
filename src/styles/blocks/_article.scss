@@ -72,7 +72,12 @@
 
     .usa-button {
       justify-content: center;
+      background-color: s.$primary;
       margin: 0;
+
+      &:hover {
+        background-color: s.$primary-dark;
+      }
     }
   }
 

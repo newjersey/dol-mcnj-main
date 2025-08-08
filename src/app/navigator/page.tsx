@@ -1,5 +1,5 @@
 import { CtaBanner } from "@components/blocks/CtaBanner";
-import { PageBanner } from "@components/blocks/PageBanner";
+import { PageHero } from "@components/blocks/PageHero";
 import { River } from "@components/blocks/River";
 import { Stepper } from "@components/blocks/Stepper";
 import { IconCard } from "@components/modules/IconCard";
@@ -7,6 +7,7 @@ import { SectionHeading } from "@components/modules/SectionHeading";
 import { NAVIGATOR_PAGE_DATA as pageData } from "@data/pages/navigator";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { SupportedLanguages } from "@utils/types/types";
+import { Steps } from "app/training/Steps";
 import { cookies } from "next/headers";
 
 export const revalidate = 86400;
@@ -31,7 +32,9 @@ export default async function CareerNavigatorPage() {
 
   return (
     <div className="page careerNavigator">
-      <PageBanner {...pageData[lang].banner} />
+      <PageHero {...pageData[lang].pageHero} />
+      <Steps theme="blue" items={pageData[lang].steps} />
+
       <section className="howTo">
         <div className="container">
           <SectionHeading {...pageData[lang].howTo.sectionHeading} />

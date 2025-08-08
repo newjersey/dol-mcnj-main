@@ -8,14 +8,14 @@ export const SIGNUP_FORM = {
       className: "sign-up-toggle",
       label: "Sign Up for Updates",
     } as ButtonProps,
-    heading: "My Career NJ User Sign Up Form",
+    heading: "My Career NJ User Sign-Up Form",
     message:
-      "Sign-up to stay up to date on the latest new features, news, and resources from My Career NJ.",
+      "Sign up for emails to learn about tools and resources to help you advance your career.",
     instruction: ["A red asterick", "indicates a required field"],
     form: {
       submitLabel: "Submit",
       footer:
-        "Read about our [privacy policy](/privacy-policy) and our [SMS use policy](/sms-use-policy).",
+        "Read about our [privacy policy](https://www.nj.gov/nj/privacy.html).",
       fields: {
         firstName: {
           label: "First Name",
@@ -29,11 +29,6 @@ export const SIGNUP_FORM = {
           label: "Email",
           placeholder: "email@example.com",
           requiredIndicator: true,
-        },
-        phone: {
-          label: "Mobile phone number",
-          placeholder: "___-___-____",
-          description: "US phone numbers only",
         },
       },
       submitButton: ["Submit form", "Submitting"],
@@ -65,7 +60,7 @@ export const SIGNUP_FORM = {
     form: {
       submitLabel: "Enviar",
       footer:
-        "Lee nuestra [política de privacidad](/privacy-policy) y nuestra [política de uso de SMS](/sms-use-policy).",
+        "Lea nuestra [política de privacidad](https://www.nj.gov/nj/privacy.html).",
       fields: {
         firstName: {
           label: "Nombre",

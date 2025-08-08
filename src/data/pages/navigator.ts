@@ -1,6 +1,9 @@
 import { CtaBannerProps } from "@components/blocks/CtaBanner";
+import { PageHeroProps } from "@components/blocks/PageHero";
 import { RiverProps } from "@components/blocks/River";
-import { HeadingLevel, IconCardProps, PageBannerProps } from "@utils/types";
+import bannerImage from "@images/navigator.png";
+import { HeadingLevel, IconCardProps } from "@utils/types";
+import { ImageProps } from "next/image";
 
 export const NAVIGATOR_PAGE_DATA = {
   seo: {
@@ -28,42 +31,38 @@ export const NAVIGATOR_PAGE_DATA = {
     },
   },
   en: {
-    banner: {
-      message:
-        "Your next job opportunity awaits with the New Jersey Career Navigator. We offer personalized jobs that fit your skills and experience level—plus valuable skills training courses to boost your career opportunities.",
-      title: "NJ Career Navigator",
-      subHeading:
-        "Find your first job, a new job or transition to a new career faster.",
-      section: "explore",
+    pageHero: {
+      heading: "NJ Career Navigator",
+      subheading: "Personalized job and training recommendations",
       theme: "blue",
-      ctaLinks: [
+      image: {
+        src: bannerImage.src,
+        alt: "NJ Career Navigator Banner",
+        blurDataURL: bannerImage.blurDataURL,
+        height: bannerImage.height,
+        width: bannerImage.width,
+      } as ImageProps,
+      description:
+        "Discover job matches based on your skills and experience, along with training courses to enhance your career prospects.",
+      buttons: [
         {
-          sys: {
-            id: "5v8zZzVfQw1JwZQ7kPzX4B",
-          },
-          copy: "Log In",
-          url: "/navigator/#/login",
+          label: "Log In",
+          defaultStyle: "primary",
+          link: "/navigator/#/login",
         },
         {
-          sys: {
-            id: "3c1qJ5K8s6LZ8y4KpVv0wL",
-          },
-          copy: "Sign Up",
-          url: "/navigator/#/login",
+          label: "Sign Up",
+          defaultStyle: "primary",
+          outlined: true,
+          link: "/navigator/#/login",
         },
       ],
-      breadcrumbsCollection: {
-        items: [
-          {
-            sys: {
-              id: "50o1RGfZ173Cis7VEFlBDR",
-            },
-            copy: "Home",
-            url: "/",
-          },
-        ],
-      },
-    } as PageBannerProps,
+    } as PageHeroProps,
+    steps: [
+      "Upload your resume",
+      "Explore recommended jobs and trainings",
+      "Save your top choices to your profile",
+    ],
     opportunities: {
       sectionHeading: {
         heading: "Personalized Career Opportunities",
@@ -252,42 +251,38 @@ export const NAVIGATOR_PAGE_DATA = {
     } as RiverProps,
   },
   es: {
-    banner: {
-      message:
-        "Tu próxima oportunidad laboral te espera con el Navegador de Carrera de Nueva Jersey. Ofrecemos empleos personalizados que se adaptan a tus habilidades y nivel de experiencia, además de valiosos cursos de capacitación para impulsar tus oportunidades profesionales.",
-      title: "Navegador de Carrera de NJ",
-      subHeading:
-        "Encuentra tu primer empleo, un nuevo trabajo o cambia de carrera más rápido.",
-      section: "explore",
+    pageHero: {
+      heading: "Navegador de Carreras de NJ",
+      subheading: "Recomendaciones personalizadas de empleo y capacitación",
       theme: "blue",
-      ctaLinks: [
+      image: {
+        src: bannerImage.src,
+        alt: "Banner del Navegador de Carreras de NJ",
+        blurDataURL: bannerImage.blurDataURL,
+        height: bannerImage.height,
+        width: bannerImage.width,
+      } as ImageProps,
+      description:
+        "Descubre empleos que coinciden con tus habilidades y experiencia, junto con cursos de capacitación para mejorar tus oportunidades profesionales.",
+      buttons: [
         {
-          sys: {
-            id: "5v8zZzVfQw1JwZQ7kPzX4B",
-          },
-          copy: "Iniciar sesión",
-          url: "/navigator/#/login",
+          label: "Iniciar sesión",
+          defaultStyle: "primary",
+          link: "/navigator/#/login",
         },
         {
-          sys: {
-            id: "3c1qJ5K8s6LZ8y4KpVv0wL",
-          },
-          copy: "Regístrate",
-          url: "/navigator/#/login",
+          label: "Registrarse",
+          defaultStyle: "primary",
+          outlined: true,
+          link: "/navigator/#/login",
         },
       ],
-      breadcrumbsCollection: {
-        items: [
-          {
-            sys: {
-              id: "50o1RGfZ173Cis7VEFlBDR",
-            },
-            copy: "Inicio",
-            url: "/",
-          },
-        ],
-      },
-    } as PageBannerProps,
+    } as PageHeroProps,
+    steps: [
+      "Sube tu currículum",
+      "Explora empleos y capacitaciones recomendados",
+      "Guarda tus opciones favoritas en tu perfil",
+    ],
     opportunities: {
       sectionHeading: {
         heading: "Oportunidades de Carrera Personalizadas",

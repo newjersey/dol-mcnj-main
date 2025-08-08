@@ -40,6 +40,7 @@ footer {
   a {
     color: s.$white;
     text-decoration: none;
+    padding: s.$size-4 0;
 
     &:hover {
       @media screen and (min-width: (s.$tablet-md + 1)) {

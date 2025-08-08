@@ -7,7 +7,7 @@ export const RESOURCE_LISTING_QUERY = `query ResourceListing($tags: [String!]) {
       title
       description
       link
-      tagsCollection(limit: 20) {
+      tags: tagsCollection(limit: 20) {
         items {
           sys {
             id

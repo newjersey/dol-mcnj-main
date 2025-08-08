@@ -57,7 +57,7 @@ const CtaBanner = ({
     >
       {fullColor ? (
         <div className="container">
-          <Heading className="heading" level={headingLevel}>
+          <Heading className="heading text-pretty" level={headingLevel}>
             {heading}
           </Heading>
 

@@ -213,17 +213,23 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                                 </p>
                                                 {!!occupation.salaryRangeStart && (
                                                   <div className="salary">
-                                                    <p>Salary Range</p>
+                                                    <p>
+                                                      Expected Entry Level
+                                                      Salary
+                                                    </p>
                                                     <p>
                                                       <strong>
                                                         $
                                                         {numberShorthand(
                                                           occupation.salaryRangeStart
-                                                        )}{" "}
-                                                        - $
-                                                        {numberShorthand(
-                                                          occupation.salaryRangeEnd
                                                         )}
+                                                        {occupation.salaryRangeEnd
+                                                          ? ` - $${numberShorthand(
+                                                              Number(
+                                                                occupation.salaryRangeEnd
+                                                              )
+                                                            )}`
+                                                          : ""}
                                                       </strong>
                                                     </p>
                                                   </div>

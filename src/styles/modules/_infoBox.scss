@@ -21,9 +21,19 @@
 
   .eyebrow {
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: s.$size-8;
     font-size: s.$size-16;
+
+    .heading & {
+      span {
+        margin-top: s.$size-5;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
 
     .tooltip,
     .tooltip button {
