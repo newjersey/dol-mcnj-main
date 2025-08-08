@@ -152,7 +152,7 @@ export const ResultsHeader = () => {
             label="Items Per Page"
             type="select"
             defaultValue={itemsPerPage || "10"}
-            inputId="sortBy"
+            inputId="itemsPerPage"
             onChangeSelect={handleItemsPerPageChange}
             options={contentData[lang].perPageOptions}
           />

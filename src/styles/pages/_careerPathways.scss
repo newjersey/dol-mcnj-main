@@ -81,8 +81,8 @@
   .body-copy {
     &.container {
       margin: 0 auto;
-      padding-top: s.$size-96;
-      padding-bottom: s.$size-96;
+      padding-top: s.$size-60;
+      padding-bottom: s.$size-16;
       display: flex;
       flex-direction: column;
       gap: s.$size-48;
@@ -119,11 +119,11 @@
           }
 
           &.purple {
-            background-color: s.$tertiary-extra-light;
+            background-color: s.$tertiary-lighter;
           }
 
           &.green {
-            background-color: s.$secondary-extra-light;
+            background-color: s.$success-lighter;
           }
         }
       }

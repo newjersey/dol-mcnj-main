@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-   "build:only": "npm --prefix backend run build && next build",
-	"build": "npm --prefix backend run build && npm --prefix backend run start & wait-on tcp:8080 && next build",
-  "build:prod": "npm --prefix backend run build && next build",
+    "build:only": "npm --prefix backend run build && next build",
+    "build": "npm --prefix backend run build && npm --prefix backend run start & wait-on tcp:8080 && next build",
+    "build:prod": "npm --prefix backend run build && next build",
     "start:backend": "cd backend && node ./dist/server.js",
     "start:frontend": "next start",
     "check": "prettier --check .",
@@ -33,6 +33,7 @@
     "@phosphor-icons/react": "^2.1.7",
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.0",
+    "fuse.js": "^7.1.0",
     "markdown-it": "^13.0.2",
     "markdown-it-anchor": "^8.6.7",
     "negotiator": "^1.0.0",
@@ -42,6 +43,7 @@
     "react-dom": "^19.0.0",
     "react-paginate": "^8.2.0",
     "react-to-print": "^3.0.2",
+    "react-tooltip": "^5.29.1",
     "run": "^1.5.0",
     "sass": "^1.85.0"
   },

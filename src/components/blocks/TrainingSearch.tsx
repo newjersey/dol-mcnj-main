@@ -8,6 +8,7 @@ import { CurrencyDollarSimple, Info } from "@phosphor-icons/react";
 import { zipCodes } from "@utils/zipCodeCoordinates";
 import { encodeForUrl } from "@utils/encodeForUrl";
 import { Flex } from "@components/utility/Flex";
+import { Tooltip } from "react-tooltip";
 import { colors } from "@utils/settings";
 import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeading";
 
@@ -31,6 +32,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
 
   const clearAllInputs = () => {
     const inputs = document.querySelectorAll("input");
+    const selects = document.querySelectorAll("select");
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
     const checkboxArray: HTMLInputElement[] = Array.from(
       checkboxes
@@ -41,6 +43,9 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
     inputs.forEach((input) => {
       input.value = "";
     });
+    selects.forEach((select) => {
+      select.selectedIndex = 0;
+    });
 
     // clear state
     setInPerson(false);
@@ -49,6 +54,8 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
     setOnline(false);
     setZipCode("");
     setSearchTerm("");
+    setZipError(true);
+    setAttempted(false);
   };
 
   useEffect(() => {
@@ -129,17 +136,21 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                   <Heading level={content.heading.level}>
                     {content.heading.heading}
                   </Heading>
-                  <button
-                    type="button"
-                    className="unstyled usa-tooltip"
-                    data-position="top"
-                    title={content.toolTip.copy}
+
+                  <Info
+                    data-tooltip-id="totalClockHours-tooltip"
+                    size={24}
+                    color={colors.primary}
+                  />
+
+                  <Tooltip
+                    id="totalClockHours-tooltip"
+                    className="custom-tooltip"
                   >
-                    <Info size={24} color={colors.primary} />
-                    <div className="sr-only">
-                      {content.toolTip.screenReader}
+                    <div className="max-w-[250px] text-pretty">
+                      {content.toolTip.copy}
                     </div>
-                  </button>
+                  </Tooltip>
                 </Flex>
                 <Button
                   {...content.clearButton}
@@ -211,6 +222,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                       { key: "100", value: "100" },
                       { key: "200", value: "200" },
                     ]}
+                    value={miles}
                     onChangeSelect={(e: ChangeEvent<HTMLSelectElement>) => {
                       if (
                         e.target.value === content.form.miles.milesPlaceholder
@@ -222,6 +234,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                       setMiles(sanitizedValue(e.target.value));
                     }}
                   />
+
                   <span className="from">from</span>
                   <FormInput
                     type="text"

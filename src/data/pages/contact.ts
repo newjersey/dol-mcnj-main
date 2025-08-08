@@ -1,22 +1,16 @@
-import { HeadingLevel, PageBannerProps } from "@utils/types";
+import { PageHeroProps } from "@components/blocks/PageHero";
+import { HeadingLevel } from "@utils/types";
 
 export const CONTACT_PAGE_DATA = {
   seo: {
     title: `Contact Us | ${process.env.REACT_APP_SITE_NAME}`,
   },
   en: {
-    banner: {
-      title: "Contact Us",
+    pageHero: {
+      heading: "Contact Us",
       theme: "blue",
-      breadcrumbsCollection: {
-        items: [
-          {
-            url: "/",
-            copy: "Home",
-          },
-        ],
-      },
-    } as PageBannerProps,
+      subheading: "Need help with My Career NJ? Reach out today",
+    } as PageHeroProps,
     copyBox: {
       heading: "Contact Information",
       headingLevel: 2 as HeadingLevel,
@@ -26,18 +20,11 @@ export const CONTACT_PAGE_DATA = {
     },
   },
   es: {
-    banner: {
-      title: "Contáctanos",
+    pageHero: {
+      heading: "Contáctanos",
       theme: "blue",
-      breadcrumbsCollection: {
-        items: [
-          {
-            url: "/es",
-            copy: "Inicio",
-          },
-        ],
-      },
-    } as PageBannerProps,
+      subheading: "¿Necesitas ayuda con Mi Carrera NJ? Comunícate hoy mismo",
+    } as PageHeroProps,
     copyBox: {
       heading: "Información de Contacto",
       headingLevel: 2 as HeadingLevel,

@@ -1,6 +1,14 @@
 @use "../settings" as s;
 
 .filterControl {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+
+  @media screen and (min-width: (s.$tablet-lg)) {
+    top: s.$size-32;
+  }
+
   &.open {
     @media screen and (max-width: (s.$tablet-lg - 1)) {
       box-shadow: s.$shadow-2;
@@ -13,6 +21,13 @@
     }
   }
   .labelBox {
+    overflow: auto;
+    max-height: calc(100vh - 4.5rem);
+
+    @media screen and (min-width: s.$tablet-lg) {
+      min-height: 40rem;
+    }
+
     @media screen and (max-width: (s.$tablet-lg - 1)) {
       border-radius: 0;
     }
@@ -30,6 +45,7 @@
 
   .group-heading {
     font-weight: 500;
+    font-size: s.$size-22;
     margin: 0;
   }
 
@@ -38,7 +54,12 @@
     justify-content: space-between;
     display: flex;
     align-items: center;
-    margin: s.$size-16 0;
+    margin: 0 0 s.$size-16;
+  }
+
+  .usa-button {
+    font-weight: 500;
+    text-decoration-thickness: 1px;
   }
 
   .clear {
@@ -47,6 +68,12 @@
 
   .clear-all {
     padding: s.$size-12 s.$size-20_8;
+  }
+
+  .usa-checkbox__label {
+    &:before {
+      background-color: s.$white;
+    }
   }
 
   button {
@@ -64,6 +91,29 @@
 
     @media screen and (max-width: (s.$tablet-lg - 1)) {
       display: none;
+    }
+  }
+
+  .search-box {
+    position: relative;
+    margin-bottom: s.$size-22;
+    svg {
+      position: absolute;
+      bottom: s.$size-16;
+      left: s.$size-18;
+    }
+
+    input {
+      background-color: s.$white;
+      border-color: s.$base;
+      border-width: s.$size-2;
+      height: auto;
+      padding: s.$size-14 s.$size-8 s.$size-14 s.$size-48;
+
+      &::placeholder {
+        font-weight: 500;
+        color: s.$base;
+      }
     }
   }
 }

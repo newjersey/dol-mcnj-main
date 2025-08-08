@@ -678,3 +678,14 @@ iframe:focus {
   z-index: 10;
   width: auto;
 }
+
+.resourceList {
+  margin-bottom: s.$size-96;
+  .resourceHeading {
+    select {
+      border: s.$size-2 solid s.$base;
+      padding: s.$size-8 s.$size-16;
+      border-radius: s.$size-4;
+    }
+  }
+}

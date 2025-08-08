@@ -36,11 +36,6 @@ export const MAIN_NAV_DATA = {
                 url: "https://www.nj.gov/labor/labormarketinformation/",
                 itemId: "4NWWyuPPrrwVV5OFcMOOmx",
               },
-              {
-                copy: "Apprenticeship Programs",
-                url: "https://www.nj.gov/labor/career-services/apprenticeship/",
-                itemId: "sPaifA4vlJxjk4S69hqjJ",
-              },
             ],
           },
         },
@@ -71,11 +66,6 @@ export const MAIN_NAV_DATA = {
                 url: "/training-provider-resources",
                 itemId: "4Rrw3ktcpB7VQU1LcOpeTS",
               },
-              {
-                copy: "SkillUp NJ",
-                url: "https://nj.metrixlearning.com/landing.cfm",
-                itemId: "4bKG1PzbEV649oyXknBUUe",
-              },
             ],
           },
         },
@@ -105,34 +95,14 @@ export const MAIN_NAV_DATA = {
           subItemsCollection: {
             items: [
               {
-                copy: "Browse Support by Category",
+                copy: "Helpful Resources",
                 url: "/support-resources",
                 itemId: "4ec33mgyIj1ghaZ9GYNCGR",
-              },
-              {
-                copy: "Career Support",
-                url: "/support-resources/career-support",
-                itemId: "3YouqKxnUQiRodAUNnv8nR",
-              },
-              {
-                copy: "Tuition Assistance",
-                url: "/support-resources/tuition-assistance",
-                itemId: "2gqhjZAj8srnVuvuVdXUBf",
-              },
-              {
-                copy: "Other Assistance",
-                url: "/support-resources/other",
-                itemId: "6f98Wu1WAn4oyLkrbd22y7",
               },
               {
                 copy: "Training Provider Resources",
                 url: "/training-provider-resources",
                 itemId: "4eb9EtRlHD03bDlUfJ8mkt",
-              },
-              {
-                copy: "Frequently Asked Questions",
-                url: "/faq",
-                itemId: "4gnP8eZ8H64LIclMrHvnx0",
               },
               {
                 copy: "Career Services",

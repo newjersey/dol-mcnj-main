@@ -70,7 +70,7 @@
   .inner {
     display: flex;
     align-items: center;
-    gap: s.$size-32;
+    gap: s.$size-64;
 
     @media screen and (max-width: (s.$tablet-lg - 1)) {
       flex-direction: column;
@@ -101,5 +101,16 @@
         display: block;
       }
     }
+
+    .usa-alert {
+      margin-top: s.$size-8;
+      p {
+        font-size: s.$size-16;
+      }
+    }
+  }
+
+  .footer-button {
+    padding-top: s.$size-16;
   }
 }

@@ -132,6 +132,20 @@ export interface IconCardProps extends MediaObjectProps {
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
+export interface FancyBannerProps {
+  heading: string;
+  subheading?: string;
+  message?: string;
+  className?: string;
+  images: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    blurDataURL: string;
+  }[];
+}
+
 export interface PageBannerProps {
   className?: string;
   ctaHeading?: string;
@@ -454,13 +468,15 @@ export interface ResourceCardProps {
   className?: string;
   description: string;
   link: string;
-  tagsCollection: {
+  tags: {
     items: {
       sys: {
         id: string;
       };
       title: string;
       category: {
+        slug: string;
+        title: string;
         sys: {
           id: string;
         };

@@ -1,11 +1,12 @@
 import { IconSelector } from "@components/modules/IconSelector";
 import { LabelBox } from "@components/modules/LabelBox";
 import { Flex } from "@components/utility/Flex";
-import { Tooltip, TooltipProps } from "@components/utility/Tooltip";
-import { Info } from "@phosphor-icons/react";
+import { InfoIcon } from "@phosphor-icons/react";
 import { calendarLength } from "@utils/calendarLength";
+import { slugify } from "@utils/slugify";
 import { TrainingProps } from "@utils/types";
 import { ReactNode } from "react";
+import { Tooltip } from "react-tooltip";
 
 export const QuickFacts = ({ training }: { training: TrainingProps }) => {
   const FactItem = ({
@@ -17,7 +18,7 @@ export const QuickFacts = ({ training }: { training: TrainingProps }) => {
     label: string;
     icon: any;
     children: ReactNode;
-    toolTip?: TooltipProps;
+    toolTip?: string;
   }) => (
     <Flex alignItems="flex-start" gap="xs" elementTag="span" columnBreak="none">
       <IconSelector name={icon} size={18} weight="bold" />
@@ -25,9 +26,16 @@ export const QuickFacts = ({ training }: { training: TrainingProps }) => {
         <strong>
           {label}:
           {toolTip && (
-            <Tooltip copy={toolTip.copy} style={toolTip.style}>
-              {toolTip.children}
-            </Tooltip>
+            <>
+              <Tooltip id={slugify(label)} place="top">
+                <div className="max-w-[250px] text-pretty">{toolTip}</div>
+              </Tooltip>
+              <InfoIcon
+                data-tooltip-id={slugify(label)}
+                weight="fill"
+                size={18}
+              />
+            </>
           )}
         </strong>
         <span>{children}</span>
@@ -71,14 +79,7 @@ export const QuickFacts = ({ training }: { training: TrainingProps }) => {
           <FactItem
             label="Total Hours"
             icon="Clock"
-            toolTip={{
-              copy: "Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program.",
-              style: {
-                height: "20px",
-                fontWeight: "normal",
-              },
-              children: <Info weight="fill" size={18} />,
-            }}
+            toolTip="Total Hours are the total number of actual hours spent attending class or instructional activity in order to complete the program."
           >
             <Flex alignItems="center" gap="micro" columnBreak="none">
               {training.totalClockHours} hours

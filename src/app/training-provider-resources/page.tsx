@@ -1,10 +1,10 @@
-import { PageBanner } from "@components/blocks/PageBanner";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { TRAINING_PROVIDER_PAGE_DATA as pageData } from "@data/pages/training-provider-resources";
 import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
 import { Article } from "@components/blocks/Article";
 import { article } from "@data/mock/article";
+import { PageHero } from "@components/blocks/PageHero";
 
 export const revalidate = 86400;
 
@@ -28,7 +28,7 @@ export default async function TrainingProviderResourcesPage() {
 
   return (
     <div className="page trainingProviderResources">
-      <PageBanner {...pageData[lang].banner} />
+      <PageHero {...pageData[lang].pageHero} />
       <Article content={article} />
     </div>
   );

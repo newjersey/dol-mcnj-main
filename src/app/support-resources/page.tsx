@@ -1,22 +1,33 @@
-import { CtaBanner } from "@components/blocks/CtaBanner";
-import { PageBanner } from "@components/blocks/PageBanner";
-import { IconCard } from "@components/modules/IconCard";
 import { client } from "@utils/client";
-import { SupportResourcesPageProps } from "@utils/types";
+import {
+  RelatedCategoryProps,
+  ResourceCardProps,
+  TagProps,
+} from "@utils/types";
 import { ALL_SUPPORT_PAGE_QUERY } from "queries/allSupportPage";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { SUPPORT_RESOURCES_PAGE_DATA as pageData } from "@data/pages/support-resources";
-import { SupportedLanguages } from "@utils/types/types";
-import { cookies } from "next/headers";
+import { ResourceList } from "./ResourceList";
+import { PageHero } from "@components/blocks/PageHero";
+
+export interface SupportResourcesPageProps {
+  resources: {
+    items: ResourceCardProps[];
+  };
+  categories: {
+    items: RelatedCategoryProps[];
+  };
+  tags?: {
+    items: TagProps[];
+  };
+}
 
 async function getData() {
-  const { categories } = await client({
+  const page: SupportResourcesPageProps = await client({
     query: ALL_SUPPORT_PAGE_QUERY,
   });
 
-  return {
-    categories,
-  };
+  return page;
 }
 
 export const revalidate = 86400;
@@ -36,32 +47,23 @@ export async function generateMetadata({}) {
 }
 
 export default async function SupportResourcesPage() {
-  const { categories } = (await getData()) as SupportResourcesPageProps;
+  const page = (await getData()) as SupportResourcesPageProps;
 
-  const cookieStore = await cookies();
-  const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
+  // const cookieStore = await cookies();
+  // const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
 
   return (
     <div className="page supportResources">
-      <PageBanner {...pageData[lang].banner} />
-      <section className="categories">
-        <div className="container">
-          <div className="inner">
-            {categories.items.map((category) => (
-              <IconCard
-                key={category.sys?.id}
-                copy={category.title}
-                message={category.cardDescription || category.description}
-                theme="navy"
-                systemIcon="support"
-                url={`/support-resources/${category.slug}`}
-                {...category}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-      <CtaBanner {...pageData[lang].cta} />
+      <PageHero
+        heading="Helpful Resources"
+        theme="blue"
+        subheading="Helpful links to programs, resources, and services beyond My Career NJ"
+        infoBar={{
+          text: "The information on this page is for general purposes. This is not a complete list of all resources.",
+          type: "info",
+        }}
+      />
+      <ResourceList {...page} />
     </div>
   );
 }

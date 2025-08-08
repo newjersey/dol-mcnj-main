@@ -3,6 +3,8 @@ import { toUsCurrency } from "@utils/toUsCurrency";
 import { ThemeColors } from "@utils/types";
 import { LinkObject } from "./LinkObject";
 import { Spinner } from "./Spinner";
+import { Tooltip } from "react-tooltip";
+import { slugify } from "@utils/slugify";
 
 interface InfoBoxProps {
   className?: string;
@@ -33,26 +35,32 @@ const InfoBox = ({
 }: InfoBoxProps) => {
   return (
     <div
-      className={`infoBox${className ? ` ${className}` : ""}${theme ? ` color-${theme}` : ""}`}
+      className={`infoBox${className ? ` ${className}` : ""}${
+        theme ? ` color-${theme}` : ""
+      }`}
     >
       {eyebrow && (
-        <p className="eyebrow">
-          {eyebrow}
+        <div className="eyebrow">
+          <p className="m-0">{eyebrow}</p>
           {tooltip && (
-            <>
-              <button
-                type="button"
-                className="unstyled usa-tooltip"
-                data-position="top"
-                title={tooltip}
+            <span>
+              <Tooltip
+                id={slugify(eyebrow)}
+                className="custom-tooltip"
+                place="top"
               >
-                <Info weight="fill" size={16} />
-              </button>
-            </>
+                <div className="max-w-[250px] text-pretty">{tooltip}</div>
+              </Tooltip>
+              <Info
+                data-tooltip-id={slugify(eyebrow)}
+                weight="fill"
+                size={16}
+              />
+            </span>
           )}
-        </p>
+        </div>
       )}
-      {copy && <p className="copy">{copy}</p>}
+      {copy && <p className="copy">{copy}test</p>}
 
       <p className="number">
         {loading ? (

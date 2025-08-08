@@ -1,4 +1,7 @@
-import { PageBannerProps } from "@utils/types";
+import scientist from "@images/scientist.png";
+import welder from "@images/welder.jpg";
+import robotics from "@images/robotics.png";
+import { FancyBannerProps } from "@utils/types/components";
 
 export const HOMEPAGE_DATA = {
   seo: {
@@ -69,19 +72,116 @@ export const HOMEPAGE_DATA = {
   },
   en: {
     banner: {
-      title: "My Career NJ",
-      theme: "blue",
-      buttonCopy: "Explore My Career NJ",
-      subHeading: "The tools you need to find a job that works for you.",
+      heading: "My Career NJ",
+      subheading: "The tools you need for where you are",
       message:
-        "The right job is out there— if you know where to look for it. MyCareerNJ is a great place to start, with job listings throughout the state of New Jersey. We can also help you discover career possibilities, learn new job skills, assist with career changes, and offer advice for new employees. See for yourself how MyCareerNJ can help you.",
-      image: {
-        url: "https://images.ctfassets.net/jbdk7q9c827d/JAzMHNRnrmPy5KfO7l3PZ/c39660e2d16c0b5bf98fe3c05ab38dc3/NJCC_Hero_Image.png",
-        description: "Four images of people working in various industries",
-        height: 521,
-        width: 750,
-      },
-    } as PageBannerProps,
+        "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
+      images: [
+        {
+          src: robotics.src,
+          alt: "A person working on a computer in a training environment",
+          width: robotics.width,
+          height: robotics.height,
+          blurDataURL: robotics.blurDataURL,
+        },
+        {
+          src: welder.src,
+          alt: "A person working on a construction site",
+          width: welder.width,
+          height: welder.height,
+          blurDataURL: welder.blurDataURL,
+        },
+        {
+          src: scientist.src,
+          alt: "A person working in a laboratory",
+          width: scientist.width,
+          height: scientist.height,
+          blurDataURL: scientist.blurDataURL,
+        },
+      ],
+    } as FancyBannerProps,
+    topTools: {
+      heading: "Top Tools:",
+      items: [
+        {
+          title: "NJ Career Navigator",
+          icon: "Compass",
+          theme: "blue",
+          message:
+            "Upload your resume to see personalized job and training recommendations.",
+          link: {
+            href: "/navigator",
+            copy: "Get Started",
+          },
+        },
+
+        {
+          title: "NJ Training Explorer",
+          icon: "Signpost",
+          theme: "green",
+          message:
+            "Search by job, training program, and more to find a training that works for you.",
+          link: {
+            copy: "Search Training",
+            href: "/training",
+          },
+        },
+
+        {
+          title: "NJ Career Pathways",
+          icon: "Path",
+          theme: "purple",
+          message:
+            "Explore popular industries to see what it takes to enter or progress in them.",
+          link: {
+            copy: "Explore Pathways",
+            href: "/career-pathways",
+          },
+        },
+      ],
+    },
+    toolLinks: {
+      heading: "How can My Career NJ help you?",
+      subheading: "Choose an option and see a list of helpful resources.",
+      items: [
+        {
+          title: "I want to find a job",
+          theme: "blue",
+          outline: true,
+          icon: "Briefcase",
+          link: {
+            href: "/tools#jobs",
+          },
+        },
+        {
+          title: "I want to search for training",
+          theme: "green",
+          outline: true,
+          icon: "Signpost",
+          link: {
+            href: "/tools#training",
+          },
+        },
+        {
+          title: "I want to explore career opportunities",
+          theme: "purple",
+          outline: true,
+          icon: "Path",
+          link: {
+            href: "/tools#career",
+          },
+        },
+        {
+          title: "I need additional resources",
+          theme: "navy",
+          outline: true,
+          icon: "Lifebuoy",
+          link: {
+            href: "/tools#support",
+          },
+        },
+      ],
+    },
     introBlocks: {
       heading:
         "No matter where you are on your career journey, My Career NJ is here to help you.",
@@ -261,21 +361,113 @@ export const HOMEPAGE_DATA = {
   },
   es: {
     banner: {
-      title: "Mi Carrera NJ",
-      theme: "blue",
-      buttonCopy: "Explora Mi Carrera NJ",
-      subHeading:
-        "Las herramientas que necesitas para encontrar un trabajo que funcione para ti.",
+      heading: "Mi Carrera NJ",
+      subheading: "Las herramientas que necesitas para donde estás",
       message:
-        "El trabajo adecuado está ahí afuera, si sabes dónde buscar. MyCareerNJ es un excelente lugar para comenzar, con ofertas de empleo en todo el estado de Nueva Jersey. También podemos ayudarte a descubrir posibilidades de carrera, aprender nuevas habilidades laborales, asistir en cambios de carrera y ofrecer consejos para nuevos empleados. Descubre por ti mismo cómo MyCareerNJ puede ayudarte.",
-      image: {
-        url: "https://images.ctfassets.net/jbdk7q9c827d/JAzMHNRnrmPy5KfO7l3PZ/c39660e2d16c0b5bf98fe3c05ab38dc3/NJCC_Hero_Image.png",
-        description:
-          "Cuatro imágenes de personas trabajando en diversas industrias",
-        height: 521,
-        width: 750,
-      },
-    } as PageBannerProps,
+        "Encuentra el programa de capacitación adecuado, obtén coincidencias de empleo personalizadas y explora las carreras en demanda de Nueva Jersey con estas poderosas herramientas digitales.",
+      images: [
+        {
+          src: robotics.src,
+          alt: "Una persona trabajando en una computadora en un entorno de capacitación",
+          width: robotics.width,
+          height: robotics.height,
+          blurDataURL: robotics.blurDataURL,
+        },
+        {
+          src: welder.src,
+          alt: "Una persona trabajando en un sitio de construcción",
+          width: welder.width,
+          height: welder.height,
+          blurDataURL: welder.blurDataURL,
+        },
+        {
+          src: scientist.src,
+          alt: "Una persona trabajando en un laboratorio",
+          width: scientist.width,
+          height: scientist.height,
+          blurDataURL: scientist.blurDataURL,
+        },
+      ],
+    } as FancyBannerProps,
+
+    topTools: {
+      heading: "Herramientas Principales:",
+      items: [
+        {
+          title: "Navegador de Carreras NJ",
+          icon: "Compass",
+          theme: "blue",
+          message:
+            "Sube tu currículum para ver recomendaciones personalizadas de empleos y programas de capacitación.",
+          link: {
+            href: "/navigator",
+            copy: "Comenzar",
+          },
+        },
+        {
+          title: "Explorador de Capacitación NJ",
+          icon: "Signpost",
+          theme: "green",
+          message:
+            "Busca por trabajo, programa de capacitación y más para encontrar una opción que funcione para ti.",
+          link: {
+            copy: "Buscar Capacitación",
+            href: "/training",
+          },
+        },
+        {
+          title: "Trayectorias Profesionales NJ",
+          icon: "Path",
+          theme: "purple",
+          message:
+            "Explora industrias populares para ver qué se necesita para ingresar o avanzar en ellas.",
+          link: {
+            copy: "Explorar Trayectorias",
+            href: "/career-pathways",
+          },
+        },
+      ],
+    },
+
+    toolLinks: {
+      heading: "¿Cómo puede ayudarte Mi Carrera NJ?",
+      subheading: "Elige una opción y consulta una lista de recursos útiles.",
+      items: [
+        {
+          title: "Quiero encontrar un trabajo",
+          theme: "blue",
+          icon: "Briefcase",
+          link: {
+            href: "/tools#jobs",
+          },
+        },
+        {
+          title: "Quiero buscar capacitación",
+          theme: "green",
+          icon: "Signpost",
+          link: {
+            href: "/tools#training",
+          },
+        },
+        {
+          title: "Quiero explorar oportunidades profesionales",
+          theme: "purple",
+          icon: "Path",
+          link: {
+            href: "/tools#career",
+          },
+        },
+        {
+          title: "Necesito recursos adicionales",
+          theme: "navy",
+          icon: "Lifebuoy",
+          link: {
+            href: "/tools#support",
+          },
+        },
+      ],
+    },
+
     introBlocks: {
       heading:
         "No importa en qué etapa de tu carrera te encuentres, Mi Carrera NJ está aquí para ayudarte.",

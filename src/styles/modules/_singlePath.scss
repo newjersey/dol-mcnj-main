@@ -113,9 +113,9 @@
               }
 
               &.active {
-                background: s.$tertiary;
+                background: s.$tertiary-darker;
                 color: systemColors.$gray-cool-5;
-                border-color: s.$tertiary;
+                border-color: s.$tertiary-darker;
               }
 
               .prev-path-connector {
@@ -266,15 +266,15 @@
     position: relative;
 
     &:hover {
-      border-color: s.$tertiary;
-      outline: 1px solid s.$tertiary;
+      border-color: s.$tertiary-darker;
+      outline: 1px solid s.$tertiary-darker;
     }
 
     &.active {
-      background: s.$tertiary;
+      background: s.$tertiary-darker;
       color: systemColors.$gray-cool-5;
-      border-color: s.$tertiary;
-      outline: 1px solid s.$tertiary;
+      border-color: s.$tertiary-darker;
+      outline: 1px solid s.$tertiary-darker;
     }
 
     &:before {
@@ -304,6 +304,7 @@
     p {
       margin: 0;
       font-size: 0.8rem;
+      font-weight: 600;
       line-height: 1.4;
     }
 

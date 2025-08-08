@@ -1,13 +1,57 @@
 export const ALL_SUPPORT_PAGE_QUERY = `query AllSupport {
-  categories: resourceCategoryCollection(limit: 30, where: {title_not: "Audience"}, order: title_ASC) {
+  resources: resourceItemCollection{
+    items {
+      sys {
+        id
+      }
+      title
+      description
+      link
+      tags: tagsCollection(limit: 20) {
+        items {
+          sys {
+            id
+          }
+          title
+          category {
+            sys {
+              id
+            }
+            title
+            slug
+          }
+        }
+      }
+    }
+  }
+  categories: resourceCategoryCollection(
+    limit: 10
+    order: title_ASC
+  ) {
     items {
       sys {
         id
       }
       title
       slug
-      cardDescription
-      description
+    }
+  }
+  tags: resourceTagCollection(
+    limit: 100
+    order: title_ASC
+  ) {
+    items {
+      sys {
+        id
+      }
+      title
+      category {
+        sys {
+          id
+        }
+        title
+        slug
+      }
     }
   }
 }`;
