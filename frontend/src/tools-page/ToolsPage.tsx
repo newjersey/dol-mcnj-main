@@ -70,7 +70,7 @@ export const ToolsPage = (props: Props): ReactElement => {
               icon: "ArrowSquareOut",
               iconWeight: "regular",
               link: {
-                href: "https://www.naswa.org/partnerships/nlx",
+                href: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New Jersey&radius=",
               },
             },
             {
