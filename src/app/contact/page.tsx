@@ -26,15 +26,15 @@ export async function generateMetadata({}) {
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams?: {
+  searchParams: Promise<{
     path?: string;
     title?: string;
-  };
+  }>;
 }) {
   const cookieStore = await cookies();
   const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
 
-  const resParams = searchParams;
+  const { path, title } = await searchParams;
 
   return (
     <>
@@ -53,8 +53,8 @@ export default async function ContactPage({
         </Box>
         <ContactForm
           content={{
-            path: resParams?.path,
-            title: resParams?.title,
+            path,
+            title,
           }}
         />
       </Flex>
