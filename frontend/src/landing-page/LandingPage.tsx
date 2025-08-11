@@ -5,7 +5,7 @@ import { Client } from "../domain/Client";
 import { useContentful } from "../utils/useContentful";
 import { HomepageProps } from "../types/contentful";
 import { HomeBanner } from "./components/HomeBanner";
-
+import { SurveyMonkeyWidget } from "../components/SurveyMonkeyWidget";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/homePage.jpg";
 import { useTranslation } from "react-i18next";
@@ -39,6 +39,7 @@ export const LandingPage = (props: Props): ReactElement => {
 
   return (
     <Layout client={props.client} noPad seo={seoObject}>
+      <SurveyMonkeyWidget delayMs={6000} onlyOnPath="/" enabled={true} />
       <div className="home-page">
         <HomeBanner
           heading={t("LandingPage.bannerHeading")}
