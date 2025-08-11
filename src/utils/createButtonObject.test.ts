@@ -6,7 +6,7 @@ describe("createButtonObject", () => {
   const link: LinkProps = {
     copy: "Click me",
     url: "https://example.com",
-    icon: "icon-name",
+    icon: undefined,
     systemIcon: "jobs",
   };
 

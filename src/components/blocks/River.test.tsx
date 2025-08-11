@@ -35,13 +35,11 @@ jest.mock("../../utils/noOrphans", () => ({
 describe("River Component", () => {
   const items: RiverItemProps[] = [
     {
-      sys: { id: "1" },
       image: { sys: { id: "3" }, url: "image1.jpg", height: 200, width: 300 },
       heading: "Heading 1",
       copy: "Copy 1",
     },
     {
-      sys: { id: "2" },
       image: { sys: { id: "4" }, url: "image2.jpg", height: 250, width: 350 },
       heading: "Heading 2",
       copy: "Copy 2",
@@ -62,7 +60,7 @@ describe("River Component", () => {
 
   it("applies className correctly", () => {
     const { container } = render(
-      <River items={items} className="custom-class" />,
+      <River items={items} className="custom-class" />
     );
     expect(container.firstChild).toHaveClass("river custom-class");
   });
@@ -70,7 +68,7 @@ describe("River Component", () => {
   it("applies headingLevel correctly", () => {
     const headingLevel: HeadingLevel = 3;
     const { getAllByTestId } = render(
-      <River items={items} headingLevel={headingLevel} />,
+      <River items={items} headingLevel={headingLevel} />
     );
     const headings = getAllByTestId("heading");
     headings.forEach((heading) => {

@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Button } from "./Button";
-import { IconNames } from "../../utils/enums";
 import { ButtonProps } from "../../utils/types";
 
 describe("Button Component", () => {
@@ -20,20 +19,20 @@ describe("Button Component", () => {
 
   it("applies the correct class names based on props", () => {
     const { rerender } = render(
-      <Button {...defaultProps} className="custom-class" />,
+      <Button {...defaultProps} className="custom-class" />
     );
     expect(screen.getByRole("button")).toHaveClass(
-      "usa-button primary custom-class",
+      "usa-button primary custom-class"
     );
 
     rerender(<Button {...defaultProps} outlined />);
     expect(screen.getByRole("button")).toHaveClass(
-      "usa-button primary usa-button--outline",
+      "usa-button primary usa-button--outline"
     );
 
     rerender(<Button {...defaultProps} highlight="blue" />);
     expect(screen.getByRole("button")).toHaveClass(
-      "usa-button highlight-blue centered-text",
+      "usa-button highlight-blue centered-text"
     );
   });
 
@@ -57,21 +56,11 @@ describe("Button Component", () => {
     expect(screen.getByText("Click Me")).toBeInTheDocument();
 
     render(
-      <Button
-        {...defaultProps}
-        iconPrefix={"Airplane" as IconNames.Airplane}
-        label="Click Me 2"
-      />,
+      <Button {...defaultProps} iconPrefix="Airplane" label="Click Me 2" />
     );
     expect(screen.getByText("Click Me 2")).toBeInTheDocument();
 
-    render(
-      <Button
-        {...defaultProps}
-        iconSuffix={IconNames.Anchor}
-        label="Click me 3"
-      />,
-    );
+    render(<Button {...defaultProps} iconSuffix="Anchor" label="Click me 3" />);
     expect(screen.getByText("Click me 3")).toBeInTheDocument();
   });
 
@@ -98,7 +87,7 @@ describe("Button Component", () => {
         type="link"
         link="http://example.com"
         onClick={handleClick}
-      />,
+      />
     );
     const link = screen.getByRole("link");
     fireEvent.click(link);

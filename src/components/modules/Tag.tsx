@@ -1,4 +1,3 @@
-import { IconNames } from "@utils/enums";
 import { IconWeight, ThemeColors } from "@utils/types";
 import { IconSelector } from "./IconSelector";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
@@ -41,9 +40,7 @@ export const Tag = ({
       title={tooltip}
       data-position="top"
     >
-      {icon && (
-        <IconSelector weight={iconWeight} name={icon as IconNames} size={15} />
-      )}
+      {icon && <IconSelector weight={iconWeight} name={icon} size={15} />}
       {markdown ? (
         <span
           dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(title) }}
@@ -53,11 +50,7 @@ export const Tag = ({
       )}
 
       {suffixIcon && (
-        <IconSelector
-          weight={iconWeight}
-          name={suffixIcon as IconNames}
-          size={15}
-        />
+        <IconSelector weight={iconWeight} name={suffixIcon} size={15} />
       )}
     </Element>
   );

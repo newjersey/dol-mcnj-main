@@ -1,7 +1,6 @@
 "use client";
 import * as Icon from "@phosphor-icons/react";
 import * as Svg from "@components/svgs";
-import { IconNames } from "@utils/enums";
 import { IconWeight } from "@utils/types";
 
 export interface IconSelectorProps {
@@ -37,9 +36,18 @@ export const IconSelector = ({
   svgName,
   weight = "regular",
 }: IconSelectorProps) => {
-  const IconComponent = name
-    ? Icon[name as IconNames]
-    : Svg[svgName as keyof typeof Svg];
+  let IconComponent: React.ElementType | undefined;
+
+  if (name && Icon[name as keyof typeof Icon]) {
+    IconComponent = Icon[name as keyof typeof Icon] as React.ElementType;
+  } else if (svgName && Svg[svgName as keyof typeof Svg]) {
+    IconComponent = Svg[svgName as keyof typeof Svg] as React.ElementType;
+  }
+
+  if (!IconComponent) {
+    return null;
+  }
+
   return (
     <IconComponent
       className={className}

@@ -1,4 +1,3 @@
-import { IconNames } from "@utils/enums";
 import { SectionIcons } from "@utils/types";
 
 export const mockCardSlider = {
@@ -11,7 +10,7 @@ export const mockCardSlider = {
         id: "3AmMT5psdguST2Rrsok5R5",
       },
       sectionIcon: "jobs" as SectionIcons,
-      icon: "" as IconNames,
+      icon: "",
       copy: "Career One-Stop Job Board",
       url: "https://www.careeronestop.org",
       description: "Search for current job openings in New Jersey",
@@ -21,7 +20,7 @@ export const mockCardSlider = {
         id: "4HeyegJGi8NXaDvUCtKKUa",
       },
       sectionIcon: "jobs" as SectionIcons,
-      icon: "" as IconNames,
+      icon: "",
       copy: " In-demand Occupations List",
       url: "/in-demand-occupations",
       description: "See careers with openings now and in the future in NJ",
@@ -31,7 +30,7 @@ export const mockCardSlider = {
         id: "4FzcfTXyculFqFlnWgcdo9",
       },
       sectionIcon: "jobs" as SectionIcons,
-      icon: "" as IconNames,
+      icon: "",
       copy: "Labor Market Information",
       url: "https://www.nj.gov/labor/labormarketinformation/",
       description: "Learn about the labor market in NJ",
@@ -41,7 +40,7 @@ export const mockCardSlider = {
         id: "7eLHEa4Hr7d1Fv09qp7c5Y",
       },
       sectionIcon: "jobs" as SectionIcons,
-      icon: "" as IconNames,
+      icon: "",
       copy: "Apprenticeship Programs",
       url: "https://www.nj.gov/labor/career-services/apprenticeship/",
       description: "Learn about apprenticeship opportunities",

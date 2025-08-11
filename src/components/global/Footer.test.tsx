@@ -29,54 +29,68 @@ jest.mock("./SubFooter", () => ({
 
 describe("Footer Component", () => {
   it("renders without crashing with default props", () => {
-    const { container, getByText } = render(<Footer />);
+    const { container, getByText } = render(<Footer lang="en" />);
     expect(container).toBeInTheDocument();
     expect(getByText("SubFooter")).toBeInTheDocument();
   });
 
   it("renders with footerNav1 prop", () => {
     const footerNav1: NavMenuProps = {
-      sys: { id: "1" },
+      itemId: "1",
       title: "Footer Nav 1",
-      topLevelItemsCollection: { items: [] },
+      en: {
+        topLevelItemsCollection: { items: [] },
+      },
     };
-    const { getByText } = render(<Footer items={{ footerNav1 }} />);
+    const { getByText } = render(<Footer lang="en" items={{ footerNav1 }} />);
     expect(getByText("Footer Navigation 1")).toBeInTheDocument();
   });
 
   it("renders with footerNav2 prop", () => {
     const footerNav2: NavMenuProps = {
-      sys: { id: "2" },
+      itemId: "2",
       title: "Footer Nav 2",
-      topLevelItemsCollection: { items: [] },
+      en: {
+        topLevelItemsCollection: { items: [] },
+      },
     };
-    const { getByText } = render(<Footer items={{ footerNav2 }} />);
+    const { getByText } = render(<Footer lang="en" items={{ footerNav2 }} />);
     expect(getByText("Footer Navigation 2")).toBeInTheDocument();
   });
 
   it("renders with footerNav1 and footerNav2 props", () => {
     const footerNav1: NavMenuProps = {
-      sys: { id: "1" },
+      itemId: "1",
       title: "Footer Nav 1",
-      topLevelItemsCollection: { items: [] },
+      en: {
+        topLevelItemsCollection: { items: [] },
+      },
     };
     const footerNav2: NavMenuProps = {
-      sys: { id: "2" },
+      itemId: "2",
       title: "Footer Nav 2",
-      topLevelItemsCollection: { items: [] },
+      en: {
+        topLevelItemsCollection: { items: [] },
+      },
     };
-    const { getByText } = render(<Footer items={{ footerNav1, footerNav2 }} />);
+    const { getByText } = render(
+      <Footer lang="en" items={{ footerNav1, footerNav2 }} />
+    );
     expect(getByText("Footer Navigation 1")).toBeInTheDocument();
     expect(getByText("Footer Navigation 2")).toBeInTheDocument();
   });
 
   it("renders the ResponsiveImage component with correct attributes", () => {
     const footerNav2: NavMenuProps = {
-      sys: { id: "2" },
+      itemId: "2",
       title: "Footer Nav 2",
-      topLevelItemsCollection: { items: [] },
+      en: {
+        topLevelItemsCollection: { items: [] },
+      },
     };
-    const { getByAltText } = render(<Footer items={{ footerNav2 }} />);
+    const { getByAltText } = render(
+      <Footer lang="en" items={{ footerNav2 }} />
+    );
     const img = getByAltText("New Jersey logo") as HTMLImageElement;
     expect(img).toBeInTheDocument();
     expect(img.src).toContain(footerLogo);
@@ -85,7 +99,7 @@ describe("Footer Component", () => {
   });
 
   it("always renders SubFooter component", () => {
-    const { getByText } = render(<Footer />);
+    const { getByText } = render(<Footer lang="en" />);
     expect(getByText("SubFooter")).toBeInTheDocument();
   });
 });

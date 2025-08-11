@@ -1,11 +1,9 @@
-import { IconNames } from "@utils/enums";
-
 export const ctaBannerLinks = [
   {
     sys: {
       id: "1",
     },
-    icon: "MapTrifold" as IconNames,
+    icon: "MapTrifold",
     copy: "Phasellus condimentum efficitur",
     url: "/",
   },
@@ -13,7 +11,7 @@ export const ctaBannerLinks = [
     sys: {
       id: "2",
     },
-    icon: "Briefcase" as IconNames,
+    icon: "Briefcase",
     copy: "Pellentesque pretium egestas consectetur",
     url: "/",
   },
@@ -21,7 +19,7 @@ export const ctaBannerLinks = [
     sys: {
       id: "3",
     },
-    icon: "Fire" as IconNames,
+    icon: "Fire",
     copy: "Orci varius natoque",
     url: "https://www.google.com",
   },
@@ -29,7 +27,7 @@ export const ctaBannerLinks = [
     sys: {
       id: "4",
     },
-    icon: "GraduationCap" as IconNames,
+    icon: "GraduationCap",
     copy: "Morbi semper ante sed",
     url: "/",
   },

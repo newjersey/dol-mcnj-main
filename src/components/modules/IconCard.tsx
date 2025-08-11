@@ -1,6 +1,5 @@
 import { IconSelector } from "./IconSelector";
 import { IconCardProps } from "@utils/types";
-import { IconNames } from "@utils/enums";
 import { LinkObject } from "./LinkObject";
 import * as Svg from "../svgs";
 import { capitalizeFirstLetter } from "@utils/capitalizeFirstLetter";
@@ -14,9 +13,6 @@ const CardContent = ({
   systemIcon,
   copy,
 }: IconCardProps) => {
-  const iconName = icon as IconNames;
-  const indicatorName = indicator as IconNames;
-
   const svgName = systemIcon
     ? (`${capitalizeFirstLetter(systemIcon)}${
         centered ? "" : "Bold"
@@ -27,11 +23,11 @@ const CardContent = ({
     <>
       <div className="icons">
         <span className="icon-container">
-          <IconSelector svgName={svgName} name={iconName} size={32} />
+          <IconSelector svgName={svgName} name={icon} size={32} />
         </span>
-        {!centered && indicatorName && (
+        {!centered && indicator && (
           <span className="icon-container">
-            <IconSelector name={indicatorName} size={25} />
+            <IconSelector name={indicator} size={25} />
           </span>
         )}
       </div>

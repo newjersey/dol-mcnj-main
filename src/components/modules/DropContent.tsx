@@ -12,7 +12,7 @@ import { useState } from "react";
 import { Button } from "./Button";
 import { colors } from "@utils/settings";
 import { ContentfulRichText } from "./ContentfulRichText";
-import { IconNames } from "@utils/enums";
+import * as Icon from "@phosphor-icons/react";
 
 interface DropContentProps {
   headingLevel: HeadingLevel;
@@ -21,7 +21,7 @@ interface DropContentProps {
   };
   url?: string;
   copy?: string;
-  icon?: IconNames;
+  icon?: keyof typeof Icon;
   testId?: string;
   systemIcon?: SectionIcons;
   message?: ContentfulRichTextProps;

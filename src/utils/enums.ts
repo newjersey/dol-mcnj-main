@@ -32,8 +32,6 @@ export enum IconNames {
   AppleLogo = "AppleLogo",
   ApplePodcastsLogo = "ApplePodcastsLogo",
   Archive = "Archive",
-  ArchiveBox = "ArchiveBox",
-  ArchiveTray = "ArchiveTray",
   Armchair = "Armchair",
   ArrowArcLeft = "ArrowArcLeft",
   ArrowArcRight = "ArrowArcRight",

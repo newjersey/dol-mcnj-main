@@ -18,7 +18,7 @@ jest.mock("../components/svgs", () => ({
 describe("convertToCardObjects", () => {
   beforeEach(() => {
     (capitalizeFirstLetter as jest.Mock).mockImplementation(
-      (str: string) => str.charAt(0).toUpperCase() + str.slice(1),
+      (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
     );
   });
 
@@ -28,16 +28,16 @@ describe("convertToCardObjects", () => {
         sys: { id: "1" },
         copy: "Explore",
         url: "/explore",
-        icon: "explore",
-        systemIcon: undefined,
+        icon: undefined,
+        systemIcon: "explore",
         message: "Explore our services",
       },
       {
         sys: { id: "2" },
         copy: "Jobs",
         url: "/jobs",
-        icon: "jobs",
-        systemIcon: undefined,
+        systemIcon: "jobs",
+        icon: undefined,
         message: "Find a job",
       },
     ];
@@ -70,7 +70,7 @@ describe("convertToCardObjects", () => {
         sys: { id: "3" },
         copy: "Support",
         url: "/support",
-        icon: "",
+        icon: undefined,
         systemIcon: "supportBold",
         message: "",
       },
@@ -96,8 +96,8 @@ describe("convertToCardObjects", () => {
         sys: undefined,
         copy: "Training",
         url: "/training",
-        icon: "training",
-        systemIcon: undefined,
+        icon: undefined,
+        systemIcon: "training",
         message: "Our training programs",
       },
     ];
@@ -122,7 +122,7 @@ describe("convertToCardObjects", () => {
         sys: { id: "4" },
         copy: "Jobs",
         url: "/jobs",
-        icon: "",
+        icon: undefined,
         systemIcon: undefined,
         message: "Find a job",
       },
@@ -135,7 +135,7 @@ describe("convertToCardObjects", () => {
         url: "/jobs",
         svg: undefined, // No matching icon
         description: "Find a job",
-        icon: "",
+        icon: undefined,
       },
     ];
 
