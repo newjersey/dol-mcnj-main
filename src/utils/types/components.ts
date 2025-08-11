@@ -1,6 +1,5 @@
 import * as Svg from "@components/svgs";
 import * as Icons from "@phosphor-icons/react";
-import { IconNames } from "@utils/enums";
 import { ImageProps as NextImageProps } from "next/image";
 import {
   BreakNames,
@@ -71,7 +70,7 @@ export interface CardSliderProps {
     sys: {
       id: string;
     };
-    icon?: IconNames;
+    icon?: keyof typeof Icons;
     sectionIcon?: SectionIcons;
     copy: string;
     url: string;
@@ -225,7 +224,7 @@ export interface LinkProps {
   copy?: string;
   screenReaderOnlyCopy?: string;
   children?: ReactNode;
-  icon?: IconNames;
+  icon?: keyof typeof Icons;
   systemIcon?: SectionIcons;
   message?: string;
 }
@@ -390,7 +389,7 @@ export interface IconLinkProps {
   sys: {
     id: string;
   };
-  icon?: IconNames;
+  icon?: keyof typeof Icons;
   sectionIcon?: SectionIcons;
   copy: string;
   url: string;
@@ -507,7 +506,7 @@ export interface MediaObjectProps {
   };
   url?: string;
   copy?: string;
-  icon?: IconNames;
+  icon?: keyof typeof Icons;
   systemIcon?: SectionIcons;
   message?: string;
   description?: string;

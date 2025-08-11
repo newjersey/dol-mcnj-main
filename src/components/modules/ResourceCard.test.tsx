@@ -18,10 +18,12 @@ describe("ResourceCard", () => {
     className: "test-class",
     description: "Test description",
     link: "/test-link",
-    tagsCollection: {
+    tags: {
       items: [
         {
           category: {
+            slug: "category-1",
+            title: "Category 1",
             sys: { id: "1" },
           },
           sys: { id: "1" },
@@ -29,6 +31,8 @@ describe("ResourceCard", () => {
         },
         {
           category: {
+            slug: "category-2",
+            title: "Category 2",
             sys: { id: "2" },
           },
           sys: { id: "2" },

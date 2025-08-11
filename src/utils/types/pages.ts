@@ -1,4 +1,5 @@
-import { IconNames } from "@utils/enums";
+import * as Icons from "@phosphor-icons/react";
+
 import {
   ContentfulRichTextProps,
   FaqItem,
@@ -90,7 +91,7 @@ export interface CareerNavigatorProps {
           id: string;
         };
         heading?: string;
-        icon?: IconNames;
+        icon?: keyof typeof Icons;
         description?: string;
         sectionIcon?: SectionIcons;
       }[];
@@ -107,7 +108,7 @@ export interface CareerNavigatorProps {
         copy?: string;
         screenReaderOnlyCopy?: string;
         url?: string;
-        icon?: IconNames;
+        icon?: keyof typeof Icons;
         customSvg?: string;
         description?: string;
       }[];
@@ -180,13 +181,13 @@ export interface TrainingExplorerPageProps {
     interrupterLinksCollection: { items: LinkProps[] };
     pageBanner: PageBannerProps;
     stepOneHeading: string;
-    stepOneIcon: IconNames;
+    stepOneIcon: keyof typeof Icons;
     stepOneText: string;
     stepThreeHeading: string;
-    stepThreeIcon: IconNames;
+    stepThreeIcon: keyof typeof Icons;
     stepThreeText: string;
     stepTwoHeading: string;
-    stepTwoIcon: IconNames;
+    stepTwoIcon: keyof typeof Icons;
     stepTwoText: string;
     drawerContent: ContentfulRichTextProps;
   };

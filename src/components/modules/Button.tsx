@@ -1,5 +1,4 @@
 "use client";
-import { IconNames } from "@utils/enums";
 import { ButtonProps } from "@utils/types";
 import { IconSelector } from "./IconSelector";
 import { LinkObject } from "./LinkObject";
@@ -87,7 +86,7 @@ const Button = ({
         <IconSelector
           weight={iconWeight}
           className="prefix"
-          name={iconPrefix ? (iconPrefix as IconNames) : undefined}
+          name={iconPrefix}
           size={30}
         />
       )}
@@ -97,7 +96,7 @@ const Button = ({
         <IconSelector
           weight={iconWeight}
           className="suffix"
-          name={iconSuffix ? (iconSuffix as IconNames) : undefined}
+          name={iconSuffix}
           size={25}
         />
       )}
@@ -136,7 +135,7 @@ const Button = ({
         <IconSelector
           weight={iconWeight}
           className="prefix"
-          name={iconPrefix ? (iconPrefix as IconNames) : undefined}
+          name={iconPrefix}
           size={30}
         />
       )}
@@ -146,7 +145,7 @@ const Button = ({
         <IconSelector
           weight={iconWeight}
           className="suffix"
-          name={iconSuffix ? (iconSuffix as IconNames) : undefined}
+          name={iconSuffix}
           size={25}
         />
       )}
@@ -188,20 +187,12 @@ const Button = ({
           </span>
         )}
         {!noIndicator && iconPrefix && !svgName && (
-          <IconSelector
-            className="prefix"
-            name={iconPrefix ? (iconPrefix as IconNames) : undefined}
-            size={30}
-          />
+          <IconSelector className="prefix" name={iconPrefix} size={30} />
         )}
         {children || <span>{label}</span>}
       </Flex>
       {!noIndicator && iconSuffix && (
-        <IconSelector
-          className="suffix"
-          name={iconSuffix ? (iconSuffix as IconNames) : undefined}
-          size={25}
-        />
+        <IconSelector className="suffix" name={iconSuffix} size={25} />
       )}
     </LinkObject>
   );
