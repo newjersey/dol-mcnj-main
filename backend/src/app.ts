@@ -22,6 +22,7 @@ import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { getOccupationDetailByCIPFactory } from "./domain/occupations/getOccupationDetailByCIP";
 import helmet from "helmet";
+import * as trace_events from "node:trace_events";
 // import { rateLimiter } from "./utils/rateLimiter";
 
 dotenv.config();
@@ -78,6 +79,7 @@ app.use(
         "https://adservice.google.com",
         "https://pagead2.googlesyndication.com",
         "https://*.doubleclick.net",
+        "https://widget.surveymonkey.com",
       ],
       scriptSrcElem: [
         "'self'",
@@ -90,6 +92,7 @@ app.use(
         "https://adservice.google.com",
         "https://pagead2.googlesyndication.com",
         "https://*.doubleclick.net",
+        "https://widget.surveymonkey.com",
       ],
       scriptSrcAttr: ["'unsafe-inline'"], // changed from 'none' to allow GTM inline handlers
 
@@ -99,6 +102,8 @@ app.use(
         "https://fonts.googleapis.com",
         "https://www.googletagmanager.com",
         "https://tagmanager.google.com",
+        "https://prod.smassets.net",
+        "https://cdn.smassets.net",
       ],
       styleSrcElem: [
         "'self'",
@@ -106,9 +111,16 @@ app.use(
         "https://fonts.googleapis.com",
         "https://www.googletagmanager.com",
         "https://tagmanager.google.com",
+        "https://prod.smassets.net",
+        "https://cdn.smassets.net",
       ],
 
-      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://fonts.googleapis.com", "data:"],
+      fontSrc: ["'self'",
+        "https://fonts.gstatic.com",
+        "https://fonts.googleapis.com",
+        "data:",
+        "https://cdn.smassets.net",
+      ],
       imgSrc: [
         "'self'",
         "data:",
@@ -122,6 +134,9 @@ app.use(
         "https://pagead2.googlesyndication.com",
         "https://www.googleadservices.com",
         "https://*.doubleclick.net",
+        "https://prod.smassets.net",
+        "https://cdn.smassets.net",
+        "https://www.surveymonkey.com",
       ],
       connectSrc: [
         "'self'",
@@ -132,6 +147,8 @@ app.use(
         "https://pagead2.googlesyndication.com",
         "https://www.googleadservices.com",
         "https://*.ctfassets.net",
+        "https://www.surveymonkey.com",
+        "https://secure.surveymonkey.com",
       ],
       frameSrc: [
         "'self'",
@@ -141,6 +158,8 @@ app.use(
         "https://www.google.com",
         "https://www.youtube.com",
         "https://www.youtube-nocookie.com",
+        "https://www.surveymonkey.com",
+        "https://secure.surveymonkey.com",
       ],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
