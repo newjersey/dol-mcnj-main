@@ -1,4 +1,3 @@
-import { IconNames } from "@utils/enums";
 import { ButtonProps, HeadingLevel, ThemeColors } from "@utils/types";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
@@ -56,9 +55,7 @@ const Cta = ({
             <Button
               {...button}
               key={button.label}
-              iconSuffix={
-                isExternal ? ("ArrowSquareOut" as IconNames) : button.iconSuffix
-              }
+              iconSuffix={isExternal ? "ArrowSquareOut" : button.iconSuffix}
               defaultStyle={theme ? themeConverter(theme) : button.defaultStyle}
               noIndicator={noIndicator}
               className={`flex items-center justify-center w-full${
