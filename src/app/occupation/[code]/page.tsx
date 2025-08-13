@@ -12,7 +12,7 @@ import { Related } from "./Related";
 
 async function getData(soc: string) {
   const pageData = await fetch(
-    `/api/occupations/${soc}`
+    `${process.env.REACT_APP_API_URL}/api/occupations/${soc}`
   );
 
   return {
@@ -35,7 +35,7 @@ export const generateMetadata = async ({
   const resolvedSearchParams = await searchParams;
 
   const pageData = await fetch(
-    `/api/occupations/${resolvedParams.code}`
+    `${process.env.REACT_APP_API_URL}/api/occupations/${resolvedParams.code}`
   );
 
   if (pageData.status !== 200 && !resolvedSearchParams.mockData) {

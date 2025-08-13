@@ -12,7 +12,7 @@ export async function getSearchData(props: {
   const { searchParams } = props;
 
   const searchData = await fetch(
-    `/api/trainings/search?query=${searchParams.q}`
+    `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchParams.q}`
   );
 
   if (!searchData.ok) {

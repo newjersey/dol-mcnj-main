@@ -91,7 +91,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       const getInDemandOccupation = async () => {
         setLoading(true);
         const occupation = await fetch(
-          `/api/occupations/${activeInDemand.idNumber}`
+          `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`
         );
 
         if (!occupation.ok) {
