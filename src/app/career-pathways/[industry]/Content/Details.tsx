@@ -31,7 +31,7 @@ export const Details = ({
 
   const getJobNumbers = async () => {
     const jobNumbers = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/jobcount/${content.title}`
+      `/api/jobcount/${content.title}`
     );
 
     const jobNumbersArray = await jobNumbers.json();
@@ -117,7 +117,7 @@ export const Details = ({
     const searchTerm = content.trainingSearchTerms || content.title;
     const getTrainingList = async () => {
       const training = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchTerm}`
+        `/api/trainings/search?query=${searchTerm}`
       );
 
       const trainingArray = await training.json();
