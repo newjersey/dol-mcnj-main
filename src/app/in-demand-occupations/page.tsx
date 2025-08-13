@@ -7,7 +7,7 @@ import { PageHero } from "@components/blocks/PageHero";
 
 async function getData() {
   const occupationItems = await fetch(
-    `/api/occupations`
+    `${process.env.REACT_APP_API_URL}/api/occupations`
   );
 
   return {
