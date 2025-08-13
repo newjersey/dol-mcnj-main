@@ -4,7 +4,7 @@ import { TrainingProps } from "@utils/types";
 
 async function getData(soc: string) {
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/${soc}`
+    `/api/trainings/${soc}`
   );
 
   if (pageData.status !== 200 || !pageData.headers.get("ETag")) {
@@ -25,7 +25,7 @@ export const generateMetadata = async ({
 }) => {
   const resolvedParams = await params;
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/${resolvedParams.code}`
+    `/api/trainings/${resolvedParams.code}`
   );
 
   const training: TrainingProps = await pageData.json();

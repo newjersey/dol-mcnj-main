@@ -91,7 +91,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
     try {
       setSubmitting(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/signup`,
+        `/api/signup`,
         {
           method: "POST",
           headers: {
