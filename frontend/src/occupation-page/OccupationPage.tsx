@@ -132,7 +132,7 @@ export const OccupationPage = (props: Props): ReactElement => {
           )}
 
           {trainingsToShow.map((training) => (
-            <TrainingResultCard key={training.id} trainingResult={training} />
+            <TrainingResultCard key={training.ctid} trainingResult={training} />
           ))}
         </>
       );

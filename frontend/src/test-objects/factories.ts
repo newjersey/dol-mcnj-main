@@ -1,4 +1,13 @@
-import { Address, CalendarLength, CipDefinition, Provider, Training, TrainingResult } from "../domain/Training";
+import {
+  Address,
+  CalendarLength,
+  CipDefinition,
+  ConditionProfile,
+  ConditionProfileItem, DeliveryType,
+  Provider,
+  Training,
+  TrainingResult,
+} from "../domain/Training";
 import { InDemandOccupation, Occupation, OccupationDetail } from "../domain/Occupation";
 import { formatCip } from "../utils/formatCip";
 
@@ -12,7 +21,7 @@ const randomBool = (): boolean => !!Math.round(Math.random());
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
-    id: "some-id-" + randomInt(),
+    ctid: "some-ctid-" + randomInt(),
     name: "some-name-" + randomInt(),
     cipDefinition: {
       cip: formatCip(randomSixDigitNumber().toString()),
@@ -25,12 +34,15 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
     totalClockHours: randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: ["some-county-" + randomInt()],
-    online: randomBool(),
+    deliveryTypes: randomDeliveryTypes(),
     providerId: "some-id-" + randomInt(),
     providerName: "some-provider-name-" + randomInt(),
-    city: "some-city-" + randomInt(),
-    zipCode: "some-zipcode-" + randomInt(),
-    county: "some-county-" + randomInt(),
+    availableAt: [
+      buildAddress({}),
+      buildAddress({}),
+    ],
+    cities: ["some-city-" + randomInt(), "some-city-" + randomInt()],
+    zipCodes: ["some-zipcode-" + randomInt(), "some-zipcode-" + randomInt()],
     highlight: "some-highlight-" + randomInt(),
     rank: randomInt(),
     socCodes: ["some-soc-" + randomInt()],
@@ -45,7 +57,11 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
 
 export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
-    id: "some-id-" + randomInt(),
+    ctid: "some-ctid-" + randomInt(),
+    availableAt: [
+      buildAddress({}),
+      buildAddress({}),
+    ],
     name: "some-name-" + randomInt(),
     cipDefinition: buildCipDefinition({}),
     provider: buildProvider({}),
@@ -53,8 +69,8 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     totalClockHours: randomInt(),
     occupations: [buildOccupation({})],
     description: "some-description-" + randomInt(),
-    certifications: "some-certifications-" + randomInt(),
-    prerequisites: "some-certifications-" + randomInt(),
+    credentials: [buildConditionProfile({}), buildConditionProfile({})],
+    prerequisites: "some-credentials-" + randomInt(),
     inDemand: randomBool(),
     localExceptionCounty: ["some-county-" + randomInt()],
     tuitionCost: randomInt(),
@@ -63,7 +79,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     suppliesToolsCost: randomInt(),
     otherCost: randomInt(),
     totalCost: randomInt(),
-    online: randomBool(),
+    deliveryTypes: randomDeliveryTypes(),
     percentEmployed: randomInt(),
     averageSalary: randomInt(),
     hasEveningCourses: randomBool(),
@@ -77,28 +93,29 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
 
 export const buildProvider = (overrides: Partial<Provider>): Provider => {
   return {
-    id: "some-id-" + randomInt(),
+    ctid: "some-ctid-" + randomInt(),
+    providerId: "some-provider-id-" + randomInt(),
     name: "some-provider-name-" + randomInt(),
+    email: "some-provider-email-" + randomInt() + "@FAKE-PROVIDER-DOMAIN.com",
     url: "some-url-" + randomInt(),
-    address: buildAddress({}),
-    contactName: "some-contactName-" + randomInt(),
-    contactTitle: "some-contactTitle-" + randomInt(),
-    phoneNumber: "some-phoneNumber-" + randomInt(),
-    phoneExtension: "some-phoneExtension-" + randomInt(),
-    county: "some-county-" + randomInt(),
+    address: [buildAddress({}), buildAddress({})],
     ...overrides,
   };
 };
 
 export const buildAddress = (overrides: Partial<Address>): Address => {
-  return {
-    street1: "some-street1-" + randomInt(),
-    street2: "some-street2-" + randomInt(),
+  const address:Address = {
+    "@type": "ceterms:Place",
+    street_address: "some-street-" + randomInt(),
     city: "some-city-" + randomInt(),
     state: "some-state-" + randomInt(),
     zipCode: "some-zipCode-" + randomInt(),
+    county: "some-county-" + randomInt(),
+    targetContactPoints: [],
     ...overrides,
   };
+
+  return address;
 };
 
 export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefinition => {
@@ -107,6 +124,7 @@ export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefini
     cip: formatCip(randomCipCode),
     cipcode: randomCipCode,
     ciptitle: `some-ciptitle-${randomInt()}`,
+    ...overrides,
   };
 };
 
@@ -146,6 +164,47 @@ export const buildOccupationDetail = (overrides: Partial<OccupationDetail>): Occ
   };
 };
 
+export const buildConditionProfile = (overrides: Partial<ConditionProfile>): ConditionProfile => {
+  return {
+    name: "some-name-" + randomInt(),
+    experience: "some-experience-" + randomInt(),
+    description: "some-description-" + randomInt(),
+    yearsOfExperience: randomInt(),
+    targetAssessment: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetCompetency: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetCredential: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    targetLearningOpportunity: [
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+      buildConditionProfileItem({}),
+    ],
+    ...overrides,
+  };
+};
+
+export const buildConditionProfileItem = (
+  overrides: Partial<ConditionProfileItem>,
+): ConditionProfileItem => {
+  return {
+    name: "some-name-" + randomInt(),
+    provider: buildProvider({}),
+    description: "some-description-" + randomInt(),
+    ...overrides,
+  };
+};
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const randomCalendarLength = (): CalendarLength => {
   const all: number[] = Object.keys(CalendarLength)
@@ -154,3 +213,10 @@ export const randomCalendarLength = (): CalendarLength => {
   const randomIndex = Math.floor(Math.random() * all.length);
   return all[randomIndex];
 };
+
+export const randomDeliveryTypes = (): DeliveryType[] => {
+  const values = Object.values(DeliveryType);
+  const randomLength = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+
+  return Array.from({ length: randomLength }, () => values[Math.floor(Math.random() * values.length)]);
+}
