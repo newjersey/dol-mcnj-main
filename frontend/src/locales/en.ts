@@ -34,10 +34,23 @@ export const en = {
     somethingWentWrongHeader: "Sorry, something went wrong",
     somethingWentWrongText: "Please try again later",
   },
+  SystemErrorPage: {
+    fourOhFourHeading: "Page not found",
+    fourOhFourSubheading: "We're sorry, we can't find the page you're looking for.",
+    fourOhFourCopy:
+      "If you typed the URL directly, check your spelling and capitalization. Our URLs look like this **<mycareer.nj.gov/example-one/>**\n\nVisit our homepage for helpful tools and resources, or contact us and we'll point you in the right direction.",
+    buttonOne: "Visit homepage",
+    buttonTwo: "Contact us",
+    errorText: "Error code:",
+    faqHeading: "The FAQ page is being improved",
+    faqSubheading: "Thank you for your patience while we improve this page.",
+    faqCopy:
+      "You can still explore My Career NJ’s job, training, and career tools. Contact us if you have any questions.",
+  },
   ExplorerPage: {
-    bannerSubheading: "Find classes to help you qualify for in-demand jobs.",
+    bannerSubheading: "Find Quality Job Training Programs:",
     bannerMessageCopy:
-      "Imagine having a personal guide to help you choose the best training for your future. New Jersey Training Explorer makes it easy to find the classes and skills training programs you need. Check out the catalog of vetted schools and courses that will boost your skills—so you’ll be ready to take on new career opportunities.",
+      "Access 4,000+ training programs and certifications to further your career.  Compare program details, costs, and locations to make an informed choice.",
     header: "Power up your search to find your next training opportunity",
     sectionOneHeader: "Get Started",
     sectionOneText:
@@ -136,7 +149,11 @@ export const en = {
     careerOneStopLogo: "Official logo for Career One Stop organization",
   },
   InDemandBlock: {
-    inDemandTitle: "In-Demand in New Jersey.",
+    inDemandTitle: "In Demand throughout New Jersey",
+    trainingMessage:
+      "This training may be eligible for funding from your [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
+    occupationMessage:
+      "New Jersey funds state residents seeking skills training for in-demand occupations. Contact your [One-Stop Career Center.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     localInDemandTitle: "In-Demand in {{countiesList}}.",
     localAndRegionalWaiversText: "Learn about Local and Regional Waivers",
     inDemandText: "This training may be eligible for funding from your",
@@ -144,24 +161,61 @@ export const en = {
   },
   InDemandPage: {
     pageTitle: "In-Demand Occupations",
-    header: "In-Demand Occupations",
-    description:
-      "This is a list of occupations expected to have the most openings in the future in the State of New Jersey. Trainings related to occupations on this list can be eligible for funding by the State. Some occupations qualify for local or regional wavers and are noted below.",
+    header: "In-Demand Occupations List",
+    description: "Discover New Jersey's occupations with the most projected openings",
+    infoBar:
+      "This is a list of job titles that are expected to have a high number of available job openings compared to qualified workers. The list is updated every two years for New Jerseyans to choose education and training paths matched to job market needs. The State only funds New Jersey residents seeking skills training for the demand occupations listed here.",
     descriptionTextLink: "Learn more about local and regional waivers",
     typeaheadPlaceholder: "Search for occupations",
   },
   LandingPage: {
-    bannerSubheading: "The tools you need to find a job that works for you.",
+    bannerHeading: "My Career NJ",
+    bannerSubheading: "The tools you need for where you are",
     bannerMessageCopy:
-      "The right job is out there— if you know where to look for it. MyCareerNJ is a great place to start, with job listings throughout the state of New Jersey. We can also help you discover career possibilities, learn new job skills, assist with career changes, and offer advice for new employees. See for yourself how MyCareerNJ can help you.",
-    headerText:
-      "Find training to better prepare you for a promotion, better job, or even a career change",
-    searchBoxPlaceholder: "Enter occupation, certification, provider, or SOC code",
-    swimLaneHeader: "Helpful how-to’s",
-    columnOneHeader: "For Training Seekers",
-    columnTwoHeader: "For Counselors and Coaches",
-    columnThreeHeader: "For Training Providers",
-    columnButtonText: "Learn More",
+      "Find the right training program, get personalized job matches, and explore New Jersey’s in demand careers with these powerful digital tools.",
+    topToolsHeader: "Top tools",
+    topToolNavigatorHeading: "NJ Career Navigator",
+    topToolNavigatorDescription:
+      "Upload your resume to see personalized job and training recommendations.",
+    topToolNavigatorButtonText: "Get Started",
+    topToolExplorerHeading: "NJ Training Explorer",
+    topToolExplorerDescription:
+      "Search by job, training program, and more to find a training that works for you.",
+    topToolExplorerButtonText: "Search Training",
+    topToolPathwaysHeading: "NJ Career Pathways",
+    topToolPathwaysDescription:
+      "Explore popular industries to see what it takes to enter or progress in them.",
+    topToolPathwaysButtonText: "Explore Pathways",
+    resourcesHeading: "How can My Career NJ help you?",
+    resourcesDescription: "Choose an option and see a list of helpful resources.",
+    resourcesCard1: "I want to find a job",
+    resourcesCard2: "I want to search for training",
+    resourcesCard3: "I want to explore career opportunities",
+    resourcesCard4: "I need additional resources",
+  },
+  ToolsPage: {
+    heroBannerEyebrow: "Tools and Resources by Category",
+    heroBannerHeading: "Discover My Career NJ’s tools by category",
+    jobHeading: "All Job Search Resources and Tools",
+    jobLink1Heading: "National Labor Exchange",
+    jobLink1Description: "Search For Jobs",
+    jobLink2Heading: "Labor Market Insights",
+    jobLink2Description: "Learn about the labor market in NJ",
+    jobLink3Heading: "Apprenticeship Programs",
+    jobLink3Description: "Learn about apprenticeship opportunities",
+    trainingHeading: "All Training Resources and Tools",
+    trainingLink1Heading: "Tuition assistance resources",
+    trainingLink1Description: "Learn about ways to get help paying for education",
+    trainingLink2Heading: "Training Provider Resources",
+    trainingLink2Description: "Important information for training providers.",
+    careerHeading: "All Career Exploration Resources and Tools",
+    careerLink1Heading: " In-demand Occupations List",
+    careerLink1Description: "See careers with opening now and in the future in NJ",
+    supportHeading: "All Support and Assistance Resources",
+    supportLink1Heading: "Helpful Resources",
+    supportLink1Description: "Career Support, Tuition Assistance, Resident Support, and More",
+    supportLink2Heading: "Frequently Asked Questions",
+    supportLink2Description: "Frequently Asked Questions",
   },
   OccupationPage: {
     header: "Occupation",
@@ -305,6 +359,43 @@ export const en = {
     missingDataExplanation:
       "* This information is missing because we haven't received enough data from this institute.",
   },
+  FaqPage: {
+    header: "Get answers to commonly asked questions",
+    eyebrow: "Frequently Asked Questions",
+  },
+  ContactPage: {
+    contactInfoAddress: "Center for Occupational Employment Information (COEI)",
+    contactInfoAddressLine2: "PO Box 057, 5th Floor, Trenton, New Jersey 08625-0057",
+    contactInfoHeading: "Contact Information",
+    contactInfoLocation: "NJ Department of Labor and Workforce Development",
+    eyebrow: "Contact Us",
+    formClearButton: "Clear Form",
+    formDescription:
+      "Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce office will get back with you in 3-5 business days.",
+    formEmailLabel: "Email",
+    formFooterText: "Read about our [privacy policy](https://www.nj.gov/nj/privacy.html).",
+    formHeading: "Contact Form",
+    formMessageLabel: "Your Message",
+    formRequiredInstructions1: "A red asterisk",
+    formRequiredInstructions2: "indicates a required field.",
+    formSubmitButton: "Submit",
+    formTopic1: "In-demand Occupations",
+    formTopic2: "Occupation Details",
+    formTopic3: "Support and Assistance",
+    formTopic4: "Training Details",
+    formTopic5: "Training Provider Resources",
+    formTopic6: "Tuition Assistance",
+    formTopic7: "Career Navigator",
+    formTopic8: "Other / Not Listed",
+    formTopicLabel: "Please select a topic",
+    header: "Need help with My Career NJ? Reach out today",
+  },
+  TrainingProviderPage: {
+    header: "Training provider data collection, ETPL, and quality assurance guidance",
+    infoBar:
+      "Looking to get you program on the ETPL? [Visit Intelligrants and sign up.](https://njdol.intelligrants.com/)",
+    eyebrow: "Training Provider Resources",
+  },
   TrainingPage: {
     header: "Training Opportunity",
     avgSalaryTitle: "Avg Salary after Program",
@@ -368,7 +459,7 @@ export const en = {
       "To sign up for this training opportunity, please contact the provider at the details below.",
     trainingStepOneDescription: "Search by occupation, provider, and more",
     trainingStepTwoDescription: "Filter and compare results",
-    trainingStepThreeDescription: "Visit training provider’s website to enroll",
+    trainingStepThreeDescription: "Dive into training details",
   },
   PrivacyPolicy: {
     copy: `## Privacy Policy and Information Collection Statement

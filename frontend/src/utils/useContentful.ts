@@ -23,3 +23,14 @@ export const useContentful = ({ path, disable }: { path: string; disable?: boole
 
   return data;
 };
+
+export const fetchContentful = async <T = any>(path: string): Promise<T> => {
+  try {
+    const result = await fetch(`/api/contentful${path}`);
+    const resultJson = await result.json();
+    return resultJson;
+  } catch (error) {
+    console.error(`Error fetching Contentful data for ${path}:`, error);
+    throw error;
+  }
+};

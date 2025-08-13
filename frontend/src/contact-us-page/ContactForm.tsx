@@ -2,56 +2,60 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {
-  FormControlLabel,
-  InputAdornment,
-  Radio,
-  RadioGroup,
-  TextField
-} from "@material-ui/core";
+import { FormControlLabel, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { EnvelopeSimple } from "@phosphor-icons/react";
 import { checkValidEmail } from "../utils/checkValidEmail";
+import { useTranslation } from "react-i18next";
 
-const schema = yup.object()
+const schema = yup
+  .object()
   .shape({
-    email: yup.string().required('Please enter an email').test('valid-email', 'Please enter a valid email', val => {
-      if (val?.length) return checkValidEmail(val);
-    }),
-    topic: yup.string().required('Please select an option'),
-    message: yup.string().required('Please enter a message').test('len', 'Cannot be more than 1000 characters', val => {
-      if (val?.length) return val.length <= 1000;
-    }),
+    email: yup
+      .string()
+      .required("Please enter an email")
+      .test("valid-email", "Please enter a valid email", (val) => {
+        if (val?.length) return checkValidEmail(val);
+      }),
+    topic: yup.string().required("Please select an option"),
+    message: yup
+      .string()
+      .required("Please enter a message")
+      .test("len", "Cannot be more than 1000 characters", (val) => {
+        if (val?.length) return val.length <= 1000;
+      }),
   })
   .required();
 
-const topics = [
-  { label: 'In-demand Occupations', value: 'in-demand-occupations' },
-  { label: 'Occupation Details', value: 'occupation-details' },
-  { label: 'Support and Assistance', value: 'support-and-assistance' },
-  { label: 'Training Details', value: 'training-details' },
-  { label: 'Training Provider Resources', value: 'training-provider-resources' },
-  { label: 'Tuition Assistance', value: 'tuition-assistance' },
-  { label: 'Career Navigator', value: 'career-navigator' },
-  { label: 'Other / Not Listed', value: 'other' }
-];
-
-const getTopicFromUrl = () => {
-  const params = new URLSearchParams(window.location.search);
-  const topicParam = params.get("topic")?.toLowerCase().replace(/\s+/g, "-");
-  return topics.some(t => t.value === topicParam) ? topicParam : "";
-};
-
 const ContactForm = ({
   defaultValues,
-  setFormSuccess
+  setFormSuccess,
 }: {
   defaultValues: {
     email: string;
     topic: string;
     message: string;
-  },
-  setFormSuccess: Dispatch<SetStateAction<boolean | undefined>>
+  };
+  setFormSuccess: Dispatch<SetStateAction<boolean | undefined>>;
 }) => {
+  const { t } = useTranslation();
+
+  const topics = [
+    { label: t("ContactPage.formTopic1"), value: "in-demand-occupations" },
+    { label: t("ContactPage.formTopic2"), value: "occupation-details" },
+    { label: t("ContactPage.formTopic3"), value: "support-and-assistance" },
+    { label: t("ContactPage.formTopic4"), value: "training-details" },
+    { label: t("ContactPage.formTopic5"), value: "training-provider-resources" },
+    { label: t("ContactPage.formTopic6"), value: "tuition-assistance" },
+    { label: t("ContactPage.formTopic7"), value: "career-navigator" },
+    { label: t("ContactPage.formTopic8"), value: "other" },
+  ];
+
+  const getTopicFromUrl = () => {
+    const params = new URLSearchParams(window.location.search);
+    const topicParam = params.get("topic")?.toLowerCase().replace(/\s+/g, "-");
+    return topics.some((t) => t.value === topicParam) ? topicParam : "";
+  };
+
   const [preselectedTopic] = useState(getTopicFromUrl());
 
   const {
@@ -62,11 +66,11 @@ const ContactForm = ({
     register,
     reset,
     watch,
-    setValue
+    setValue,
   } = useForm({
     defaultValues: {
       ...defaultValues,
-      topic: preselectedTopic || ""
+      topic: preselectedTopic || "",
     },
     resolver: yupResolver(schema),
   });
@@ -82,10 +86,10 @@ const ContactForm = ({
   const onSubmit = async (data: { email: string; topic: string; message: string }) => {
     const formValues = JSON.stringify(data);
     console.log(formValues);
-    const response = await fetch('/api/contact', {
-      method: 'POST',
+    const response = await fetch("/api/contact", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: formValues,
     });
@@ -99,37 +103,40 @@ const ContactForm = ({
 
   return (
     <>
-      <h2>Contact Form</h2>
-      <p>
-        Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce office will get back with you in 3-5 business days.
-      </p>
+      <h2>{t("ContactPage.formHeading")}</h2>
+      <p>{t("ContactPage.formDescription")}</p>
       <div className="required-instructions">
-        A red asterisk (<span className="required">*</span>) indicates a required field.
+        {t("ContactPage.formRequiredInstructions1")} (<span className="required">*</span>){" "}
+        {t("ContactPage.formRequiredInstructions2")}
       </div>
       <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="input-container">
           <div className="label-container">
-            <label htmlFor="email">Email</label> <span className="required">*</span>
+            <label htmlFor="email">{t("ContactPage.formEmailLabel")}</label>{" "}
+            <span className="required">*</span>
           </div>
           <TextField
             fullWidth
             id="email"
             type="text"
             variant="outlined"
-            placeholder="Email"
+            placeholder={t("ContactPage.formEmailLabel")}
             InputProps={{
-              startAdornment: <InputAdornment position="start"><EnvelopeSimple /></InputAdornment>,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EnvelopeSimple />
+                </InputAdornment>
+              ),
             }}
             error={!!errors.email}
             {...register("email")}
           />
-          <div className="form-error-message">
-            {errors.email?.message}
-          </div>
+          <div className="form-error-message">{errors.email?.message}</div>
         </div>
-        <div className={`input-container${errors.topic ? ' radio-errors' : ''}`}>
+        <div className={`input-container${errors.topic ? " radio-errors" : ""}`}>
           <div className="label-container">
-            <label htmlFor="topic">Please select a topic</label> <span className="required">*</span>
+            <label htmlFor="topic">{t("ContactPage.formTopicLabel")}</label>{" "}
+            <span className="required">*</span>
           </div>
           <Controller
             name="topic"
@@ -146,44 +153,44 @@ const ContactForm = ({
                     key={index}
                     value={topic.value}
                     data-testid={`topic-${index}`}
-                    control={
-                      <Radio classes={{ root: errors.topic ? 'radio-error' : undefined }} />
-                    }
-                    label={topic.label} />
+                    control={<Radio classes={{ root: errors.topic ? "radio-error" : undefined }} />}
+                    label={topic.label}
+                  />
                 ))}
               </RadioGroup>
             )}
           />
-          <div className="form-error-message">
-            {errors.topic?.message}
-          </div>
+          <div className="form-error-message">{errors.topic?.message}</div>
         </div>
         <div className="input-container">
           <div className="label-container">
-            <label htmlFor="message">Your message</label> <span className="required">*</span>
+            <label htmlFor="message">{t("ContactPage.formMessageLabel")}</label>{" "}
+            <span className="required">*</span>
           </div>
           <textarea
             id="message"
-            className={errors.message ? 'error-textarea' : ''}
-            placeholder="Your message"
+            className={errors.message ? "error-textarea" : ""}
+            placeholder={t("ContactPage.formMessageLabel")}
             {...register("message")}
           />
-          <div className={`message-count ${getValues("message")?.length > 1000 || !!errors.message ? 'required' : undefined}`}>
+          <div
+            className={`message-count ${getValues("message")?.length > 1000 || !!errors.message ? "required" : undefined}`}
+          >
             {watchMessage ? `${getValues("message").length}` : `0`} / 1000
           </div>
-          <div className="form-error-message">
-            {errors.message?.message}
-          </div>
+          <div className="form-error-message">{errors.message?.message}</div>
         </div>
         <div className="button-container">
-          <button type="submit" data-testid="submit-button" className="usa-button">Submit</button>
+          <button type="submit" data-testid="submit-button" className="usa-button">
+            {t("ContactPage.formSubmitButton")}
+          </button>
           <button type="button" className="clear-button" onClick={() => reset()}>
-            Clear Form
+            {t("ContactPage.formClearButton")}
           </button>
         </div>
       </form>
     </>
-  )
-}
+  );
+};
 
 export default ContactForm;

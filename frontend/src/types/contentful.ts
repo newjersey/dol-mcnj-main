@@ -106,13 +106,14 @@ export interface PageBannerProps {
   date?: Date;
   theme?: ThemeColors;
   title: string;
+  subheading?: string;
   noCrumbs?: boolean;
   breadcrumbTitle?: string;
   breadcrumbsCollection: {
     items: LinkObjectProps[];
   };
   section: SectionIcons;
-  message?: ContentfulRichText;
+  message?: ContentfulRichText | string;
   description?: string;
   ctaHeading?: string;
   ctaLinksCollection?: {
@@ -512,6 +513,7 @@ export interface TagProps {
   };
   title: string;
   category: {
+    title: string;
     slug: string;
   };
 }

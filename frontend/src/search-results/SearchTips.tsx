@@ -10,7 +10,7 @@ export const SearchTips = (): ReactElement => {
       <AlertBar
         type="info"
         heading={t("SearchResultsPage.searchTipsHeading")}
-        toggle
+        dismissible
         copy={t("SearchResultsPage.searchTTipsContent")}
       />
     </div>

@@ -18,6 +18,7 @@
 @import "pages/home-page";
 @import "pages/in-demand-page";
 @import "pages/industry-page";
+@import "pages/tools-page";
 @import "pages/landing-page";
 @import "pages/not-found-page";
 @import "pages/occupation-page";
@@ -63,6 +64,7 @@
 @import "components/faq-collection";
 @import "components/filterControls";
 @import "components/footer-cta";
+@import "components/heroBanner";
 @import "components/homeBanner";
 @import "components/how-to";
 @import "components/industry-block";
@@ -70,6 +72,7 @@
 @import "components/industry-selector";
 @import "components/interrupter";
 @import "components/introBlocks";
+@import "components/itemCard";
 @import "components/labelBox";
 @import "components/occupation-block";
 @import "components/page-banner";
@@ -80,10 +83,10 @@
 @import "components/resourceCard";
 @import "components/resourceList";
 @import "components/river";
-@import "components/updateNotifier";
 @import "components/search-block";
 @import "components/stepper";
 @import "components/tab-content";
+@import "components/updateNotifier";
 
 button:not([disabled]):focus,
 input:not([disabled]):focus,
@@ -373,31 +376,65 @@ ol {
   }
 
   h1,
-  h2 {
+  .heading-1,
+  h2,
+  .heading-2 {
     margin-bottom: $size-16;
   }
 
-  h1 {
+  h1,
+  .heading-1 {
     font-size: $size-40;
   }
 
-  h2 {
+  h2,
+  .heading-2 {
     font-size: $size-32;
   }
 
-  h3 {
+  h3,
+  .heading-3 {
     font-size: $size-24;
   }
 
-  h4 {
+  h4,
+  .heading-4 {
     font-size: $size-22;
   }
 
-  h5 {
+  h5,
+  .heading-5 {
     font-size: $size-20;
   }
 
-  h6 {
+  h6,
+  .heading-6 {
     font-size: $size-18;
+  }
+}
+
+.systemErrorPage {
+  .heading-3 span {
+    display: block;
+    @media screen and (min-width: ($tablet-md)) {
+      max-width: 810px;
+      margin-left: 0;
+    }
+  }
+  .inner-copy {
+    @media screen and (min-width: ($tablet-md)) {
+      max-width: 580px;
+      margin-left: 0;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: $size-8;
+    margin-top: $size-24;
+
+    @media screen and (max-width: ($mobile)) {
+      flex-direction: column;
+    }
   }
 }

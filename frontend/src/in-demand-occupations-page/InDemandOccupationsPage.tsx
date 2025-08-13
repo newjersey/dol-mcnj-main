@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import pageImage from "../images/ogImages/inDemand.jpg";
+import { HeroBanner } from "../components/HeroBanner";
 
 interface Props extends RouteComponentProps {
   client: Client;
@@ -65,10 +66,12 @@ export const InDemandOccupationsPage = (props: Props): ReactElement => {
         image: pageImage,
       }}
     >
+      <HeroBanner
+        eyebrow={t("InDemandPage.header")}
+        heading={t("InDemandPage.description")}
+        infoBar={t("InDemandPage.infoBar")}
+      />
       <div className="container">
-        <h2 className="text-xl ptd weight-500">{t("InDemandPage.header")}</h2>
-
-        <p>{t("InDemandPage.description")}</p>
         <div className="pbm search-bar">
           <Typeahead occupations={Object.values(occupationLookup).flat()} />
         </div>

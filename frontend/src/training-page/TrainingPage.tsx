@@ -688,12 +688,19 @@ export const TrainingPage = (props: Props): ReactElement => {
         </section>
 
         <section className="info-blocks container">
-          {training.inDemand ? <InDemandBlock /> : <></>}
+          {training.inDemand ? (
+              <InDemandBlock message={t("InDemandBlock.trainingMessage")} />
+            ) : (
+              <></>
+            )}
 
           {!training.inDemand &&
           training.localExceptionCounty &&
           training.localExceptionCounty.length !== 0 ? (
-            <InDemandBlock counties={training.localExceptionCounty} />
+            <InDemandBlock
+                counties={training.localExceptionCounty}
+                message={t("InDemandBlock.trainingMessage")}
+              />
           ) : (
             <></>
           )}

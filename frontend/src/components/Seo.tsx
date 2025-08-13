@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { SeoProps } from "../types/contentful";
 
-export const Seo = (props: SeoProps) => {
+export const Seo = (props: SeoProps & { noindex?: boolean }) => {
   return (
     <Helmet>
       <title>{props.title}</title>
@@ -14,6 +14,7 @@ export const Seo = (props: SeoProps) => {
       {props.keywords && <meta name="keywords" content={props.keywords.join(",")} />}
       <meta property="og:title" content={props.title} />
       <meta property="twitter:title" content={props.title} />
+    {props.noindex && <meta name="robots" content="noindex" />}
       <meta name="twitter:card" content="summary_large_image" />
 
       {props.pageDescription && <meta property="og:description" content={props.pageDescription} />}

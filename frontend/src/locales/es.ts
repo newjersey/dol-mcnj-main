@@ -34,10 +34,24 @@ export const es = {
     somethingWentWrongHeader: "Perdón, algo salió mal",
     somethingWentWrongText: "Por favor, inténtelo de nuevo más tarde",
   },
+  SystemErrorPage: {
+    fourOhFourHeading: "Página no encontrada",
+    fourOhFourSubheading: "Lo sentimos, no podemos encontrar la página que estás buscando.",
+    fourOhFourCopy:
+      "Si escribiste la URL directamente, revisa la ortografía y el uso de mayúsculas. Nuestras URLs se ven así: **<mycareer.nj.gov/example-one/>**\n\nVisita nuestra página de inicio para encontrar herramientas y recursos útiles, o contáctanos y te guiaremos en la dirección correcta.",
+    buttonOne: "Visitar página de inicio",
+    buttonTwo: "Contáctanos",
+    errorText: "Código de error:",
+    faqHeading: "La página de Preguntas Frecuentes está siendo mejorada",
+    faqSubheading: "Gracias por tu paciencia mientras mejoramos esta página.",
+    faqCopy:
+      "Aún puedes explorar las herramientas de empleo, capacitación y carreras de My Career NJ. Contáctanos si tienes alguna pregunta.",
+  },
+
   ExplorerPage: {
-    bannerSubheading: "Encuentre clases que lo ayudarán a calificar para trabajos en demanda.",
+    bannerSubheading: "Encuentre programas de capacitación laboral de calidad:",
     bannerMessageCopy:
-      "Imagina tener un guía personal que te ayude a elegir la mejor formación para tu futuro. New Jersey Training Explorer facilita la búsqueda de las clases y programas de capacitación que necesita. Consulte el catálogo de escuelas y cursos aprobados que mejorarán sus habilidades, para que esté listo para aprovechar nuevas oportunidades profesionales.",
+      "Accede a más de 4000 programas de capacitación y certificaciones para impulsar tu carrera. Compara detalles, costos y ubicaciones de los programas para tomar una decisión informada.",
     header: "Arranque su búsqueda para encontrar su próxima oportunidad de formación profesional.",
     sectionOneHeader: "Empecemos!",
     sectionOneText:
@@ -144,32 +158,74 @@ export const es = {
     careerOneStopLogo: "Logotipo oficial de la organización Career One Stop",
   },
   InDemandBlock: {
-    inDemandTitle: "En demanda en todo Nueva Jersey.",
+    inDemandTitle: "Con alta demanda en todo Nueva Jersey",
+    trainingMessage:
+      "Esta capacitación puede ser elegible para financiamiento a través de su [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
+    occupationMessage:
+      "Nueva Jersey financia a los residentes del estado que buscan capacitación en habilidades para ocupaciones de alta demanda. Comuníquese con su [Centro de Carrera One-Stop.](https://www.nj.gov/labor/career-services/contact-us/one-stops/)",
     localExceptionCountiesTitle: "En demanda en {{counties}}.",
     localAndRegionalWaiversText: "Infórmese sobre las exenciones locales y regionales",
     inDemandText: "Este entrenamiento puede calificar para recibir fondos de su oficina local de",
     inDemandLinkText: "Career One-Stop",
   },
   InDemandPage: {
-    pageTitle: "Ocupaciones en demanda",
-    header: "Ocupaciones en demanda",
-    description:
-      "Esta es una lista de ocupaciones que se espera que tengan la mayor cantidad de vacantes en el futuro en el estado de Nueva Jersey. Las capacitaciones relacionadas con las ocupaciones en esta lista pueden ser elegibles para recibir financiamiento del Estado.",
+    pageTitle: "Ocupaciones en Alta Demanda",
+    header: "Lista de Ocupaciones en Alta Demanda",
+    description: "Descubre las ocupaciones con más proyecciones de vacantes en Nueva Jersey",
+    infoBar:
+      "Esta es una lista de títulos de trabajo que se espera tengan un alto número de vacantes disponibles en comparación con los trabajadores calificados. La lista se actualiza cada dos años para que los residentes de Nueva Jersey elijan trayectorias educativas y de capacitación alineadas con las necesidades del mercado laboral. El Estado solo financia la capacitación laboral para los residentes de Nueva Jersey que buscan adquirir habilidades en las ocupaciones en demanda que se enumeran aquí.",
+    descriptionTextLink: "Más información sobre exenciones locales y regionales",
     typeaheadPlaceholder: "Buscar ocupaciones",
   },
   LandingPage: {
-    bannerSubheading:
-      "Las herramientas que necesita para encontrar un trabajo que funcione para usted.",
+    bannerHeading: "My Career NJ",
+    bannerSubheading: "Herramientas de Carrera de Última Generación:",
     bannerMessageCopy:
-      "El trabajo adecuado está ahí fuera, si sabe dónde buscarlo. MyCareerNJ es un excelente lugar para comenzar, con ofertas de trabajo en todo el estado de Nueva Jersey. También podemos ayudarlo a descubrir posibilidades profesionales, aprender nuevas habilidades laborales, ayudarlo con cambios de carrera y ofrecer asesoramiento para nuevos empleados. Vea usted mismo cómo MyCareerNJ puede ayudarle.",
-    headerText:
-      "Encuentre capacitaciones que lo prepare mejor para una promoción, un mejor trabajo o incluso un cambio de carrera",
-    searchBoxPlaceholder: "Ingrese ocupación, certificación, proveedor, o código SOC",
-    swimLaneHeader: "Instrucciones útiles",
-    columnOneHeader: "Solicitantes de formación",
-    columnTwoHeader: "Para consejeros y entrenadores",
-    columnThreeHeader: "Para proveedores de capacitación",
-    columnButtonText: "Aprende más",
+      "Encuentre el programa de capacitación adecuado, obtenga coincidencias personalizadas de empleo y explore las carreras más demandadas de Nueva Jersey con nuestras potentes herramientas digitales.",
+    topToolsHeader: "Herramientas principales",
+    topToolNavigatorHeading: "Navegador de Carreras de NJ",
+    topToolNavigatorDescription:
+      "Cargue su currículum para ver recomendaciones personalizadas de empleos y programas de capacitación.",
+    topToolNavigatorButtonText: "Comenzar",
+    topToolExplorerHeading: "NJ Explorador de Capacitación",
+    topToolExplorerDescription:
+      "Busque por empleo, programa de capacitación y más para encontrar la capacitación que le convenga.",
+    topToolExplorerButtonText: "Buscar capacitación",
+    topToolPathwaysHeading: "NJ Trayectorias Profesionales",
+    topToolPathwaysDescription:
+      "Explore industrias populares para ver lo que se necesita para ingresar o avanzar en ellas.",
+    topToolPathwaysButtonText: "Explorar trayectorias",
+    resourcesHeading: "¿Cómo puede ayudarle My Career NJ?",
+    resourcesDescription: "Elija una opción y vea una lista de recursos útiles.",
+    resourcesCard1: "Quiero encontrar un trabajo",
+    resourcesCard2: "Quiero buscar capacitación",
+    resourcesCard3: "Quiero explorar oportunidades profesionales",
+    resourcesCard4: "Necesito recursos adicionales",
+  },
+  ToolsPage: {
+    heroBannerEyebrow: "Herramientas y recursos por categoría",
+    heroBannerHeading: "Descubre las herramientas de My Career NJ por categoría",
+    jobHeading: "Todos los recursos y herramientas para la búsqueda de empleo",
+    jobLink1Heading: "Intercambio Nacional de Trabajo",
+    jobLink1Description: "Buscar empleos",
+    jobLink2Heading: "Perspectivas del mercado laboral",
+    jobLink2Description: "Conoce el mercado laboral en NJ",
+    jobLink3Heading: "Programas de aprendizaje",
+    jobLink3Description: "Infórmate sobre oportunidades de aprendizaje",
+    trainingHeading: "Todos los recursos y herramientas de capacitación",
+    trainingLink1Heading: "Recursos de ayuda para matrícula",
+    trainingLink1Description: "Conoce maneras de obtener ayuda para pagar la educación",
+    trainingLink2Heading: "Recursos para proveedores de capacitación",
+    trainingLink2Description: "Información importante para proveedores de capacitación.",
+    careerHeading: "Todos los recursos y herramientas de exploración de carreras",
+    careerLink1Heading: "Lista de ocupaciones en demanda",
+    careerLink1Description: "Consulta las carreras con vacantes ahora y en el futuro en NJ",
+    supportHeading: "Todos los recursos de apoyo y asistencia",
+    supportLink1Heading: "Recursos útiles",
+    supportLink1Description:
+      "Apoyo profesional, asistencia para matrícula, apoyo a residentes y más",
+    supportLink2Heading: "Preguntas frecuentes",
+    supportLink2Description: "Preguntas frecuentes",
   },
   OccupationPage: {
     header: "Ocupación",
@@ -293,6 +349,34 @@ export const es = {
     addFiltersLabel: "Agregar filtros",
     filtersButton: "Filtros",
   },
+  ContactPage: {
+    header: "¿Necesitas ayuda con My Career NJ? Ponte en contacto hoy mismo",
+    eyebrow: "Contáctanos",
+    formHeading: "Formulario de contacto",
+    formDescription:
+      "Por favor, contáctanos con tus preguntas o comentarios. Nuestro personal en la oficina del Departamento de Trabajo y Fuerza Laboral te responderá en un plazo de 3 a 5 días de negocio.",
+    formRequiredInstructions1: "Un asterisco rojo",
+    formRequiredInstructions2: "indica un campo obligatorio.",
+    formEmailLabel: "Correo electrónico",
+    formTopicLabel: "Por favor, selecciona un tema",
+    formMessageLabel: "Tu mensaje",
+    formSubmitButton: "Enviar",
+    formClearButton: "Limpiar formulario",
+    formFooterText:
+      "Lee sobre nuestra [política de privacidad](https://www.nj.gov/nj/privacy.html).",
+    contactInfoHeading: "Información de Contacto",
+    contactInfoLocation: "Departamento de Trabajo y Desarrollo Laboral de NJ",
+    contactInfoAddress: "Centro de Información de Empleo Ocupacional (COEI)",
+    contactInfoAddressLine2: "PO Box 057, 5º Piso, Trenton, Nueva Jersey 08625-0057",
+    formTopic1: "Ocupaciones demandadas",
+    formTopic2: "Detalles de ocupación",
+    formTopic3: "Apoyo y Asistencia",
+    formTopic4: "Detalles de capacitación",
+    formTopic5: "Recursos para proveedores de capacitación",
+    formTopic6: "Asistencia de matrícula",
+    formTopic7: "Navegador de carreras",
+    formTopic8: "Otro/No listado",
+  },
   StatBlock: {
     dataSourceLabel: "Fuente de datos: ",
     defaultDataSource: "Departamento de Trabajo de Nueva Jersey",
@@ -366,8 +450,7 @@ export const es = {
     trainingStepTwoDescriptionP3:
       " para identificar el programa que mejor se adapta a tus necesidades.",
     trainingStepThree: "Visit a el sitio web del proveedor de la capacitación",
-    trainingStepThreeDescription:
-      "Llama o visita el sitio web del proveedor para obtener más información sobre la capacitación o para registrarse.",
+    trainingStepThreeDescription: "Profundice en los detalles de la capacitación",
   },
   PrivacyPolicy: {
     copy: `## Política de Privacidad y Declaración de Recopilación de Información
@@ -521,8 +604,8 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
     buttonText: "Regístrate para recibir actualizaciones",
     formTitle: "Formulario de registro de usuario de My Career NJ",
     formDescription:
-      "Regístrese para recibir correos electrónicos y conocer herramientas y recursos que lo ayudarán a avanzar en su carrera.",
-    firstNameLabel: "Nombre",
+      "Regístrese para recibir correos electrónicos y conocer las herramientas y recursos que le ayudarán a avanzar en su carrera.",
+    firstNameLabel: "Primer Nombre",
     firstNameError: "El nombre debe tener 2 o más caracteres.",
     lastNameLabel: "Apellido",
     lastNameError: "El apellido debe tener 2 o más caracteres.",
@@ -530,7 +613,7 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
     emailRequired: "El correo electrónico es obligatorio.",
     emailError: "Por favor, introduce una dirección de correo electrónico válida.",
     phoneLabel: "Número de teléfono móvil",
-    usPhoneOnlyLabel: "Solo números de teléfono de EE.UU.",
+    usPhoneOnlyLabel: "Solo números de teléfono de los Estados Unidos",
     phoneError: "Por favor, introduce un número de teléfono válido.",
     submitButton: "Enviar formulario",
     successMessage: "¡Éxito!  Está todo listo para recibir actualizaciones de My Career NJ.",
@@ -547,7 +630,7 @@ El Departamento de Trabajo y Desarrollo Laboral de Nueva Jersey se reserva el de
       part1: "Un asterisco rojo ",
       part2: " indica un campo obligatorio.",
     },
-    readAboutOur: "Lee sobre nuestra",
+    readAboutOur: "Lea sobre nuestra",
     privacyPolicy: "política de privacidad",
     andOur: "y nuestra",
     smsUsePolicy: "política de uso de SMS",

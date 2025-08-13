@@ -10,14 +10,14 @@ import { NotFoundPage } from "../error/NotFoundPage";
 import { StatBlock } from "../components/StatBlock";
 import { formatMoney } from "accounting";
 import careeronestop from "../careeronestop.png";
+import { TrainingResultCard } from "../search-results/TrainingResultCard";
+import { TrainingResult } from "../domain/Training";
 import { CircularProgress, Icon } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { InDemandBlock } from "../components/InDemandBlock";
 import { usePageTitle } from "../utils/usePageTitle";
-import { TrainingResult } from "../domain/Training";
-import { TrainingResultCard } from "../search-results/TrainingResultCard";
 import { Helmet } from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
@@ -115,16 +115,13 @@ export const OccupationPage = (props: Props): ReactElement => {
     }
   };
 
-  const getRelatedTrainings = (
-    trainings: TrainingResult[],
-    occupationSoc: string,
-  ): ReactElement => {
+  const getRelatedTrainings = (trainings: TrainingResult[], occupation: string): ReactElement => {
     if (trainings.length === 0) {
       return <p>{t("OccupationPage.dataUnavailableText")}</p>;
     } else {
       const trainingsToShow = trainings.slice(0, 3);
       const seeMore = trainings.length > 3;
-      const resultsUrl = `/training/search?q=${occupationSoc}`;
+      const resultsUrl = `/training/search?q=${occupation}`;
 
       return (
         <>
@@ -222,17 +219,24 @@ export const OccupationPage = (props: Props): ReactElement => {
           </h2>
 
           <div className="stat-block-stack mtm">
-            {occupationDetail.inDemand ? <InDemandBlock /> : <></>}
-
-            {!occupationDetail.inDemand &&
-            occupationDetail.counties &&
-            occupationDetail.counties.length !== 0 ? (
-              <InDemandBlock counties={occupationDetail.counties} />
+            {occupationDetail.inDemand ? (
+              <InDemandBlock message={t("InDemandBlock.occupationMessage")} />
             ) : (
               <></>
             )}
 
-            <div className="stat-block-container info-blocks">
+            {!occupationDetail.inDemand &&
+            occupationDetail.counties &&
+            occupationDetail.counties.length !== 0 ? (
+              <InDemandBlock
+                counties={occupationDetail.counties}
+                message={t("InDemandBlock.occupationMessage")}
+              />
+            ) : (
+              <></>
+            )}
+
+            <div className="stat-block-container">
               <StatBlock
                 title={t("OccupationPage.jobsOpenTitle")}
                 tooltipText={t("OccupationPage.jobsOpenTooltip")}
@@ -337,7 +341,7 @@ export const OccupationPage = (props: Props): ReactElement => {
                   <h2 className="text-xl ptd pbs weight-500 fin">
                     {t("OccupationPage.relatedTrainingGroupHeader")}
                   </h2>
-                  {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.soc)}
+                  {getRelatedTrainings(occupationDetail.relatedTrainings, occupationDetail.title)}
                 </div>
               </div>
             </div>

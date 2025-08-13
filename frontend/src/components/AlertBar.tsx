@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { IconSelector } from "./IconSelector";
 import { parseMarkdownToHTMLWithLinksInNewTab } from "../utils/parseMarkdownToHTML";
-import { CaretDown } from "@phosphor-icons/react";
 
 export const AlertBar = ({
   heading,
@@ -10,7 +9,6 @@ export const AlertBar = ({
   alertId,
   dismissible,
   className,
-  toggle,
 }: {
   type: "info" | "warning" | "error" | "success";
   heading?: string;
@@ -18,10 +16,8 @@ export const AlertBar = ({
   dismissible?: boolean;
   copy?: string;
   className?: string;
-  toggle?: boolean;
 }) => {
   const [remove, setRemove] = useState(false);
-  const [showContent, setShowContent] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -47,7 +43,7 @@ export const AlertBar = ({
       id={alertId}
       className={`alert-bar usa-alert usa-alert--${type}${loading || remove ? " hide" : ""}${
         className ? ` ${className}` : ""
-      }${toggle ? ` toggle ${showContent ? "open" : "closed"}` : ""}`}
+      }${dismissible ? "" : " nrp"}`}
     >
       <div className="usa-alert__body">
         <div>
@@ -56,17 +52,14 @@ export const AlertBar = ({
               <strong>{heading}</strong>
             </p>
           )}
-          {(!toggle || showContent) && (
-            <>
-              {copy && (
-                <div
-                  className="usa-alert__text"
-                  dangerouslySetInnerHTML={{
-                    __html: parseMarkdownToHTMLWithLinksInNewTab(copy),
-                  }}
-                />
-              )}
-            </>
+
+          {copy && (
+            <div
+              className="usa-alert__text"
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTMLWithLinksInNewTab(copy),
+              }}
+            />
           )}
         </div>
         {alertId && dismissible && (
@@ -82,14 +75,6 @@ export const AlertBar = ({
           </button>
         )}
       </div>
-      {toggle && (
-        <button
-          className={`toggle ${showContent ? "open" : "closed"}`}
-          onClick={() => setShowContent(!showContent)}
-        >
-          <CaretDown color="black" size={30} />
-        </button>
-      )}
     </div>
   );
 };

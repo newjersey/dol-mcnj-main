@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useReducer, useState, useMemo, Suspense } from "react";
-import { Router, Redirect, globalHistory } from "@reach/router";
+import { Router, Redirect, globalHistory, navigate, RouteComponentProps } from "@reach/router";
+import ReactGA from "react-ga";
 import * as Sentry from "@sentry/react";
 import { Client } from "./domain/Client";
 
@@ -10,7 +11,7 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
-import { FaqRoutes } from "./faqs/FaqRoutes";
+// import { FaqRoutes } from "./faqs/FaqRoutes";
 import {
   ContextualInfo,
   ContextualInfoContext,
@@ -19,6 +20,9 @@ import {
 import { ContextualInfoPanel } from "./components/ContextualInfoPanel";
 import { LanguageSwitchButton } from "./components/LanguageSwitchButton";
 import { IndustryPage } from "./career-pathways-page/IndustryPage";
+import { ToolsPage } from "./tools-page/ToolsPage";
+
+import { useTranslation } from "react-i18next";
 import { TrainingPageRouter } from "./training-page/TrainingPageRouter";
 
 // Lazy load pages
@@ -44,16 +48,17 @@ const TermsOfServicePage = React.lazy(() =>
     default: module.SmsUsePolicyPage,
   })),
 );
-const FaqPage = React.lazy(() =>
-  import("./faq-page/FaqPage").then((module) => ({ default: module.FaqPage })),
-);
+// const FaqPage = React.lazy(() =>
+//   import("./faq-page/FaqPage").then((module) => ({ default: module.FaqPage })),
+// );
+
 const TrainingProviderPage = React.lazy(() =>
   import("./training-provider-page/TrainingProviderPage").then((module) => ({
     default: module.TrainingProviderPage,
   })),
 );
-const NotFoundPage = React.lazy(() =>
-  import("./error/NotFoundPage").then((module) => ({ default: module.NotFoundPage })),
+const SystemErrorPage = React.lazy(() =>
+  import("./error/SystemError").then((module) => ({ default: module.SystemErrorPage })),
 );
 
 const InDemandOccupationsPage = React.lazy(() =>
@@ -76,11 +81,11 @@ const AllSupportPage = React.lazy(() =>
     default: module.AllSupportPage,
   })),
 );
-const ResourceCategoryPage = React.lazy(() =>
-  import("./resource-category-page/ResourceCategoryPage").then((module) => ({
-    default: module.ResourceCategoryPage,
-  })),
-);
+// const ResourceCategoryPage = React.lazy(() =>
+//   import("./resource-category-page/ResourceCategoryPage").then((module) => ({
+//     default: module.ResourceCategoryPage,
+//   })),
+// );
 const LandingPage = React.lazy(() =>
   import("./landing-page/LandingPage").then((module) => ({ default: module.LandingPage })),
 );
@@ -102,16 +107,23 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-declare global {
-  interface Window {
-    dataLayer?: Record<string, unknown>[];
+// eslint-disable-next-line
+declare const window: any;
+const GA_TRACKING_ID = "G-THV625FWWB";
+globalHistory.listen(({ location }) => {
+  if (typeof window.gtag === "function") {
+    window.gtag("config", GA_TRACKING_ID, { page_path: location.pathname });
+    ReactGA.initialize("G-THV625FWWB", {});
   }
-}
+});
 
-// Allowed hosts for GTM
-const allowedHosts = ["mycareer.nj.gov", "test.mycareer.nj.gov", "dev.mycareer.nj.gov"];
-const hostname = window.location.hostname;
-const GTM_ID = "GTM-KBN58VK9";
+export const SupportRedirect = (_props: RouteComponentProps) => {
+  useEffect(() => {
+    navigate("/support-resources", { replace: true });
+  }, []);
+
+  return null;
+};
 
 export const App = (props: Props): ReactElement => {
   const [sortState, sortDispatch] = useReducer(sortReducer, initialSortState);
@@ -121,33 +133,10 @@ export const App = (props: Props): ReactElement => {
     initialComparisonState,
   );
   const [contextualInfo, setContextualInfo] = useState<ContextualInfo>(initialContextualInfoState);
+  const { t } = useTranslation();
 
   useEffect(() => {
-    // Check if GTM is already loaded
-    if (allowedHosts.includes(hostname)) {
-      if (!window.dataLayer) {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: "gtm.js", "gtm.start": new Date().getTime() });
-
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
-        document.head.appendChild(script);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    // Push page views to GTM on route change
-    if (allowedHosts.includes(hostname)) {
-      globalHistory.listen(({ location }) => {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: "page_view",
-          page_path: location.pathname,
-        });
-      });
-    }
+    ReactGA.initialize("G-THV625FWWB", { testMode: process.env.NODE_ENV === "test" });
   }, []);
 
   const sortContextValue = useMemo(
@@ -176,7 +165,7 @@ export const App = (props: Props): ReactElement => {
               <Router>
                 <LandingPage path="/" client={props.client} />
                 <TrainingExplorerPage path="/training" client={props.client} />
-                {FaqRoutes({ client: props.client })}
+                {/* {FaqRoutes({ client: props.client })} */}
                 <SearchResultsPage path="/training/search" client={props.client} />
                 <SearchResultsPage path="/training/search?q=:searchQuery" client={props.client} />
                 <TrainingPageRouter path="/training/:id" id=":id" client={props.client} />
@@ -184,12 +173,22 @@ export const App = (props: Props): ReactElement => {
                 <OccupationPage path="/occupation/:soc" client={props.client} />
                 <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
                 <TermsOfServicePage path="/sms-use-policy" client={props.client} />
-                <FaqPage path="/faq" client={props.client} />
+                {/* <FaqPage path="/faq" client={props.client} /> */}
+                <SystemErrorPage
+                  path="/faq"
+                  client={props.client}
+                  code="503"
+                  heading={t("SystemErrorPage.faqHeading")}
+                  subheading={t("SystemErrorPage.faqSubheading")}
+                  copy={t("SystemErrorPage.faqCopy")}
+                />
                 <ContactUsPage path="/contact" client={props.client} />
                 <TrainingProviderPage path="/training-provider-resources" client={props.client} />
                 <AllSupportPage path="/support-resources" client={props.client} />
-                <ResourceCategoryPage path="/support-resources/:slug" client={props.client} />
-                <NotFoundPage default client={props.client} />
+                <SupportRedirect path="/support-resources/*" />
+                <SystemErrorPage default client={props.client} code="404" />
+                <ToolsPage path="/tools" client={props.client} />
+                {/* <NotFoundPage default client={props.client} /> */}
 
                 <Redirect from="/search" to="/training/search" />
                 <Redirect
