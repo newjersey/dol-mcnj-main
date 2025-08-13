@@ -31,7 +31,7 @@ export const Details = ({
 
   const getJobNumbers = async () => {
     const jobNumbers = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/jobcount/${content.title}`
+      `/api/jobcount/${content.title}`
     );
 
     const jobNumbersArray = await jobNumbers.json();
