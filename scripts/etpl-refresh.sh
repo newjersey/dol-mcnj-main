@@ -50,6 +50,9 @@ mv standardized_etpl.csv standardized_etpl_old.csv 2>/dev/null || true
 echo "✅ Combining programs and providers complete"
 
 echo "Step 5: Standardizing combined data..."
+echo "Installing pipenv..."
+pip install pipenv
+echo "✅ Pipenv installation complete"
 ./run-standardization.sh
 
 echo "✅ Standardizing combined data complete"
