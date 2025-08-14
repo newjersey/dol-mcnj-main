@@ -77,6 +77,7 @@ export const routerFactory = ({
   });
 
   router.get("/jobcount/:term", async (req: Request, res: Response<{ count: number }>) => {
+    console.log(`[jobcount] Called with term: ${req.params.term}`);
     // Sanitize and encode the user input before using it in the URL
     const sanitizedTerm = encodeURIComponent(req.params.term || "");
 
