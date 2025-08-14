@@ -13,7 +13,6 @@ import { RelatedTrainingCard } from "./RelatedTrainingCard";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 export const InDemandDetails = (props: {
   inDemandList?: InDemandItemProps[];
   content: OccupationDetail;
@@ -30,7 +29,7 @@ export const InDemandDetails = (props: {
 
   const getJobNumbers = async () => {
     const jobNumbers = await fetch(
-      `${API_URL}/api/jobcount/${props.content.title}`
+      `/api/jobcount/${props.content.title}`
     );
 
     const jobNumbersArray = await jobNumbers.json();
