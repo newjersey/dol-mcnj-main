@@ -13,6 +13,7 @@ import { RelatedTrainingCard } from "./RelatedTrainingCard";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 export const InDemandDetails = (props: {
   inDemandList?: InDemandItemProps[];
   content: OccupationDetail;
@@ -20,7 +21,7 @@ export const InDemandDetails = (props: {
   const [sortedTraining, setSortedTraining] = useState<TrainingResult[]>([]);
   const [jobNumbers, setJobNumbers] = useState<number | null>(null);
   const [loadingNumber, setLoadingNumber] = useState(false);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
   const taskList = props.content?.tasks.map((task) => {
     return {
       copy: task,
