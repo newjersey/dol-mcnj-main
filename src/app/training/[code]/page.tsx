@@ -2,9 +2,11 @@ import { notFound } from "next/navigation";
 import { Content } from "./Content";
 import { TrainingProps } from "@utils/types";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
 async function getData(soc: string) {
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/${soc}`
+    `${API_URL}/api/trainings/${soc}`
   );
 
   if (pageData.status !== 200 || !pageData.headers.get("ETag")) {
@@ -25,7 +27,7 @@ export const generateMetadata = async ({
 }) => {
   const resolvedParams = await params;
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/${resolvedParams.code}`
+    `${API_URL}/api/trainings/${resolvedParams.code}`
   );
 
   const training: TrainingProps = await pageData.json();

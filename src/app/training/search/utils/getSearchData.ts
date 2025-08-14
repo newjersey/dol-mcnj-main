@@ -10,9 +10,10 @@ export async function getSearchData(props: {
   };
 }) {
   const { searchParams } = props;
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
   const searchData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchParams.q}`
+    `${API_URL}/api/trainings/search?query=${searchParams.q}`
   );
 
   if (!searchData.ok) {

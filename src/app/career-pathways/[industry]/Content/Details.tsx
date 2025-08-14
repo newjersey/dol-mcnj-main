@@ -28,7 +28,6 @@ export const Details = ({
   const [loadingNumber, setLoadingNumber] = useState(false);
   const [loadingTraining, setLoadingTraining] = useState(false);
   const boxArray = [];
-
   const getJobNumbers = async () => {
     const jobNumbers = await fetch(
       `/api/jobcount/${content.title}`
