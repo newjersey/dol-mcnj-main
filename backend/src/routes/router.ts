@@ -76,20 +76,21 @@ export const routerFactory = ({
       .catch(() => res.status(500).send());
   });
 
-  router.get("/jobcount/:term", async (req: Request, res: Response<{ count: number }>) => {
-    console.log(`[jobcount] Called with term: ${req.params.term}`);
-    // Sanitize and encode the user input before using it in the URL
-    const sanitizedTerm = encodeURIComponent(req.params.term || "");
-
-    // Use the sanitized input in the URL
-    const countData = await CareerOneStopClient(
-      process.env.CAREER_ONESTOP_BASEURL as string,
-      process.env.CAREER_ONESTOP_USERID as string,
-      process.env.CAREER_ONESTOP_AUTH_TOKEN as string,
-    )(sanitizedTerm);
-
-    res.status(200).json({ count: countData || 0 });
-  });
+    router.get("/jobcount/:term", async (req: Request, res: Response<{ count: number }>) => {
+        const sanitizedTerm = encodeURIComponent(req.params.term || "");
+        console.log(`[jobcount] Request for: ${sanitizedTerm}`);
+        // Print the env vars to make sure they're loaded
+        console.log('CAREER_ONESTOP_BASEURL:', process.env.CAREER_ONESTOP_BASEURL);
+        console.log('CAREER_ONESTOP_USERID:', process.env.CAREER_ONESTOP_USERID);
+        console.log('CAREER_ONESTOP_AUTH_TOKEN:', process.env.CAREER_ONESTOP_AUTH_TOKEN?.slice(0,5) + '...');
+        const countData = await CareerOneStopClient(
+            process.env.CAREER_ONESTOP_BASEURL as string,
+            process.env.CAREER_ONESTOP_USERID as string,
+            process.env.CAREER_ONESTOP_AUTH_TOKEN as string,
+        )(sanitizedTerm);
+        console.log(`[jobcount] Upstream returned: ${countData}`);
+        res.status(200).json({ count: countData || 0 });
+    });
 
   router.get("/occupations/cip/:cip", (req: Request, res: Response<OccupationDetail[]>) => {
     getOccupationDetailByCIP(req.params.cip as string)
