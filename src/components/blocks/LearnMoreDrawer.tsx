@@ -2,11 +2,16 @@
 import { Button } from "@components/modules/Button";
 import { Drawer } from "@components/modules/Drawer";
 import { CareerMapItemProps } from "@utils/types/components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 export const LearnMoreDrawer = ({ map }: { map: CareerMapItemProps }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const drawerContent = (
     <Drawer open={drawerOpen} setOpen={setDrawerOpen}>
@@ -44,7 +49,7 @@ export const LearnMoreDrawer = ({ map }: { map: CareerMapItemProps }) => {
       >
         <span className="copy">Learn more</span>
       </Button>
-      {createPortal(drawerContent, document.body)}
+      {mounted && createPortal(drawerContent, document.body)}
     </>
   );
 };
