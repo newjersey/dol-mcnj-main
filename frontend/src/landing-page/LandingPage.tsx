@@ -39,7 +39,7 @@ export const LandingPage = (props: Props): ReactElement => {
 
   return (
     <Layout client={props.client} noPad seo={seoObject}>
-      <SurveyMonkeyWidget delayMs={6000} onlyOnPath="/" enabled={true} />
+      <SurveyMonkeyWidget onlyOnPath="/" enabled={true} />
       <div className="home-page">
         <HomeBanner
           heading={t("LandingPage.bannerHeading")}
