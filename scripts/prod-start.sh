@@ -5,7 +5,7 @@ set -e
 npm run build:only
 
 # Kill any existing Next.js SSR process
-sudo fuser -k 3000/tcp || true
+# sudo fuser -k 3000/tcp || true
 
 # Start Next.js SSR server
 PORT=3000 npm run start &
