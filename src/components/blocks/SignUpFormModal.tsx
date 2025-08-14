@@ -21,6 +21,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -91,7 +92,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
     try {
       setSubmitting(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/signup`,
+        `${API_URL}/api/signup`,
         {
           method: "POST",
           headers: {

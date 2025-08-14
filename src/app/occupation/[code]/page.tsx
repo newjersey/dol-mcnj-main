@@ -10,9 +10,12 @@ import {
 import { Content } from "./Content";
 import { Related } from "./Related";
 
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 async function getData(soc: string) {
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/occupations/${soc}`
+
+    `${API_URL}/api/occupations/${soc}`
   );
 
   return {
@@ -35,7 +38,7 @@ export const generateMetadata = async ({
   const resolvedSearchParams = await searchParams;
 
   const pageData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/occupations/${resolvedParams.code}`
+    `${API_URL}/api/occupations/${resolvedParams.code}`
   );
 
   if (pageData.status !== 200 && !resolvedSearchParams.mockData) {

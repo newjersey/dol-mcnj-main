@@ -20,7 +20,7 @@ export const InDemandDetails = (props: {
   const [sortedTraining, setSortedTraining] = useState<TrainingResult[]>([]);
   const [jobNumbers, setJobNumbers] = useState<number | null>(null);
   const [loadingNumber, setLoadingNumber] = useState(false);
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
   const taskList = props.content?.tasks.map((task) => {
     return {
       copy: task,
@@ -29,7 +29,7 @@ export const InDemandDetails = (props: {
 
   const getJobNumbers = async () => {
     const jobNumbers = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/jobcount/${props.content.title}`
+      `${API_URL}/api/jobcount/${props.content.title}`
     );
 
     const jobNumbersArray = await jobNumbers.json();

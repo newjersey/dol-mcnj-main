@@ -5,9 +5,11 @@ import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
 import { PageHero } from "@components/blocks/PageHero";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
 async function getData() {
   const occupationItems = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/occupations`
+    `${API_URL}/api/occupations`
   );
 
   return {

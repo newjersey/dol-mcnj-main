@@ -38,6 +38,8 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const [fullMap, setFullMap] = useState<SinglePathwayProps[]>();
   const [loading, setLoading] = useState<boolean>(false);
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
   const getCareerMap = async (id: string) => {
     const mapData = await client({
       query: CAREER_PATHWAY_QUERY,
@@ -91,7 +93,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       const getInDemandOccupation = async () => {
         setLoading(true);
         const occupation = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`
+          `${API_URL}/api/occupations/${activeInDemand.idNumber}`
         );
 
         if (!occupation.ok) {
