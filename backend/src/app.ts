@@ -22,7 +22,6 @@ import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { getOccupationDetailByCIPFactory } from "./domain/occupations/getOccupationDetailByCIP";
 import helmet from "helmet";
-import * as trace_events from "node:trace_events";
 // import { rateLimiter } from "./utils/rateLimiter";
 
 dotenv.config();
