@@ -200,7 +200,7 @@ export const es = {
     heroBannerEyebrow: "Herramientas y recursos por categoría",
     heroBannerHeading: "Descubre las herramientas de My Career NJ por categoría",
     jobHeading: "Todos los recursos y herramientas para la búsqueda de empleo",
-    jobLink1Heading: "Intercambio Nacional de Trabajo",
+    jobLink1Heading: "Bolsa de Trabajo de Una Sola Parada",
     jobLink1Description: "Buscar empleos",
     jobLink2Heading: "Perspectivas del mercado laboral",
     jobLink2Description: "Conoce el mercado laboral en NJ",

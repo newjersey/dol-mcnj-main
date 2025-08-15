@@ -70,7 +70,7 @@ export const ToolsPage = (props: Props): ReactElement => {
               icon: "ArrowSquareOut",
               iconWeight: "regular",
               link: {
-                href: "https://www.naswa.org/partnerships/nlx",
+                href: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New Jersey&radius=",
               },
             },
             {
@@ -158,14 +158,14 @@ export const ToolsPage = (props: Props): ReactElement => {
                 href: "/support-resources",
               },
             },
-            {
-              heading: t("ToolsPage.supportLink2Heading"),
-              description: t("ToolsPage.supportLink2Description"),
+            // {
+            //   heading: t("ToolsPage.supportLink2Heading"),
+            //   description: t("ToolsPage.supportLink2Description"),
 
-              link: {
-                href: "/faq",
-              },
-            },
+            //   link: {
+            //     href: "/faq",
+            //   },
+            // },
           ]}
         />
       </div>
