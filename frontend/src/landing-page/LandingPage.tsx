@@ -63,6 +63,8 @@ const closeButtonStyle: React.CSSProperties = {
   zIndex: 999999,
 };
 
+const SURVEY_MONKEY_DISMISSED_KEY = "surveyMonkeyModalDismissed";
+
 interface Props extends RouteComponentProps {
   client: Client;
 }
@@ -91,6 +93,10 @@ export const LandingPage = (props: Props): ReactElement => {
   const surveyUrl = "https://www.surveymonkey.com/r/GK6PZRQ";
 
   useEffect(() => {
+    // Only show modal if not previously dismissed/completed
+    if (localStorage.getItem(SURVEY_MONKEY_DISMISSED_KEY) === "true") {
+      return;
+    }
     const handleClick = (event: MouseEvent) => {
       const linkElement = (event.target as HTMLElement).closest("a");
       if (!linkElement) return;
@@ -108,9 +114,22 @@ export const LandingPage = (props: Props): ReactElement => {
     };
   }, []);
 
-  // FIXED: The close logic is now inside a single handler
+  // Optionally, listen for SurveyMonkey completion via postMessage (advanced)
+  // useEffect(() => {
+  //   function handleMessage(event: MessageEvent) {
+  //     // Example: if SurveyMonkey posts a message on completion, set the flag here.
+  //     // if(event.data === 'survey-complete') {
+  //     //   localStorage.setItem(SURVEY_MONKEY_DISMISSED_KEY, "true");
+  //     //   setIsModalOpen(false);
+  //     // }
+  //   }
+  //   window.addEventListener('message', handleMessage);
+  //   return () => window.removeEventListener('message', handleMessage);
+  // }, []);
+
   const closeAndNavigate = () => {
     setIsModalOpen(false);
+    localStorage.setItem(SURVEY_MONKEY_DISMISSED_KEY, "true");
     if (targetUrl) {
       window.location.href = targetUrl;
     }
@@ -139,6 +158,7 @@ export const LandingPage = (props: Props): ReactElement => {
                 onClick={handleOverlayClick}
                 onKeyDown={handleKeyDown}
                 role="presentation" // Use "presentation" as it's a container, not a button
+                tabIndex={-1} // Make div focusable for keydown
             >
               <div
                   style={modalContentStyle}
