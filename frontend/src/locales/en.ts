@@ -191,7 +191,7 @@ export const en = {
     heroBannerEyebrow: "Tools and Resources by Category",
     heroBannerHeading: "Discover My Career NJ’s tools by category",
     jobHeading: "All Job Search Resources and Tools",
-    jobLink1Heading: "National Labor Exchange",
+    jobLink1Heading: "One Stop Job Board",
     jobLink1Description: "Search For Jobs",
     jobLink2Heading: "Labor Market Insights",
     jobLink2Description: "Learn about the labor market in NJ",
