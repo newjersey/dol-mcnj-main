@@ -2,28 +2,30 @@
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { useEffect, useState } from "react";
 import { IconSelector } from "./IconSelector";
-import { CaretDown, CaretUp } from "@phosphor-icons/react";
+import { CaretDownIcon, CaretUpIcon, GlobeIcon } from "@phosphor-icons/react";
 
 export interface AlertProps {
+  alertId?: string;
+  children?: React.ReactNode;
   className?: string;
-  copy?: string;
-  heading?: string;
   collapsable?: boolean;
+  copy?: string;
+  dismissible?: boolean;
+  heading?: string;
   noIcon?: boolean;
   slim?: boolean;
-  alertId?: string;
-  dismissible?: boolean;
-  type: "info" | "success" | "warning" | "error";
+  type: "info" | "success" | "warning" | "error" | "global";
 }
 
 export const Alert = ({
+  alertId,
+  children,
   className,
+  collapsable,
   copy,
+  dismissible,
   heading,
   noIcon,
-  dismissible,
-  collapsable,
-  alertId,
   slim,
   type,
 }: AlertProps) => {
@@ -59,6 +61,9 @@ export const Alert = ({
       }${collapsable ? " collapsable" : ""}${className ? ` ${className}` : ""}`}
     >
       <div className="usa-alert__body">
+        {type === "global" && (
+          <GlobeIcon size={32} className="mr-4" weight="bold" />
+        )}
         <div>
           {heading && !collapsable && (
             <p className="heading-tag usa-alert__heading">{heading}</p>
@@ -71,7 +76,7 @@ export const Alert = ({
               {heading && (
                 <p className="heading-tag usa-alert__heading">{heading}</p>
               )}
-              {show ? <CaretUp size={30} /> : <CaretDown size={30} />}
+              {show ? <CaretUpIcon size={30} /> : <CaretDownIcon size={30} />}
               <div className="sr-only">{show ? "show less" : "show more"}</div>
             </button>
           )}
@@ -85,6 +90,7 @@ export const Alert = ({
               }}
             />
           )}
+          {children}
         </div>
         {alertId && dismissible && (
           <button

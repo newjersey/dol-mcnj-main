@@ -8,7 +8,8 @@ import { SIGNUP_FORM as contentData } from "@data/global/signupForm";
 import { SupportedLanguages } from "@utils/types/types";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
-export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
+export const SignUpFormModal = () => {
+  const [lang, setLang] = useState<SupportedLanguages>("en");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [firstName, setFirstName] = useState<string>("");
   const [firstNameError, setFirstNameError] = useState<string>("");
@@ -165,7 +166,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
   return (
     <>
       <Button
-        {...contentData[lang].headerButton}
+        {...contentData.en.headerButton}
         iconPrefix="Megaphone"
         iconWeight="bold"
         onClick={() => {
@@ -180,138 +181,154 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
       >
         <div className="overlay" />
         <div className="modal">
-          <button onClick={() => setIsOpen(false)} className="close">
-            <XIcon size={20} weight="bold" />
-            <div className="sr-only">Close</div>
-          </button>
-          <p className="heading">{contentData[lang].heading}</p>
-
-          <p>{contentData[lang].message}</p>
-          {success ? (
+          <Alert type="global" className="langAlert">
             <>
-              <Alert
-                heading="For submission successful."
-                copy="Please check your email for confirmation."
-                type="success"
-              />
-              <div className="buttons" style={{ marginTop: "1.5rem" }}>
-                <Button
-                  type="button"
-                  defaultStyle="primary"
-                  onClick={() => {
-                    setIsOpen(false);
-                  }}
-                >
-                  Back to My Career NJ
-                </Button>
-              </div>
-            </>
-          ) : (
-            <>
-              <span className="instruction">
-                {contentData[lang].instruction[0]} (
-                <span className="require-mark text-error">*</span>){" "}
-                {contentData[lang].instruction[1]}
-              </span>
-              <form
-                onSubmit={handleSubmission}
-                onChange={() => setResetForm(false)}
+              {contentData[lang].languageMessage[0]}{" "}
+              <a
+                onClick={() => {
+                  setLang(lang === "en" ? "es" : "en");
+                }}
               >
-                <div className="row">
-                  <FormInput
-                    type="text"
-                    label={contentData[lang].form.fields.firstName.label}
-                    inputId="firstName"
-                    value={firstName}
-                    placeholder={
-                      contentData[lang].form.fields.firstName.placeholder
-                    }
-                    error={firstNameError}
-                    onChange={(e) => {
-                      if (firstName.length > 2) {
-                        setFirstNameError("");
-                      }
-                      setFirstName(e.target.value);
-                    }}
-                  />
-                  <FormInput
-                    type="text"
-                    label={contentData[lang].form.fields.lastName.label}
-                    inputId="lastName"
-                    value={lastName}
-                    placeholder={
-                      contentData[lang].form.fields.lastName.placeholder
-                    }
-                    error={lastNameError}
-                    onChange={(e) => {
-                      if (lastName.length > 2) {
-                        setLastNameError("");
-                      }
-                      setLastName(e.target.value);
-                    }}
-                  />
-                </div>
+                <>{contentData[lang].languageMessage[1]}</>
+              </a>
+            </>
+          </Alert>
+          <div className="inner">
+            <button onClick={() => setIsOpen(false)} className="close">
+              <XIcon size={20} weight="bold" />
+              <div className="sr-only">Close</div>
+            </button>
+            <p className="heading">{contentData[lang].heading}</p>
 
-                <FormInput
-                  type="text"
-                  label={contentData[lang].form.fields.email.label}
-                  inputId="email"
-                  value={email}
-                  requiredIndicator
-                  placeholder={contentData[lang].form.fields.email.placeholder}
-                  error={emailError}
-                  onChange={(e) => {
-                    if (email && email.includes("@")) {
-                      setEmailError("");
-                    }
-
-                    setEmail(e.target.value);
-                  }}
+            <p>{contentData[lang].message}</p>
+            {success ? (
+              <>
+                <Alert
+                  heading="For submission successful."
+                  copy="Please check your email for confirmation."
+                  type="success"
                 />
-                {hasErrors && <Alert copy={hasErrors} type="error" />}
-                <div className="buttons">
+                <div className="buttons" style={{ marginTop: "1.5rem" }}>
                   <Button
-                    type="submit"
+                    type="button"
                     defaultStyle="primary"
                     onClick={() => {
-                      setResetForm(false);
+                      setIsOpen(false);
                     }}
                   >
-                    {submitting && (
-                      <div className="spinner">
-                        <CircleNotchIcon size={20} weight="bold" />
-                      </div>
-                    )}
-                    {submitting
-                      ? contentData[lang].form.submitButton[1]
-                      : contentData[lang].form.submitButton[0]}
+                    Back to My Career NJ
                   </Button>
-                  <button
-                    className="usa-button usa-button--unstyled"
-                    onClick={() => {
-                      setFirstName("");
-                      setLastName("");
-                      setEmail("");
-                      setFirstNameError("");
-                      setLastNameError("");
-                      setEmailError("");
-                      setHasErrors("");
-                      setResetForm(true);
-                      setSubmitting(false);
-                    }}
-                  >
-                    {contentData[lang].form.resetButton}
-                  </button>
                 </div>
-              </form>
-              <span
-                className="footerCopy"
-                dangerouslySetInnerHTML={{
-                  __html: parseMarkdownToHTML(contentData[lang].form.footer),
-                }}
-              />
-            </>
-          )}
+              </>
+            ) : (
+              <>
+                <span className="instruction">
+                  {contentData[lang].instruction[0]} (
+                  <span className="require-mark text-error">*</span>){" "}
+                  {contentData[lang].instruction[1]}
+                </span>
+                <form
+                  onSubmit={handleSubmission}
+                  onChange={() => setResetForm(false)}
+                >
+                  <div className="row">
+                    <FormInput
+                      type="text"
+                      label={contentData[lang].form.fields.firstName.label}
+                      inputId="firstName"
+                      value={firstName}
+                      placeholder={
+                        contentData[lang].form.fields.firstName.placeholder
+                      }
+                      error={firstNameError}
+                      onChange={(e) => {
+                        if (firstName.length > 2) {
+                          setFirstNameError("");
+                        }
+                        setFirstName(e.target.value);
+                      }}
+                    />
+                    <FormInput
+                      type="text"
+                      label={contentData[lang].form.fields.lastName.label}
+                      inputId="lastName"
+                      value={lastName}
+                      placeholder={
+                        contentData[lang].form.fields.lastName.placeholder
+                      }
+                      error={lastNameError}
+                      onChange={(e) => {
+                        if (lastName.length > 2) {
+                          setLastNameError("");
+                        }
+                        setLastName(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <FormInput
+                    type="text"
+                    label={contentData[lang].form.fields.email.label}
+                    inputId="email"
+                    value={email}
+                    requiredIndicator
+                    placeholder={
+                      contentData[lang].form.fields.email.placeholder
+                    }
+                    error={emailError}
+                    onChange={(e) => {
+                      if (email && email.includes("@")) {
+                        setEmailError("");
+                      }
+
+                      setEmail(e.target.value);
+                    }}
+                  />
+                  {hasErrors && <Alert copy={hasErrors} type="error" />}
+                  <div className="buttons">
+                    <Button
+                      type="submit"
+                      defaultStyle="primary"
+                      onClick={() => {
+                        setResetForm(false);
+                      }}
+                    >
+                      {submitting && (
+                        <div className="spinner">
+                          <CircleNotchIcon size={20} weight="bold" />
+                        </div>
+                      )}
+                      {submitting
+                        ? contentData[lang].form.submitButton[1]
+                        : contentData[lang].form.submitButton[0]}
+                    </Button>
+                    <button
+                      className="usa-button usa-button--unstyled"
+                      onClick={() => {
+                        setFirstName("");
+                        setLastName("");
+                        setEmail("");
+                        setFirstNameError("");
+                        setLastNameError("");
+                        setEmailError("");
+                        setHasErrors("");
+                        setResetForm(true);
+                        setSubmitting(false);
+                      }}
+                    >
+                      {contentData[lang].form.resetButton}
+                    </button>
+                  </div>
+                </form>
+                <span
+                  className="footerCopy"
+                  dangerouslySetInnerHTML={{
+                    __html: parseMarkdownToHTML(contentData[lang].form.footer),
+                  }}
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>

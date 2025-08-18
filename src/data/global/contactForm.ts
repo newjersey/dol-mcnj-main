@@ -10,8 +10,12 @@ export const CONTACT_FORM = {
     } as ButtonProps,
     heading: "Contact Form",
     message:
-      "Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce office will get back with you in 3-5 business days.",
+      "Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce Development office will get back with you in in 2 to 3 business days",
     instruction: ["A red asterick", "indicates a required field"],
+    languageMessage: [
+      "Esta form está disponible en español.",
+      "Haga clic aquí para traducirla.",
+    ],
     form: {
       submitLabel: "Submit",
       footer:
@@ -25,7 +29,7 @@ export const CONTACT_FORM = {
         topicSelect: {
           label: "Please select a topic",
           requiredIndicator: true,
-          placeholder: "Select a topic",
+          placeholder: "Select an option",
           options: [
             {
               label: "In-demand Occupations",
@@ -59,7 +63,7 @@ export const CONTACT_FORM = {
         },
         yourMessage: {
           label: "Your message",
-          placeholder: "Your message",
+          placeholder: "Enter your text here",
           requiredIndicator: true,
         },
       },
@@ -94,8 +98,12 @@ export const CONTACT_FORM = {
       label: "Contáctenos",
     },
     heading: "Formulario de contacto",
+    languageMessage: [
+      "This form is available in English.",
+      "Click here to translate.",
+    ],
     message:
-      "Comuníquese con nosotros con sus preguntas o comentarios. Nuestro personal del Departamento de Trabajo y Oficina de la Fuerza Laboral se comunicará con usted en 3 a 5 días hábiles.",
+      "Por favor, contáctanos con tus preguntas o comentarios. Nuestro personal en la oficina del Departamento de Trabajo y Fuerza Laboral te responderá en un plazo de 3 a 5 días de negocio.",
     instruction: ["Un asterisco rojo", "indica un campo obligatorio"],
     form: {
       submitLabel: "Enviar",
@@ -105,12 +113,12 @@ export const CONTACT_FORM = {
         email: {
           label: "Correo electrónico",
           requiredIndicator: true,
-          placeholder: "Correo electrónico",
+          placeholder: "example@mail.com",
         },
         topicSelect: {
-          label: "Seleccione un tema",
+          label: "Por favor, selecciona un tema",
           requiredIndicator: true,
-          placeholder: "Seleccione un tema",
+          placeholder: "Selecciona una opción",
           options: [
             {
               label: "Ocupaciones en demanda",
@@ -143,8 +151,8 @@ export const CONTACT_FORM = {
           ],
         },
         yourMessage: {
-          label: "Su mensaje",
-          placeholder: "Su mensaje",
+          label: "Tu mensaje",
+          placeholder: "Introduzca su texto aquí",
           requiredIndicator: true,
         },
       },

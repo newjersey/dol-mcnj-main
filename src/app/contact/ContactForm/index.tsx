@@ -155,7 +155,7 @@ Please provide a description of the issue.`
 
             <Flex gap="md" direction="column" className="inner" fill>
               <FormInput
-                label="Email"
+                label={contentData[lang].form.fields.email.label}
                 required
                 disabled={loading}
                 inputId="email"
@@ -176,7 +176,7 @@ Please provide a description of the issue.`
                   setEmailError(!validateEmail(email));
                 }}
                 type="email"
-                placeholder="Email"
+                placeholder={contentData[lang].form.fields.email.placeholder}
               />
               <Flex direction="column" gap="xs">
                 <FormInput
