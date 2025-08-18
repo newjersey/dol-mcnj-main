@@ -191,6 +191,10 @@
       justify-content: flex-start;
       gap: s.$size-16;
 
+      @media screen and (max-width: (s.$mobile-lg - 1)) {
+        flex-direction: column;
+      }
+
       button {
         &.usa-button {
           font-size: s.$size-16;

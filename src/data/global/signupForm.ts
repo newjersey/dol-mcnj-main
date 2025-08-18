@@ -83,6 +83,7 @@ export const SIGNUP_FORM = {
       },
       submitButton: ["Enviar formulario", "Enviando"],
       resetButton: "Restablecer formulario",
+
       error: {
         general:
           "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",

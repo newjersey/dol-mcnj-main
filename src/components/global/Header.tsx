@@ -5,10 +5,10 @@ import { NavMenu } from "./NavMenu";
 import NJLogo from "@components/svgs/NJLogo";
 import { Button } from "@components/modules/Button";
 import { useState } from "react";
-import { LinkObject } from "@components/modules/LinkObject";
 import Link from "next/link";
 import { SignUpFormModal } from "@components/blocks/SignUpFormModal";
 import { SupportedLanguages } from "@utils/types/types";
+import { ContactFormModal } from "@components/blocks/ContactFormModal";
 
 interface HeaderProps {
   mainNav?: NavMenuProps;
@@ -60,9 +60,7 @@ const Header = ({ mainNav, globalNav, lang = "en" }: HeaderProps) => {
         icons
         extraItems={
           <div className="contact-links">
-            <LinkObject className="nav-item contact-us" url="/contact">
-              Contact Us
-            </LinkObject>
+            <ContactFormModal lang={lang} />
             <SignUpFormModal lang={lang} />
           </div>
         }
