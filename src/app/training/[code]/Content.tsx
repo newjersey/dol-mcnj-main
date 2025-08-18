@@ -95,7 +95,6 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 highlight="orange"
                 label="See something wrong? Report an issue."
                 onClick={() => {
-                  // reload current page with `?path=/training/${training.id}&title=${training.name}`
                   window.location.href = `?contactModal=true&path=/training/${training.id}&title=${training.name}`;
                 }}
                 newTab
