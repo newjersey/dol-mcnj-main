@@ -1,18 +1,21 @@
 "use client";
 import { Button } from "@components/modules/Button";
 import { FormInput } from "@components/modules/FormInput";
-import { Heading } from "@components/modules/Heading";
-import { LinkObject } from "@components/modules/LinkObject";
 import { Flex } from "@components/utility/Flex";
 import { useEffect, useState } from "react";
-import { topics } from "./topics";
 import { resetForm } from "./resetForm";
 import { Box } from "@components/utility/Box";
-import { Spinner } from "@components/modules/Spinner";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { CONTACT_FORM as contentData } from "@data/global/contactForm";
+import { SupportedLanguages } from "@utils/types/types";
+import { Alert } from "@components/modules/Alert";
+import { CircleNotchIcon } from "@phosphor-icons/react";
 
 export const ContactForm = ({
+  lang = "en",
   content,
 }: {
+  lang: SupportedLanguages;
   content?: {
     path?: string;
     title?: string;
@@ -66,7 +69,7 @@ Please provide a description of the issue.`
 
   useEffect(() => {
     if (messageCharacterCount > 1000) {
-      setMessageError("Cannot be more than 1000 characters");
+      setMessageError(contentData[lang].form.error.messageCount);
     } else {
       setMessageError("");
     }
@@ -86,50 +89,44 @@ Please provide a description of the issue.`
   };
 
   return (
-    <Box
-      radius={5}
-      className={`bg-${
-        success ? "success-lighter" : error ? "error-lighter" : "info-lighter"
-      } form-container`}
-    >
+    <Box radius={5}>
       {success ? (
         <>
-          <h2>Success!</h2>
-          <p>
-            Your message has been sent and we will do our best to respond within
-            3-5 business days. Be sure to check your spam folder for any
-            communications.
+          <p className="heading text-success">
+            {contentData[lang].form.success.heading}
           </p>
-          <Button
-            type="button"
-            disabled={loading}
-            className="reset-button"
-            onClick={() => {
-              // refresh window
-              window.location.reload();
-            }}
-          >
-            <strong>Reset Form</strong>
-          </Button>
+          <p>{contentData[lang].form.success.message}</p>
+          <div className="buttons">
+            <Button
+              type="button"
+              disabled={loading}
+              className="reset-button"
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              <strong>{contentData[lang].form.resetButton}</strong>
+            </Button>
+          </div>
         </>
       ) : error ? (
         <>
-          <h2>Submission Error</h2>
-          <p>
-            There was an error with your submission and our team has been
-            alerted. You can reset the form and try your message again.
+          <p className="heading text-error">
+            {contentData[lang].form.error.heading}
           </p>
-          <Button
-            type="button"
-            disabled={loading}
-            className="reset-button"
-            onClick={() => {
-              // refresh window
-              window.location.reload();
-            }}
-          >
-            <strong>Reset Form</strong>
-          </Button>
+          <p>{contentData[lang].form.error.general}</p>
+          <div className="buttons">
+            <Button
+              type="button"
+              disabled={loading}
+              className="reset-button"
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              <strong>{contentData[lang].form.resetButton}</strong>
+            </Button>
+          </div>
         </>
       ) : (
         <form
@@ -138,30 +135,27 @@ Please provide a description of the issue.`
             e.preventDefault();
           }}
         >
-          <Flex direction="column" className="inner" fill>
+          <Flex direction="column" gap="xs" className="inner" fill>
             <div className="heading-content">
-              <Heading level={3}>Contact Form</Heading>
-              <p>
-                Please reach out to us with your questions or comments. Our
-                staff at the Department of Labor and Workforce office will get
-                back with you in 3-5 business days.
-                <br />
-                <br />
-                <small>
-                  A red asterisk (<span className="text-error">*</span>)
-                  indicates a required field.
-                </small>
-              </p>
+              <p className="heading">{contentData[lang].heading}</p>
+              <p>{contentData[lang].message}</p>
+              <span className="instruction">
+                {contentData[lang].instruction[0]} (
+                <span className="text-error">*</span>){" "}
+                {contentData[lang].instruction[1]}
+              </span>
             </div>
 
-            <Flex gap="lg" direction="column" className="inner" fill>
+            <Flex gap="md" direction="column" className="inner" fill>
               <FormInput
                 label="Email"
                 required
                 disabled={loading}
                 inputId="email"
                 error={
-                  emailError ? "Please enter a valid email address" : undefined
+                  emailError
+                    ? contentData[lang].form.error.emailInvalid
+                    : undefined
                 }
                 onChange={(e) => {
                   setEmailError(false);
@@ -178,37 +172,42 @@ Please provide a description of the issue.`
                 placeholder="Email"
               />
               <Flex direction="column" gap="xs">
-                <p className="label">
-                  <strong>
-                    Please select a topic <span className="text-error">*</span>
-                  </strong>
-                </p>
-                {topics.map((topic, index) => {
-                  const isLast = index === topics.length - 1;
-                  return (
-                    <FormInput
-                      label={topic.label}
-                      type="radio"
-                      name="topics"
-                      disabled={loading}
-                      error={
-                        topicError && isLast
-                          ? "Please select an option"
-                          : undefined
-                      }
-                      inputId={topic.value}
-                      className={topicError && !isLast ? "error" : ""}
-                      onChange={() => {
-                        setTopicError(false);
-                        setSelectedTopic(topic.value);
-                      }}
-                      key={topic.value}
-                    />
-                  );
-                })}
+                <FormInput
+                  label={contentData[lang].form.fields.topicSelect.label}
+                  type="select"
+                  required
+                  options={[
+                    {
+                      value: "select-topic",
+                      key: contentData[lang].form.fields.topicSelect
+                        .placeholder,
+                    },
+                    ...contentData[lang].form.fields.topicSelect.options.map(
+                      (topic) => ({
+                        value: topic.value,
+                        key: topic.label,
+                      })
+                    ),
+                  ]}
+                  name="topics"
+                  disabled={loading}
+                  error={
+                    topicError
+                      ? contentData[lang].form.error.topicRequired
+                      : undefined
+                  }
+                  inputId="topic-select"
+                  value={selectedTopic}
+                  className={topicError ? "error" : ""}
+                  onChangeSelect={(e) => {
+                    setTopicError(false);
+                    setSelectedTopic(e.target.value);
+                  }}
+                />
               </Flex>
+
               <FormInput
-                label="Your message"
+                label={contentData[lang].form.fields.yourMessage.label}
                 required
                 inputId="message"
                 type="textarea"
@@ -224,9 +223,17 @@ Please provide a description of the issue.`
                   limit: 1000,
                   count: messageCharacterCount,
                 }}
-                placeholder="Your message"
+                placeholder={
+                  contentData[lang].form.fields.yourMessage.placeholder
+                }
               />
-              <Flex gap="xs" alignItems="center">
+              {(emailError || topicError || messageError) && (
+                <Alert
+                  type="error"
+                  copy={contentData[lang].form.error.attention}
+                />
+              )}
+              <div className="buttons">
                 <Button
                   type="button"
                   className="submit-button"
@@ -246,7 +253,9 @@ Please provide a description of the issue.`
                     }
 
                     if (!message) {
-                      setMessageError("Please enter a message.");
+                      setMessageError(
+                        contentData[lang].form.error.messageRequired
+                      );
                       setLoading(false);
                     }
 
@@ -262,8 +271,14 @@ Please provide a description of the issue.`
                     }
                   }}
                 >
-                  Submit
-                  {loading && <Spinner size={16} />}
+                  {loading
+                    ? contentData[lang].form.submitButton[1]
+                    : contentData[lang].form.submitButton[0]}
+                  {loading && (
+                    <div className="spinner">
+                      <CircleNotchIcon size={20} weight="bold" />
+                    </div>
+                  )}
                 </Button>
                 <Button
                   type="button"
@@ -274,16 +289,16 @@ Please provide a description of the issue.`
                     resetForm(resetObject);
                   }}
                 >
-                  <strong>Clear Form</strong>
+                  <strong>{contentData[lang].form.resetButton}</strong>
                 </Button>
-              </Flex>
+              </div>
             </Flex>
-            <p>
-              Read about our{" "}
-              <LinkObject url="https://www.nj.gov/nj/privacy.html">
-                privacy policy.
-              </LinkObject>
-            </p>
+            <span
+              className="footerCopy"
+              dangerouslySetInnerHTML={{
+                __html: parseMarkdownToHTML(contentData[lang].form.footer),
+              }}
+            />
           </Flex>
         </form>
       )}

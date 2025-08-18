@@ -135,6 +135,7 @@ export const FormInput = (props: FormInputProps) => {
             defaultValue={defaultValue}
             disabled={disabled}
             id={inputId}
+            value={value}
             name={inputId}
             onBlur={onBlurSelect}
             onChange={onChangeSelect}

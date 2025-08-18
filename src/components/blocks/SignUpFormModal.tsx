@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { CircleNotch, X } from "@phosphor-icons/react";
+import { CircleNotchIcon, XIcon } from "@phosphor-icons/react";
 import { Button } from "@components/modules/Button";
 import { FormInput } from "@components/modules/FormInput";
 import { Alert } from "@components/modules/Alert";
@@ -181,7 +181,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
         <div className="overlay" />
         <div className="modal">
           <button onClick={() => setIsOpen(false)} className="close">
-            <X size={20} weight="bold" />
+            <XIcon size={20} weight="bold" />
             <div className="sr-only">Close</div>
           </button>
           <p className="heading">{contentData[lang].heading}</p>
@@ -279,7 +279,7 @@ export const SignUpFormModal = ({ lang }: { lang: SupportedLanguages }) => {
                   >
                     {submitting && (
                       <div className="spinner">
-                        <CircleNotch size={20} weight="bold" />
+                        <CircleNotchIcon size={20} weight="bold" />
                       </div>
                     )}
                     {submitting

@@ -11,7 +11,7 @@
     "check": "prettier --check .",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "dev": "concurrently \"next dev --turbopack\" \"cd backend/ && npm run start:dev\"",
+    "dev": "concurrently \"next dev\" \"cd backend/ && npm run start:dev\"",
     "format": "prettier --write .",
     "install-all": "concurrently \"npm install\" \"cd backend/ && npm install\"",
     "lint": "next lint",
