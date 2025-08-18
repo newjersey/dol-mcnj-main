@@ -5,6 +5,9 @@ import { ContactForm } from "app/contact/ContactForm";
 
 export const ContactFormModal = ({ lang }: { lang: SupportedLanguages }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [params, setParams] = useState<
+    { path: string | null; title: string | null } | undefined
+  >(undefined);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -44,6 +47,18 @@ export const ContactFormModal = ({ lang }: { lang: SupportedLanguages }) => {
       setIsOpen(false);
     });
   }, []);
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+
+    setParams({
+      path: urlParams.get("path"),
+      title: urlParams.get("title"),
+    });
+
+    if (urlParams.get("contactModal") === "true") {
+      setIsOpen(true);
+    }
+  }, []);
 
   return (
     <>
@@ -67,7 +82,17 @@ export const ContactFormModal = ({ lang }: { lang: SupportedLanguages }) => {
             <XIcon size={20} weight="bold" />
             <div className="sr-only">Close</div>
           </button>
-          <ContactForm lang={lang} />
+          <ContactForm
+            lang={lang}
+            content={
+              params
+                ? {
+                    path: params.path ?? undefined,
+                    title: params.title ?? undefined,
+                  }
+                : undefined
+            }
+          />
         </div>
       </div>
     </>
