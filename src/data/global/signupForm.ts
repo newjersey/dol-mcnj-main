@@ -12,6 +12,10 @@ export const SIGNUP_FORM = {
     message:
       "Sign up for emails to learn about tools and resources to help you advance your career.",
     instruction: ["A red asterick", "indicates a required field"],
+    languageMessage: [
+      "Esta form está disponible en español.",
+      "Haga clic aquí para traducirla.",
+    ],
     form: {
       submitLabel: "Submit",
       footer:
@@ -53,17 +57,21 @@ export const SIGNUP_FORM = {
       className: "sign-up-toggle",
       label: "Regístrate para recibir actualizaciones",
     } as ButtonProps,
-    heading: "Formulario de inscripción de usuario de My Career NJ",
+    heading: "Formulario de Registro de Usuario de Mi Carrera NJ",
+    languageMessage: [
+      "This form is available in English.",
+      "Click here to translate.",
+    ],
     message:
-      "Regístrate para mantenerte al día con las últimas funciones, noticias y recursos de My Career NJ.",
+      "Regístrese para recibir correos electrónicos y conocer las herramientas y recursos  que le ayudarán a avanzar en su carrera.",
     instruction: ["Un asterisco rojo", "indica un campo obligatorio"],
     form: {
       submitLabel: "Enviar",
       footer:
-        "Lea nuestra [política de privacidad](https://www.nj.gov/nj/privacy.html).",
+        "Lea sobre nuestra [política de privacidad](https://www.nj.gov/nj/privacy.html).",
       fields: {
         firstName: {
-          label: "Nombre",
+          label: "Primer Nomb",
           placeholder: "Jane",
         },
         lastName: {
@@ -72,7 +80,7 @@ export const SIGNUP_FORM = {
         },
         email: {
           label: "Correo electrónico",
-          placeholder: "correo@ejemplo.com",
+          placeholder: "email@example.com",
           requiredIndicator: true,
         },
         phone: {

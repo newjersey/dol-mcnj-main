@@ -65,7 +65,11 @@
     max-width: s.$size-520;
     color: s.$black;
     border-radius: s.$size-8;
-    padding: s.$size-32;
+
+    > .inner {
+      padding: s.$size-32;
+      position: relative;
+    }
 
     a {
       color: s.$primary;
@@ -231,6 +235,22 @@
     }
     100% {
       transform: rotate(360deg);
+    }
+  }
+  .usa-alert {
+    &.langAlert {
+      .usa-alert__body {
+        a {
+          font-size: s.$size-16;
+          text-decoration: underline;
+          text-decoration-thickness: s.$size-2;
+          text-underline-offset: s.$size-2;
+
+          &:after {
+            content: none;
+          }
+        }
+      }
     }
   }
 }
