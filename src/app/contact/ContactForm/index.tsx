@@ -29,13 +29,7 @@ export const ContactForm = ({
   const [error, setError] = useState<boolean>(false);
   const [selectedTopic, setSelectedTopic] = useState<string>("");
   const [topicError, setTopicError] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>(
-    content?.path
-      ? `Issue Report - Training Details Page: ${content.path}, ${content.title}
----
-Please provide a description of the issue.`
-      : ""
-  );
+  const [message, setMessage] = useState<string>("");
   const [messageError, setMessageError] = useState<string>("");
 
   const validateEmail = (email: string) => {
@@ -74,6 +68,18 @@ Please provide a description of the issue.`
       setMessageError("");
     }
   }, [messageCharacterCount]);
+
+  useEffect(() => {
+    if (content) {
+      setSelectedTopic("training-details");
+      setMessage(
+        content?.path
+---
+Please provide a description of the issue.`
+          : ""
+      );
+    }
+  }, [content]);
 
   const resetObject = {
     setEmail,
