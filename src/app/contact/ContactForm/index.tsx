@@ -74,6 +74,7 @@ export const ContactForm = ({
       setSelectedTopic("training-details");
       setMessage(
         content?.path
+          ? `Issue Report - Training Details Page: ${content.path}, ${content.title}
 ---
 Please provide a description of the issue.`
           : ""
