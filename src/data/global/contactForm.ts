@@ -24,7 +24,7 @@ export const CONTACT_FORM = {
         email: {
           label: "Email",
           requiredIndicator: true,
-          placeholder: "Email",
+          placeholder: "example@mail.com",
         },
         topicSelect: {
           label: "Please select a topic",

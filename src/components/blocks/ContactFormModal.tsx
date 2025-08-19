@@ -85,7 +85,9 @@ export const ContactFormModal = () => {
             <>
               {contentData[lang].languageMessage[0]}{" "}
               <a
-                onClick={() => {
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
                   setLang(lang === "en" ? "es" : "en");
                 }}
               >
