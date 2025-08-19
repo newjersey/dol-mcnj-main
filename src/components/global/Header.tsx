@@ -60,8 +60,8 @@ const Header = ({ mainNav, globalNav, lang = "en" }: HeaderProps) => {
         icons
         extraItems={
           <div className="contact-links">
-            <ContactFormModal lang={lang} />
-            <SignUpFormModal lang={lang} />
+            <ContactFormModal />
+            <SignUpFormModal />
           </div>
         }
       />
