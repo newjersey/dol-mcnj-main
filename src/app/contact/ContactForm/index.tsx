@@ -70,7 +70,7 @@ export const ContactForm = ({
   }, [messageCharacterCount]);
 
   useEffect(() => {
-    if (content) {
+    if (content?.path) {
       setSelectedTopic("training-details");
       setMessage(
         content?.path

@@ -41,7 +41,7 @@ body {
     max-width: none;
 
     > div {
-      width: 100%;
+      width: calc(100% - s.$size-40);
     }
 
     h1,

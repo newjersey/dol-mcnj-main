@@ -102,14 +102,6 @@
         width: auto;
       }
     }
-
-    &.error {
-      svg {
-        &.icon {
-          bottom: s.$size-32 + s.$size-4;
-        }
-      }
-    }
   }
 
   .switch & {

@@ -1,4 +1,4 @@
-import { Envelope } from "@phosphor-icons/react";
+import { EnvelopeIcon } from "@phosphor-icons/react";
 import { FormInputProps } from "@utils/types";
 
 export const FormInput = (props: FormInputProps) => {
@@ -159,22 +159,24 @@ export const FormInput = (props: FormInputProps) => {
             </span>
           </label>
           {helperText && <p>{helperText}</p>}
-          <Envelope size={25} weight="regular" className="icon" />
-          <input
-            aria-label={ariaLabel}
-            className={`usa-input email${inputClasses}`}
-            defaultValue={defaultValue}
-            disabled={disabled}
-            id={inputId}
-            name={inputId}
-            onBlur={onBlur}
-            onChange={onChange}
-            placeholder={placeholder}
-            readOnly={readOnly}
-            required={required}
-            type={type}
-            value={value}
-          />
+          <div className="relative">
+            <EnvelopeIcon size={25} weight="regular" className="icon" />
+            <input
+              aria-label={ariaLabel}
+              className={`usa-input email${inputClasses}`}
+              defaultValue={defaultValue}
+              disabled={disabled}
+              id={inputId}
+              name={inputId}
+              onBlur={onBlur}
+              onChange={onChange}
+              placeholder={placeholder}
+              readOnly={readOnly}
+              required={required}
+              type={type}
+              value={value}
+            />
+          </div>
         </>
       ) : (
         // Render all other input

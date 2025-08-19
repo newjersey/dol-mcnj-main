@@ -48,6 +48,11 @@ export const SIGNUP_FORM = {
         firstName: "First name must be 2 or more characters.",
         lastName: "Last name must be 2 or more characters.",
       },
+      success: {
+        heading: "Success!",
+        message: " You're all set to receive My Career NJ updates.",
+        button: "Back to My Career NJ",
+      },
     },
   },
   es: {
@@ -103,6 +108,12 @@ export const SIGNUP_FORM = {
         emailInvalid: "El correo electrónico no es válido.",
         firstName: "El nombre debe tener 2 o más caracteres.",
         lastName: "El apellido debe tener 2 o más caracteres.",
+      },
+      success: {
+        heading: "¡Éxito!",
+        message:
+          "Estás listo para recibir las actualizaciones de My Career NJ.",
+        button: "Volver a Mi Carrera NJ",
       },
     },
   },

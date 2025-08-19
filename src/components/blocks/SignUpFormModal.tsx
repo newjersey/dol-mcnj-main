@@ -92,7 +92,7 @@ export const SignUpFormModal = () => {
     try {
       setSubmitting(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/signup`,
+        `${process.env.REACT_APP_API_URL}/aspi/signup`,
         {
           method: "POST",
           headers: {
@@ -109,17 +109,12 @@ export const SignUpFormModal = () => {
         setHasErrors("");
       } else {
         setSuccess(false);
-        setHasErrors(
-          result.error ||
-            "There was an error submitting the form. Please try again."
-        );
+        setHasErrors(result.error || contentData[lang].form.error.general);
       }
     } catch (error) {
       console.error("ERROR:", error);
       setSuccess(false);
-      setHasErrors(
-        "There was an error connecting to the server. Please try again later."
-      );
+      setHasErrors(contentData[lang].form.error.server);
     }
 
     setSubmitting(false);
@@ -139,14 +134,14 @@ export const SignUpFormModal = () => {
   useEffect(() => {
     if (firstNameError || lastNameError || emailError) {
       if (!resetForm) {
-        setHasErrors("There are items that require your attention.");
+        setHasErrors(contentData[lang].form.error.attention);
       } else {
         setHasErrors("");
       }
     } else {
       setHasErrors("");
     }
-  }, [firstNameError, lastNameError, emailError]);
+  }, [firstNameError, lastNameError, emailError, lang]);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -204,8 +199,8 @@ export const SignUpFormModal = () => {
             {success ? (
               <>
                 <Alert
-                  heading="For submission successful."
-                  copy="Please check your email for confirmation."
+                  heading={contentData[lang].form.success.heading}
+                  copy={contentData[lang].form.success.message}
                   type="success"
                 />
                 <div className="buttons" style={{ marginTop: "1.5rem" }}>
@@ -216,7 +211,7 @@ export const SignUpFormModal = () => {
                       setIsOpen(false);
                     }}
                   >
-                    Back to My Career NJ
+                    {contentData[lang].form.success.button}
                   </Button>
                 </div>
               </>
@@ -267,7 +262,7 @@ export const SignUpFormModal = () => {
                   </div>
 
                   <FormInput
-                    type="text"
+                    type="email"
                     label={contentData[lang].form.fields.email.label}
                     inputId="email"
                     value={email}
