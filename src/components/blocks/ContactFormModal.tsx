@@ -45,7 +45,7 @@ export const ContactFormModal = () => {
 
     window.addEventListener("keydown", handleEsc);
 
-    const overlay = document.querySelector(".overlay");
+    const overlay = document.querySelector(".overlay-contact");
     overlay?.addEventListener("click", () => {
       setIsOpen(false);
     });
@@ -76,10 +76,10 @@ export const ContactFormModal = () => {
 
       <div
         ref={modalRef}
-        className={`signUpModal${isOpen ? " open" : ""}`}
+        className={`contactModal${isOpen ? " open" : ""}`}
         aria-hidden={!isOpen}
       >
-        <div className="overlay" />
+        <div className="overlay-contact" />
         <div className="modal">
           <Alert type="global" className="langAlert">
             <>

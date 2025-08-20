@@ -1,7 +1,8 @@
 @use "../settings" as s;
 @use "sass:math";
 
-.signUpModal {
+.signUpModal,
+.contactModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,11 +13,14 @@
   justify-content: center;
   align-items: center;
   pointer-events: none;
+  user-select: none;
 
   &.open {
     pointer-events: all;
+    user-select: auto;
 
-    .overlay {
+    .overlay,
+    .overlay-contact {
       opacity: 1;
       transition-delay: 0;
     }
@@ -38,7 +42,8 @@
     }
   }
 
-  .overlay {
+  .overlay,
+  .overlay-contact {
     opacity: 0;
     transition-delay: math.div(s.$transition-speed, 2);
     background-color: rgba(0, 0, 0, 0.5);

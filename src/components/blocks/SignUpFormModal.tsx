@@ -92,7 +92,7 @@ export const SignUpFormModal = () => {
     try {
       setSubmitting(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/aspi/signup`,
+        `${process.env.REACT_APP_API_URL}/api/signup`,
         {
           method: "POST",
           headers: {
@@ -279,7 +279,16 @@ export const SignUpFormModal = () => {
                       setEmail(e.target.value);
                     }}
                   />
-                  {hasErrors && <Alert copy={hasErrors} type="error" />}
+                  {hasErrors && (
+                    <Alert
+                      copy={
+                        hasErrors === "alreadyExists"
+                          ? `${contentData[lang].form.error.emailExists[0]} ${email} ${contentData[lang].form.error.emailExists[1]}`
+                          : hasErrors
+                      }
+                      type="error"
+                    />
+                  )}
                   <div className="buttons">
                     <Button
                       type="submit"
