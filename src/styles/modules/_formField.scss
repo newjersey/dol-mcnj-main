@@ -15,8 +15,9 @@
     padding: s.$size-12 s.$size-8;
     text-align: left;
 
-    &::placeholder {
-      color: s.$base-light;
+    &::placeholder,
+    &.is-placeholder {
+      color: s.$base;
     }
   }
   select {

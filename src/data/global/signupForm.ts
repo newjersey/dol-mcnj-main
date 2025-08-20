@@ -11,7 +11,7 @@ export const SIGNUP_FORM = {
     heading: "My Career NJ User Sign-Up Form",
     message:
       "Sign up for emails to learn about tools and resources to help you advance your career.",
-    instruction: ["A red asterick", "indicates a required field"],
+    instruction: ["A red asterisk", "indicates a required field"],
     languageMessage: [
       "Esta form está disponible en español.",
       "Haga clic aquí para traducirla.",

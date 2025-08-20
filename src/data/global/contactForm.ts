@@ -10,8 +10,8 @@ export const CONTACT_FORM = {
     } as ButtonProps,
     heading: "Contact Form",
     message:
-      "Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce Development office will get back with you in in 2 to 3 business days",
-    instruction: ["A red asterick", "indicates a required field"],
+      "Please reach out to us with your questions or comments. Our staff at the Department of Labor and Workforce Development office will get back with you in 2 to 3 business days",
+    instruction: ["A red asterisk", "indicates a required field"],
     languageMessage: [
       "Esta form está disponible en español.",
       "Haga clic aquí para traducirla.",
@@ -89,6 +89,7 @@ export const CONTACT_FORM = {
         messageCount: "Cannot be more than 1000 characters",
       },
     },
+    address: `__NJ Department of Labor and Workforce Development__  \nCenter for Occupational Employment Information (COEI)  \nPO Box 057, 5th Floor, Trenton, New Jersey 08625-0057`,
   },
   es: {
     headerButton: {
@@ -180,5 +181,6 @@ export const CONTACT_FORM = {
         messageCount: "No puede tener más de 1000 caracteres",
       },
     },
+    address: `__Departamento de Trabajo y Desarrollo Laboral de NJ__  \nCentro de Información de Empleo Ocupacional (COEI)  \nPO Box 057, 5º Piso, Trenton, Nueva Jersey 08625-0057`,
   },
 };
