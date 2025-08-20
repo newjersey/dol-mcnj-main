@@ -183,12 +183,8 @@ Please provide a description of the issue.`
                   label={contentData[lang].form.fields.topicSelect.label}
                   type="select"
                   required
+                  placeholder="Select an option"
                   options={[
-                    {
-                      value: "select-topic",
-                      key: contentData[lang].form.fields.topicSelect
-                        .placeholder,
-                    },
                     ...contentData[lang].form.fields.topicSelect.options.map(
                       (topic) => ({
                         value: topic.value,
@@ -244,9 +240,9 @@ Please provide a description of the issue.`
                 <Button
                   type="button"
                   className="submit-button"
-                  disabled={
-                    loading || emailError || topicError || messageError !== ""
-                  }
+                  // disabled={
+                  //   loading || emailError || topicError || messageError !== ""
+                  // }
                   onClick={() => {
                     setLoading(true);
                     if (!selectedTopic) {
@@ -309,6 +305,13 @@ Please provide a description of the issue.`
           </Flex>
         </form>
       )}
+      <hr className="bg-[#CAC4D0] my-4 w-[calc(100%-2rem)] mx-auto" />
+      <div
+        className="address"
+        dangerouslySetInnerHTML={{
+          __html: parseMarkdownToHTML(contentData[lang].address),
+        }}
+      />
     </Box>
   );
 };
