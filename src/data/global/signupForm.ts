@@ -47,6 +47,10 @@ export const SIGNUP_FORM = {
         emailInvalid: "Email is invalid.",
         firstName: "First name must be 2 or more characters.",
         lastName: "Last name must be 2 or more characters.",
+        emailExists: [
+          "The email",
+          "is already registered for My Career NJ updates. If you believe this is an error or need assistance, please contact support.",
+        ],
       },
       success: {
         heading: "Success!",
@@ -108,6 +112,10 @@ export const SIGNUP_FORM = {
         emailInvalid: "El correo electrónico no es válido.",
         firstName: "El nombre debe tener 2 o más caracteres.",
         lastName: "El apellido debe tener 2 o más caracteres.",
+        emailExists: [
+          "El correo electrónico",
+          "ya está registrado para las actualizaciones de My Career NJ. Si crees que esto es un error o necesitas ayuda, por favor contacta al soporte.",
+        ],
       },
       success: {
         heading: "¡Éxito!",
