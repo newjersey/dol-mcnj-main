@@ -10,6 +10,7 @@
 
 # production
 /dist
+/dist_temp
 
 # misc
 .DS_Store
