@@ -18,7 +18,7 @@ import { logEvent } from "../analytics";
 import { Layout } from "../components/Layout";
 import { usePageTitle } from "../utils/usePageTitle";
 import { ArrowLeft } from "@phosphor-icons/react";
-import { checkValidSocCode } from "../utils/checkValidCodes";
+import { checkValidSocCode, checkValidCipCode } from "../utils/checkValidCodes";
 import pageImage from "../images/ogImages/searchResults.png";
 import { Helmet } from "react-helmet-async";
 
@@ -105,6 +105,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
     let queryToSearch = searchQuery ? searchQuery : "";
 
     queryToSearch = checkValidSocCode(queryToSearch);
+    queryToSearch = checkValidCipCode(queryToSearch);
 
     props.client.getTrainingsByQuery(queryToSearch, {
       onSuccess: (data: TrainingResult[]) => {
@@ -212,6 +213,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
           <p>
             <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
             {t("SearchResultsPage.helperText3")}
+          </p>
+          <p>
+            <span className="bold">{t("SearchResultsPage.boldText4")}&nbsp;</span>
+            {t("SearchResultsPage.helperText4")}
           </p>
         </div>
       )}
@@ -367,6 +372,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                     <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
                     {t("SearchResultsPage.helperText3")}
                   </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText4")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText4")}
+                  </p>
                 </>
               )}
               {!isTabletAndUp && (
@@ -408,6 +417,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
                   <p>
                     <span className="bold">{t("SearchResultsPage.boldText3")}&nbsp;</span>
                     {t("SearchResultsPage.helperText3")}
+                  </p>
+                  <p>
+                    <span className="bold">{t("SearchResultsPage.boldText4")}&nbsp;</span>
+                    {t("SearchResultsPage.helperText4")}
                   </p>
                 </>
               )}
