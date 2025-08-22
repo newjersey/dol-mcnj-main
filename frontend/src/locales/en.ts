@@ -299,7 +299,7 @@ export const en = {
       'If you know the name of the license you\'re training for, use the acronym to see more results. For example, for the commercial driving license, try searching for "CDL".',
     boldText4: "CIP Codes:",
     helperText4:
-      'If you know the CIP code for a training program category, you can search directly using the code. For example, try searching for "120501" or "12.0501" for business administration programs.',
+      'If you know the CIP code for a training program category, you can search directly using the code. For example, try searching for "120501" or "12.0501" for baking and pastry arts programs.',
     smallScreenSearchHeader: "Search for Training",
     searchTips1:
       "Are you not seeing the results you were looking for? We recommend that you try these search tips to enhance your results:",
