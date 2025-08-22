@@ -6,6 +6,7 @@
 # Python Environments
 # Environments
 .env
+.env.*
 .venv
 env/
 venv/
