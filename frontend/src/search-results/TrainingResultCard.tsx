@@ -134,18 +134,18 @@ export const TrainingResultCard = (props: Props): ReactElement => {
           <p className="mtxs mbz">
             <span className="fin fas">
               <InlineIcon className="mrs">book</InlineIcon>
-                <span>
-                  {props.trainingResult.cipDefinition ? (
-                      <>
-                        {t("SearchResultsPage.cipCode") +
-                            `: ${formatCip(props.trainingResult.cipDefinition?.cipcode)}`}
-                        <br />
-                        <b>{props.trainingResult.cipDefinition.ciptitle}</b>
-                      </>
-                  ) : (
-                      t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
-                  )}
-                </span>
+              <span>
+                {props.trainingResult.cipDefinition ? (
+                  <>
+                    {t("SearchResultsPage.cipCode") +
+                      `: ${formatCip(props.trainingResult.cipDefinition?.cipcode)}`}
+                    <br />
+                    <b>{props.trainingResult.cipDefinition.ciptitle}</b>
+                  </>
+                ) : (
+                  t("SearchResultsPage.cipCode") + `: ${t("Global.noDataAvailableText")}`
+                )}
+              </span>
             </span>
           </p>
         </div>
