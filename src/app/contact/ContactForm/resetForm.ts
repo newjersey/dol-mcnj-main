@@ -33,14 +33,14 @@ export const resetForm = ({
   setError(false);
 
   const allRadios = document.querySelectorAll(
-    'input[type="radio"]',
+    'input[type="radio"]'
   ) as NodeListOf<HTMLInputElement>;
   allRadios.forEach((radio) => {
     radio.checked = false;
   });
 
   const textarea = document.querySelector(
-    'textarea[name="message"]',
+    'textarea[name="message"]'
   ) as HTMLTextAreaElement;
 
   if (textarea) {
@@ -48,7 +48,7 @@ export const resetForm = ({
   }
 
   const emailInput = document.querySelector(
-    'input[type="email"]',
+    'input[type="email"]'
   ) as HTMLInputElement;
 
   if (emailInput) {
