@@ -272,7 +272,11 @@ export const SignUpFormModal = () => {
                     placeholder={
                       contentData[lang].form.fields.email.placeholder
                     }
-                    error={emailError}
+                    error={
+                      emailError
+                        ? contentData[lang].form.error.emailInvalid
+                        : undefined
+                    }
                     onChange={(e) => {
                       if (email && email.includes("@")) {
                         setEmailError("");
