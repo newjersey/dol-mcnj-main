@@ -3,9 +3,10 @@
 .idea/
 .DS_store
 
-# Python Environments
+
 # Environments
 .env
+.env.*
 .venv
 env/
 venv/
@@ -16,6 +17,8 @@ venv.bak/
 # Seed Data Files
 backend/data/programs_*.csv
 backend/data/providers_*.csv
+
+backend/data/transform-for-career-navigator/training.csv
 
 # Old ETPL File when running through etpl table seed guide
 backend/data/standardized_etpl_old.csv

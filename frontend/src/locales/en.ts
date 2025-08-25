@@ -197,7 +197,7 @@ export const en = {
     heroBannerEyebrow: "Tools and Resources by Category",
     heroBannerHeading: "Discover My Career NJ’s tools by category",
     jobHeading: "All Job Search Resources and Tools",
-    jobLink1Heading: "National Labor Exchange",
+    jobLink1Heading: "One Stop Job Board",
     jobLink1Description: "Search For Jobs",
     jobLink2Heading: "Labor Market Insights",
     jobLink2Description: "Learn about the labor market in NJ",
@@ -302,6 +302,9 @@ export const en = {
     boldText3: "License:",
     helperText3:
       'If you know the name of the license you\'re training for, use the acronym to see more results. For example, for the commercial driving license, try searching for "CDL".',
+    boldText4: "CIP Codes:",
+    helperText4:
+      'If you know the CIP code for a training program category, you can search directly using the code. For example, try searching for "120501" or "12.0501" for baking and pastry arts programs.',
     smallScreenSearchHeader: "Search for Training",
     searchTipsHeading: "Not seeing the results you were looking for?",
     searchTTipsContent:
