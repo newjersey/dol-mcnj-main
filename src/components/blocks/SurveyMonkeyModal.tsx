@@ -60,12 +60,6 @@ export const SurveyMonkeyModal = ({
     setHasInteracted(true);
   };
 
-  // Handle survey completion (called when iframe indicates completion)
-  const handleSurveyComplete = () => {
-    setSurveyStatus("completed");
-    setIsOpen(false);
-  };
-
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
