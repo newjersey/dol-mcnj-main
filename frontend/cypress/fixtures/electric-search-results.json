@@ -1,0 +1,316 @@
+{
+  "data": [
+      {
+          "ctid": "ce-514abe4a-a52f-40d1-8aec-b03beca3bac2",
+          "name": "EKG Technician",
+          "cipDefinition": {
+              "cipcode": "510902",
+              "ciptitle": "Electrocardiograph Technology/Technician."
+          },
+          "totalCost": 990,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-a7d23912-34ca-4fb7-87f8-76243e67b413",
+          "providerName": "Finlay Medical Training Institute - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "6421 Bergenline Avenue, 2nd Floor",
+                  "city": "West New York",
+                  "state": "New Jersey",
+                  "zipCode": "07093",
+                  "county": "Hudson"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "EKG technician produces recording of electromotive variation in patient's heart muscle, using electrocardiograph (EKG) to provide data for diagnosis",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-23b8d32f-5ad0-45f4-88a5-160ec3b6ea45",
+          "name": "EKG Technician",
+          "cipDefinition": {
+              "cipcode": "510902",
+              "ciptitle": "Electrocardiograph Technology/Technician."
+          },
+          "totalCost": 990,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-a7d23912-34ca-4fb7-87f8-76243e67b413",
+          "providerName": "Finlay Medical Training Institute - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "6421 Bergenline Avenue, 2nd Floor",
+                  "city": "West New York",
+                  "state": "New Jersey",
+                  "zipCode": "07093",
+                  "county": "Hudson"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "EKG technician produces recording of electromotive variation in patient's heart muscle, using electrocardiograph (EKG) to provide data for diagnosis",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-cdd07f6c-eda3-4a6c-8afe-b4891e9a99f5",
+          "name": "EKG Technician",
+          "totalCost": null,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-a7d23912-34ca-4fb7-87f8-76243e67b413",
+          "providerName": "Finlay Medical Training Institute - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "6421 Bergenline Avenue, 2nd Floor",
+                  "city": "West New York",
+                  "state": "New Jersey",
+                  "zipCode": "07093",
+                  "county": "Hudson"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "EKG technician produces recording of electromotive variation in patient's heart muscle, using electrocardiograph (EKG) to provide data for diagnosis",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-fbf13b60-b82d-4147-acc1-cdc8e6b220bf",
+          "name": "EKG Technician",
+          "totalCost": 990,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-a7d23912-34ca-4fb7-87f8-76243e67b413",
+          "providerName": "Finlay Medical Training Institute - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "6421 Bergenline Avenue, 2nd Floor",
+                  "city": "West New York",
+                  "state": "New Jersey",
+                  "zipCode": "07093",
+                  "county": "Hudson"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "EKG technician produces recording of electromotive variation in patient's heart muscle, using electrocardiograph (EKG) to provide data for diagnosis",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-e385df38-cfd8-41d8-8817-eaa3e2540727",
+          "name": "Electrocardiograph (EKG) Technician Training",
+          "cipDefinition": {
+              "cipcode": "510902",
+              "ciptitle": "Electrocardiograph Technology/Technician."
+          },
+          "totalCost": 1800,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-e0a38948-c41c-4ef5-a854-fcdd40992367",
+          "providerName": "Hudson County Community College - Center for Business and Industry_ETP",
+          "availableAt": [],
+          "inDemand": true,
+          "highlight": "By attaching electrodes to a patient's body and recording the electrical impulses transmitted by a patient's heart with an EKG- also",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-08eeefd2-4d3b-45a6-be1c-7d10d38c6d28",
+          "name": "Laser/Electro-Optic Tech  (PHT.A.A.S.)",
+          "totalCost": 12210,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-63c77f93-c04a-4dfa-8e95-4a4b74f80dc4",
+          "providerName": "Camden County College - Credit Programs_ETP",
+          "availableAt": [
+              {
+                  "street_address": "200 College Drive",
+                  "city": "Blackwood",
+                  "state": "New Jersey",
+                  "zipCode": "08012",
+                  "county": "Camden"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "Photonic: laser/electro-optic technicians work in companies that manufacture, service, and use optical and laser equipment. Such companies span almost",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-b41645d6-7e00-4986-b6cb-11d064fe0497",
+          "name": "Electricity II (Spring)",
+          "cipDefinition": {
+              "cipcode": "460302",
+              "ciptitle": "Electrician."
+          },
+          "totalCost": 989,
+          "percentEmployed": null,
+          "calendarLength": 3,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-5275b22d-7af6-4a65-94b6-886daab8e4a9",
+          "providerName": "Burlington County Institute of Technology - Adult Education Division_ETP",
+          "availableAt": [
+              {
+                  "street_address": "BCIT - Adult Education, 695 Woodlane Rd.",
+                  "city": "Westampton",
+                  "state": "New Jersey",
+                  "zipCode": "08060",
+                  "county": "Burlington"
+              }
+          ],
+          "inDemand": true,
+          "highlight": "This course covers basic electrical mathematics including calculations for alternating curcuits and devices in both",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-175f19ad-c839-465b-a7dc-9d2805617017",
+          "name": "Electrical-Electronic Engineering (EET.A.A.S.)",
+          "totalCost": 12193,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-63c77f93-c04a-4dfa-8e95-4a4b74f80dc4",
+          "providerName": "Camden County College - Credit Programs_ETP",
+          "availableAt": [
+              {
+                  "street_address": "200 College Drive",
+                  "city": "Blackwood",
+                  "state": "New Jersey",
+                  "zipCode": "08012",
+                  "county": "Camden"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "The program is designed to prepare students to work in engineering environments to construct, test, and maintain electronic devices",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-148ef811-5be6-455c-ad69-b423a417b8df",
+          "name": "Electrical and Electronic Systems Technology",
+          "cipDefinition": {
+              "cipcode": "460302",
+              "ciptitle": "Electrician."
+          },
+          "totalCost": 30739,
+          "percentEmployed": null,
+          "calendarLength": 10,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-e8b681f9-c0dd-49fb-8702-fcf37c5d1bcb",
+          "providerName": "LINCOLN TECHNICAL INSTITUTE",
+          "availableAt": [
+              {
+                  "street_address": "2299 Vauxhall Road",
+                  "city": "Union",
+                  "state": "New Jersey",
+                  "zipCode": "7083",
+                  "county": ""
+              }
+          ],
+          "inDemand": true,
+          "highlight": "on the essential skills and knowledge needed for entry-level residential electrician work. Students will train on the installation, service and maintenance",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      },
+      {
+          "ctid": "ce-bd48aa66-bd89-44db-87cd-b8d505809b3e",
+          "name": "Electrical and Electronic Systems Technology",
+          "totalCost": 30739,
+          "percentEmployed": null,
+          "calendarLength": 0,
+          "localExceptionCounty": [],
+          "online": true,
+          "providerId": "ce-cfced5dc-62a3-49f0-a8fe-cb77ef50d10c",
+          "providerName": "Lincoln Technical Institute - Moorestown - PCS_ETP",
+          "availableAt": [
+              {
+                  "street_address": "308 West Route 38, suite 2",
+                  "city": "Moorestown",
+                  "state": "New Jersey",
+                  "zipCode": "08057",
+                  "county": "Burlington"
+              }
+          ],
+          "inDemand": false,
+          "highlight": "on the essential skills and knowledge needed for entry-level residential electrician work. Students will train on the installation, service and maintenance",
+          "socCodes": [],
+          "hasEveningCourses": false,
+          "languages": "",
+          "isWheelchairAccessible": false,
+          "hasJobPlacementAssistance": false,
+          "hasChildcareAssistance": false,
+          "totalClockHours": null
+      }
+  ],
+  "meta": {
+      "currentPage": 1,
+      "totalPages": 1,
+      "totalItems": 10,
+      "itemsPerPage": 10,
+      "hasNextPage": false,
+      "hasPreviousPage": false,
+      "nextPage": null,
+      "previousPage": null
+  }
+}

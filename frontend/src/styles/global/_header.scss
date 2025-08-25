@@ -3,6 +3,7 @@ header {
     background-color: $white;
     width: 100%;
     z-index: 12;
+    position: relative;
     min-height: 187px;
 
     @media screen and (max-width: ($desktop)) {

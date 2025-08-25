@@ -1,0 +1,18 @@
+{
+  "tags": ["utils"],
+  "exports": [
+    "./emailService",
+    "./secretManager",
+    "./global"
+  ],
+  "dependencies": [
+    "p-limit",
+    "dotenv",
+    "aws-sdk",
+    "winston",
+    "nodemailer",
+    "express-rate-limit",
+    "express",
+    "supertest"
+  ]
+}

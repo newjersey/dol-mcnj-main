@@ -84,7 +84,7 @@
   "openJobsSoc": "47-2031",
   "relatedTrainings": [
     {
-      "id": "48398",
+      "ctid": "48398",
       "name": "Commercial Carpenter Pre-Apprentice",
       "cipCode": "460201",
       "totalCost": 960,
@@ -119,7 +119,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "46402",
+      "ctid": "46402",
       "name": "Finished Carpentry",
       "cipCode": "460201",
       "totalCost": 2230,
@@ -151,7 +151,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "47181",
+      "ctid": "47181",
       "name": "Basic Home Remodeling",
       "cipCode": "460201",
       "totalCost": 299,
@@ -183,7 +183,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47183",
+      "ctid": "47183",
       "name": "Osha 10",
       "cipCode": "460201",
       "totalCost": 299,
@@ -215,7 +215,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47190",
+      "ctid": "47190",
       "name": "Introduction to CADD",
       "cipCode": "460201",
       "totalCost": 299,
@@ -247,7 +247,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "37358",
+      "ctid": "37358",
       "name": "Carpentry I & II",
       "cipCode": "460201",
       "totalCost": 4220,
@@ -279,7 +279,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "43881",
+      "ctid": "43881",
       "name": "Rough Framing I",
       "cipCode": "460201",
       "totalCost": 299,
@@ -311,7 +311,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "46395",
+      "ctid": "46395",
       "name": "Basic Structural Carpentry",
       "cipCode": "460201",
       "totalCost": 2230,
@@ -343,7 +343,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "49548",
+      "ctid": "49548",
       "name": "Plumber - Time-Based",
       "cipCode": "460201",
       "totalCost": 2000,
@@ -375,7 +375,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50963",
+      "ctid": "50963",
       "name": "Carpentry & Property Management",
       "cipCode": "460201",
       "totalCost": 5400,
@@ -407,7 +407,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "33128",
+      "ctid": "33128",
       "name": "Carpentry",
       "cipCode": "460201",
       "totalCost": 16725,
@@ -439,7 +439,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "40813",
+      "ctid": "40813",
       "name": "Carpentry Technology",
       "cipCode": "460201",
       "totalCost": 4000,
@@ -471,7 +471,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47182",
+      "ctid": "47182",
       "name": "First Aid/AED/CPR Training",
       "cipCode": "460201",
       "totalCost": 299,
@@ -503,7 +503,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "47189",
+      "ctid": "47189",
       "name": "HVACR- Levels I Through IV",
       "cipCode": "460201",
       "totalCost": 1299,
@@ -535,7 +535,7 @@
       "hasChildcareAssistance": true
     },
     {
-      "id": "49552",
+      "ctid": "49552",
       "name": "Carpenter - Time-Based",
       "cipCode": "460201",
       "totalCost": 1600,
@@ -567,7 +567,7 @@
       "hasChildcareAssistance": false
     },
     {
-      "id": "50681",
+      "ctid": "50681",
       "name": "Carpentry Basics",
       "cipCode": "460201",
       "totalCost": 5000,
