@@ -91,10 +91,12 @@ const Content = ({ training }: { training: TrainingProps }) => {
               <SupportServices training={training} />
               <HowToGetFunding mobileOnly />
               <Button
-                type="link"
+                type="button"
                 highlight="orange"
                 label="See something wrong? Report an issue."
-                link={`/contact?path=/training/${training.id}&title=${training.name}`}
+                onClick={() => {
+                  window.location.href = `?contactModal=true&path=/training/${training.id}&title=${training.name}`;
+                }}
                 newTab
                 iconPrefix="Flag"
               />

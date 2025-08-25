@@ -15,8 +15,9 @@
     padding: s.$size-12 s.$size-8;
     text-align: left;
 
-    &::placeholder {
-      color: s.$base-light;
+    &::placeholder,
+    &.is-placeholder {
+      color: s.$base;
     }
   }
   select {
@@ -100,14 +101,6 @@
         bottom: s.$size-12;
         left: s.$size-16;
         width: auto;
-      }
-    }
-
-    &.error {
-      svg {
-        &.icon {
-          bottom: s.$size-32 + s.$size-4;
-        }
       }
     }
   }

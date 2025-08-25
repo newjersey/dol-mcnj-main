@@ -5,6 +5,7 @@ import { getZipCodesInRadius } from "@utils/getZipCodesInRadius";
 import { handleFiltering } from "@utils/handleFiltering";
 
 export async function getSearchData(props: {
+  serverSide?: boolean;
   searchParams: {
     [key: string]: string;
   };
@@ -12,7 +13,9 @@ export async function getSearchData(props: {
   const { searchParams } = props;
 
   const searchData = await fetch(
-    `${process.env.REACT_APP_API_URL}/api/trainings/search?query=${searchParams.q}`
+    `${
+      props.serverSide ? process.env.REACT_APP_API_URL : ""
+    }/api/trainings/search?query=${searchParams.q}`
   );
 
   if (!searchData.ok) {

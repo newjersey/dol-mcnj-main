@@ -70,7 +70,7 @@ const InfoBox = ({
           />
         ) : (
           <>
-            {number ? (
+            {number !== null && typeof number !== "undefined" ? (
               currency ? (
                 <>
                   {toUsCurrency(number)}
