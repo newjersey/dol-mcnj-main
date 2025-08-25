@@ -26,23 +26,21 @@
 
 function terminalLog(violations) {
   cy.task(
-    'log',
+    "log",
     `${violations.length} accessibility violation${
-      violations.length === 1 ? '' : 's'
-    } ${violations.length === 1 ? 'was' : 'were'} detected`
-  )
+      violations.length === 1 ? "" : "s"
+    } ${violations.length === 1 ? "was" : "were"} detected`,
+  );
   // pluck specific keys to keep the table readable
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      nodes: nodes.length
-    })
-  )
+  const violationData = violations.map(({ id, impact, description, nodes }) => ({
+    id,
+    impact,
+    description,
+    nodes: nodes.length,
+  }));
 
-  cy.task('table', violationData)
-};
+  cy.task("table", violationData);
+}
 
 Cypress.Commands.add("checkA11y", () => {
   cy.checkA11y(null, null, terminalLog);
@@ -56,21 +54,21 @@ Cypress.Commands.add("shouldBeVisible", (selector, isVisible) => {
 Cypress.Commands.add("shouldBeActive", (selector, isActive) => {
   const hasClass = isActive ? "have.class" : "not.have.class";
   cy.get(`${selector}`).should(hasClass, "active");
-})
+});
 
 Cypress.Commands.add("navHasOneActiveLink", (navId) => {
   cy.get(navId).within(() => {
-    cy.get('.active-link').should('have.length', 1);
-  })
-})
+    cy.get(".active-link").should("have.length", 1);
+  });
+});
 
-Cypress.Commands.add('typeSpecialCharacters', (selector, text) => {
-    cy.get(selector).clear(); // Clear the input first.
-    cy.wait(500);
-    Array.from(text).forEach((char) => {
-        // Type each character. Even if not returning a chainable from this command,
-        // the internal use of cy.get() and cy.type() ensures correct execution order.
-        cy.get(selector).type(char, { delay: 200 });
-    });
-    // No need to explicitly return a Chainable object here
+Cypress.Commands.add("typeSpecialCharacters", (selector, text) => {
+  cy.get(selector).clear(); // Clear the input first.
+  cy.wait(500);
+  Array.from(text).forEach((char) => {
+    // Type each character. Even if not returning a chainable from this command,
+    // the internal use of cy.get() and cy.type() ensures correct execution order.
+    cy.get(selector).type(char, { delay: 200 });
+  });
+  // No need to explicitly return a Chainable object here
 });

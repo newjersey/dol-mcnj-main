@@ -17,7 +17,14 @@ interface DropNavProps {
   onChange?: (selected: FaqTopic) => void;
 }
 
-const DropNav = ({ className, defaultActiveItem, defaultTopic, elementId, onChange, items }: DropNavProps) => {
+const DropNav = ({
+  className,
+  defaultActiveItem,
+  defaultTopic,
+  elementId,
+  onChange,
+  items,
+}: DropNavProps) => {
   const [activeTopic, setActiveTopic] = useState<FaqTopic>();
 
   useEffect(() => {
