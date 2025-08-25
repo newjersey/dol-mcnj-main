@@ -216,7 +216,11 @@ Please provide a description of the issue.`
                 type="textarea"
                 disabled={loading}
                 defaultValue={message}
-                error={messageError || undefined}
+                error={
+                  messageError
+                    ? contentData[lang].form.error.messageRequired
+                    : undefined
+                }
                 onChangeArea={(e) => {
                   setMessageError("");
                   setMessageCharacterCount(e.target.value.length);
