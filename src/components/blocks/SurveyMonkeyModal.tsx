@@ -27,13 +27,15 @@ export const SurveyMonkeyModal = ({
   // Check if user has already completed or dismissed the survey
   const getSurveyStatus = (): "completed" | "dismissed" | null => {
     if (typeof window === "undefined") return null;
-    return localStorage.getItem(storageKey) as "completed" | "dismissed" | null;
+    return localStorage.getItem(storageKey as string) as "completed" | "dismissed" | null;
   };
 
   // Set survey status in localStorage
   const setSurveyStatus = (status: "completed" | "dismissed") => {
     if (typeof window !== "undefined") {
-      localStorage.setItem(storageKey, status);
+      if (storageKey != null) {
+        localStorage.setItem(storageKey, status);
+      }
     }
   };
 
