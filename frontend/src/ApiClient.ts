@@ -67,26 +67,26 @@ export class ApiClient implements Client {
   }
 
   private get<T>(
-      endpoint: string,
-      observer: Observer<T>,
-      options?: { treat404AsEmpty?: boolean }
+    endpoint: string,
+    observer: Observer<T>,
+    options?: { treat404AsEmpty?: boolean },
   ): void {
     axios
-        .get(endpoint)
-        .then((response: AxiosResponse<T>) => {
-          observer.onSuccess(response.data);
-        })
-        .catch((errorResponse: AxiosError) => {
-          if (errorResponse.response?.status === 404) {
-            if (options?.treat404AsEmpty) {
-              observer.onSuccess([] as T);  // assume only arrays use treat404AsEmpty
-            } else {
-              observer.onError(Error.NOT_FOUND);
-            }
-            return;
+      .get(endpoint)
+      .then((response: AxiosResponse<T>) => {
+        observer.onSuccess(response.data);
+      })
+      .catch((errorResponse: AxiosError) => {
+        if (errorResponse.response?.status === 404) {
+          if (options?.treat404AsEmpty) {
+            observer.onSuccess([] as T); // assume only arrays use treat404AsEmpty
+          } else {
+            observer.onError(Error.NOT_FOUND);
           }
+          return;
+        }
 
-          observer.onError(Error.SYSTEM_ERROR);
-        });
+        observer.onError(Error.SYSTEM_ERROR);
+      });
   }
 }
