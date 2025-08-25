@@ -84,7 +84,7 @@ export default async function Home() {
             </div>
             <div className="flex justify-center">
               <SurveyMonkeyModal
-                surveyUrl="https://www.surveymonkey.com/r/Preview/?sm=bTZe7KLw5KwHqgb_2BcXf6rRBzZw0EKbCVPCOGhE6DpTdGdLSkS_2FGF_2BYjAFNSbfqt"
+                surveyUrl={process.env.NEXT_PUBLIC_SURVEY_URL || "https://www.surveymonkey.com/r/Preview/?sm=bTZe7KLw5KwHqgb_2BcXf6rRBzZw0EKbCVPCOGhE6DpTdGdLSkS_2FGF_2BYjAFNSbfqt"}
                 buttonText="Share Your Feedback"
                 buttonIcon="ChatCircle"
                 title="Help Us Improve My Career NJ"
