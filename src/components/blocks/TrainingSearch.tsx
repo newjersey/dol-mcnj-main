@@ -7,6 +7,7 @@ import { FormInput } from "@components/modules/FormInput";
 import { CurrencyDollarSimple, Info } from "@phosphor-icons/react";
 import { zipCodes } from "@utils/zipCodeCoordinates";
 import { encodeForUrl } from "@utils/encodeForUrl";
+import { checkValidCipCode } from "@utils/checkValidCodes";
 import { Flex } from "@components/utility/Flex";
 import { Tooltip } from "react-tooltip";
 import { colors } from "@utils/settings";
@@ -179,7 +180,9 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                   ariaLabel="search"
                   defaultValue={searchTerm}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    setSearchTerm(encodeForUrl(sanitizedValue(e.target.value)));
+                    const rawValue = sanitizedValue(e.target.value);
+                    const processedValue = checkValidCipCode(rawValue);
+                    setSearchTerm(encodeForUrl(processedValue));
                   }}
                 />
 

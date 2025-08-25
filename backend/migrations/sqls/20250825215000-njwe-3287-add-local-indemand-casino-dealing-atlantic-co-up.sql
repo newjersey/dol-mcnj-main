@@ -1,0 +1,2 @@
+insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('39-1013', 'First-Line Supervisors of Gambling Services Workers',  'ATLANTIC', '12.0602', 'Casino Dealing.', '120602');
+insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('39-3011', 'Gambling Dealers',  'ATLANTIC', '12.0602', 'Casino Dealing.', '120602');
