@@ -72,26 +72,12 @@ export default async function Home() {
             </div>
           </div>
           
-          {/* Survey Section */}
-          <div className="flex flex-col gap-6 text-primaryDark mb-16">
-            <div className="flex flex-col gap-2">
-              <h2 className="font-extrabold text-[32px] m-0 leading-[1.2]">
-                Help Us Improve
-              </h2>
-              <p className="m-0 text-lrg">
-                Share your feedback to help us enhance My Career NJ
-              </p>
-            </div>
-            <div className="flex justify-center">
-              <SurveyMonkeyModal
-                surveyUrl={process.env.NEXT_PUBLIC_SURVEY_URL || "https://www.surveymonkey.com/r/Preview/?sm=bTZe7KLw5KwHqgb_2BcXf6rRBzZw0EKbCVPCOGhE6DpTdGdLSkS_2FGF_2BYjAFNSbfqt"}
-                buttonText="Share Your Feedback"
-                buttonIcon="ChatCircle"
-                title="Help Us Improve My Career NJ"
-                buttonClassName="survey-feedback-button"
-              />
-            </div>
-          </div>
+          {/* Exit-intent Survey Modal */}
+          <SurveyMonkeyModal
+            surveyUrl={process.env.NEXT_PUBLIC_SURVEY_URL || "https://www.surveymonkey.com/r/Preview/?sm=bTZe7KLw5KwHqgb_2BcXf6rRBzZw0EKbCVPCOGhE6DpTdGdLSkS_2FGF_2BYjAFNSbfqt"}
+            title="Help Us Improve My Career NJ"
+            storageKey="mcnj_landing_survey"
+          />
         </div>
       </div>
     </>
