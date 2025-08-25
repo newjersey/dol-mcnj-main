@@ -2,7 +2,7 @@ import knex from "knex";
 import { type Knex } from "knex";
 import { CareerTrackEntity, HeadlineEntity, SearchEntity } from "./Entities";
 import { SearchClient, SearchResult } from "../../domain/search/SearchClient";
-import { isCipCodeQuery, normalizeCipCode } from "../../utils/cipCodeUtils";
+import { isCipCodeQuery, normalizeCipCode } from "../../domain/search/cipCodeUtils";
 
 export class PostgresSearchClient implements SearchClient {
   kdb: Knex;
