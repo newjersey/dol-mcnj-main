@@ -2,6 +2,7 @@ import knex from "knex";
 import { type Knex } from "knex";
 import { CareerTrackEntity, HeadlineEntity, SearchEntity } from "./Entities";
 import { SearchClient, SearchResult } from "../../domain/search/SearchClient";
+import { isCipCodeQuery, normalizeCipCode } from "../../utils/cipCodeUtils";
 
 export class PostgresSearchClient implements SearchClient {
   kdb: Knex;
@@ -16,6 +17,40 @@ export class PostgresSearchClient implements SearchClient {
   search = (searchQuery: string): Promise<SearchResult[]> => {
     console.log(`Executing search for query: "${searchQuery}"`);
 
+    // Check if the search query is a CIP code
+    if (isCipCodeQuery(searchQuery)) {
+      return this.searchByCipCode(searchQuery);
+    }
+
+    // Otherwise, use full-text search
+    return this.searchByFullText(searchQuery);
+  };
+
+  private searchByCipCode = (searchQuery: string): Promise<SearchResult[]> => {
+    const normalizedCipCode = normalizeCipCode(searchQuery);
+    console.log(`Searching by CIP code: "${normalizedCipCode}"`);
+
+    return this.kdb("etpl")
+      .select("programid")
+      .where("cipcode", normalizedCipCode)
+      .then((data: { programid: string }[]) => {
+        console.log(`CIP code search results for "${normalizedCipCode}":`, data);
+
+        const results = data.map((entity, index) => ({
+          id: entity.programid,
+          rank: data.length - index, // Higher rank for earlier results
+        }));
+
+        console.log(`Processed CIP code search results:`, results);
+        return results;
+      })
+      .catch((e) => {
+        console.error("Error during CIP code search operation: ", e);
+        return Promise.reject(new Error('SEARCH_FAILURE'));
+      });
+  };
+
+  private searchByFullText = (searchQuery: string): Promise<SearchResult[]> => {
     return this.kdb("programtokens")
         .select(
             "programid",
