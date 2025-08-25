@@ -21,9 +21,8 @@ export const Header = (data: { mainNav?: NavMenuData; globalNav?: NavMenuData })
   };
 
   const contactUrl = window.location.pathname.includes("navigator")
-  ? "/contact?topic=Career%20Navigator"
-  : "/contact";
-
+    ? "/contact?topic=Career%20Navigator"
+    : "/contact";
 
   const mobileNav = (): ReactElement => {
     return (

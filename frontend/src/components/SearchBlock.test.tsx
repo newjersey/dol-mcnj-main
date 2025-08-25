@@ -30,7 +30,7 @@ const testDrawerContent: ContentfulRichText = {
             data: {},
             marks: [],
             value:
-                'The "Standard Occupational Classification" system is used to categorize occupations.',
+              'The "Standard Occupational Classification" system is used to categorize occupations.',
             nodeType: "text",
           },
         ],

@@ -56,11 +56,7 @@ export const MajorGroup = (props: Props): ReactElement => {
         className="pas color-blue width-100"
       >
         <div className="fdr fac weight-500">
-          <img
-            className="mrs"
-            alt={t(iconAlt)}
-            src={industryIconLookup[props.majorGroupName]}
-          />
+          <img className="mrs" alt={t(iconAlt)} src={industryIconLookup[props.majorGroupName]} />
 
           <span className="blue">{props.majorGroupName}</span>
 
@@ -122,26 +118,36 @@ const industryIconLookup: Record<string, string> = {
 
 const iconAltLookup: Record<string, string> = {
   "Architecture and Engineering": "IconAlt.occupationGroup.architectureAndEngineeringOccupations",
-  "Arts, Design, Entertainment, Sports, and Media": "IconAlt.occupationGroup.artsDesignEntertainmentSportsAndMediaOccupations",
-  "Building and Grounds Cleaning and Maintenance": "IconAlt.occupationGroup.buildingAndGroundsCleaningAndMaintenanceOccupations",
-  "Business and Financial Operations": "IconAlt.occupationGroup.businessAndFinancialOperationsOccupations",
+  "Arts, Design, Entertainment, Sports, and Media":
+    "IconAlt.occupationGroup.artsDesignEntertainmentSportsAndMediaOccupations",
+  "Building and Grounds Cleaning and Maintenance":
+    "IconAlt.occupationGroup.buildingAndGroundsCleaningAndMaintenanceOccupations",
+  "Business and Financial Operations":
+    "IconAlt.occupationGroup.businessAndFinancialOperationsOccupations",
   "Community and Social Service": "IconAlt.occupationGroup.communityAndSocialServiceOccupations",
   "Computer and Mathematical": "IconAlt.occupationGroup.computerAndMathematicalOccupations",
   "Construction and Extraction": "IconAlt.occupationGroup.constructionAndExtractionOccupations",
-  "Educational Instruction and Library": "IconAlt.occupationGroup.educationalInstructionAndLibraryOccupations",
+  "Educational Instruction and Library":
+    "IconAlt.occupationGroup.educationalInstructionAndLibraryOccupations",
   "Farming, Fishing, and Forestry": "IconAlt.occupationGroup.farmingFishingAndForestryOccupations",
-  "Food Preparation and Serving Related": "IconAlt.occupationGroup.foodPreparationAndServingRelatedOccupations",
-  "Healthcare Practitioners and Technical": "IconAlt.occupationGroup.healthcarePractitionersAndTechnicalOccupations",
+  "Food Preparation and Serving Related":
+    "IconAlt.occupationGroup.foodPreparationAndServingRelatedOccupations",
+  "Healthcare Practitioners and Technical":
+    "IconAlt.occupationGroup.healthcarePractitionersAndTechnicalOccupations",
   "Healthcare Support": "IconAlt.occupationGroup.healthcareSupportOccupations",
-  "Installation, Maintenance, and Repair": "IconAlt.occupationGroup.installationMaintenanceAndRepairOccupations",
+  "Installation, Maintenance, and Repair":
+    "IconAlt.occupationGroup.installationMaintenanceAndRepairOccupations",
   Legal: "IconAlt.occupationGroup.legalOccupations",
-  "Life, Physical, and Social Science": "IconAlt.occupationGroup.lifePhysicalAndSocialScienceOccupations",
+  "Life, Physical, and Social Science":
+    "IconAlt.occupationGroup.lifePhysicalAndSocialScienceOccupations",
   Management: "IconAlt.occupationGroup.managementOccupations",
   "Military Specific": "IconAlt.occupationGroup.militarySpecificOccupations",
-  "Office and Administrative Support": "IconAlt.occupationGroup.officeAndAdministrativeSupportOccupations",
+  "Office and Administrative Support":
+    "IconAlt.occupationGroup.officeAndAdministrativeSupportOccupations",
   "Personal Care and Service": "IconAlt.occupationGroup.personalCareAndServiceOccupations",
   Production: "IconAlt.occupationGroup.productionOccupations",
   "Protective Service": "IconAlt.occupationGroup.protectiveServiceOccupations",
   "Sales and Related": "IconAlt.occupationGroup.salesAndRelatedOccupations",
-  "Transportation and Material Moving": "IconAlt.occupationGroup.transportationAndMaterialMovingOccupations",
-}
+  "Transportation and Material Moving":
+    "IconAlt.occupationGroup.transportationAndMaterialMovingOccupations",
+};

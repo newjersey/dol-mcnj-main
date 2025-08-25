@@ -56,7 +56,9 @@ describe("validateSignupForm Middleware", () => {
     await validateSignupForm(mockReq as Request, mockRes as Response, next);
 
     expect(mockRes.status).toHaveBeenCalledWith(400);
-    expect(mockRes.json).toHaveBeenCalledWith({ error: "This email address seems invalid. Please check for typos or try a different one." });
+    expect(mockRes.json).toHaveBeenCalledWith({
+      error: "This email address seems invalid. Please check for typos or try a different one.",
+    });
   });
 
   test("should return 400 if first name is invalid", async () => {

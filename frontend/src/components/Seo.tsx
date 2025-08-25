@@ -14,7 +14,7 @@ export const Seo = (props: SeoProps & { noindex?: boolean }) => {
       {props.keywords && <meta name="keywords" content={props.keywords.join(",")} />}
       <meta property="og:title" content={props.title} />
       <meta property="twitter:title" content={props.title} />
-    {props.noindex && <meta name="robots" content="noindex" />}
+      {props.noindex && <meta name="robots" content="noindex" />}
       <meta name="twitter:card" content="summary_large_image" />
 
       {props.pageDescription && <meta property="og:description" content={props.pageDescription} />}

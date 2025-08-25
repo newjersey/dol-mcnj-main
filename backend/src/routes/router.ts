@@ -56,25 +56,25 @@ export const routerFactory = ({
     },
   );
 
-    router.get("/trainings/:id", (req: Request, res: Response<Training | { error: string }>) => {
-        findTrainingsBy(Selector.ID, [req.params.id as string])
-            .then((trainings: Training[]) => {
-                if (trainings.length === 0) {
-                    res.set("X-Robots-Tag", "noindex");
-                    return res.status(404).json({ error: "Not found" });
-                }
-                return res.status(200).json(trainings[0]);
-            })
-            .catch((e) => {
-                if (e?.message === "NOT_FOUND") {
-                    res.set("X-Robots-Tag", "noindex");
-                    return res.status(404).json({ error: "Not found" });
-                }
-                return res.status(500).json({ error: "Server error" });
-            });
-    });
+  router.get("/trainings/:id", (req: Request, res: Response<Training | { error: string }>) => {
+    findTrainingsBy(Selector.ID, [req.params.id as string])
+      .then((trainings: Training[]) => {
+        if (trainings.length === 0) {
+          res.set("X-Robots-Tag", "noindex");
+          return res.status(404).json({ error: "Not found" });
+        }
+        return res.status(200).json(trainings[0]);
+      })
+      .catch((e) => {
+        if (e?.message === "NOT_FOUND") {
+          res.set("X-Robots-Tag", "noindex");
+          return res.status(404).json({ error: "Not found" });
+        }
+        return res.status(500).json({ error: "Server error" });
+      });
+  });
 
-    router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
+  router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
     getInDemandOccupations()
       .then((occupations: Occupation[]) => {
         res.status(200).json(occupations);
