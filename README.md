@@ -1,4 +1,4 @@
-# 🚀 My Career NJ
+# 💼🌳🚀 My Career NJ
 
 > *Empowering New Jersey residents with data-driven career insights and training opportunities*
 
@@ -241,14 +241,14 @@ npm --prefix=frontend run fences
 
 ### CI/CD Pipeline
 
-We use [CircleCI](https://circleci.com/gh/ChelseaKR/dol-mcnj-main) for automated deployments:
+We use [CircleCI](https://circleci.com/gh/newjersey/dol-mcnj-main) for automated deployments:
 
 1. 📦 **Install** - `npm install` (frontend and backend)
 2. 🧪 **Test** - Run all unit tests
 3. 🏗️ **Build** - Build code and run feature tests
-4. 🚀 **Deploy to Staging** - Automatic deployment to staging environment
-5. ⏸️ **Manual Approval** - Manual gate for production deployment
-6. 🌟 **Deploy to Production** - Deploy to production environment
+4. 🚀 **Deploy to Staging** - Automatic deployment to staging environment [disabled; to be migrated to GH Actions]
+5. ⏸️ **Manual Approval** - Manual gate for production deployment [disabled; to be migrated to GH Actions]
+6. 🌟 **Deploy to Production** - Deploy to production environment [disabled; to be migrated to GH Actions]
 
 ### Environment Variables
 
