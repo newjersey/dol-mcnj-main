@@ -27,7 +27,7 @@
 
 ## 🌟 Overview
 
-My Career NJ is the official career development platform of the New Jersey Department of Labor & Workforce Development. This open-source web application ([mycareer.nj.gov](https://mycareer.nj.gov/)) serves as a comprehensive one-stop shop for New Jersey residents to explore training programs, discover in-demand career opportunities, and receive data-driven career advice tailored to their unique experiences and goals.
+My Career NJ is an official career development platform of the New Jersey Department of Labor & Workforce Development. This open-source web application ([mycareer.nj.gov](https://mycareer.nj.gov/)) serves as a comprehensive one-stop shop for New Jersey residents to explore training programs, discover in-demand career opportunities, and receive data-driven career advice tailored to their unique experiences and goals.
 
 ### 🎯 Mission
 
