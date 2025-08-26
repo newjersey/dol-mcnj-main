@@ -1,3 +1,4 @@
+import * as crypto from "crypto";
 import { TrainingResult } from "../training/TrainingResult";
 import { Address, Provider, Training } from "../training/Training";
 import {
@@ -9,7 +10,13 @@ import {
 import { CalendarLength } from "../CalendarLength";
 import {CipDefinition, LocalException, NullableOccupation, Program, SocDefinition} from "../training/Program";
 
-export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
+export const randomInt = (): number => {
+  // Generate a cryptographically secure random integer in [0, 9999999]
+  // 4 bytes = 32 bits = range [0, 4294967295]
+  const randBuf = crypto.randomBytes(4);
+  const randInt = randBuf.readUInt32BE(0);
+  return randInt % 10000000;
+};
 export const randomBool = (): boolean => !!Math.round(Math.random());
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
