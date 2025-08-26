@@ -170,6 +170,86 @@ The system tracks:
 - Average response times
 - Error counts
 
+## Credential Engine API Caching
+
+### Enhanced Caching Service
+
+The `CredentialEngineCacheService` provides comprehensive caching for all Credential Engine API calls to dramatically improve performance and reduce external API load.
+
+#### Cached Operations
+
+1. **Search Results Caching** (`getResults`)
+   - Caches training program search queries
+   - TTL: 30 minutes (1800 seconds)
+   - Intelligent cache key generation based on query parameters
+
+2. **Resource Data Caching** (`getResourceByCTID`)
+   - Caches detailed resource information by CTID
+   - TTL: 2 hours (7200 seconds)
+   - Ideal for provider and program details that change infrequently
+
+3. **Graph Data Caching** (`getGraphByCTID`)
+   - Caches graphical representation data
+   - TTL: 2 hours (7200 seconds)
+   - Optimizes complex relationship queries
+
+4. **Envelope Data Caching** (`getEnvelopeByCTID`)
+   - Caches envelope metadata and validation information
+   - TTL: 2 hours (7200 seconds)
+   - Critical for authorization and data integrity checks
+
+#### Cache Management API Endpoints
+
+The application provides dedicated endpoints for managing credential engine cache:
+
+```http
+# Get cache statistics
+GET /api/cache/credential-engine/stats
+
+# Warm cache with specific CTIDs
+POST /api/cache/credential-engine/warm
+Content-Type: application/json
+{
+  "ctids": ["ce-12345", "ce-67890", "ce-abcdef"]
+}
+
+# Clear all credential engine cache
+DELETE /api/cache/credential-engine/clear
+```
+
+#### Cache Warming Strategy
+
+The system automatically warms credential engine cache during application startup:
+
+1. **Training Program CTIDs**: Caches most recent and popular programs
+2. **Provider Information**: Pre-loads provider details for active programs
+3. **Batch Processing**: Processes CTIDs in configurable batches to prevent overload
+4. **Intelligent Selection**: Prioritizes in-demand occupations and CIP programs
+
+#### Performance Benefits
+
+- **Response Time**: Sub-millisecond cache hits vs. API call latency
+- **API Load Reduction**: Significant decrease in external API calls
+- **Cost Optimization**: Reduced bandwidth and API usage costs
+- **Reliability**: Improved resilience to external API issues
+
+#### Cache Key Structure
+
+```
+ce_api:search:[hash]_[skip]_[take]     # Search results
+ce_api:resource:[ctid]                 # Resource data
+ce_api:graph:[ctid]                    # Graph data  
+ce_api:envelope:[ctid]                 # Envelope data
+```
+
+#### Fallback Behavior
+
+When Redis is unavailable or cache operations fail:
+- Automatic fallback to direct Credential Engine API calls
+- Error logging and Sentry integration
+- Zero downtime during cache failures
+- Transparent operation for client applications
+
 ## Error Handling and Fallback
 
 ### Fallback Mechanisms

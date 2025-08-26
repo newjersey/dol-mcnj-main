@@ -53,6 +53,7 @@ export class CacheWarmingService {
         this.warmCipDefinitions(),
         this.warmLocalExceptions(),
         this.warmOccupationData(),
+        this.warmCredentialEngineData(),
       ]);
 
       console.log('Cache warming for critical data completed successfully');
@@ -279,6 +280,49 @@ export class CacheWarmingService {
         Sentry.captureException(error);
       }
     }, 24 * 60 * 60 * 1000); // Run daily
+  }
+
+  private async warmCredentialEngineData(): Promise<void> {
+    try {
+      console.log('Warming Credential Engine cache data...');
+      
+      // Import the credential engine cache service
+      const { credentialEngineCacheService } = await import('./CredentialEngineCacheService');
+      
+      // Get commonly accessed training program CTIDs from in-demand occupations
+      const inDemandOccupations = await this.postgresDataClient.getOccupationsInDemand();
+      const inDemandCIPs = await this.postgresDataClient.getCIPsInDemand();
+      
+      // Collect CTIDs to warm - start with a reasonable subset
+      const ctidsToWarm: string[] = [];
+      
+      // Get CTIDs from training data (sample from most recent/popular programs)
+      try {
+        const trainingsSelector: Selector = { limit: 100, offset: 0 }; 
+        const recentTrainings = await this.findTrainingsBy(trainingsSelector, this.postgresDataClient);
+        
+        for (const training of recentTrainings.trainings) {
+          if (training.ctid) {
+            ctidsToWarm.push(training.ctid);
+          }
+        }
+      } catch (error) {
+        console.warn('Could not get training CTIDs for credential engine warming:', error);
+      }
+      
+      // Warm credential engine cache for the collected CTIDs
+      if (ctidsToWarm.length > 0) {
+        console.log(`Warming credential engine cache for ${ctidsToWarm.length} CTIDs...`);
+        await credentialEngineCacheService.warmCache(ctidsToWarm.slice(0, 50)); // Limit to 50 to avoid overload
+        console.log('Credential Engine cache warming completed');
+      } else {
+        console.log('No CTIDs found to warm in credential engine cache');
+      }
+      
+    } catch (error) {
+      console.error('Failed to warm credential engine data:', error);
+      Sentry.captureException(error);
+    }
   }
 
   public async clearCache(pattern?: string): Promise<void> {

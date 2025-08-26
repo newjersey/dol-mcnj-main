@@ -1,6 +1,7 @@
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
+import { credentialEngineCacheService } from "../../infrastructure/redis/CredentialEngineCacheService";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { DataClient } from "../DataClient";
@@ -154,10 +155,11 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
 
 /**
  * Fetch a single batch of learning opportunities from the Credential Engine API.
+ * Uses enhanced caching via CredentialEngineCacheService for improved performance.
  */
 const searchLearningOpportunities = async (query: object, offset = 0, limit = 10): Promise<{ learningOpportunities: CTDLResource[]; totalResults: number }> => {
   try {
-    const response = await credentialEngineAPI.getResults(query, offset, limit);
+    const response = await credentialEngineCacheService.getResults(query, offset, limit);
     return {
       learningOpportunities: response.data.data || [],
       totalResults: response.data.extra.TotalResults || 0,

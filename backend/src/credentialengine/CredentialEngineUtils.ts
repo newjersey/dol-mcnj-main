@@ -11,6 +11,7 @@ import { Occupation } from "../domain/occupations/Occupation";
 import {Address, Provider} from "../domain/training/Training";
 import { convertZipCodeToCounty } from "../domain/utils/convertZipCodeToCounty";
 import { credentialEngineAPI } from "./CredentialEngineAPI";
+import { credentialEngineCacheService } from "../infrastructure/redis/CredentialEngineCacheService";
 import { DeliveryType } from "../domain/DeliveryType";
 // import { processInBatches } from "../utils/concurrencyUtils";
 import { AxiosError } from "axios";
@@ -121,7 +122,7 @@ export async function fetchNJDOLResource(
       return null;
     }
 
-    const envelope = await credentialEngineAPI.getEnvelopeByCTID(ctid);
+    const envelope = await credentialEngineCacheService.getEnvelopeByCTID(ctid);
     const publishedBy = envelope?.published_by;
     const expectedPublisher = process.env.CE_NJDOL_CTID;
 
@@ -188,8 +189,8 @@ async function getProviderData(resource: CTDLResource): Promise<Provider | null>
       return JSON.parse(cachedProvider);
     }
 
-    // Fetch provider data from API and cache it
-    const providerData = await credentialEngineAPI.getResourceByCTID(ownedByCtid);
+    // Fetch provider data from API with caching
+    const providerData = await credentialEngineCacheService.getResourceByCTID(ownedByCtid);
     if (!providerData) {
       return null;
     }
@@ -461,7 +462,7 @@ const checkSupportService = async (resource: CTDLResource, targetNode: string): 
       if (!ctid) continue;
 
       try {
-        const linkedServiceRecord = await credentialEngineAPI.getResourceByCTID(ctid);
+        const linkedServiceRecord = await credentialEngineCacheService.getResourceByCTID(ctid);
 
         if (!linkedServiceRecord) continue;
 
@@ -507,7 +508,7 @@ const checkAccommodation = async (resource: CTDLResource, targetNode: string,): 
 
       try {
         const linkedServiceRecord = await retryWithBackoff(
-          () => credentialEngineAPI.getResourceByCTID(ctid),
+          () => credentialEngineCacheService.getResourceByCTID(ctid),
           3, // Retries
           1000, // Initial delay in ms
         );

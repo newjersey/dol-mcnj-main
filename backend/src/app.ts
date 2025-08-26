@@ -443,6 +443,76 @@ app.get("/api/report/redis", async (req: Request, res: Response) => {
   }
 });
 
+// Credential Engine cache management endpoints
+app.get("/api/cache/credential-engine/stats", async (req: Request, res: Response) => {
+  try {
+    const { credentialEngineCacheService } = await import("./infrastructure/redis/CredentialEngineCacheService");
+    const stats = await credentialEngineCacheService.getCacheStats();
+    res.json({
+      status: 'success',
+      cache: 'credential-engine',
+      stats,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Failed to get Credential Engine cache stats:', error);
+    res.status(500).json({ 
+      error: 'Failed to retrieve cache statistics',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.post("/api/cache/credential-engine/warm", async (req: Request, res: Response) => {
+  try {
+    const { credentialEngineCacheService } = await import("./infrastructure/redis/CredentialEngineCacheService");
+    const { ctids } = req.body;
+    
+    if (!ctids || !Array.isArray(ctids)) {
+      return res.status(400).json({
+        error: 'Invalid request',
+        message: 'Expected an array of CTIDs in request body'
+      });
+    }
+
+    // Start warming in background
+    credentialEngineCacheService.warmCache(ctids).catch(error => {
+      console.error('Cache warming failed:', error);
+    });
+
+    res.json({
+      status: 'accepted',
+      message: `Started warming cache for ${ctids.length} CTIDs`,
+      ctids: ctids.length,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Failed to start cache warming:', error);
+    res.status(500).json({ 
+      error: 'Failed to start cache warming',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.delete("/api/cache/credential-engine/clear", async (req: Request, res: Response) => {
+  try {
+    const { credentialEngineCacheService } = await import("./infrastructure/redis/CredentialEngineCacheService");
+    await credentialEngineCacheService.clearCache();
+    res.json({
+      status: 'success',
+      message: 'Credential Engine cache cleared successfully',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Failed to clear Credential Engine cache:', error);
+    res.status(500).json({ 
+      error: 'Failed to clear cache',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 app.post("/api/cache/warm", async (req: Request, res: Response) => {
   try {
     if (!cacheWarmingService) {
