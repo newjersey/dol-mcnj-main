@@ -1,6 +1,7 @@
 // import * as Sentry from "@sentry/node";
 import { SearchTrainings } from "../types";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
+import { credentialEngineCacheService } from "../../infrastructure/redis/CredentialEngineCacheService";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import { getLocalExceptionCounties } from "../utils/getLocalExceptionCounties";
 import { DataClient } from "../DataClient";
@@ -13,7 +14,7 @@ import { DeliveryType } from "../DeliveryType";
 import { normalizeCipCode } from "../utils/normalizeCipCode";
 import { normalizeSocCode } from "../utils/normalizeSocCode";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
-import redis from "../../infrastructure/redis/redisClient";
+import { redisClient } from "../../infrastructure/redis/redisClient";
 
 // ─── Initialize cache ─────────────────────────────────────────────────────────
 interface CachedResults {
@@ -154,10 +155,11 @@ const rankResults = (query: string, results: TrainingResult[], minScore = 500): 
 
 /**
  * Fetch a single batch of learning opportunities from the Credential Engine API.
+ * Uses enhanced caching via CredentialEngineCacheService for improved performance.
  */
 const searchLearningOpportunities = async (query: object, offset = 0, limit = 10): Promise<{ learningOpportunities: CTDLResource[]; totalResults: number }> => {
   try {
-    const response = await credentialEngineAPI.getResults(query, offset, limit);
+    const response = await credentialEngineCacheService.getResults(query, offset, limit);
     return {
       learningOpportunities: response.data.data || [],
       totalResults: response.data.extra.TotalResults || 0,
@@ -175,8 +177,8 @@ const searchLearningOpportunities = async (query: object, offset = 0, limit = 10
 const searchLearningOpportunitiesInBatches = async (query: object, page = 1, batchSize = 25) => {
   const cacheKey = `learningOpportunities-${JSON.stringify(query)}-page-${page}`;
 
-  // Try to get from cache first
-  const cachedOpportunities = await redis.get(cacheKey);
+  // Try to get from cache first using enhanced Redis client
+  const cachedOpportunities = await redisClient.get(cacheKey);
 
   if (cachedOpportunities) {
     console.log(`✅ Cache hit for query: "${JSON.stringify(query)}" (page: ${page})`);
@@ -224,8 +226,8 @@ const searchLearningOpportunitiesInBatches = async (query: object, page = 1, bat
     return { learningOpportunities, totalResults };
   }
 
-  // Cache the results for the current page
-  await redis.set(cacheKey, JSON.stringify({ learningOpportunities, totalResults }), 'EX', 900); // Cache for 15 minutes
+  // Cache the results for the current page using enhanced Redis client
+  await redisClient.set(cacheKey, JSON.stringify({ learningOpportunities, totalResults }), 'EX', 900); // Cache for 15 minutes
   console.log(`✅ Caching ${learningOpportunities.length} valid results`);
 
   return { learningOpportunities, totalResults };
@@ -466,7 +468,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     let cachedData: CachedResults | null = null;
 
     // Attempt to get cached data from Redis (which will be a string)
-    const cachedOpportunities = await redis.get(cacheKey);
+    const cachedOpportunities = await redisClient.get(cacheKey);
 
     // If cache miss, fetch data from the API and store it in Redis
     if (!cachedOpportunities) {
@@ -488,7 +490,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
       // Store the results in Redis cache as a string (JSON stringified)
       cachedData = { results, totalResults };
-      await redis.set(cacheKey, JSON.stringify(cachedData), 'EX', 900); // Cache for 15 minutes
+      await redisClient.set(cacheKey, JSON.stringify(cachedData), 'EX', 900); // Cache for 15 minutes
     } else {
       console.log(`✅ Cache hit for query: "${normalizedParams.searchTerm}"`);
 

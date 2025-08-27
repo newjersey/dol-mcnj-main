@@ -10,6 +10,8 @@
     "start": "npm run db-migrate up -- -e $DB_ENV && node ./dist/server.js --env=production",
     "start:dev": "nodemon",
     "test": "jest --maxWorkers=2",
+    "test:redis": "npx ts-node src/test/redis-performance.ts",
+    "test:redis:full": "./scripts/redis-performance-test.sh",
     "db-migrate": "db-migrate",
     "prettier": "prettier --write . --ignore-path=./.eslintignore",
     "fences": "gf",

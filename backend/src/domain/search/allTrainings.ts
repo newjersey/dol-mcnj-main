@@ -1,5 +1,6 @@
 import * as Sentry from "@sentry/node";
 import { credentialEngineAPI } from "../../credentialengine/CredentialEngineAPI";
+import { credentialEngineCacheService } from "../../infrastructure/redis/CredentialEngineCacheService";
 import { credentialEngineUtils } from "../../credentialengine/CredentialEngineUtils";
 import { CTDLResource } from "../credentialengine/CredentialEngine";
 import NodeCache from "node-cache";
@@ -23,13 +24,13 @@ export const allTrainings = (): AllTrainings => {
     }
 
     try {
-      ceRecordsResponse1 = await credentialEngineAPI.getResults(query, 0, 1);
+      ceRecordsResponse1 = await credentialEngineCacheService.getResults(query, 0, 1);
       const totalResults = ceRecordsResponse1.data.extra.TotalResults;
       const batchSize = 100;
       let allRecords: CTDLResource[] = [];
 
       const fetchBatch = async (skip: number) => {
-        const response = await credentialEngineAPI.getResults(query, skip, batchSize);
+        const response = await credentialEngineCacheService.getResults(query, skip, batchSize);
         return response.data.data as CTDLResource[];
       };
 

@@ -11,6 +11,10 @@ import contentfulRouter from "./contentful/index";
 import contactRouter from "./routes/contactRoutes";
 import signUpRouter from "./routes/signupRoutes";
 import { PostgresDataClient } from "./database/data/PostgresDataClient";
+import { RedisDataClient } from "./infrastructure/redis/RedisDataClient";
+import { CacheWarmingService } from "./infrastructure/redis/CacheWarmingService";
+import { RedisMonitoringService } from "./infrastructure/redis/RedisMonitoringService";
+import { redisClient } from "./infrastructure/redis/redisClient";
 import { findTrainingsByFactory } from "./domain/training/findTrainingsBy";
 import { searchTrainingsFactory } from "./domain/search/searchTrainings";
 import { getInDemandOccupationsFactory } from "./domain/occupations/getInDemandOccupations";
@@ -324,44 +328,101 @@ if (!isCI) {
 }
 
 const postgresDataClient = new PostgresDataClient(connection);
-const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
+
+// Initialize Redis infrastructure
+let dataClient = postgresDataClient;
+let cacheWarmingService: CacheWarmingService | null = null;
+let redisMonitoringService: RedisMonitoringService | null = null;
+
+// Only initialize Redis if Redis is configured and enabled
+const useRedis = process.env.REDIS_ENABLED === 'true' && process.env.REDIS_HOST;
+
+if (useRedis) {
+  try {
+    console.log('Initializing Redis infrastructure...');
+    
+    // Create Redis data client with fallback to PostgreSQL
+    const redisDataClient = new RedisDataClient(redisClient, postgresDataClient);
+    dataClient = redisDataClient;
+    
+    // Initialize monitoring service
+    redisMonitoringService = new RedisMonitoringService(redisClient);
+    redisMonitoringService.startMonitoring(30000); // Monitor every 30 seconds
+    
+    // Initialize cache warming service
+    const findTrainingsBy = findTrainingsByFactory(postgresDataClient);
+    cacheWarmingService = new CacheWarmingService(
+      redisDataClient,
+      postgresDataClient,
+      findTrainingsBy,
+      {
+        batchSize: 50,
+        delayBetweenBatches: 500,
+        enableAutoWarming: process.env.REDIS_AUTO_WARMING === 'true',
+      }
+    );
+    
+    // Connect to Redis
+    redisClient.connect().then(() => {
+      console.log('Redis infrastructure initialized successfully');
+      
+      // Start cache warming for critical data
+      if (cacheWarmingService) {
+        cacheWarmingService.warmCriticalData().catch(error => {
+          console.error('Initial cache warming failed:', error);
+        });
+      }
+    }).catch(error => {
+      console.error('Failed to connect to Redis, falling back to PostgreSQL only:', error);
+      dataClient = postgresDataClient;
+    });
+    
+  } catch (error) {
+    console.error('Failed to initialize Redis infrastructure, falling back to PostgreSQL only:', error);
+    dataClient = postgresDataClient;
+  }
+} else {
+  console.log('Redis not configured or disabled, using PostgreSQL only');
+}
+
+const findTrainingsBy = findTrainingsByFactory(dataClient);
 
 const router = routerFactory({
   allTrainings: allTrainings(),
-  searchTrainings: searchTrainingsFactory(postgresDataClient),
+  searchTrainings: searchTrainingsFactory(dataClient),
   findTrainingsBy: findTrainingsBy,
-  getInDemandOccupations: getInDemandOccupationsFactory(postgresDataClient),
+  getInDemandOccupations: getInDemandOccupationsFactory(dataClient),
   getOccupationDetail: getOccupationDetailFactory(
     OnetClient(
       apiValues.onetBaseUrl,
       apiValues.onetAuth,
-      postgresDataClient.find2018OccupationsBySoc2010,
+      dataClient.find2018OccupationsBySoc2010,
     ),
-    getEducationTextFactory(postgresDataClient),
-    getSalaryEstimateFactory(postgresDataClient),
+    getEducationTextFactory(dataClient),
+    getSalaryEstimateFactory(dataClient),
     CareerOneStopClient(
       apiValues.careerOneStopBaseUrl,
       apiValues.careerOneStopUserId,
       apiValues.careerOneStopAuthToken,
       ),
-      postgresDataClient,
+      dataClient,
   ),
   getAllCertificates: credentialEngineFactory(),
   getOccupationDetailByCIP: getOccupationDetailByCIPFactory(
     OnetClient(
       apiValues.onetBaseUrl,
       apiValues.onetAuth,
-      postgresDataClient.find2018OccupationsBySoc2010,
+      dataClient.find2018OccupationsBySoc2010,
     ),
-    getEducationTextFactory(postgresDataClient),
-    getSalaryEstimateFactory(postgresDataClient),
+    getEducationTextFactory(dataClient),
+    getSalaryEstimateFactory(dataClient),
     CareerOneStopClient(
       apiValues.careerOneStopBaseUrl,
       apiValues.careerOneStopUserId,
       apiValues.careerOneStopAuthToken,
     ),
     findTrainingsBy,
-    postgresDataClient,
+    dataClient,
   ),
 });
 
@@ -375,6 +436,203 @@ app.use("/api/contentful", contentfulRouter);
 
 app.get("/faq", (req, res) => {
   res.status(503).send("Service Unavailable: The FAQ page is down for maintenance.");
+});
+
+// Redis monitoring and health check endpoints
+app.get("/api/health/redis", async (req: Request, res: Response) => {
+  try {
+    if (!redisMonitoringService) {
+      return res.status(200).json({
+        status: 'disabled',
+        message: 'Redis is not configured or enabled',
+        postgresOnly: true
+      });
+    }
+
+    const healthStatus = redisMonitoringService.getHealthStatus();
+    const statusCode = healthStatus.status === 'healthy' ? 200 : 
+                      healthStatus.status === 'degraded' ? 206 : 503;
+    
+    res.status(statusCode).json(healthStatus);
+  } catch (error) {
+    console.error('Redis health check failed:', error);
+    res.status(503).json({ 
+      status: 'unhealthy', 
+      error: 'Health check failed',
+      details: { error: error instanceof Error ? error.message : 'Unknown error' }
+    });
+  }
+});
+
+app.get("/api/metrics/redis", async (req: Request, res: Response) => {
+  try {
+    if (!redisMonitoringService) {
+      return res.status(404).json({
+        error: 'Redis monitoring not available',
+        message: 'Redis is not configured or enabled'
+      });
+    }
+
+    const metrics = redisMonitoringService.getMetrics();
+    res.json(metrics);
+  } catch (error) {
+    console.error('Failed to get Redis metrics:', error);
+    res.status(500).json({ 
+      error: 'Failed to retrieve metrics',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.get("/api/report/redis", async (req: Request, res: Response) => {
+  try {
+    if (!redisMonitoringService) {
+      return res.status(404).json({
+        error: 'Redis monitoring not available',
+        message: 'Redis is not configured or enabled'
+      });
+    }
+
+    const report = await redisMonitoringService.generateReport();
+    res.set('Content-Type', 'text/plain');
+    res.send(report);
+  } catch (error) {
+    console.error('Failed to generate Redis report:', error);
+    res.status(500).json({ 
+      error: 'Failed to generate report',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// Credential Engine cache management endpoints
+app.get("/api/cache/credential-engine/stats", async (req: Request, res: Response) => {
+  try {
+    const { credentialEngineCacheService } = await import("./infrastructure/redis/CredentialEngineCacheService");
+    const stats = await credentialEngineCacheService.getCacheStats();
+    res.json({
+      status: 'success',
+      cache: 'credential-engine',
+      stats,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Failed to get Credential Engine cache stats:', error);
+    res.status(500).json({ 
+      error: 'Failed to retrieve cache statistics',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.post("/api/cache/credential-engine/warm", async (req: Request, res: Response) => {
+  try {
+    const { credentialEngineCacheService } = await import("./infrastructure/redis/CredentialEngineCacheService");
+    const { ctids } = req.body;
+    
+    if (!ctids || !Array.isArray(ctids)) {
+      return res.status(400).json({
+        error: 'Invalid request',
+        message: 'Expected an array of CTIDs in request body'
+      });
+    }
+
+    // Start warming in background
+    credentialEngineCacheService.warmCache(ctids).catch(error => {
+      console.error('Cache warming failed:', error);
+    });
+
+    res.json({
+      status: 'accepted',
+      message: `Started warming cache for ${ctids.length} CTIDs`,
+      ctids: ctids.length,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Failed to start cache warming:', error);
+    res.status(500).json({ 
+      error: 'Failed to start cache warming',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.delete("/api/cache/credential-engine/clear", async (req: Request, res: Response) => {
+  try {
+    const { credentialEngineCacheService } = await import("./infrastructure/redis/CredentialEngineCacheService");
+    await credentialEngineCacheService.clearCache();
+    res.json({
+      status: 'success',
+      message: 'Credential Engine cache cleared successfully',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Failed to clear Credential Engine cache:', error);
+    res.status(500).json({ 
+      error: 'Failed to clear cache',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.post("/api/cache/warm", async (req: Request, res: Response) => {
+  try {
+    if (!cacheWarmingService) {
+      return res.status(404).json({
+        error: 'Cache warming not available',
+        message: 'Redis is not configured or enabled'
+      });
+    }
+
+    const { type = 'critical', trainingIds, queries } = req.body;
+    
+    if (type === 'critical') {
+      await cacheWarmingService.warmCriticalData();
+      res.json({ message: 'Critical data cache warming started' });
+    } else if (type === 'training' && trainingIds) {
+      await cacheWarmingService.warmTrainingData(trainingIds);
+      res.json({ message: `Training data cache warming started for ${trainingIds.length} trainings` });
+    } else if (type === 'search' && queries) {
+      await cacheWarmingService.warmSearchData(queries);
+      res.json({ message: `Search data cache warming started for ${queries.length} queries` });
+    } else {
+      res.status(400).json({ 
+        error: 'Invalid cache warming request',
+        message: 'Valid types: critical, training (with trainingIds), search (with queries)'
+      });
+    }
+  } catch (error) {
+    console.error('Cache warming failed:', error);
+    res.status(500).json({ 
+      error: 'Cache warming failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+app.delete("/api/cache/clear", async (req: Request, res: Response) => {
+  try {
+    if (!cacheWarmingService) {
+      return res.status(404).json({
+        error: 'Cache management not available',
+        message: 'Redis is not configured or enabled'
+      });
+    }
+
+    const { pattern } = req.query;
+    await cacheWarmingService.clearCache(pattern as string);
+    res.json({ 
+      message: pattern 
+        ? `Cache cleared for pattern: ${pattern}` 
+        : 'All cache cleared'
+    });
+  } catch (error) {
+    console.error('Cache clearing failed:', error);
+    res.status(500).json({ 
+      error: 'Cache clearing failed',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
 });
 
 // Routes for handling root and unknown routes...
