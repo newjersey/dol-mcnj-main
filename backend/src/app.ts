@@ -23,7 +23,7 @@ import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { getOccupationDetailByCIPFactory } from "./domain/occupations/getOccupationDetailByCIP";
 import helmet from "helmet";
 // import { rateLimiter } from "./utils/rateLimiter";
-
+import rateLimit from "express-rate-limit";
 dotenv.config();
 // console.log(process.env);
 
@@ -376,13 +376,19 @@ app.get("/faq", (req, res) => {
   res.status(503).send("Service Unavailable: The FAQ page is down for maintenance.");
 });
 
+// Rate limiter for static file/index routes
+const staticFileLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 60, // limit each IP to 60 requests per windowMs
+});
+
 // Routes for handling root and unknown routes...
-app.get("/", (req: Request, res: Response) => {
+app.get("/", staticFileLimiter, (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.get("*", (req: Request, res: Response) => {
+app.get("*", staticFileLimiter, (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
