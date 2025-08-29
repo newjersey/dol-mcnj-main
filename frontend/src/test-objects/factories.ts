@@ -1,3 +1,4 @@
+import * as crypto from "crypto";
 import {
   Address,
   CalendarLength,
@@ -9,13 +10,13 @@ import {
 import { InDemandOccupation, Occupation, OccupationDetail } from "../domain/Occupation";
 import { formatCip } from "../utils/formatCip";
 
-const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
+const randomInt = (): number => crypto.randomInt(0, 10000000);
 
 export const randomSixDigitNumber = (): number => {
-  return Math.floor(Math.random() * 900000) + 100000;
+  return crypto.randomInt(100000, 1000000);
 };
 
-const randomBool = (): boolean => !!Math.round(Math.random());
+const randomBool = (): boolean => crypto.randomInt(0, 2) === 1;
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
@@ -158,6 +159,6 @@ export const randomCalendarLength = (): CalendarLength => {
   const all: number[] = Object.keys(CalendarLength)
     .filter((k) => typeof CalendarLength[k as any] === "number")
     .map((key) => key as any);
-  const randomIndex = Math.floor(Math.random() * all.length);
+  const randomIndex = crypto.randomInt(0, all.length);
   return all[randomIndex];
 };
