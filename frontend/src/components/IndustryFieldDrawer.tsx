@@ -61,7 +61,9 @@ export const IndustryFieldDrawer = ({
               {box.copy && <p>{box.copy}</p>}
               {box.tags && (
                 <ul className="tags">
-                  {box.tags?.map((tag, index) => <li key={"mob" + tag + index}>{tag}</li>)}
+                  {box.tags?.map((tag, index) => (
+                    <li key={"mob" + tag + index}>{tag}</li>
+                  ))}
                 </ul>
               )}
             </div>

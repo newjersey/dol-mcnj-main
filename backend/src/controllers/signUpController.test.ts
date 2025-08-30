@@ -1,4 +1,4 @@
-import { submitSignupForm } from "./signUpController"; 
+import { submitSignupForm } from "./signUpController";
 import { addSubscriberToMailchimp } from "../mailchimp/mailchimpAPI";
 import { Request, Response } from "express";
 
@@ -31,13 +31,19 @@ describe("submitSignupForm Controller", () => {
 
     await submitSignupForm(mockReq as Request, mockRes as Response);
 
-    expect(addSubscriberToMailchimp).toHaveBeenCalledWith("John", "Doe", "test@example.com", /*"1234567890"*/);
+    expect(addSubscriberToMailchimp).toHaveBeenCalledWith(
+      "John",
+      "Doe",
+      "test@example.com" /*"1234567890"*/,
+    );
     expect(mockRes.status).toHaveBeenCalledWith(200);
     expect(mockRes.json).toHaveBeenCalledWith({ message: "Signup successful" });
   });
 
   test("should return 400 if email is already registered", async () => {
-    (addSubscriberToMailchimp as jest.Mock).mockRejectedValueOnce(new Error("is already a list member"));
+    (addSubscriberToMailchimp as jest.Mock).mockRejectedValueOnce(
+      new Error("is already a list member"),
+    );
 
     mockReq.body = {
       firstName: "John",
@@ -91,7 +97,9 @@ describe("submitSignupForm Controller", () => {
   // });
 
   test("should return 400 for an unexpected error", async () => {
-    (addSubscriberToMailchimp as jest.Mock).mockRejectedValueOnce(new Error("Some unexpected error"));
+    (addSubscriberToMailchimp as jest.Mock).mockRejectedValueOnce(
+      new Error("Some unexpected error"),
+    );
 
     mockReq.body = {
       firstName: "John",

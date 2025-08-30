@@ -26,14 +26,14 @@
     display: flex;
     flex-direction: row;
     margin: $size-24 0;
-  
+
     button + button {
       margin-left: $size-48;
     }
-  
+
     .usa-button {
       background-color: $blue-60v;
-  
+
       &:hover {
         background-color: $blue-70v;
       }
@@ -74,7 +74,7 @@
 
   .contact-form {
     background-color: $cyan-5;
-    
+
     svg {
       width: 25px;
       height: 25px;
@@ -84,16 +84,16 @@
     .MuiTextField-root {
       background-color: $white;
     }
-  
+
     .usa-button {
       max-width: $size-111;
     }
   }
-  
+
   .contact-success {
     background-color: $green-cool-5;
   }
-  
+
   .contact-error {
     background-color: $red-warm-10;
   }
@@ -106,7 +106,7 @@
   }
 
   .error-textarea {
-    border: 1px solid #F44336;
+    border: 1px solid #f44336;
     border-radius: $size-8;
   }
 
@@ -130,7 +130,7 @@
   }
 
   .radio-error {
-    color: #F44336;
+    color: #f44336;
   }
 
   .required {

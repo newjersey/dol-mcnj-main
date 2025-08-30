@@ -141,7 +141,7 @@ export const SignUpFormModal = () => {
     } else {
       setHasErrors("");
     }
-  }, [firstNameError, lastNameError, emailError, /*phoneError*/]);
+  }, [firstNameError, lastNameError, emailError /*phoneError*/]);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
