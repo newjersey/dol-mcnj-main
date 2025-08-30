@@ -54,7 +54,6 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
   const matches = searchString?.match(regex);
   const searchQuery = matches ? decodeURIComponent(matches[1]) : null;
 
-
   usePageTitle(pageTitle);
 
   useEffect(() => {
@@ -146,7 +145,7 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
 
   // Inject noindex tag when there are no results
   const showNoIndexTag =
-      filteredTrainings.length === 0 && shouldShowTrainings && searchQuery !== "null";
+    filteredTrainings.length === 0 && shouldShowTrainings && searchQuery !== "null";
 
   if (isError) {
     return <SomethingWentWrongPage client={props.client} />;
@@ -234,10 +233,10 @@ export const SearchResultsPage = (props: Props): ReactElement<Props> => {
       }}
     >
       {showNoIndexTag && (
-          <Helmet>
-            <meta name="robots" content="noindex" />
-            <title>No results found – My Career NJ</title>
-          </Helmet>
+        <Helmet>
+          <meta name="robots" content="noindex" />
+          <title>No results found – My Career NJ</title>
+        </Helmet>
       )}
       {isTabletAndUp && (
         <div className="container results-count-container">

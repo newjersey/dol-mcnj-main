@@ -1,5 +1,12 @@
 import * as crypto from "crypto";
-import { Address, CalendarLength, CipDefinition, Provider, Training, TrainingResult } from "../domain/Training";
+import {
+  Address,
+  CalendarLength,
+  CipDefinition,
+  Provider,
+  Training,
+  TrainingResult,
+} from "../domain/Training";
 import { InDemandOccupation, Occupation, OccupationDetail } from "../domain/Occupation";
 import { formatCip } from "../utils/formatCip";
 

@@ -1,14 +1,14 @@
 import { GraphQLClient } from "graphql-request";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
 export const contentfulClient = ({
   query,
   variables,
   includeDrafts,
   excludeInvalid,
-  accessToken
+  accessToken,
 }: {
   query: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,7 +16,7 @@ export const contentfulClient = ({
   includeDrafts?: boolean;
   excludeInvalid?: boolean;
   accessToken: string;
-}) => { 
+}) => {
   const headers: {
     authorization: string;
     "X-Include-Drafts"?: string;

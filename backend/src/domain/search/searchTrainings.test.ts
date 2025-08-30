@@ -114,9 +114,7 @@ describe("searchTrainings", () => {
 
   it("searches using formatted CIP code", async () => {
     const training1 = buildTraining({ id: "1" });
-    stubSearchClient.search.mockResolvedValue([
-      { id: "1", rank: 1 },
-    ]);
+    stubSearchClient.search.mockResolvedValue([{ id: "1", rank: 1 }]);
     stubSearchClient.getHighlight.mockResolvedValueOnce("some highlight 1");
     stubFindTrainingsBy.mockResolvedValue([training1]);
 

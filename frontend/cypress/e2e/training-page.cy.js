@@ -23,8 +23,12 @@ describe("Training Page", () => {
     cy.contains("More than 4 years").should("exist");
 
     // associated occupations
-    cy.contains("Engineering Technologists and Technicians, Except Drafters, All Other").should("exist");
-    cy.contains("Heating, Air Conditioning, and Refrigeration Mechanics and Installers").should("exist");
+    cy.contains("Engineering Technologists and Technicians, Except Drafters, All Other").should(
+      "exist",
+    );
+    cy.contains("Heating, Air Conditioning, and Refrigeration Mechanics and Installers").should(
+      "exist",
+    );
 
     // share trainings
     cy.contains("How to get funding").should("exist");
