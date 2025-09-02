@@ -17,7 +17,9 @@ export const Language = () => {
 
   return (
     <div className="section language">
-      <p className="label">Filter by Language</p>
+      <p className="label">
+        <strong>Filter by Language</strong>
+      </p>
       <div className="items">
         {allLanguages.map((lang, index) => (
           <FormInput

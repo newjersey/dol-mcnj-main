@@ -31,7 +31,11 @@ export const IndustryItem = ({
   }, []);
 
   const drawerContent = (
-    <Drawer open={drawerOpen} setOpen={setDrawerOpen}>
+    <Drawer
+      open={drawerOpen}
+      setOpen={setDrawerOpen}
+      className="industryDrawer"
+    >
       <Flex direction="column" gap="sm">
         <Heading level={3}>
           {shorthandTitle ? shorthandTitle : title} in New Jersey

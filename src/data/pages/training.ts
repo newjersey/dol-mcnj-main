@@ -148,11 +148,11 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
       {
         heading: "Connect",
         description:
-          "Contact programs to set up a visit and learn how to apply.",
+          "Contact training providers to set up a visit and learn more.",
         icon: "PhoneCall",
       },
     ],
-    resourceHeading: "How to use the Training Explorer",
+    resourceHeading: "How to use the NJ Training Explorer",
     interruptor: {
       fullColor: true,
       theme: "navy",
@@ -177,7 +177,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
 
     footerCta: {
       inlineButtons: true,
-      heading: "Have a question about the Training Explorer? ",
+      heading: "Have a question about the NJ Training Explorer?",
       items: [
         {
           copy: "Contact Us",

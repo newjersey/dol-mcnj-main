@@ -28,7 +28,9 @@ export const Distance = () => {
 
   return (
     <div className="section distance">
-      <div className="label">Event a New Jersey Zip Code</div>
+      <div className="label">
+        <strong>Event a New Jersey Zip Code</strong>
+      </div>
       <div className="input-row">
         <FormInput
           type="select"
