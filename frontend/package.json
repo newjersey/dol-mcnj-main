@@ -24,7 +24,7 @@
     "accounting": "^0.4.1",
     "axios": "^1.11.0",
     "contentful": "^11.7.15",
-    "dayjs": "^1.11.15",
+    "dayjs": "^1.11.18",
     "dompurify": "^3.2.6",
     "fuse.js": "^7.1.0",
     "graphql-request": "^7.2.0",
