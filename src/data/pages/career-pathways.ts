@@ -7,7 +7,6 @@ import { IndustrySelectorProps } from "@utils/types/components";
 import placeholder2 from "@images/pathway1.jpg";
 import placeholder1 from "@images/pathway2.jpg";
 import bannerImage from "@images/pathwayBanner.jpg";
-import { ThemeColors } from "@utils/types";
 import { PageHeroProps } from "@components/blocks/PageHero";
 
 export const CAREER_PATHWAYS_PAGE_DATA = {
