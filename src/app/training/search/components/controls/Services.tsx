@@ -13,7 +13,9 @@ export const Services = () => {
 
   return (
     <div className="section services">
-      <p className="label">Filter by Provider Services</p>
+      <p className="label">
+        <strong>Filter by Provider Services</strong>
+      </p>
 
       <Switch
         inputId="wheelchair-accessible"
