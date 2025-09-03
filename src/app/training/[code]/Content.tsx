@@ -6,6 +6,7 @@ import { TrainingProps } from "@utils/types";
 import { Button } from "@components/modules/Button";
 import { ProgramBanner } from "@components/blocks/ProgramBanner";
 import { OutcomeDetails } from "@components/modules/OutcomeDetails";
+import { hasOutcomeData } from "@utils/outcomeHelpers";
 import { AssociatedOccupationsIndustries } from "./sections/AssociatedOccupationsIndustries";
 import { Cost } from "./sections/Cost";
 import { Description } from "./sections/Description";
@@ -69,30 +70,67 @@ const Content = ({ training }: { training: TrainingProps }) => {
         <div className="container">
           {/* Mobile View: Tabs */}
           <div className="tabletMd:hidden">
-            <div className="p-1 rounded-lg flex justify-center space-x-1 mb-4 bg-gray-200">
-              <button
-                onClick={() => setActiveTab("details")}
-                className={`w-full py-2 px-4 rounded-md text-sm font-medium ${
-                  activeTab === "details"
-                    ? "bg-white text-gray-900 shadow"
-                    : "text-gray-600"
-                }`}
-              >
-                Details
-              </button>
-              <button
-                onClick={() => setActiveTab("crc")}
-                className={`w-full py-2 px-4 rounded-md text-sm font-medium ${
-                  activeTab === "crc"
-                    ? "bg-white text-gray-900 shadow"
-                    : "text-gray-600"
-                }`}
-              >
-                Consumer report card
-              </button>
-            </div>
+            {hasOutcomeData(training.outcomes) ? (
+              <>
+                <div className="bg-primaryLighter rounded-lg p-1 mb-6">
+                  <nav className="flex justify-around">
+                    <button
+                      onClick={() => setActiveTab("details")}
+                      className={`py-2.5 text-base font-medium leading-5 border-b-4 w-full ${
+                        activeTab === "details"
+                          ? "text-primary border-primary"
+                          : "text-gray-600 border-transparent hover:text-gray-800"
+                      }`}
+                    >
+                      Details
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("crc")}
+                      className={`py-2.5 text-base font-medium leading-5 border-b-4 w-full ${
+                        activeTab === "crc"
+                          ? "text-primary border-primary"
+                          : "text-gray-600 border-transparent hover:text-gray-800"
+                      }`}
+                    >
+                      Consumer report card
+                    </button>
+                  </nav>
+                </div>
 
-            {activeTab === "details" && (
+                {activeTab === "details" && (
+                  <div className="inner">
+                    <div>
+                      <Description training={training} />
+                      <QuickFacts training={training} />
+                      <Cost training={training} />
+                      <LocationContactDetails training={training} />
+                      <InstructionalPrograms
+                        training={training}
+                        setCipDrawerOpen={setCipDrawerOpen}
+                        cipDrawerOpen={cipDrawerOpen}
+                      />
+                      <AssociatedOccupationsIndustries
+                        training={training}
+                        setSocDrawerOpen={setSocDrawerOpen}
+                        socDrawerOpen={socDrawerOpen}
+                      />
+                      <SupportServices training={training} />
+                      <HowToGetFunding />
+                      <Button
+                        type="link"
+                        highlight="orange"
+                        label="See something wrong? Report an issue."
+                        link={`/contact?path=/training/${training.id}&title=${training.name}`}
+                        newTab
+                        iconPrefix="Flag"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "crc" && <OutcomeDetails outcomes={training.outcomes} />}
+              </>
+            ) : (
               <div className="inner">
                 <div>
                   <Description training={training} />
@@ -122,13 +160,11 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 </div>
               </div>
             )}
-
-            {activeTab === "crc" && <OutcomeDetails outcomes={training.outcomes} />}
           </div>
 
           {/* Desktop View: No Tabs */}
           <div className="hidden tabletMd:block">
-            <OutcomeDetails outcomes={training.outcomes} />
+            {hasOutcomeData(training.outcomes) && <OutcomeDetails outcomes={training.outcomes} />}
             <div className="inner mt-6">
               <div>
                 <Description training={training} />
