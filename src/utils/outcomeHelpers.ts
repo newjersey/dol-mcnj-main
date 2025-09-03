@@ -30,15 +30,15 @@ export const getAvailableQuarters = (outcome: ProgramOutcome | undefined): (2 | 
 export const getHighestEmploymentRate = (outcome: ProgramOutcome | undefined): number | undefined => {
   if (!outcome?.employment?.length) return undefined;
 
-  const validRates = outcome.employment
-    .map(e => {
-      const rate = e.employmentRate;
-      if (rate === undefined || rate === null) return undefined;
-      return typeof rate === 'string' ? parseFloat(rate) : rate;
-    })
-    .filter((rate): rate is number => rate !== undefined && !isNaN(rate));
-
-  return validRates.length > 0 ? Math.max(...validRates) : undefined;
+  return Math.max(
+    ...outcome.employment
+      .map(e => {
+        const rate = e.employmentRate;
+        if (rate === undefined || rate === null) return undefined;
+        return typeof rate === 'string' ? parseFloat(rate) : rate;
+      })
+      .filter((rate): rate is number => rate !== undefined && !isNaN(rate))
+  );
 };
 
 export const getEmploymentRate = (outcome: ProgramOutcome | undefined, quarter: 2 | 4): number | undefined => {
@@ -66,14 +66,14 @@ export const getCredentialRate = (outcome: ProgramOutcome | undefined): number |
 };
 
 export const formatPercentage = (rate: number | undefined): string => {
-  if (rate === undefined || rate === null || typeof rate !== 'number' || !isFinite(rate)) return 'Data unreported';
+  if (rate === undefined || rate === null || typeof rate !== 'number') return 'N/A';
   // If the number is less than 1, assume it's a decimal (0.6125 = 61.25%)
   const percentage = rate < 1 ? rate * 100 : rate;
   return `${Math.round(percentage)}%`;
 };
 
 export const formatSalary = (salary: number | undefined): string => {
-  if (salary === undefined || salary === null || typeof salary !== 'number' || !isFinite(salary)) return 'Data unreported';
+  if (salary === undefined || salary === null || typeof salary !== 'number') return 'N/A';
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
