@@ -101,13 +101,16 @@ export const CompareTable = () => {
                 </tr>
                 <tr>
                   <td>Average Salary</td>
-                  {compare.map((item) => (
-                    <td key={item.id}>
-                      {formatSalary(getAverageSalary(item.outcomes)) !== 'N/A'
-                        ? formatSalary(getAverageSalary(item.outcomes))
-                        : "--"}
-                    </td>
-                  ))}
+                  {compare.map((item) => {
+                    const avgSalary = getAverageSalary(item.outcomes);
+                    return (
+                      <td key={item.id}>
+                        {formatSalary(avgSalary) !== 'N/A'
+                          ? formatSalary(avgSalary)
+                          : "--"}
+                      </td>
+                    );
+                  })}
                   {remainingBoxesArray.map((item) => (
                     <td key={`emptyTableboxSalary${item}`}></td>
                   ))}
