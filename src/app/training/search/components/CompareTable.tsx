@@ -4,6 +4,7 @@ import { Tag } from "@components/modules/Tag";
 import { X } from "@phosphor-icons/react";
 import { calendarLength } from "@utils/calendarLength";
 import { toUsCurrency } from "@utils/toUsCurrency";
+import { getPercentEmployed, formatPercentage } from "@utils/outcomeHelpers";
 import { useContext, useState } from "react";
 import { ResultsContext } from "./Results";
 
@@ -63,8 +64,8 @@ export const CompareTable = () => {
                   {compare.map((item) => (
                     <td key={item.id}>
                       {" "}
-                      {item.percentEmployed
-                        ? `${Math.round(item.percentEmployed * 100)}% Employed`
+                      {formatPercentage(getPercentEmployed(item.outcomes)) !== 'N/A'
+                        ? `${formatPercentage(getPercentEmployed(item.outcomes))} Employed`
                         : "--"}
                     </td>
                   ))}
