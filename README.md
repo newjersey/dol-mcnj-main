@@ -196,6 +196,7 @@ npm run cypress:open
 This repo uses [good-fences](https://github.com/smikula/good-fences) to enforce module boundaries.
 Most importantly, the `backend` and `frontend` cannot import from each other.
 
+
 Additionally, fences are used in the backend subdirectories to enforce [dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle).
 The `routes` and `database` folders depend on the interfaces defined in `domain` (only - not on each other), and `domain` is not allowed to
 import from any of these implementation directories.
