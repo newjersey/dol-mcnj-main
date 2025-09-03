@@ -20,7 +20,25 @@ export const getTopIndustryForQuarter = (
 };
 
 export const hasOutcomeData = (outcome: ProgramOutcome | undefined): boolean => {
-  return !!(outcome?.completion || outcome?.employment?.length);
+  if (!outcome) return false;
+  
+  // Check if completion data has meaningful values
+  const hasCompletionData = outcome.completion && (
+    outcome.completion.exiters !== null ||
+    outcome.completion.completers !== null ||
+    outcome.completion.completionRate !== null ||
+    outcome.completion.credentialRate !== null
+  );
+  
+  // Check if employment data has meaningful values
+  const hasEmploymentData = outcome.employment && outcome.employment.some(emp => 
+    emp.employedCount !== null ||
+    emp.employmentRate !== null ||
+    emp.medianAnnualSalary !== null ||
+    (emp.naicsIndustries && emp.naicsIndustries.length > 0)
+  );
+  
+  return !!(hasCompletionData || hasEmploymentData);
 };
 
 export const getAvailableQuarters = (outcome: ProgramOutcome | undefined): (2 | 4)[] => {
@@ -30,15 +48,18 @@ export const getAvailableQuarters = (outcome: ProgramOutcome | undefined): (2 | 
 export const getHighestEmploymentRate = (outcome: ProgramOutcome | undefined): number | undefined => {
   if (!outcome?.employment?.length) return undefined;
 
-  return Math.max(
-    ...outcome.employment
-      .map(e => {
-        const rate = e.employmentRate;
-        if (rate === undefined || rate === null) return undefined;
-        return typeof rate === 'string' ? parseFloat(rate) : rate;
-      })
-      .filter((rate): rate is number => rate !== undefined && !isNaN(rate))
-  );
+  const validRates = outcome.employment
+    .map(e => {
+      const rate = e.employmentRate;
+      if (rate === undefined || rate === null) return undefined;
+      return typeof rate === 'string' ? parseFloat(rate) : rate;
+    })
+    .filter((rate): rate is number => rate !== undefined && !isNaN(rate));
+
+  // If no valid rates found, return undefined instead of -Infinity
+  if (validRates.length === 0) return undefined;
+
+  return Math.max(...validRates);
 };
 
 export const getEmploymentRate = (outcome: ProgramOutcome | undefined, quarter: 2 | 4): number | undefined => {

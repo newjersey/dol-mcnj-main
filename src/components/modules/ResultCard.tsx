@@ -24,6 +24,7 @@ import {
   formatPercentage,
   getMedianSalary,
   formatSalary,
+  hasOutcomeData,
 } from "@utils/outcomeHelpers";
 
 interface ResultCardProps {
@@ -136,7 +137,7 @@ const ResultCard = (props: ResultCardProps) => {
           <p className="percentEmployed">
             <BriefcaseIcon size={16} />
             <span>
-              {outcomes
+              {outcomes && hasOutcomeData(outcomes)
                 ? `${formatPercentage(getPercentEmployed(outcomes))} employed`
                 : percentEmployed
                 ? `${Math.floor(percentEmployed * 100 * 10) / 10}% employed`
@@ -144,7 +145,7 @@ const ResultCard = (props: ResultCardProps) => {
             </span>
           </p>
 
-          {outcomes && getCompletionRate(outcomes) !== undefined && (
+          {outcomes && hasOutcomeData(outcomes) && getCompletionRate(outcomes) !== undefined && (
             <p className="completion-rate">
               <GraduationCapIcon size={16} />
               <span>
@@ -153,7 +154,7 @@ const ResultCard = (props: ResultCardProps) => {
             </p>
           )}
 
-          {medianSalary !== undefined && (
+          {outcomes && hasOutcomeData(outcomes) && medianSalary !== undefined && (
             <p className="median-wage">
               <CurrencyDollarIcon size={16} />
               <span>{`${formatSalary(medianSalary)} median wage`}</span>
