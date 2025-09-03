@@ -29,7 +29,7 @@ export const TrainingExplorerPage = (props: Props): ReactElement => {
   const pageData = data?.trainingExplorerPage;
 
   const howToContent = {
-    header: "How to use the Training Explorer",
+    header: "How to use the NJ Training Explorer",
     video: pageData?.demoVideoUrl,
     steps: [
       {
