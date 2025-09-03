@@ -8,9 +8,55 @@ import {
 } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
 import {CipDefinition, LocalException, NullableOccupation, Program, SocDefinition} from "../training/Program";
+import {ProgramOutcome, QuarterlyEmploymentMetrics, NAICSIndustry} from "../training/outcomes/ProgramOutcome";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
+
+export const buildProgramOutcome = (overrides: Partial<ProgramOutcome>): ProgramOutcome => {
+  return {
+    completion: {
+      exiters: randomInt() % 100,
+      completers: randomInt() % 100,
+      completionRate: Math.random() * 100,
+      credentialRate: Math.random() * 100,
+    },
+    employment: [
+      {
+        quarter: 2,
+        employedCount: randomInt() % 100,
+        employmentRate: Math.random() * 100,
+        medianAnnualSalary: randomInt() % 100000 + 30000,
+        naicsIndustries: [
+          {
+            code: "54" + (randomInt() % 10),
+            title: "Professional Services Industry " + randomInt(),
+            rank: 1
+          },
+          {
+            code: "62" + (randomInt() % 10), 
+            title: "Healthcare Industry " + randomInt(),
+            rank: 2
+          }
+        ]
+      },
+      {
+        quarter: 4,
+        employedCount: randomInt() % 100,
+        employmentRate: Math.random() * 100,
+        medianAnnualSalary: randomInt() % 100000 + 30000,
+        naicsIndustries: [
+          {
+            code: "54" + (randomInt() % 10),
+            title: "Professional Services Industry " + randomInt(),
+            rank: 1
+          }
+        ]
+      }
+    ],
+    ...overrides,
+  };
+};
 
 export const buildTrainingResult = (overrides: Partial<TrainingResult>): TrainingResult => {
   return {
@@ -21,7 +67,7 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
       ciptitle: "some-ciptitle-" + randomInt(),
     },
     totalCost: randomInt(),
-    percentEmployed: randomInt(),
+    outcomes: buildProgramOutcome({}),
     calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
     inDemand: randomBool(),
@@ -68,8 +114,7 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     otherCost: randomInt(),
     totalCost: randomInt(),
     online: randomBool(),
-    percentEmployed: randomInt(),
-    averageSalary: randomInt(),
+    outcomes: buildProgramOutcome({}),
     hasEveningCourses: randomBool(),
     languages: ["some-language-" + randomInt()],
     isWheelchairAccessible: randomBool(),
@@ -186,8 +231,7 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     phone: "some-phone-" + randomInt(),
     phoneextension: "some-phoneextension-" + randomInt(),
     indemandcip: "some-indemandcip-" + randomInt(),
-    peremployed2: randomInt().toString(),
-    avgquarterlywage2: randomInt().toString(),
+    outcomes: buildProgramOutcome({}),
     onlineprogramid: "some-onlineprogramid-" + randomInt(),
     eveningcourses: Math.random() < 0.5 ? "1" : "2",
     languages: "some-languages-" + randomInt(),
