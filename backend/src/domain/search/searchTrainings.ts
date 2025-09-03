@@ -172,61 +172,37 @@ const searchLearningOpportunities = async (query: object, offset = 0, limit = 10
  * Fetch all learning opportunities in batches.
  */
 // Fetch all learning opportunities in batches with pagination
-const searchLearningOpportunitiesInBatches = async (query: object, page = 1, batchSize = 25) => {
-  const cacheKey = `learningOpportunities-${JSON.stringify(query)}-page-${page}`;
+const searchLearningOpportunitiesOnce = async (
+  query: object,
+  page: number = 1
+) => {
+  const cacheKey = `learningOpportunities-FULL-${JSON.stringify(query)}`;
+  let learningOpportunities: CTDLResource[] = [];
+  let totalResults = 0;
 
-  // Try to get from cache first
-  const cachedOpportunities = await redis.get(cacheKey);
+  // Try to load from cache
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    console.log(`✅ Cache hit for full result`);
+    const cachedData = JSON.parse(cached);
+    learningOpportunities = cachedData.learningOpportunities;
+    totalResults = cachedData.totalResults;
+  } else {
+    // Fetch once with a high limit (assume max 1000 results)
+    const { learningOpportunities: fetched, totalResults: fetchedTotal } = await searchLearningOpportunities(query, 0, 1000);
+    
+    // Filter invalid results
+    const validResults = fetched.filter((opportunity: CTDLResource) =>
+      !(opportunity["ceterms:ownedBy"]?.includes("Provider not available"))
+    );
 
-  if (cachedOpportunities) {
-    console.log(`✅ Cache hit for query: "${JSON.stringify(query)}" (page: ${page})`);
-    return JSON.parse(cachedOpportunities);
+    learningOpportunities = validResults;
+    totalResults = validResults.length;
+
+    // Cache the full valid result
+    await redis.set(cacheKey, JSON.stringify({ learningOpportunities, totalResults }), 'EX', 900); // 15 minutes
+    console.log(`✅ Cached ${validResults.length} results`);
   }
-
-  const learningOpportunities: CTDLResource[] = [];
-  let totalResults = Infinity;
-  let currentPage = page;
-
-// Fetch data in batches and aggregate them
-  while (learningOpportunities.length < totalResults) {
-    const offset = (currentPage - 1) * batchSize;
-
-    // Fetch current batch
-    const { learningOpportunities: currentBatch, totalResults: fetchedTotalResults } = await searchLearningOpportunities(query, offset, batchSize);
-
-    // Handle 503 errors and filter out results with "Provider not available"
-    if (!currentBatch.length || fetchedTotalResults === 0) {
-      console.error(`❌ Error fetching records for query: "${JSON.stringify(query)}" (offset: ${offset})`);
-      break;
-    }
-
-    // Filter out "Provider not available" items
-    const validBatch = currentBatch.filter((opportunity: CTDLResource) => {
-      // Ensure ownedBy is an array and check if it contains "Provider not available"
-      return !(opportunity["ceterms:ownedBy"]?.includes("Provider not available"));
-    });
-
-    learningOpportunities.push(...validBatch);
-    totalResults = fetchedTotalResults;
-
-    // If we've fetched all available results, break the loop
-    if (learningOpportunities.length >= totalResults) {
-      break;
-    }
-
-    // Otherwise, fetch the next batch
-    currentPage++;
-  }
-
-  // If no valid data, do not cache
-  if (learningOpportunities.length === 0) {
-    console.log("❌ No valid data to cache (likely due to 503 or 'Provider not available')");
-    return { learningOpportunities, totalResults };
-  }
-
-  // Cache the results for the current page
-  await redis.set(cacheKey, JSON.stringify({ learningOpportunities, totalResults }), 'EX', 900); // Cache for 15 minutes
-  console.log(`✅ Caching ${learningOpportunities.length} valid results`);
 
   return { learningOpportunities, totalResults };
 };
@@ -467,23 +443,19 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     // Attempt to get cached data from Redis (which will be a string)
     const cachedOpportunities = await redis.get(cacheKey);
-
+    
     // If cache miss, fetch data from the API and store it in Redis
     if (!cachedOpportunities) {
       console.log(`🚀 Cache miss: Fetching new results for query: "${normalizedParams.searchTerm}"`);
 
       // Fetch the data from the API
       const fetchStart = performance.now();
-      const { learningOpportunities, totalResults } = await searchLearningOpportunitiesInBatches(query);
+      const { learningOpportunities, totalResults } = await searchLearningOpportunitiesOnce(query);
       console.log(`📊 API fetch took ${performance.now() - fetchStart} ms`);
-
+    
       // Transform the results
       const transformStart = performance.now();
-      const results = await Promise.all(
-        learningOpportunities.map((lo: CTDLResource) =>
-          transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-        )
-      );
+      const results = await transformLearningOpportunityCTDLToTrainingResult(dataClient, learningOpportunities, params.searchQuery)
       console.log(`🔄 Transformation took ${performance.now() - transformStart} ms`);
 
       // Store the results in Redis cache as a string (JSON stringified)
@@ -623,102 +595,117 @@ function buildQuery(params: {
     "ceterms:lifeCycleStatusType": {
       "ceterms:targetNode": "lifeCycle:Active",
     },
-    "search:recordPublishedBy": process.env.CE_NJDOL_CTID,
+    // "search:recordPublishedBy": process.env.CE_NJDOL_CTID,
     "search:termGroup": termGroup
   };
 }
 
 async function transformLearningOpportunityCTDLToTrainingResult(
   dataClient: DataClient,
-  learningOpportunity: CTDLResource,
+  learningOpportunities: CTDLResource[],
   searchQuery: string
-): Promise<TrainingResult> {
-  try {
-    const desc = learningOpportunity["ceterms:description"]?.["en-US"] || "";
-    const highlightPromise = getHighlight(desc, searchQuery);
-    const providerPromise = credentialEngineUtils.getProviderData(learningOpportunity);
-    const cipCodePromise = credentialEngineUtils.extractCipCode(learningOpportunity);
-    const occupationsPromise = credentialEngineUtils.extractOccupations(learningOpportunity);
-    const costPromise = credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost");
-    const calendarLengthPromise = credentialEngineUtils.getCalendarLengthId(learningOpportunity);
-    const deliveryTypesPromise = credentialEngineUtils.hasLearningDeliveryTypes(learningOpportunity);
-    const availableAtPromise = credentialEngineUtils.getAvailableAtAddresses(learningOpportunity);
-    const eveningCoursesPromise = credentialEngineUtils.hasEveningSchedule(learningOpportunity);
-    const languagesPromise = credentialEngineUtils.getLanguages(learningOpportunity);
+): Promise<TrainingResult[]> {
+    const ownedByToResourceMap = new Map<string, CTDLResource>();
+    for (const lo of learningOpportunities) {
+      const ownedBy = lo["ceterms:ownedBy"]?.[0];
+      if (ownedBy && !ownedByToResourceMap.has(ownedBy)) {
+        ownedByToResourceMap.set(ownedBy, lo);
+      }
+    } 
+    const providerEntries = await Promise.all(
+      Array.from(ownedByToResourceMap.entries()).map(async ([ownedBy, resource]) => {
+        const provider = await credentialEngineUtils.getProviderData(resource);
+        return [ownedBy, provider] as const;
+      })
+    );
+    const providerMap = new Map<string, any | null>(providerEntries);
+  
+  return Promise.all(
+    learningOpportunities.map(async (learningOpportunity) => {
+      try {
+        const desc = learningOpportunity["ceterms:description"]?.["en-US"] || "";
+        const highlightPromise = getHighlight(desc, searchQuery);
+        const ownedBy = learningOpportunity["ceterms:ownedBy"]?.[0] as string;
+        const provider = providerMap.get(ownedBy);  
+        const cipCodePromise = credentialEngineUtils.extractCipCode(learningOpportunity);
+        const occupationsPromise = credentialEngineUtils.extractOccupations(learningOpportunity);
+        const costPromise = credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost");
+        const calendarLengthPromise = credentialEngineUtils.getCalendarLengthId(learningOpportunity);
+        const deliveryTypesPromise = credentialEngineUtils.hasLearningDeliveryTypes(learningOpportunity);
+        const availableAtPromise = credentialEngineUtils.getAvailableAtAddresses(learningOpportunity);
+        const eveningCoursesPromise = credentialEngineUtils.hasEveningSchedule(learningOpportunity);
+        const languagesPromise = credentialEngineUtils.getLanguages(learningOpportunity);
 
-    // Fetch independent promises in parallel
-    const [
-      highlight,
-      provider,
-      cipCode,
-      occupations,
-      totalCost,
-      calendarLength,
-      deliveryTypes,
-      availableAt,
-      hasEveningCourses,
-      languages
-    ] = await Promise.all([
-      highlightPromise,
-      providerPromise,
-      cipCodePromise,
-      occupationsPromise,
-      costPromise,
-      calendarLengthPromise,
-      deliveryTypesPromise,
-      availableAtPromise,
-      eveningCoursesPromise,
-      languagesPromise
-    ]);
+        const [
+          highlight,
+          cipCode,
+          occupations,
+          totalCost,
+          calendarLength,
+          deliveryTypes,
+          availableAt,
+          hasEveningCourses,
+          languages
+        ] = await Promise.all([
+          highlightPromise,
+          cipCodePromise,
+          occupationsPromise,
+          costPromise,
+          calendarLengthPromise,
+          deliveryTypesPromise,
+          availableAtPromise,
+          eveningCoursesPromise,
+          languagesPromise
+        ]);
 
-    const cipDefinitionPromise = cipCode ? dataClient.findCipDefinitionByCip(cipCode) : Promise.resolve(null);
-    const outcomeDefinitionPromise = provider?.providerId ? dataClient.findOutcomeDefinition(provider.providerId, cipCode) : Promise.resolve(null);
-    const inDemandCIPsPromise = dataClient.getCIPsInDemand();
+        const cipDefinitionPromise = cipCode ? dataClient.findCipDefinitionByCip(cipCode) : Promise.resolve(null);
+        const outcomeDefinitionPromise = provider?.providerId ? dataClient.findOutcomeDefinition(provider.providerId, cipCode) : Promise.resolve(null);
+        const inDemandCIPsPromise = dataClient.getCIPsInDemand();
 
-    // Fetch dependent values in parallel
-    const [cipDefinition, outcomeDefinition, inDemandCIPs] = await Promise.all([
-      cipDefinitionPromise,
-      outcomeDefinitionPromise,
-      inDemandCIPsPromise
-    ]);
+        const [cipDefinition, outcomeDefinition, inDemandCIPs] = await Promise.all([
+          cipDefinitionPromise,
+          outcomeDefinitionPromise,
+          inDemandCIPsPromise
+        ]);
 
-    const socCodes = occupations.map((occupation) => occupation.soc);
-    const isInDemand = inDemandCIPs.some((c) => c.cipcode === cipCode);
+        const socCodes = occupations.map((occupation) => occupation.soc);
+        const isInDemand = inDemandCIPs.some((c) => c.cipcode === cipCode);
 
-    // Define async functions but don't await them yet
-    const isWheelchairAccessible = () => credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
-    const hasJobPlacementAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
-    const hasChildcareAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
+        // Define async functions but do not await
+        const isWheelchairAccessible = () => credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
+        const hasJobPlacementAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
+        const hasChildcareAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
 
-    return {
-      ctid: learningOpportunity["ceterms:ctid"] || "",
-      name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
-      description: desc,
-      cipDefinition: cipDefinition ? cipDefinition[0] : null,
-      totalCost,
-      percentEmployed: outcomeDefinition ? formatPercentEmployed(outcomeDefinition.peremployed2) : null,
-      calendarLength,
-      localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
-      deliveryTypes,
-      providerId: provider?.providerId || null,
-      providerName: provider?.name || "Provider not available",
-      availableAt,
-      inDemand: isInDemand,
-      highlight,
-      socCodes,
-      hasEveningCourses,
-      languages,
-      isWheelchairAccessible, // Do not await, return as function
-      hasJobPlacementAssistance, // Do not await, return as function
-      hasChildcareAssistance, // Do not await, return as function
-      totalClockHours: null,
-    };
-  } catch (error) {
-    console.error("Error transforming learning opportunity CTDL to TrainingResult object:", error);
-    throw error;
-  }
+        return {
+          ctid: learningOpportunity["ceterms:ctid"] || "",
+          name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+          description: desc,
+          cipDefinition: cipDefinition ? cipDefinition[0] : null,
+          totalCost,
+          percentEmployed: outcomeDefinition ? formatPercentEmployed(outcomeDefinition.peremployed2) : null,
+          calendarLength,
+          localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
+          deliveryTypes,
+          providerId: provider?.providerId || null,
+          providerName: provider?.name || "Provider not available",
+          availableAt,
+          inDemand: isInDemand,
+          highlight,
+          socCodes,
+          hasEveningCourses,
+          languages,
+          isWheelchairAccessible,
+          hasJobPlacementAssistance,
+          hasChildcareAssistance,
+          totalClockHours: null,
+        };
+      } catch (error) {
+        console.error("Error transforming a learning opportunity:", error);
+        throw error;
+      }
+    })
+  );
 }
-
 
 function packageResults(
   currentPage: number,
