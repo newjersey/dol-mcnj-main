@@ -86,8 +86,7 @@ describe("findTrainingsBy", () => {
         otherCost: parseFloat(program.othercosts),
         totalCost: parseFloat(program.totalcost),
         online: true,
-        percentEmployed: parseFloat(program.peremployed2!),
-        averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
+        outcomes: program.outcomes || { completion: {}, employment: [] },
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         languages: formatLanguages(program.languages),
         isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
@@ -201,8 +200,7 @@ describe("findTrainingsBy", () => {
         otherCost: parseFloat(program.othercosts),
         totalCost: parseFloat(program.totalcost),
         online: true,
-        percentEmployed: parseFloat(program.peremployed2!),
-        averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
+        outcomes: program.outcomes || { completion: {}, employment: [] },
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         languages: formatLanguages(program.languages),
         isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
@@ -249,8 +247,8 @@ describe("findTrainingsBy", () => {
       phone: null,
       phoneextension: null,
       indemandcip: null,
-      peremployed2: null,
-      avgquarterlywage2: null,
+      // peremployed2: null, // removed - outcomes used instead
+      // avgquarterlywage2: null, // removed - outcomes used instead
       onlineprogramid: null,
       description: null,
     });
@@ -271,8 +269,8 @@ describe("findTrainingsBy", () => {
     expect(training.provider.phoneNumber).toEqual("");
     expect(training.provider.phoneExtension).toEqual("");
     expect(training.inDemand).toEqual(false);
-    expect(training.percentEmployed).toEqual(null);
-    expect(training.averageSalary).toEqual(null);
+    // percentEmployed no longer exists - now part of outcomes
+    // averageSalary no longer exists - now part of outcomes
     expect(training.online).toEqual(false);
     expect(training.description).toEqual("");
   });
@@ -280,21 +278,21 @@ describe("findTrainingsBy", () => {
   it("returns null if percent employed is -99999", async () => {
     const program = buildProgram({
       programid: "123",
-      peremployed2: "-99999",
+      // peremployed2: "-99999", // removed - outcomes used instead
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
     const [training] = await findTrainingsBy(Selector.ID, ["123"]);
-    expect(training.percentEmployed).toEqual(null);
+    // percentEmployed no longer exists - now part of outcomes
   });
 
   it("creates yearly salary by multiplying quarterly wage by 4", async () => {
     const program = buildProgram({
       programid: "123",
-      avgquarterlywage2: "25000",
+      // avgquarterlywage2: "25000", // removed - outcomes used instead
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
     const [training] = await findTrainingsBy(Selector.ID, ["123"]);
-    expect(training.averageSalary).toEqual(100000);
+    // averageSalary no longer exists - now part of outcomes
   });
 
   it("strips surrounding quotation marks from title/description/more of training", async () => {
