@@ -36,6 +36,7 @@ export default async function SearchPage(props: {
 }) {
   const resolvedSearchParams = await props.searchParams;
   const searchProps = await getSearchData({
+    serverSide: true,
     searchParams: resolvedSearchParams,
   });
 

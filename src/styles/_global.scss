@@ -30,13 +30,18 @@ body {
     margin-top: 0;
   }
 
+  &.usa-alert--global {
+    background-color: s.$tertiary-lighter;
+    border-left-color: s.$tertiary;
+  }
+
   .usa-alert__body {
     display: flex;
     align-items: flex-start;
     max-width: none;
 
     > div {
-      width: 100%;
+      width: calc(100% - s.$size-40);
     }
 
     h1,
@@ -688,4 +693,8 @@ iframe:focus {
       border-radius: s.$size-4;
     }
   }
+}
+
+.react-tooltip {
+  z-index: 1000;
 }
