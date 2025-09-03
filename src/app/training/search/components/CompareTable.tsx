@@ -64,9 +64,9 @@ export const CompareTable = () => {
                   {compare.map((item) => (
                     <td key={item.id}>
                       {" "}
-                      {formatPercentage(getPercentEmployed(item.outcomes)) !== 'Data unreported'
+                      {formatPercentage(getPercentEmployed(item.outcomes)) !== 'N/A'
                         ? `${formatPercentage(getPercentEmployed(item.outcomes))} Employed`
-                        : "Data unreported"}
+                        : "--"}
                     </td>
                   ))}
                   {remainingBoxesArray.map((item) => (
@@ -77,9 +77,9 @@ export const CompareTable = () => {
                   <td>Completion Rate %</td>
                   {compare.map((item) => (
                     <td key={item.id}>
-                      {formatPercentage(getCompletionRate(item.outcomes)) !== 'Data unreported'
+                      {formatPercentage(getCompletionRate(item.outcomes)) !== 'N/A'
                         ? `${formatPercentage(getCompletionRate(item.outcomes))} Completed`
-                        : "Data unreported"}
+                        : "--"}
                     </td>
                   ))}
                   {remainingBoxesArray.map((item) => (
@@ -90,9 +90,9 @@ export const CompareTable = () => {
                   <td>Credential Rate %</td>
                   {compare.map((item) => (
                     <td key={item.id}>
-                      {formatPercentage(getCredentialRate(item.outcomes)) !== 'Data unreported'
+                      {formatPercentage(getCredentialRate(item.outcomes)) !== 'N/A'
                         ? `${formatPercentage(getCredentialRate(item.outcomes))} Credentialed`
-                        : "Data unreported"}
+                        : "--"}
                     </td>
                   ))}
                   {remainingBoxesArray.map((item) => (
@@ -103,9 +103,9 @@ export const CompareTable = () => {
                   <td>Average Salary</td>
                   {compare.map((item) => (
                     <td key={item.id}>
-                      {formatSalary(getAverageSalary(item.outcomes)) !== 'Data unreported'
+                      {formatSalary(getAverageSalary(item.outcomes)) !== 'N/A'
                         ? formatSalary(getAverageSalary(item.outcomes))
-                        : "Data unreported"}
+                        : "--"}
                     </td>
                   ))}
                   {remainingBoxesArray.map((item) => (

@@ -31,7 +31,7 @@ interface ResultCardProps {
   location?: string;
   onCompare?: (trainingId: string) => void;
   outcomes?: ProgramOutcome;
-  percentEmployed?: number;
+  percentEmployed?: number; // Keep for backward compatibility
   timeToComplete?: number;
   title: string;
   trainingId: string;
@@ -84,11 +84,11 @@ const ResultCard = (props: ResultCardProps) => {
               <BriefcaseIcon size={16} />
               <span>
                 {outcomes 
-                  ? `${formatPercentage(getPercentEmployed(outcomes))} employed`
+                  ? formatPercentage(getPercentEmployed(outcomes))
                   : percentEmployed
                   ? `${Math.floor(percentEmployed * 100 * 10) / 10}% employed`
-                  : "Data unreported"
-                }
+                  : "--"
+                } employed
               </span>
             </p>
             
