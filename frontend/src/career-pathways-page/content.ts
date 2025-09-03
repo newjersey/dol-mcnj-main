@@ -123,10 +123,10 @@ The industry offers opportunities for people who like working with customers - f
 
 ### Important Contribution
 
-Transportation disctribulation and logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.`,
+Transportation, Distribution, and Logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.`,
           },
           {
-            title: "Top Manufacturing Sectors",
+            title: "Top TDL Sectors",
             copy: `### Air Transportation
 
 Aircraft are used to move passengers or cargo. They can be scheduled or on-demand and the companies that run them range in size from major airlines to regional carriers. New Jersey is home to three commercial airports - Newark Liberty, Trenton Mercer, and Atlantic City - eight airports that support corporate and private-use general aviation activities, 30 other public-use airports, one seaplane base, as well as several heliports and balloon ports.
