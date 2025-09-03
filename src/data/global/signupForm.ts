@@ -11,7 +11,11 @@ export const SIGNUP_FORM = {
     heading: "My Career NJ User Sign-Up Form",
     message:
       "Sign up for emails to learn about tools and resources to help you advance your career.",
-    instruction: ["A red asterick", "indicates a required field"],
+    instruction: ["A red asterisk", "indicates a required field"],
+    languageMessage: [
+      "Esta form está disponible en español.",
+      "Haga clic aquí para traducirla.",
+    ],
     form: {
       submitLabel: "Submit",
       footer:
@@ -43,6 +47,15 @@ export const SIGNUP_FORM = {
         emailInvalid: "Email is invalid.",
         firstName: "First name must be 2 or more characters.",
         lastName: "Last name must be 2 or more characters.",
+        emailExists: [
+          "The email",
+          "is already registered for My Career NJ updates. If you believe this is an error or need assistance, please contact support.",
+        ],
+      },
+      success: {
+        heading: "Success!",
+        message: " You're all set to receive My Career NJ updates.",
+        button: "Back to My Career NJ",
       },
     },
   },
@@ -53,17 +66,21 @@ export const SIGNUP_FORM = {
       className: "sign-up-toggle",
       label: "Regístrate para recibir actualizaciones",
     } as ButtonProps,
-    heading: "Formulario de inscripción de usuario de My Career NJ",
+    heading: "Formulario de Registro de Usuario de Mi Carrera NJ",
+    languageMessage: [
+      "This form is available in English.",
+      "Click here to translate.",
+    ],
     message:
-      "Regístrate para mantenerte al día con las últimas funciones, noticias y recursos de My Career NJ.",
+      "Regístrese para recibir correos electrónicos y conocer las herramientas y recursos  que le ayudarán a avanzar en su carrera.",
     instruction: ["Un asterisco rojo", "indica un campo obligatorio"],
     form: {
       submitLabel: "Enviar",
       footer:
-        "Lea nuestra [política de privacidad](https://www.nj.gov/nj/privacy.html).",
+        "Lea sobre nuestra [política de privacidad](https://www.nj.gov/nj/privacy.html).",
       fields: {
         firstName: {
-          label: "Nombre",
+          label: "Primer Nomb",
           placeholder: "Jane",
         },
         lastName: {
@@ -72,7 +89,7 @@ export const SIGNUP_FORM = {
         },
         email: {
           label: "Correo electrónico",
-          placeholder: "correo@ejemplo.com",
+          placeholder: "email@example.com",
           requiredIndicator: true,
         },
         phone: {
@@ -83,6 +100,7 @@ export const SIGNUP_FORM = {
       },
       submitButton: ["Enviar formulario", "Enviando"],
       resetButton: "Restablecer formulario",
+
       error: {
         general:
           "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
@@ -94,6 +112,16 @@ export const SIGNUP_FORM = {
         emailInvalid: "El correo electrónico no es válido.",
         firstName: "El nombre debe tener 2 o más caracteres.",
         lastName: "El apellido debe tener 2 o más caracteres.",
+        emailExists: [
+          "El correo electrónico",
+          "ya está registrado para las actualizaciones de My Career NJ. Si crees que esto es un error o necesitas ayuda, por favor contacta al soporte.",
+        ],
+      },
+      success: {
+        heading: "¡Éxito!",
+        message:
+          "Estás listo para recibir las actualizaciones de My Career NJ.",
+        button: "Volver a Mi Carrera NJ",
       },
     },
   },

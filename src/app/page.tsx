@@ -1,4 +1,5 @@
 import { FancyBanner } from "@components/blocks/FancyBanner";
+import { SurveyMonkeyModal } from "@components/blocks/SurveyMonkeyModal";
 import globalOgImage from "@images/globalOgImage.jpeg";
 import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
 import { SupportedLanguages, ThemeColors } from "@utils/types/types";
@@ -70,6 +71,13 @@ export default async function Home() {
               ))}
             </div>
           </div>
+          
+          {/* Exit-intent Survey Modal */}
+          <SurveyMonkeyModal
+            surveyUrl={process.env.NEXT_PUBLIC_SURVEY_URL || "https://www.surveymonkey.com/r/Preview/?sm=bTZe7KLw5KwHqgb_2BcXf6rRBzZw0EKbCVPCOGhE6DpTdGdLSkS_2FGF_2BYjAFNSbfqt"}
+            title="Help Us Improve My Career NJ"
+            storageKey="mcnj_landing_survey"
+          />
         </div>
       </div>
     </>
