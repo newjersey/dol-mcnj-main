@@ -91,8 +91,44 @@
 
   .information {
     display: flex;
-    flex-direction: column;
-    gap: s.$size-8;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: s.$size-16;
+
+    .main-info {
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-8;
+    }
+
+    .metrics-section {
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-8;
+      align-items: flex-start;
+      flex-shrink: 0;
+      white-space: nowrap;
+
+      .percentEmployed,
+      .completion-rate {
+        justify-content: flex-start;
+      }
+    }
+
+    @media screen and (max-width: (s.$tablet - 1)) {
+      flex-direction: column;
+
+      .main-info {
+        order: 1;
+      }
+
+      .metrics-section {
+        order: 2;
+        flex-direction: column;
+        gap: s.$size-8;
+        margin-top: s.$size-8;
+      }
+    }
 
     p {
       display: flex;
