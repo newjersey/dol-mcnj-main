@@ -135,11 +135,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
                   </li>
                 ))
               ) : (
-                <>
-                  <li className="text-sm text-gray-700 leading-tight">• Sector 1</li>
-                  <li className="text-sm text-gray-700 leading-tight">• Sector 2</li>
-                  <li className="text-sm text-gray-700 leading-tight">• Sector 3</li>
-                </>
+                <li className="text-sm text-gray-500 italic leading-tight">No industry data available.</li>
               )}
             </ul>
           </div>
