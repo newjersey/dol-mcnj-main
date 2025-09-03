@@ -93,8 +93,7 @@ export const formatPercentage = (rate: number | undefined): string => {
   return `${Math.round(percentage)}%`;
 };
 
-export const formatSalary = (salary: number | undefined): string => {
-  if (salary === undefined || salary === null || typeof salary !== 'number') return 'N/A';
+  if (salary === undefined || typeof salary !== 'number') return 'N/A';
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
