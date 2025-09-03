@@ -75,13 +75,16 @@ export const CompareTable = () => {
                 </tr>
                 <tr>
                   <td>Completion Rate %</td>
-                  {compare.map((item) => (
-                    <td key={item.id}>
-                      {formatPercentage(getCompletionRate(item.outcomes)) !== 'N/A'
-                        ? `${formatPercentage(getCompletionRate(item.outcomes))} Completed`
-                        : "--"}
-                    </td>
-                  ))}
+                  {compare.map((item) => {
+                    const completionRate = getCompletionRate(item.outcomes);
+                    return (
+                      <td key={item.id}>
+                        {formatPercentage(completionRate) !== 'N/A'
+                          ? `${formatPercentage(completionRate)} Completed`
+                          : "--"}
+                      </td>
+                    );
+                  })}
                   {remainingBoxesArray.map((item) => (
                     <td key={`emptyTableboxCompletion${item}`}></td>
                   ))}
