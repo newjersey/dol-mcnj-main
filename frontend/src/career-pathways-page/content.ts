@@ -29,7 +29,7 @@ export const content = {
         drawerCards: [
           {
             icon: "manufacturing" as SelectorProps["name"],
-            title: "Why to consider a Manufacturing Career",
+            title: "Why consider a Manufacturing Career",
             copy: `### Growth potential
 
 A lot of manufacturing companies offer on-site job training, so there is always room to grow and advance your career.
@@ -70,7 +70,7 @@ Metal manufacturers transform metals into parts that are used in airplanes, brid
         drawerCards: [
           {
             icon: "healthcare" as SelectorProps["name"],
-            title: "Why to consider a Healthcare Career",
+            title: "Why consider a Healthcare Career",
             copy: `### Job Security
 
 Healthcare is one of the fastest growing and most stable industries to work in. Health care is the only industry that has added jobs in the state every year from 1990 through 2019, even in times of recessions.
@@ -112,7 +112,7 @@ People who need 24-hour supervision, but don't need to be hospitalized stay in n
         drawerCards: [
           {
             icon: "tdl" as SelectorProps["name"],
-            title: "Why to consider a TDL Career",
+            title: "Why consider a TDL Career",
             copy: `### Quality Jobs
 
 Many jobs in transportation distribution and logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.
