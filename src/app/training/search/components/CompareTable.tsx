@@ -91,13 +91,17 @@ export const CompareTable = () => {
                 </tr>
                 <tr>
                   <td>Credential Rate %</td>
-                  {compare.map((item) => (
-                    <td key={item.id}>
-                      {formatPercentage(getCredentialRate(item.outcomes)) !== 'N/A'
-                        ? `${formatPercentage(getCredentialRate(item.outcomes))} Credentialed`
-                        : "--"}
-                    </td>
-                  ))}
+                  {compare.map((item) => {
+                    const credentialRate = getCredentialRate(item.outcomes);
+                    const formattedCredentialRate = formatPercentage(credentialRate);
+                    return (
+                      <td key={item.id}>
+                        {formattedCredentialRate !== 'N/A'
+                          ? `${formattedCredentialRate} Credentialed`
+                          : "--"}
+                      </td>
+                    );
+                  })}
                   {remainingBoxesArray.map((item) => (
                     <td key={`emptyTableboxCredential${item}`}></td>
                   ))}
