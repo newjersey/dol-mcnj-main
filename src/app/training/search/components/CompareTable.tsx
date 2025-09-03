@@ -4,7 +4,7 @@ import { Tag } from "@components/modules/Tag";
 import { X } from "@phosphor-icons/react";
 import { calendarLength } from "@utils/calendarLength";
 import { toUsCurrency } from "@utils/toUsCurrency";
-import { getPercentEmployed, formatPercentage } from "@utils/outcomeHelpers";
+import { getPercentEmployed, getCompletionRate, getCredentialRate, getAverageSalary, formatPercentage, formatSalary } from "@utils/outcomeHelpers";
 import { useContext, useState } from "react";
 import { ResultsContext } from "./Results";
 
@@ -64,13 +64,52 @@ export const CompareTable = () => {
                   {compare.map((item) => (
                     <td key={item.id}>
                       {" "}
-                      {formatPercentage(getPercentEmployed(item.outcomes)) !== 'N/A'
+                      {formatPercentage(getPercentEmployed(item.outcomes)) !== 'Data unreported'
                         ? `${formatPercentage(getPercentEmployed(item.outcomes))} Employed`
-                        : "--"}
+                        : "Data unreported"}
                     </td>
                   ))}
                   {remainingBoxesArray.map((item) => (
                     <td key={`emptyTablebox2${item}`}></td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>Completion Rate %</td>
+                  {compare.map((item) => (
+                    <td key={item.id}>
+                      {formatPercentage(getCompletionRate(item.outcomes)) !== 'Data unreported'
+                        ? `${formatPercentage(getCompletionRate(item.outcomes))} Completed`
+                        : "Data unreported"}
+                    </td>
+                  ))}
+                  {remainingBoxesArray.map((item) => (
+                    <td key={`emptyTableboxCompletion${item}`}></td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>Credential Rate %</td>
+                  {compare.map((item) => (
+                    <td key={item.id}>
+                      {formatPercentage(getCredentialRate(item.outcomes)) !== 'Data unreported'
+                        ? `${formatPercentage(getCredentialRate(item.outcomes))} Credentialed`
+                        : "Data unreported"}
+                    </td>
+                  ))}
+                  {remainingBoxesArray.map((item) => (
+                    <td key={`emptyTableboxCredential${item}`}></td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>Average Salary</td>
+                  {compare.map((item) => (
+                    <td key={item.id}>
+                      {formatSalary(getAverageSalary(item.outcomes)) !== 'Data unreported'
+                        ? formatSalary(getAverageSalary(item.outcomes))
+                        : "Data unreported"}
+                    </td>
+                  ))}
+                  {remainingBoxesArray.map((item) => (
+                    <td key={`emptyTableboxSalary${item}`}></td>
                   ))}
                 </tr>
                 <tr>
