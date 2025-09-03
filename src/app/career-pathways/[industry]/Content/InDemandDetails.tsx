@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { RelatedTrainingCard } from "./RelatedTrainingCard";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
+import { getPercentEmployed } from "@utils/outcomeHelpers";
 
 export const InDemandDetails = (props: {
   inDemandList?: InDemandItemProps[];
@@ -41,16 +42,19 @@ export const InDemandDetails = (props: {
     setLoadingNumber(true);
     if (props.content && props.content.relatedTrainings) {
       const sortedCourses = props.content.relatedTrainings.sort((a, b) => {
-        if (a.percentEmployed === null && b.percentEmployed === null) {
+        const aEmploymentRate = getPercentEmployed(a.outcomes);
+        const bEmploymentRate = getPercentEmployed(b.outcomes);
+        
+        if (aEmploymentRate === null && bEmploymentRate === null) {
           return a.name.localeCompare(b.name);
-        } else if (a.percentEmployed === null) {
+        } else if (aEmploymentRate === null) {
           return 1;
-        } else if (b.percentEmployed === null) {
+        } else if (bEmploymentRate === null) {
           return -1;
-        } else if (a.percentEmployed !== b.percentEmployed) {
-          return b.percentEmployed - a.percentEmployed;
+        } else if (aEmploymentRate !== bEmploymentRate) {
+          return bEmploymentRate - aEmploymentRate;
         } else if (
-          a.percentEmployed === b.percentEmployed &&
+          aEmploymentRate === bEmploymentRate &&
           a.name !== b.name
         ) {
           return a.name.localeCompare(b.name);
