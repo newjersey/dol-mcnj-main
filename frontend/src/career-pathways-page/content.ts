@@ -10,7 +10,7 @@ export const content = {
     title: "NJ Career Pathways",
     subheading: "Map Out Your Career Path:",
     description:
-      "The pathways tool is easy to use! It saves you time by bringing everything - high growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, without stress.",
+      "The pathways tool is easy to use!  It saves you time by bringing high-growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, and without stress.",
   },
   betaToolTip:
     "Our team is currently researching and developing more pathways. Check back regularly for updates.",
