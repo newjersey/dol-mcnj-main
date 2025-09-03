@@ -37,12 +37,13 @@ export const ResourceCard = ({
   });
 
   return (
-    <div
+    <a
+      href={link}
+      target={target}
+      rel={rel}
       className={`resourceCard${theme ? ` theme-${theme}` : ""}${className ? ` ${className}` : ""}`}
     >
-      <a href={link} target={target} rel={rel}>
-        {title}
-      </a>
+      <span className="title">{title}</span>
       <div
         className="description"
         dangerouslySetInnerHTML={{
@@ -69,6 +70,6 @@ export const ResourceCard = ({
           />
         ))}
       </div>
-    </div>
+    </a>
   );
 };
