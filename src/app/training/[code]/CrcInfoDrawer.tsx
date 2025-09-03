@@ -55,6 +55,21 @@ export const CrcInfoDrawer = ({
           Data is compiled from training providers  to provide transparency about program outcomes and help prospective students make informed decisions.
         </p>
       </div>
+
+      <div className="mt-6 p-4 rounded-lg" style={{ backgroundColor: '#DCE7F5', border: '2px dashed #DCE7F5' }}>
+        <Heading level={4} className="text-gray-800 mb-2">
+          Have a question about the data?
+        </Heading>
+        <p className="text-gray-700">
+          <a href="/contact" className="text-primary hover:text-primaryDark underline">Contact our team</a> and we will do our best to help answer your question.
+        </p>
+      </div>
+      
+      <div className="mt-4 text-sm text-gray-600">
+        <p>
+          1. New Jersey State law (C:34:IA  86) mandates the collection and display of specific provider and program performance data on the Consumer Report Card.
+        </p>
+      </div>
     </Drawer>
   );
 };
