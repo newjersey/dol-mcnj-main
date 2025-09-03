@@ -5,6 +5,7 @@ import { useReactToPrint } from "react-to-print";
 import { TrainingProps } from "@utils/types";
 import { Button } from "@components/modules/Button";
 import { ProgramBanner } from "@components/blocks/ProgramBanner";
+import { OutcomeDetails } from "@components/modules/OutcomeDetails";
 import { AssociatedOccupationsIndustries } from "./sections/AssociatedOccupationsIndustries";
 import { Cost } from "./sections/Cost";
 import { Description } from "./sections/Description";
@@ -61,14 +62,17 @@ const Content = ({ training }: { training: TrainingProps }) => {
           ],
         }}
         inDemand={training.inDemand}
-        employmentRate={training.percentEmployed}
-        salary={training.averageSalary}
       />
 
       <section className="body-copy">
         <div className="container">
           <div className="inner">
             <div>
+              <OutcomeDetails outcomes={training.outcomes} />
+              <Description training={training} />
+              <QuickFacts training={training} />
+              <Cost training={training} mobileOnly />
+              <LocationContactDetails training={training} mobileOnly />
               <Description training={training} />
               <QuickFacts training={training} />
               <Cost training={training} mobileOnly />

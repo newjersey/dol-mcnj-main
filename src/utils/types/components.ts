@@ -243,16 +243,16 @@ export interface NAICSIndustry {
 export interface QuarterlyEmploymentMetrics {
   quarter: 2 | 4;
   employedCount?: number;
-  employmentRate?: number;
-  medianAnnualSalary?: number;
+  employmentRate?: number | string;
+  medianAnnualSalary?: number | string;
   naicsIndustries?: NAICSIndustry[];
 }
 
 export interface CompletionMetrics {
   exiters?: number;
   completers?: number;
-  completionRate?: number;
-  credentialRate?: number;
+  completionRate?: number | string;
+  credentialRate?: number | string;
 }
 
 export interface ProgramOutcome {

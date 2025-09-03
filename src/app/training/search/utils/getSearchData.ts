@@ -1,5 +1,6 @@
 import { baking, digitalMarketing } from "../../../../mockData/index";
 import { ResultProps } from "@utils/types";
+import { getPercentEmployed, getCompletionRate, getCredentialRate, getAverageSalary } from "@utils/outcomeHelpers";
 import { FilterProps } from "../components/Results";
 import { getZipCodesInRadius } from "@utils/getZipCodesInRadius";
 import { handleFiltering } from "@utils/handleFiltering";
@@ -396,9 +397,37 @@ export async function getSearchData(props: {
         break;
       case "rate":
         pageData.sort((a: ResultProps, b: ResultProps) => {
-          const percentEmployedA = a.percentEmployed || 0;
-          const percentEmployedB = b.percentEmployed || 0;
+          const percentEmployedA = getPercentEmployed(a.outcomes) ?? 0;
+          const percentEmployedB = getPercentEmployed(b.outcomes) ?? 0;
           return percentEmployedB - percentEmployedA;
+        });
+        break;
+      case "completion":
+        pageData.sort((a: ResultProps, b: ResultProps) => {
+          const completionRateA = getCompletionRate(a.outcomes) ?? 0;
+          const completionRateB = getCompletionRate(b.outcomes) ?? 0;
+          return completionRateB - completionRateA;
+        });
+        break;
+      case "credential":
+        pageData.sort((a: ResultProps, b: ResultProps) => {
+          const credentialRateA = getCredentialRate(a.outcomes) ?? 0;
+          const credentialRateB = getCredentialRate(b.outcomes) ?? 0;
+          return credentialRateB - credentialRateA;
+        });
+        break;
+      case "salary-high":
+        pageData.sort((a: ResultProps, b: ResultProps) => {
+          const salaryA = getAverageSalary(a.outcomes) ?? 0;
+          const salaryB = getAverageSalary(b.outcomes) ?? 0;
+          return salaryB - salaryA;
+        });
+        break;
+      case "salary-low":
+        pageData.sort((a: ResultProps, b: ResultProps) => {
+          const salaryA = getAverageSalary(a.outcomes) ?? 0;
+          const salaryB = getAverageSalary(b.outcomes) ?? 0;
+          return salaryA - salaryB;
         });
         break;
       default:

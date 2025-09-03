@@ -1,4 +1,4 @@
-import { ProgramOutcome, QuarterlyEmploymentMetrics, NAICSIndustry } from '@/utils/types/components';
+import { ProgramOutcome, QuarterlyEmploymentMetrics, NAICSIndustry } from '@utils/types/components';
 
 /**
  * Frontend utilities for working with program outcomes
@@ -30,36 +30,50 @@ export const getAvailableQuarters = (outcome: ProgramOutcome | undefined): (2 | 
 export const getHighestEmploymentRate = (outcome: ProgramOutcome | undefined): number | undefined => {
   if (!outcome?.employment?.length) return undefined;
 
-  return Math.max(
-    ...outcome.employment
-      .map(e => e.employmentRate)
-      .filter((rate): rate is number => rate !== undefined)
-  );
+  const validRates = outcome.employment
+    .map(e => {
+      const rate = e.employmentRate;
+      if (rate === undefined || rate === null) return undefined;
+      return typeof rate === 'string' ? parseFloat(rate) : rate;
+    })
+    .filter((rate): rate is number => rate !== undefined && !isNaN(rate));
+
+  return validRates.length > 0 ? Math.max(...validRates) : undefined;
 };
 
 export const getEmploymentRate = (outcome: ProgramOutcome | undefined, quarter: 2 | 4): number | undefined => {
-  return getQuarterlyEmployment(outcome, quarter)?.employmentRate;
+  const rate = getQuarterlyEmployment(outcome, quarter)?.employmentRate;
+  if (rate === undefined || rate === null) return undefined;
+  return typeof rate === 'string' ? parseFloat(rate) : rate;
 };
 
 export const getMedianSalary = (outcome: ProgramOutcome | undefined, quarter: 2 | 4): number | undefined => {
-  return getQuarterlyEmployment(outcome, quarter)?.medianAnnualSalary;
+  const salary = getQuarterlyEmployment(outcome, quarter)?.medianAnnualSalary;
+  if (salary === undefined || salary === null) return undefined;
+  return typeof salary === 'string' ? parseFloat(salary) : salary;
 };
 
 export const getCompletionRate = (outcome: ProgramOutcome | undefined): number | undefined => {
-  return outcome?.completion?.completionRate;
+  const rate = outcome?.completion?.completionRate;
+  if (rate === undefined || rate === null) return undefined;
+  return typeof rate === 'string' ? parseFloat(rate) : rate;
 };
 
 export const getCredentialRate = (outcome: ProgramOutcome | undefined): number | undefined => {
-  return outcome?.completion?.credentialRate;
+  const rate = outcome?.completion?.credentialRate;
+  if (rate === undefined || rate === null) return undefined;
+  return typeof rate === 'string' ? parseFloat(rate) : rate;
 };
 
 export const formatPercentage = (rate: number | undefined): string => {
-  if (rate === undefined || rate === null) return 'N/A';
-  return `${rate.toFixed(1)}%`;
+  if (rate === undefined || rate === null || typeof rate !== 'number' || !isFinite(rate)) return 'Data unreported';
+  // If the number is less than 1, assume it's a decimal (0.6125 = 61.25%)
+  const percentage = rate < 1 ? rate * 100 : rate;
+  return `${Math.round(percentage)}%`;
 };
 
 export const formatSalary = (salary: number | undefined): string => {
-  if (salary === undefined || salary === null) return 'N/A';
+  if (salary === undefined || salary === null || typeof salary !== 'number' || !isFinite(salary)) return 'Data unreported';
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',

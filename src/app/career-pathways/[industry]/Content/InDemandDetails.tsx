@@ -44,19 +44,18 @@ export const InDemandDetails = (props: {
       const sortedCourses = props.content.relatedTrainings.sort((a, b) => {
         const aEmploymentRate = getPercentEmployed(a.outcomes);
         const bEmploymentRate = getPercentEmployed(b.outcomes);
-        
-        if (aEmploymentRate === null && bEmploymentRate === null) {
+        // Handle undefined or null values safely
+        const aRate = aEmploymentRate ?? -1;
+        const bRate = bEmploymentRate ?? -1;
+        if (aRate === -1 && bRate === -1) {
           return a.name.localeCompare(b.name);
-        } else if (aEmploymentRate === null) {
+        } else if (aRate === -1) {
           return 1;
-        } else if (bEmploymentRate === null) {
+        } else if (bRate === -1) {
           return -1;
-        } else if (aEmploymentRate !== bEmploymentRate) {
-          return bEmploymentRate - aEmploymentRate;
-        } else if (
-          aEmploymentRate === bEmploymentRate &&
-          a.name !== b.name
-        ) {
+        } else if (aRate !== bRate) {
+          return bRate - aRate;
+        } else if (a.name !== b.name) {
           return a.name.localeCompare(b.name);
         } else {
           return 0;

@@ -14,8 +14,10 @@ import { LinkObject } from "./LinkObject";
 import { calendarLength } from "@utils/calendarLength";
 import { replaceDoubleBracketsWithStrong } from "@utils/replaceDoubleBracketsWithStrong";
 import { CipDefinition } from "@utils/types";
+import { ProgramOutcome } from "@utils/types/components";
 import { formatCip } from "@utils/formatCip";
 import { Flex } from "@components/utility/Flex";
+import { getPercentEmployed, getCompletionRate, formatPercentage } from "@utils/outcomeHelpers";
 
 interface ResultCardProps {
   cipDefinition?: CipDefinition;
@@ -28,6 +30,7 @@ interface ResultCardProps {
   inDemandLabel?: string;
   location?: string;
   onCompare?: (trainingId: string) => void;
+  outcomes?: ProgramOutcome;
   percentEmployed?: number;
   timeToComplete?: number;
   title: string;
@@ -47,6 +50,7 @@ const ResultCard = (props: ResultCardProps) => {
     inDemandLabel,
     location,
     onCompare,
+    outcomes,
     percentEmployed,
     timeToComplete,
     title,
@@ -75,14 +79,28 @@ const ResultCard = (props: ResultCardProps) => {
             </p>
           )}
 
-          <p className="percentEmployed">
-            <BriefcaseIcon size={16} />
-            <span>
-              {percentEmployed
-                ? `${Math.floor(percentEmployed * 100 * 10) / 10}% employed`
-                : "--"}
-            </span>
-          </p>
+          <div className="metrics-section">
+            <p className="percentEmployed">
+              <BriefcaseIcon size={16} />
+              <span>
+                {outcomes 
+                  ? `${formatPercentage(getPercentEmployed(outcomes))} employed`
+                  : percentEmployed
+                  ? `${Math.floor(percentEmployed * 100 * 10) / 10}% employed`
+                  : "Data unreported"
+                }
+              </span>
+            </p>
+            
+            {outcomes && getCompletionRate(outcomes) !== undefined && (
+              <p className="completion-rate">
+                <GraduationCapIcon size={16} />
+                <span>
+                  {formatPercentage(getCompletionRate(outcomes))} completion
+                </span>
+              </p>
+            )}
+          </div>
         </div>
         {location && (
           <p className="location">
