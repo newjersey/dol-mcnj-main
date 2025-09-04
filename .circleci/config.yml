@@ -44,21 +44,21 @@ jobs:
           name: Run linting and formatting checks
           command: |
             echo "Running ESLint checks..."
-            npm run lint || echo "Next.js linting completed with warnings"
-            cd backend && npm run lint || echo "Backend linting completed with warnings"
+            npm run lint
+            cd backend && npm run lint
             cd ..
             echo "Running prettier checks..."
-            npx prettier --check . --ignore-path=./.prettierignore || echo "Next.js formatting issues found"
-            cd backend && npx prettier --check . --ignore-path=./.eslintignore || echo "Backend formatting issues found"
+            npx prettier --check . --ignore-path=./.prettierignore || echo "Next.js formatting issues found - continuing for now"
+            cd backend && npx prettier --check . --ignore-path=./.eslintignore || echo "Backend formatting issues found - continuing for now"
             cd ..
             echo "Running fence checks..."
-            cd backend && npm run fences || echo "Backend fence issues found"
+            cd backend && npm run fences
       - run:
           name: Run security audit
           command: |
             echo "Running npm audit checks..."
-            npm audit --audit-level high --omit=dev || echo "Next.js security vulnerabilities found"
-            npm --prefix=backend audit --audit-level high --omit=dev || echo "Backend security vulnerabilities found"
+            npm audit --audit-level high --omit=dev
+            npm --prefix=backend audit --audit-level high --omit=dev
       - run:
           name: Run Next.js unit tests with coverage
           command: |
