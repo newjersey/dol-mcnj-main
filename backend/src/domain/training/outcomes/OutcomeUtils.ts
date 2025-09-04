@@ -27,9 +27,9 @@ export const getAvailableQuarters = (outcome: ProgramOutcome | undefined): (2 | 
 export const getHighestEmploymentRate = (outcome: ProgramOutcome | undefined): number | undefined => {
     if (!outcome?.employment?.length) return undefined;
 
-    return Math.max(
-        ...outcome.employment
-            .map(e => e.employmentRate)
-            .filter((rate): rate is number => rate !== undefined)
-    );
+    const rates = outcome.employment
+        .map(e => e.employmentRate)
+        .filter((rate): rate is number => rate !== undefined);
+    if (rates.length === 0) return undefined;
+    return Math.max(...rates);
 };
