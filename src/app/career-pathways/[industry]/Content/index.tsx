@@ -20,9 +20,13 @@ import { ErrorBox } from "@components/modules/ErrorBox";
 import { colors } from "@utils/settings";
 import { FieldSelect } from "@components/blocks/FieldSelect";
 import { OccupationGroups } from "@components/blocks/OccupationGroups";
+import { useRouter, useSearchParams } from "next/navigation";
 import { numberShorthand } from "@utils/numberShorthand";
 
 export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [activeMap, setActiveMap] = useState<CareerMapProps>();
   const [open, setOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
@@ -41,41 +45,137 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const getCareerMap = async (id: string) => {
     const mapData = await client({
       query: CAREER_PATHWAY_QUERY,
-      variables: {
-        id,
-      },
+      variables: { id },
     });
     setActiveMap(mapData);
   };
 
-  const getOccupation = async (id: string) => {
-    const occupationData = await client({
-      query: OCCUPATION_QUERY,
-      variables: {
-        id,
-      },
+  const fetchCareerMap = async (id: string) => {
+    return client({
+      query: CAREER_PATHWAY_QUERY,
+      variables: { id },
     });
-    setActiveOccupation(occupationData);
+  };
+
+  const getOccupation = async (id: string) => {
+    try {
+      const occupationData = await client({
+        query: OCCUPATION_QUERY,
+        variables: { id },
+      });
+      setActiveOccupation(occupationData);
+      return occupationData;
+    } catch (e) {
+      console.error("Failed to fetch occupation", e);
+      return undefined;
+    }
+  };
+
+  const ensureFieldForOccupation = async (occupationId: string) => {
+    const inCurrent = activeMap?.careerMap?.pathways?.items?.find((p) =>
+      p.occupationsCollection?.items?.some(
+        (o: OccupationNodeProps) => o.sys.id === occupationId
+      )
+    );
+
+    if (inCurrent) {
+      setActivePathway(inCurrent);
+      const filtered = activeMap?.careerMap?.pathways?.items?.filter(
+        (p) => p.title !== inCurrent.title
+      );
+      if (filtered) setFullMap([inCurrent, ...(filtered ?? [])]);
+      return;
+    }
+
+    for (const mapRef of thisIndustry.careerMaps?.items ?? []) {
+      const mapId = (mapRef as any)?.sys?.id;
+      if (!mapId) continue;
+
+      const mapData: CareerMapProps | undefined = await fetchCareerMap(mapId);
+      const pathwayHit = mapData?.careerMap?.pathways?.items?.find(
+        (p: SinglePathwayProps) =>
+          p.occupationsCollection?.items?.some(
+            (o: OccupationNodeProps) => o.sys.id === occupationId
+          )
+      );
+
+      if (pathwayHit) {
+        setActiveMap(mapData);
+        setActivePathway(pathwayHit);
+
+        const filtered = mapData?.careerMap?.pathways?.items?.filter(
+          (p: SinglePathwayProps) => p.title !== pathwayHit.title
+        );
+        if (filtered) setFullMap([pathwayHit, ...filtered]);
+        break;
+      }
+    }
+  };
+
+  const setOccupationFromId = async (id: string) => {
+    const occ = await getOccupation(id);
+
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    params.set("occupation", id);
+    router.replace(`?${params.toString()}`, { scroll: false });
+
+    await ensureFieldForOccupation(id);
+    return occ;
+  };
+
+  const setActiveOccupationAndSync = (occObj: {
+    careerMapObject: OccupationNodeProps;
+  }) => {
+    setActiveOccupation(occObj);
+    const id = occObj?.careerMapObject?.sys?.id;
+    if (!id) return;
+
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    params.set("occupation", id);
+    router.replace(`?${params.toString()}`, { scroll: false });
+
+    ensureFieldForOccupation(id);
+  };
+
+  const getOccupationAndSync = async (id: string) => {
+    return setOccupationFromId(id);
   };
 
   useEffect(() => {
-    // if hit escape key, close .dropdown-select
     const closeDropdown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setInDemandOpen(false);
-      }
+      if (e.key === "Escape") setInDemandOpen(false);
     };
     window.addEventListener("keydown", closeDropdown);
 
-    // if click outside of .dropdown-select, close .dropdown-select
     const closeDropdownClick = (e: MouseEvent) => {
       if (!(e.target as HTMLElement).closest(".occupationSelector")) {
         setInDemandOpen(false);
       }
     };
-
     window.addEventListener("click", closeDropdownClick);
+
+    return () => {
+      window.removeEventListener("keydown", closeDropdown);
+      window.removeEventListener("click", closeDropdownClick);
+    };
   }, []);
+
+  useEffect(() => {
+    const urlOcc = searchParams?.get("occupation");
+    if (!urlOcc) return;
+
+    if (activeOccupation?.careerMapObject?.sys?.id === urlOcc) {
+      ensureFieldForOccupation(urlOcc);
+      return;
+    }
+
+    (async () => {
+      const occ = await getOccupation(urlOcc);
+      if (occ?.careerMapObject?.sys?.id) {
+        await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+      }
+    })();
+  }, [searchParams]);
 
   useEffect(() => {
     const filteredPathways = activeMap?.careerMap.pathways?.items?.filter(
@@ -84,30 +184,28 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
     if (filteredPathways && activePathway) {
       setFullMap([activePathway, ...filteredPathways]);
     }
-  }, [activePathway]);
+  }, [activePathway, activeMap]);
 
   useEffect(() => {
-    if (activeInDemand) {
-      const getInDemandOccupation = async () => {
-        setLoading(true);
-        const occupation = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`
-        );
+    if (!activeInDemand) return;
+    const getInDemandOccupation = async () => {
+      setLoading(true);
+      const occupation = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`
+      );
 
-        if (!occupation.ok) {
-          setInDemandError("There was an error fetching the occupation data.");
-          setLoading(false);
-          return;
-        }
-
-        const occupationData = await occupation.json();
-
-        setInDemandOccupationData(occupationData);
+      if (!occupation.ok) {
+        setInDemandError("There was an error fetching the occupation data.");
         setLoading(false);
-      };
+        return;
+      }
 
-      getInDemandOccupation();
-    }
+      const occupationData = await occupation.json();
+      setInDemandOccupationData(occupationData);
+      setLoading(false);
+    };
+
+    getInDemandOccupation();
   }, [activeInDemand]);
 
   const hasPathways: boolean = thisIndustry.careerMaps?.items.length !== 0;
@@ -118,7 +216,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
         activeMap={activeMap}
         getCareerMap={getCareerMap}
         industry={thisIndustry}
-        setActiveOccupation={setActiveOccupation}
+        setActiveOccupation={setActiveOccupationAndSync}
         setActivePathway={setActivePathway}
         setFullMap={setFullMap}
         setMapOpen={setMapOpen}
@@ -131,13 +229,14 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
           activeOccupation={activeOccupation}
           activeMap={activeMap}
           industry={thisIndustry}
-          getOccupation={getOccupation}
+          getOccupation={getOccupationAndSync}
           open={open}
           setActivePathway={setActivePathway}
           setMapOpen={setMapOpen}
           setOpen={setOpen}
         />
       )}
+
       <div
         className={`careerPathways container${activeMap ? "" : " disabled"}`}
       >
@@ -151,9 +250,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                     type="button"
                     iconWeight="bold"
                     iconPrefix={mapOpen ? "ArrowsInSimple" : "ArrowsOutSimple"}
-                    onClick={() => {
-                      setMapOpen(!mapOpen);
-                    }}
+                    onClick={() => setMapOpen(!mapOpen)}
                   >
                     {mapOpen ? "Collapse" : "Expand"}
                     <strong>{activeMap?.careerMap.title} Pathways</strong>
@@ -161,101 +258,94 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                   </Button>
 
                   {fullMap && (
-                    <>
-                      <div className="full-map" id="full-career-map">
-                        <div className="inner">
-                          {(mapOpen ? fullMap : fullMap?.slice(0, 1)).map(
-                            (pathItem) => {
-                              const pathways = groupObjectsByLevel(
-                                pathItem.occupationsCollection.items
-                              );
-                              return (
-                                <Fragment key={pathItem.sys.id}>
-                                  <p className="path-title">{pathItem.title}</p>
-                                  <ul className="single-path">
-                                    {pathways.map((path) => {
-                                      const isTall = path.length > 1;
-                                      return (
-                                        <li
-                                          key={path[0].sys.id}
-                                          className={
-                                            isTall ? "tall" : undefined
-                                          }
-                                        >
-                                          {path.map((occupation) => {
-                                            const isActive =
-                                              activeOccupation.careerMapObject
-                                                .sys.id === occupation.sys.id;
-                                            return (
-                                              <button
-                                                key={`occ${occupation.sys.id}`}
-                                                type="button"
-                                                onClick={() => {
-                                                  setMapOpen(false);
-
-                                                  setActivePathway(pathItem);
-
-                                                  getOccupation(
-                                                    occupation.sys.id
-                                                  );
-                                                }}
-                                                className={`path-stop${
-                                                  isActive ? " active" : ""
-                                                }`}
-                                              >
-                                                <span className="prev-path-connector"></span>
-                                                <span className="path-connector"></span>
-                                                <span className="arrow"></span>
-                                                <p className="title">
-                                                  <strong>
-                                                    {occupation.title}
-                                                  </strong>
-                                                </p>
-                                                {!!occupation.salaryRangeStart && (
-                                                  <div className="salary">
-                                                    <p>
-                                                      Expected Entry Level
-                                                      Salary
-                                                    </p>
-                                                    <p>
-                                                      <strong>
-                                                        $
-                                                        {numberShorthand(
-                                                          occupation.salaryRangeStart
-                                                        )}
-                                                        {occupation.salaryRangeEnd
-                                                          ? ` - $${numberShorthand(
-                                                              Number(
-                                                                occupation.salaryRangeEnd
-                                                              )
-                                                            )}`
-                                                          : ""}
-                                                      </strong>
-                                                    </p>
-                                                  </div>
-                                                )}
-                                                <div className="education">
-                                                  <p>Min. Education</p>
+                    <div className="full-map" id="full-career-map">
+                      <div className="inner">
+                        {(mapOpen ? fullMap : fullMap?.slice(0, 1)).map(
+                          (pathItem) => {
+                            const pathways = groupObjectsByLevel(
+                              pathItem.occupationsCollection.items
+                            );
+                            return (
+                              <Fragment key={pathItem.sys.id}>
+                                <p className="path-title">{pathItem.title}</p>
+                                <ul className="single-path">
+                                  {pathways.map((path) => {
+                                    const isTall = path.length > 1;
+                                    return (
+                                      <li
+                                        key={path[0].sys.id}
+                                        className={isTall ? "tall" : undefined}
+                                      >
+                                        {path.map((occupation) => {
+                                          const isActive =
+                                            activeOccupation.careerMapObject.sys
+                                              .id === occupation.sys.id;
+                                          return (
+                                            <button
+                                              key={`occ${occupation.sys.id}`}
+                                              type="button"
+                                              onClick={() => {
+                                                setMapOpen(false);
+                                                setActivePathway(pathItem);
+                                                setOccupationFromId(
+                                                  occupation.sys.id
+                                                );
+                                              }}
+                                              className={`path-stop${
+                                                isActive ? " active" : ""
+                                              }`}
+                                            >
+                                              <span className="prev-path-connector"></span>
+                                              <span className="path-connector"></span>
+                                              <span className="arrow"></span>
+                                              <p className="title">
+                                                <strong>
+                                                  {occupation.title}
+                                                </strong>
+                                              </p>
+                                              {!!occupation.salaryRangeStart && (
+                                                <div className="salary">
+                                                  <p>
+                                                    Expected Entry Level Salary
+                                                  </p>
                                                   <p>
                                                     <strong>
-                                                      High School Diploma
+                                                      $
+                                                      {numberShorthand(
+                                                        occupation.salaryRangeStart
+                                                      )}
+                                                      {occupation.salaryRangeEnd
+                                                        ? ` - $${numberShorthand(
+                                                            Number(
+                                                              occupation.salaryRangeEnd
+                                                            )
+                                                          )}`
+                                                        : ""}
                                                     </strong>
                                                   </p>
                                                 </div>
-                                              </button>
-                                            );
-                                          })}
-                                        </li>
-                                      );
-                                    })}
-                                  </ul>
-                                </Fragment>
-                              );
-                            }
-                          )}
-                        </div>
+                                              )}
+                                              <div className="education">
+                                                <p>Min. Education</p>
+                                                <p>
+                                                  <strong>
+                                                    High School Diploma
+                                                  </strong>
+                                                </p>
+                                              </div>
+                                            </button>
+                                          );
+                                        })}
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </Fragment>
+                            );
+                          }
+                        )}
                       </div>
-                    </>
+                    </div>
                   )}
                 </div>
 
@@ -283,9 +373,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                   aria-label="occupation selector"
                   id="occupation-selector"
                   className="select-button"
-                  onClick={() => {
-                    setInDemandOpen(!inDemandOpen);
-                  }}
+                  onClick={() => setInDemandOpen(!inDemandOpen)}
                 >
                   {activeInDemand
                     ? activeInDemand.title
@@ -320,11 +408,9 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                       copy="We couldn't find any entries with that name. Please try again."
                     />
                   ) : (
-                    <>
-                      {inDemandOccupationData && (
-                        <InDemandDetails content={inDemandOccupationData} />
-                      )}
-                    </>
+                    inDemandOccupationData && (
+                      <InDemandDetails content={inDemandOccupationData} />
+                    )
                   )}
                 </>
               )}
