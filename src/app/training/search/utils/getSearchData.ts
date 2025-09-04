@@ -397,8 +397,11 @@ export async function getSearchData(props: {
         break;
       case "rate":
         pageData.sort((a: ResultProps, b: ResultProps) => {
-          const percentEmployedA = getPercentEmployed(a.outcomes) ?? 0;
-          const percentEmployedB = getPercentEmployed(b.outcomes) ?? 0;
+          const percentEmployedA = getPercentEmployed(a.outcomes);
+          const percentEmployedB = getPercentEmployed(b.outcomes);
+          if (percentEmployedA == null && percentEmployedB == null) return 0;
+          if (percentEmployedA == null) return 1;
+          if (percentEmployedB == null) return -1;
           return percentEmployedB - percentEmployedA;
         });
         break;
