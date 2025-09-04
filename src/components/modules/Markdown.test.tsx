@@ -3,14 +3,12 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Markdown } from "./Markdown";
 
-// Mock the MarkdownIt instance and its render method
-jest.mock("markdown-it", () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      render: jest.fn((content) => `<p>${content}</p>`), // Simplified mock implementation
-    };
-  });
-});
+// Mock the marked library
+jest.mock("marked", () => ({
+  marked: {
+    parse: jest.fn((content) => `<p>${content}</p>`), // Simplified mock implementation
+  },
+}));
 
 describe("Markdown", () => {
   it("renders correctly with minimal props", () => {
