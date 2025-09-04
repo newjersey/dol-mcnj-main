@@ -29,7 +29,7 @@ export const Distance = () => {
   return (
     <div className="section distance">
       <div className="label">
-        <strong>Event a New Jersey Zip Code</strong>
+        <strong>Enter a New Jersey Zip Code</strong>
       </div>
       <div className="input-row">
         <FormInput
