@@ -8,7 +8,7 @@ cd $(git rev-parse --show-toplevel)
 
 # Run linters
 npm run lint
-npm --prefix=backend run lint
+cd backend && npm run lint && cd ..
 
 # Run fence checks (only backend has fences in this structure)
 npm --prefix=backend run fences
