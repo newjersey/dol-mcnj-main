@@ -409,36 +409,40 @@ export async function getSearchData(props: {
         pageData.sort((a: ResultProps, b: ResultProps) => {
           const completionRateA = getCompletionRate(a.outcomes);
           const completionRateB = getCompletionRate(b.outcomes);
-          const valueA = completionRateA == null ? Number.NEGATIVE_INFINITY : completionRateA;
-          const valueB = completionRateB == null ? Number.NEGATIVE_INFINITY : completionRateB;
-          return valueB - valueA;
+          if (completionRateA == null && completionRateB == null) return 0;
+          if (completionRateA == null) return 1;
+          if (completionRateB == null) return -1;
+          return completionRateB - completionRateA;
         });
         break;
       case "credential":
         pageData.sort((a: ResultProps, b: ResultProps) => {
           const credentialRateA = getCredentialRate(a.outcomes);
           const credentialRateB = getCredentialRate(b.outcomes);
-          const valueA = credentialRateA == null ? Number.NEGATIVE_INFINITY : credentialRateA;
-          const valueB = credentialRateB == null ? Number.NEGATIVE_INFINITY : credentialRateB;
-          return valueB - valueA;
+          if (credentialRateA == null && credentialRateB == null) return 0;
+          if (credentialRateA == null) return 1;
+          if (credentialRateB == null) return -1;
+          return credentialRateB - credentialRateA;
         });
         break;
       case "salary-high":
         pageData.sort((a: ResultProps, b: ResultProps) => {
           const salaryA = getAverageSalary(a.outcomes);
           const salaryB = getAverageSalary(b.outcomes);
-          const valueA = salaryA == null ? Number.NEGATIVE_INFINITY : salaryA;
-          const valueB = salaryB == null ? Number.NEGATIVE_INFINITY : salaryB;
-          return valueB - valueA;
+          if (salaryA == null && salaryB == null) return 0;
+          if (salaryA == null) return 1;
+          if (salaryB == null) return -1;
+          return salaryB - salaryA;
         });
         break;
       case "salary-low":
         pageData.sort((a: ResultProps, b: ResultProps) => {
           const salaryA = getAverageSalary(a.outcomes);
           const salaryB = getAverageSalary(b.outcomes);
-          const valueA = salaryA == null ? Number.POSITIVE_INFINITY : salaryA;
-          const valueB = salaryB == null ? Number.POSITIVE_INFINITY : salaryB;
-          return valueA - valueB;
+          if (salaryA == null && salaryB == null) return 0;
+          if (salaryA == null) return 1;
+          if (salaryB == null) return -1;
+          return salaryA - salaryB;
         });
         break;
       default:
