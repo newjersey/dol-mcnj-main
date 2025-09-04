@@ -31,7 +31,7 @@ export const article = {
           {
             nodeType: "hyperlink",
             data: {
-              uri: "/contact",
+              uri: "?contactModal=true",
             },
             content: [
               {
