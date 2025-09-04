@@ -1,8 +1,7 @@
 import * as dotenv from "dotenv";
 import "./utils/global";
 import * as Sentry from "@sentry/node";
-import express, { Request, Response } from "express";
-import path from "path";
+import express from "express";
 import cors from "cors";
 import AWS from 'aws-sdk';
 import { routerFactory } from "./routes/router";
@@ -23,6 +22,7 @@ import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import {getOccupationDetailByCIPFactory} from "./domain/occupations/getOccupationDetailByCIP";
 // import { rateLimiter } from "./utils/rateLimiter";
 import { createProxyMiddleware, Options } from 'http-proxy-middleware';
+import { IncomingMessage, ServerResponse, ClientRequest } from 'http';
 dotenv.config();
 // console.log(process.env);
 
@@ -228,7 +228,7 @@ app.use(
     changeOrigin: true,
     xfwd: true,
     // No pathRewrite needed
-    onProxyReq: (proxyReq: any, req: any, res: any) => {
+    onProxyReq: (proxyReq: ClientRequest, req: IncomingMessage, _res: ServerResponse) => {
       if (req.headers['user-agent']) {
         proxyReq.setHeader('user-agent', req.headers['user-agent']);
       }
@@ -236,8 +236,7 @@ app.use(
         proxyReq.setHeader('cookie', req.headers.cookie);
       }
     }
-  } as any)
-)
-;
+  } as Options<IncomingMessage, ServerResponse>)
+);
 app.use(Sentry.Handlers.errorHandler());
 export default app;
