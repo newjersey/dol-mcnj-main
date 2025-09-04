@@ -133,7 +133,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
             {
               icon: "Truck",
               title: "Why consider a TDL Career",
-              copy: "### Quality Jobs\n\nMany jobs in transportation distribution and logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.\n\n### For a variety of interests\n\nThe industry offers opportunities for people who like working with customers – flight attendants and train conductors, for example - as well as people who like to build and fix things and solve problems, like engineers, service technicians, and mechanics.\n\n### Important Contribution\n\nTransportation, Distribution, and Logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.",
+              copy: "### Quality Jobs\n\nMany jobs in Transportation Distribution and Logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.\n\n### For a variety of interests\n\nThe industry offers opportunities for people who like working with customers – flight attendants and train conductors, for example - as well as people who like to build and fix things and solve problems, like engineers, service technicians, and mechanics.\n\n### Important Contribution\n\nTransportation, Distribution, and Logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.",
             },
             {
               icon: "Star",

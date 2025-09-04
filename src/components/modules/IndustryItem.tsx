@@ -4,7 +4,7 @@ import { Tag } from "./Tag";
 import Image from "next/image";
 import { Flex } from "@components/utility/Flex";
 import { Button } from "./Button";
-import { ArrowRight, Info } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, InfoIcon } from "@phosphor-icons/react/dist/ssr";
 import { Drawer } from "./Drawer";
 import { useEffect, useState } from "react";
 import { Heading } from "./Heading";
@@ -20,7 +20,6 @@ export const IndustryItem = ({
   drawerCards,
   active,
   drawerDescription,
-  shorthandTitle,
 }: IndustryItemProps) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -37,9 +36,7 @@ export const IndustryItem = ({
       className="industryDrawer"
     >
       <Flex direction="column" gap="sm">
-        <Heading level={3}>
-          {shorthandTitle ? shorthandTitle : title} in New Jersey
-        </Heading>
+        <Heading level={3}>{title} in New Jersey</Heading>
         <p>{drawerDescription}</p>
         <Image
           src={image.src}
@@ -95,7 +92,7 @@ export const IndustryItem = ({
         </Flex>
         <div className="buttons">
           <Button type="link" link={`/career-pathways/${slug}`}>
-            Explore <ArrowRight size={20} />
+            Explore <ArrowRightIcon size={20} />
           </Button>
           <Button
             unstyled
@@ -104,7 +101,7 @@ export const IndustryItem = ({
               setDrawerOpen(true);
             }}
           >
-            <Info size={20} weight="bold" /> Learn More
+            <InfoIcon size={20} weight="bold" /> Learn More
           </Button>
         </div>
       </Flex>
