@@ -2,6 +2,12 @@
 
 cd $(git rev-parse --show-toplevel)
 
+# Safety: Create dummy frontend directory if something tries to access it
+if [ ! -d "frontend" ]; then
+  mkdir -p frontend
+  echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
+fi
+
 FRONTEND_PORT=3000
 BACKEND_PORT=8080
 
