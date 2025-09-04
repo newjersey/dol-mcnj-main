@@ -404,30 +404,38 @@ export async function getSearchData(props: {
         break;
       case "completion":
         pageData.sort((a: ResultProps, b: ResultProps) => {
-          const completionRateA = getCompletionRate(a.outcomes) ?? 0;
-          const completionRateB = getCompletionRate(b.outcomes) ?? 0;
-          return completionRateB - completionRateA;
+          const completionRateA = getCompletionRate(a.outcomes);
+          const completionRateB = getCompletionRate(b.outcomes);
+          const valueA = completionRateA == null ? Number.NEGATIVE_INFINITY : completionRateA;
+          const valueB = completionRateB == null ? Number.NEGATIVE_INFINITY : completionRateB;
+          return valueB - valueA;
         });
         break;
       case "credential":
         pageData.sort((a: ResultProps, b: ResultProps) => {
-          const credentialRateA = getCredentialRate(a.outcomes) ?? 0;
-          const credentialRateB = getCredentialRate(b.outcomes) ?? 0;
-          return credentialRateB - credentialRateA;
+          const credentialRateA = getCredentialRate(a.outcomes);
+          const credentialRateB = getCredentialRate(b.outcomes);
+          const valueA = credentialRateA == null ? Number.NEGATIVE_INFINITY : credentialRateA;
+          const valueB = credentialRateB == null ? Number.NEGATIVE_INFINITY : credentialRateB;
+          return valueB - valueA;
         });
         break;
       case "salary-high":
         pageData.sort((a: ResultProps, b: ResultProps) => {
-          const salaryA = getAverageSalary(a.outcomes) ?? 0;
-          const salaryB = getAverageSalary(b.outcomes) ?? 0;
-          return salaryB - salaryA;
+          const salaryA = getAverageSalary(a.outcomes);
+          const salaryB = getAverageSalary(b.outcomes);
+          const valueA = salaryA == null ? Number.NEGATIVE_INFINITY : salaryA;
+          const valueB = salaryB == null ? Number.NEGATIVE_INFINITY : salaryB;
+          return valueB - valueA;
         });
         break;
       case "salary-low":
         pageData.sort((a: ResultProps, b: ResultProps) => {
-          const salaryA = getAverageSalary(a.outcomes) ?? 0;
-          const salaryB = getAverageSalary(b.outcomes) ?? 0;
-          return salaryA - salaryB;
+          const salaryA = getAverageSalary(a.outcomes);
+          const salaryB = getAverageSalary(b.outcomes);
+          const valueA = salaryA == null ? Number.POSITIVE_INFINITY : salaryA;
+          const valueB = salaryB == null ? Number.POSITIVE_INFINITY : salaryB;
+          return valueA - valueB;
         });
         break;
       default:
