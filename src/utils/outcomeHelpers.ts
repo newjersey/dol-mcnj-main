@@ -86,10 +86,13 @@ export const getCredentialRate = (outcome: ProgramOutcome | undefined): number |
   return typeof rate === 'string' ? parseFloat(rate) : rate;
 };
 
-export const formatPercentage = (rate: number | undefined): string => {
+export const formatPercentage = (
+  rate: number | undefined,
+  isDecimal: boolean = true
+): string => {
   if (rate === undefined || rate === null || typeof rate !== 'number') return 'N/A';
-  // If the number is less than 1, assume it's a decimal (0.6125 = 61.25%)
-  const percentage = rate < 1 ? rate * 100 : rate;
+  // If isDecimal is true, convert decimal to percentage (0.6125 = 61.25%)
+  const percentage = isDecimal ? rate * 100 : rate;
   return `${Math.round(percentage)}%`;
 };
 
