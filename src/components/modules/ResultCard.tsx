@@ -138,7 +138,7 @@ const ResultCard = (props: ResultCardProps) => {
             <BriefcaseIcon size={16} />
             <span>
               {outcomes && hasOutcomeData(outcomes)
-                ? `${formatPercentage(getPercentEmployed(outcomes))} employed`
+                ? `${formatPercentage(getPercentEmployed(outcomes), false)} employed`
                 : percentEmployed
                 ? `${Math.floor(percentEmployed * 100 * 10) / 10}% employed`
                 : "-- employed"}

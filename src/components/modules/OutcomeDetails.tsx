@@ -54,6 +54,21 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
         </div>
         
         <div className="grid grid-cols-1 tabletMd:grid-cols-4 gap-4">
+          {/* Completion percentage */}
+          <div className="bg-white rounded-lg p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                </svg>
+              </div>
+              <span className="text-sm font-medium text-gray-900 leading-tight">Completion percentage</span>
+            </div>
+            <div className="text-2xl font-bold text-gray-900">
+              {formatPercentage(completionRate)}
+            </div>
+          </div>
+
           {/* Percent of employed graduates */}
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
@@ -68,11 +83,11 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             </div>
             <div className="space-y-1">
               <div>
-                <div className="text-2xl font-bold text-gray-900">{formatPercentage(employmentQ2)}</div>
+                <div className="text-2xl font-bold text-gray-900">{formatPercentage(employmentQ2, false)}</div>
                 <div className="text-sm text-gray-600">at 6 months</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">{formatPercentage(employmentQ4)}</div>
+                <div className="text-2xl font-bold text-gray-900">{formatPercentage(employmentQ4, false)}</div>
                 <div className="text-sm text-gray-600">at 12 months</div>
               </div>
             </div>
@@ -101,20 +116,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             </div>
           </div>
 
-          {/* Completion percentage */}
-          <div className="bg-white rounded-lg p-4 shadow-sm">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
-                </svg>
-              </div>
-              <span className="text-sm font-medium text-gray-900 leading-tight">Completion percentage</span>
-            </div>
-            <div className="text-2xl font-bold text-gray-900">
-              {formatPercentage(completionRate)}
-            </div>
-          </div>
+          
 
           {/* Top three industries for completers */}
           <div className="bg-white rounded-lg p-4 shadow-sm">
