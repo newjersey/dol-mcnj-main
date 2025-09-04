@@ -112,10 +112,10 @@ People who need 24-hour supervision, but don't need to be hospitalized stay in n
         drawerCards: [
           {
             icon: "tdl" as SelectorProps["name"],
-            title: "Why consider a TDL Career",
+            title: "Why consider a Transportation, Distribution, and Logistics career",
             copy: `### Quality Jobs
 
-Many jobs in transportation distribution and logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.
+Many jobs in Transportation, Distribution, and Logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.
 
 ### For a variety of interests
 
@@ -126,7 +126,7 @@ The industry offers opportunities for people who like working with customers - f
 Transportation, Distribution, and Logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.`,
           },
           {
-            title: "Top TDL Sectors",
+            title: "Top Transportation, Distribution, and Logistics sectors",
             copy: `### Air Transportation
 
 Aircraft are used to move passengers or cargo. They can be scheduled or on-demand and the companies that run them range in size from major airlines to regional carriers. New Jersey is home to three commercial airports - Newark Liberty, Trenton Mercer, and Atlantic City - eight airports that support corporate and private-use general aviation activities, 30 other public-use airports, one seaplane base, as well as several heliports and balloon ports.
