@@ -64,8 +64,8 @@ export const CompareTable = () => {
                   {compare.map((item) => (
                     <td key={item.id}>
                       {" "}
-                      {formatPercentage(getPercentEmployed(item.outcomes)) !== 'N/A'
-                        ? `${formatPercentage(getPercentEmployed(item.outcomes))} Employed`
+                      {formatPercentage(getPercentEmployed(item.outcomes), false) !== 'N/A'
+                        ? `${formatPercentage(getPercentEmployed(item.outcomes), false)} Employed`
                         : "--"}
                     </td>
                   ))}
@@ -93,7 +93,7 @@ export const CompareTable = () => {
                   <td>Credential Rate %</td>
                   {compare.map((item) => {
                     const credentialRate = getCredentialRate(item.outcomes);
-                    const formattedCredentialRate = formatPercentage(credentialRate);
+                    const formattedCredentialRate = formatPercentage(credentialRate, false);
                     return (
                       <td key={item.id}>
                         {formattedCredentialRate !== 'N/A'
