@@ -2,6 +2,8 @@
 
 [![build](https://circleci.com/gh/newjersey/dol-mcnj-main.svg?style=shield)](https://circleci.com/gh/newjersey/dol-mcnj-main)
 
+<!-- CircleCI debug build trigger Sept 4, 2025 -->
+
 ## Overview
 
 This repo is the home for the My Career NJ web app ([mycareer.nj.gov](https://mycareer.nj.gov/)), a one-stop shop for New Jerseyans seeking to explore training programs, in-demand career insights, and data-driven career advice custom-tailored to users’ experiences. Note that this repository does not yet include Career Navigator.
