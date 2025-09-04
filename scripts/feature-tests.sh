@@ -12,20 +12,11 @@ kill $(lsof -i:${BACKEND_PORT} -t) 2>/dev/null || true
 set -e
 
 echo "starting app"
-echo "Current directory: $(pwd)"
-echo "Contents of current directory:"
-ls -la
-echo "Running build script..."
 ./scripts/build.sh
 
 # Start backend
 echo "Starting backend on port ${BACKEND_PORT}..."
-echo "Entering backend directory..."
 cd backend
-echo "Current directory: $(pwd)"
-echo "Contents of backend directory:"
-ls -la
-echo "Running backend npm start..."
 DB_ENV=dev npm start > /dev/null &
 BACKEND_PID=$!
 cd ..
