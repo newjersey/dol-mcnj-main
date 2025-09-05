@@ -10,7 +10,7 @@ export const content = {
     title: "NJ Career Pathways",
     subheading: "Map Out Your Career Path:",
     description:
-      "The pathways tool is easy to use! It saves you time by bringing everything - high growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, without stress.",
+      "The pathways tool is easy to use!  It saves you time by bringing high-growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, and without stress.",
   },
   betaToolTip:
     "Our team is currently researching and developing more pathways. Check back regularly for updates.",
@@ -29,7 +29,7 @@ export const content = {
         drawerCards: [
           {
             icon: "manufacturing" as SelectorProps["name"],
-            title: "Why to consider a Manufacturing Career",
+            title: "Why consider a Manufacturing Career",
             copy: `### Growth potential
 
 A lot of manufacturing companies offer on-site job training, so there is always room to grow and advance your career.
@@ -70,7 +70,7 @@ Metal manufacturers transform metals into parts that are used in airplanes, brid
         drawerCards: [
           {
             icon: "healthcare" as SelectorProps["name"],
-            title: "Why to consider a Healthcare Career",
+            title: "Why consider a Healthcare Career",
             copy: `### Job Security
 
 Healthcare is one of the fastest growing and most stable industries to work in. Health care is the only industry that has added jobs in the state every year from 1990 through 2019, even in times of recessions.
@@ -108,14 +108,14 @@ People who need 24-hour supervision, but don't need to be hospitalized stay in n
         description:
           "Pathways for this sector are in development but you can still explore the most in-demand TDL occupations.",
         drawerDescription:
-          "Be an important part of our nation's supply chain with a career in transportation, distribution, and logistics (TDL). The diverse range of job roles and responsibilities listed below represent the latest in-demand TDL positions in the state of New Jersey.",
+          "Be an important part of our nation's supply chain with a career in Transportation, Distribution, and Logistics (TDL). The diverse range of job roles and responsibilities listed below represent the latest in-demand TDL positions in the state of New Jersey.",
         drawerCards: [
           {
             icon: "tdl" as SelectorProps["name"],
-            title: "Why to consider a TDL Career",
+            title: "Why consider a Transportation, Distribution, and Logistics career",
             copy: `### Quality Jobs
 
-Many jobs in transportation distribution and logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.
+Many jobs in Transportation, Distribution, and Logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.
 
 ### For a variety of interests
 
@@ -123,10 +123,10 @@ The industry offers opportunities for people who like working with customers - f
 
 ### Important Contribution
 
-Transportation disctribulation and logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.`,
+Transportation, Distribution, and Logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.`,
           },
           {
-            title: "Top Manufacturing Sectors",
+            title: "Top Transportation, Distribution, and Logistics sectors",
             copy: `### Air Transportation
 
 Aircraft are used to move passengers or cargo. They can be scheduled or on-demand and the companies that run them range in size from major airlines to regional carriers. New Jersey is home to three commercial airports - Newark Liberty, Trenton Mercer, and Atlantic City - eight airports that support corporate and private-use general aviation activities, 30 other public-use airports, one seaplane base, as well as several heliports and balloon ports.
