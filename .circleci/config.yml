@@ -72,7 +72,7 @@ jobs:
             cat package.json | grep -A 10 -B 2 '"scripts"'
             echo "=== RUNNING JEST DIRECTLY ==="
             echo "Command: NODE_OPTIONS="--max_old_space_size=6144" npx jest --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --watchAll=false --maxWorkers=1 --forceExit --logHeapUsage"
-            NODE_OPTIONS="--max_old_space_size=6144" npx jest --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --watchAll=false --maxWorkers=1 --forceExit --logHeapUsage || echo "Next.js tests completed with issues"
+            NODE_OPTIONS="--max_old_space_size=6144" npx jest --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --watchAll=false --maxWorkers=1 --forceExit --logHeapUsage
           no_output_timeout: 30m
       - store_artifacts:
           path: coverage
@@ -153,7 +153,7 @@ jobs:
             echo "Running backend tests..."
             echo "PostgreSQL status: $(pg_isready -h localhost -p 5432 -U postgres)"
             echo "Backend test command: PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=\"\" NODE_OPTIONS=\"--max_old_space_size=4096\" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit"
-            PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD="" NODE_OPTIONS="--max_old_space_size=4096" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit || echo "Backend tests completed with issues"
+            PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD="" NODE_OPTIONS="--max_old_space_size=4096" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit
           no_output_timeout: 20m
       - run:
           name: Execute feature tests script
