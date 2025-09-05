@@ -1,0 +1,81 @@
+@use "../settings" as s;
+
+.occupationListItem {
+  padding: s.$size-8 s.$size-8 s.$size-4;
+  border: s.$size-1 solid s.$base-lighter;
+  border-radius: s.$border-radius-5;
+
+  button {
+    &.primary {
+      &.usa-button {
+        width: 100%;
+        justify-content: space-between;
+        text-decoration: none;
+
+        &:focus {
+          outline: none;
+        }
+
+        > span {
+          display: flex;
+          align-items: center;
+          gap: s.$size-16;
+        }
+
+        svg {
+          width: auto;
+          height: s.$size-24;
+          color: s.$ink;
+
+          &.suffix {
+            width: s.$size-18;
+            margin-right: s.$size-8;
+          }
+        }
+
+        .occ-icon {
+          svg {
+            width: auto;
+            height: s.$size-40;
+          }
+        }
+      }
+    }
+  }
+
+  ul {
+    border-top: s.$size-1 solid s.$base-lighter;
+    margin-top: s.$size-8;
+    padding: s.$size-8;
+    list-style-type: none;
+
+    @media screen and (min-width: (s.$tablet)) {
+      padding: s.$size-8 s.$size-8 s.$size-8 s.$size-80;
+    }
+  }
+
+  li {
+    display: flex;
+
+    @media screen and (min-width: (s.$tablet)) {
+      gap: s.$size-16;
+      align-items: center;
+    }
+
+    @media screen and (max-width: (s.$tablet - 1)) {
+      flex-direction: column;
+    }
+
+    + li {
+      margin-top: s.$size-6;
+    }
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

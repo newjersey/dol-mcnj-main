@@ -1,0 +1,30 @@
+@use "../settings" as s;
+@use "../mixins" as mixins;
+
+.seeMoreList {
+  line-height: 1.6;
+
+  > p {
+    font-size: s.$size-16;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  > ul {
+    margin: s.$size-8 0;
+  }
+
+  .hasLink {
+    color: s.$primary-vivid;
+  }
+
+  a {
+    @include mixins.linkColor;
+  }
+
+  .usa-button {
+    &.show {
+      @include mixins.linkColor;
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@use "../settings" as s;
+
+.systemError {
+  border-radius: s.$size-20;
+  box-shadow: s.$shadow-3;
+  max-width: s.$size-560;
+  margin: s.$size-48 auto;
+  overflow: hidden;
+
+  &.color-navy {
+    .heading {
+      background-color: s.$info-lighter;
+    }
+  }
+  &.color-blue {
+    .heading {
+      background-color: s.$primary-lighter;
+    }
+  }
+  &.color-green {
+    .heading {
+      background-color: s.$secondary-lighter;
+    }
+  }
+  &.color-purple {
+    .heading {
+      background-color: s.$tertiary-lighter;
+    }
+  }
+  &.color-orange {
+    .heading {
+      background-color: s.$accent-warm-lighter;
+    }
+  }
+
+  .heading {
+    display: flex;
+    align-items: center;
+    gap: s.$size-32;
+    padding: s.$size-32;
+
+    .heading-tag {
+      margin: 0;
+      font-size: s.$size-32;
+      font-weight: 600;
+    }
+  }
+
+  .copy {
+    padding: s.$size-32;
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-16;
+
+      li {
+        margin: 0;
+      }
+    }
+  }
+}

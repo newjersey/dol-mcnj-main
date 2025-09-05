@@ -1,0 +1,20 @@
+@use "../settings" as s;
+
+.inDemandList {
+  .hero {
+    padding-top: s.$size-32;
+
+    .heading-tag {
+      font-size: s.$size-32;
+    }
+  }
+
+  .listBlock {
+    padding: s.$size-22 0 s.$size-48;
+  }
+
+  .usa-breadcrumb {
+    border-bottom: s.$size-1 solid s.$base-lighter;
+    padding-bottom: s.$size-8;
+  }
+}

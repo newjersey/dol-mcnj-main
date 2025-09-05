@@ -1,0 +1,439 @@
+@use "../settings" as s;
+@use "../mixins" as mixins;
+
+@mixin unstyledButton {
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+  text-underline-offset: s.$size-4;
+  text-decoration-thickness: s.$size-2;
+  font-weight: bold;
+  justify-content: flex-start;
+  text-align: left;
+  line-height: 1.5;
+
+  & {
+    @include mixins.linkColor;
+  }
+}
+
+.usa-button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: s.$size-8;
+  text-align: left;
+  padding: s.$size-14 s.$size-22;
+  transition-duration: s.$transition-speed;
+  transition-property: background-color, color, box-shadow;
+
+  &:focus {
+    outline-offset: 0 !important;
+    outline-width: s.$size-4 !important;
+    outline-color: s.$primary !important;
+  }
+
+  &.unstyled {
+    &:disabled {
+      color: s.$base !important;
+      cursor: not-allowed;
+    }
+  }
+
+  &:not(.unstyled) {
+    &:disabled {
+      &.cool,
+      &.primary,
+      &.secondary,
+      &.tertiary,
+      &.quaternary,
+      &.quinary {
+        background-color: s.$base !important;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &.cool {
+    &:not(.usa-button--outline):not(.tag):not(.unstyled) {
+      background: s.$accent-cool-lighter;
+      color: s.$primary-darker;
+
+      &:hover {
+        background: s.$accent-cool-light;
+      }
+    }
+
+    &.usa-button--outline {
+      background: s.$white;
+      box-shadow: inset 0 0 0 s.$size-2 s.$primary;
+      color: s.$primary;
+    }
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$primary-dark;
+        color: s.$primary-darker;
+      }
+    }
+
+    &.unstyled {
+      @include unstyledButton;
+    }
+  }
+
+  &.primary {
+    &:not(.usa-button--outline):not(.tag):not(.unstyled) {
+      background: s.$primary;
+      color: s.$white;
+
+      &:hover {
+        background: s.$primary-dark;
+      }
+    }
+
+    &.usa-button--outline {
+      background: s.$white;
+      box-shadow: none;
+      outline: s.$size-2 solid s.$primary;
+      color: s.$primary;
+
+      &:hover {
+        background: s.$white;
+        color: s.$primary;
+        box-shadow: s.$shadow-3;
+      }
+    }
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$primary-dark;
+        color: s.$white;
+      }
+    }
+
+    &.unstyled {
+      @include unstyledButton;
+    }
+  }
+
+  &.secondary {
+    &:not(.usa-button--outline):not(.tag):not(.unstyled) {
+      background: s.$secondary;
+      color: s.$white;
+
+      &:hover {
+        background: s.$secondary-dark;
+      }
+    }
+
+    &.usa-button--outline {
+      background: s.$white;
+      box-shadow: none;
+      outline: s.$size-2 solid s.$secondary;
+      color: s.$secondary;
+
+      &:hover {
+        background: s.$white;
+        color: s.$secondary;
+        box-shadow: s.$shadow-3;
+      }
+    }
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$secondary-dark;
+        color: s.$white;
+      }
+    }
+
+    &.unstyled {
+      @include unstyledButton;
+    }
+  }
+
+  &.tertiary {
+    &:not(.usa-button--outline):not(.tag):not(.unstyled) {
+      background: s.$tertiary;
+      color: s.$white;
+
+      &:hover {
+        background: s.$tertiary-dark;
+      }
+    }
+
+    &.usa-button--outline {
+      background: s.$white;
+      box-shadow: none;
+      outline: s.$size-2 solid s.$tertiary;
+      color: s.$tertiary;
+
+      &:hover {
+        background: s.$white;
+        color: s.$tertiary;
+        box-shadow: s.$shadow-3;
+      }
+    }
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$tertiary-dark;
+        color: s.$white;
+      }
+    }
+
+    &.unstyled {
+      @include unstyledButton;
+    }
+  }
+
+  &.quaternary {
+    &:not(.usa-button--outline):not(.tag):not(.unstyled) {
+      background: s.$info-darker;
+      color: s.$white;
+
+      &:hover {
+        background: s.$info-dark;
+      }
+    }
+
+    &.usa-button--outline {
+      background: s.$white;
+      box-shadow: none;
+      outline: s.$size-2 solid s.$info-darker;
+      color: s.$info-darker;
+
+      &:hover {
+        background: s.$white;
+        color: s.$info-darker;
+        box-shadow: s.$shadow-3;
+      }
+    }
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$info-dark;
+        color: s.$white;
+      }
+    }
+
+    &.unstyled {
+      @include unstyledButton;
+    }
+  }
+
+  &.quinary {
+    &:not(.usa-button--outline):not(.tag):not(.unstyled) {
+      background: s.$accent-warm;
+      color: s.$white;
+
+      &:hover {
+        @media screen and (min-width: (s.$tablet)) {
+          background-color: s.$accent-warm-dark;
+          color: s.$white;
+        }
+      }
+    }
+
+    &.usa-button--outline {
+      background: s.$white;
+      box-shadow: none;
+      outline: s.$size-2 solid s.$accent-warm;
+      color: s.$accent-warm;
+
+      &:hover {
+        background: s.$white;
+        color: s.$accent-warm;
+        box-shadow: s.$shadow-3;
+      }
+    }
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$accent-warm-dark;
+        color: s.$white;
+      }
+    }
+
+    &.unstyled {
+      @include unstyledButton;
+    }
+  }
+
+  &[class*="highlight-"] {
+    padding: s.$size-8 s.$size-16;
+    border-radius: s.$size-5;
+    border: s.$size-2 solid;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        box-shadow: s.$shadow-3;
+      }
+    }
+
+    span:not(.svg-container):not(.grouping) {
+      display: block;
+      width: 100%;
+    }
+
+    .grouping {
+      @media screen and (max-width: (s.$tablet - 1)) {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  &.centered-text {
+    text-align: center;
+    justify-content: center;
+  }
+
+  // starts with highlight- and ends with -light
+  &[class*="highlight-"] {
+    color: s.$black;
+  }
+
+  &.highlight-orange {
+    background: s.$accent-warm-lighter;
+    border-color: s.$accent-warm-light;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        background-color: s.$accent-warm-light;
+        border-color: s.$accent-warm;
+      }
+    }
+  }
+
+  &.highlight-blue {
+    background: s.$primary-lighter;
+    border-color: s.$primary-light;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$primary;
+        background: s.$primary-light;
+      }
+    }
+  }
+
+  &.highlight-purple {
+    background: s.$tertiary-lighter;
+    border-color: s.$tertiary-light;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        background: s.$tertiary-light;
+        border-color: s.$tertiary;
+      }
+    }
+  }
+
+  &.highlight-green {
+    background: s.$secondary-lighter;
+    border-color: s.$secondary-light;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$secondary;
+        background: s.$secondary-light;
+      }
+    }
+  }
+
+  &.highlight-base {
+    background: s.$base-extra-light;
+    border-color: s.$base-light;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$base-dark;
+        background: s.$base-lighter;
+      }
+    }
+  }
+
+  &.highlight-navy {
+    background: s.$info-lighter;
+    border-color: s.$info-light;
+
+    &:hover {
+      @media screen and (min-width: (s.$tablet)) {
+        border-color: s.$info-dark;
+        background: s.$info-light;
+      }
+    }
+  }
+
+  &.info {
+    background: s.$white;
+    font-weight: 500;
+  }
+
+  &.info,
+  &.svg:not([class*="highlight-"]) {
+    padding: s.$size-8 s.$size-16;
+    color: s.$ink;
+    border-radius: s.$size-5;
+    min-height: s.$size-50;
+    border: s.$size-2 solid s.$base-light;
+
+    &:hover {
+      background: s.$white;
+      color: s.$ink;
+      border-radius: s.$size-5;
+      border: s.$size-2 solid s.$base;
+      opacity: 1;
+
+      @media screen and (min-width: (s.$desktop)) {
+        box-shadow: s.$shadow-2;
+      }
+    }
+
+    &.fill {
+      .svg-container {
+        background-color: s.$primary-lighter;
+        border-radius: 100%;
+        padding: s.$size-4;
+        height: s.$size-30;
+        width: s.$size-30;
+      }
+    }
+
+    svg {
+      height: s.$size-30;
+      width: auto;
+      color: s.$ink;
+    }
+  }
+  .svg-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.unstyled {
+    @include unstyledButton;
+  }
+
+  &.tag {
+    background-color: s.$primary-lighter;
+    padding: s.$size-8 s.$size-16;
+    font-weight: 500;
+    color: s.$ink;
+
+    svg {
+      width: s.$size-20;
+    }
+
+    span {
+      width: calc(100% - s.$size-20);
+    }
+
+    &:hover {
+      background-color: s.$primary-lighter;
+      box-shadow: s.$shadow-2;
+      color: s.$ink;
+    }
+  }
+}

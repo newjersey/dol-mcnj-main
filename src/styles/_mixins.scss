@@ -1,0 +1,77 @@
+@use "./settings" as s;
+
+@mixin linkColor {
+  color: s.$primary;
+
+  &:visited {
+    color: s.$primary;
+  }
+
+  &:hover {
+    @media screen and (min-width: (s.$desktop)) {
+      color: s.$primary;
+    }
+  }
+}
+
+@mixin sectionPadding {
+  padding: s.$size-48 0;
+
+  @media screen and (max-width: (s.$tablet-lg - 1)) {
+    padding: s.$size-32 0;
+  }
+}
+
+// customizable border radius mixin
+@mixin radius5 {
+  border-radius: s.$border-radius-5;
+}
+
+@mixin radius10 {
+  border-radius: s.$border-radius-10;
+}
+
+@mixin radius15 {
+  border-radius: s.$border-radius-15;
+}
+
+@mixin radius20 {
+  border-radius: s.$border-radius-20;
+}
+
+@mixin radius5overflow {
+  @include radius5;
+  overflow: hidden;
+}
+
+@mixin radius10overflow {
+  @include radius10;
+  overflow: hidden;
+}
+
+@mixin radius15overflow {
+  @include radius15;
+  overflow: hidden;
+}
+
+@mixin radius20overflow {
+  @include radius20;
+  overflow: hidden;
+}
+
+@mixin underDash {
+  color: s.$black;
+  padding-bottom: s.$size-1;
+  background: linear-gradient(
+    90deg,
+    s.$black 0,
+    s.$black 60%,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0)
+  );
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: s.$size-16 s.$size-1;
+  border: none;
+  text-decoration: none;
+}

@@ -1,0 +1,21 @@
+{
+  "Scale-up": {
+    "prefix": "scale-up",
+    "body": ["@media screen and (min-width: (s.$$1)) {", "  $2", "}"],
+    "description": "Media Query going from narrow to wide."
+  },
+  "Scale-down": {
+    "prefix": "scale-down",
+    "body": ["@media screen and (max-width: (s.$$1 - 1)) {", "  $2", "}"],
+    "description": "Media Query going from wide to narrow."
+  },
+  "Scale-between": {
+    "prefix": "scale-between",
+    "body": [
+      "@media (max-width: (s.$$1 - 1)) and (min-width: (s.$$2)px){",
+      "  $3",
+      "}"
+    ],
+    "description": "Media Query going between wide to narrow."
+  }
+}

@@ -1,0 +1,81 @@
+@use "../settings" as s;
+.fancyBanner {
+  padding: s.$size-64 0 s.$size-48;
+  color: s.$primary-dark;
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: s.$size-32;
+
+    @media (max-width: s.$tablet) {
+      flex-direction: column;
+    }
+  }
+
+  .copy {
+    width: calc(50% - s.$size-32);
+    display: flex;
+    flex-direction: column;
+    gap: s.$size-16;
+
+    @media (max-width: s.$tablet) {
+      width: 100%;
+    }
+
+    * {
+      margin: 0;
+      text-wrap: pretty;
+    }
+  }
+
+  h1 {
+    font-size: s.$size-72;
+    line-height: 1.2;
+
+    @media (max-width: s.$tablet-xl) {
+      font-size: s.$size-48;
+    }
+  }
+
+  .subheading {
+    font-size: s.$size-40;
+    line-height: 1.2;
+
+    @media (max-width: s.$tablet-xl) {
+      font-size: s.$size-24;
+    }
+  }
+
+  .imageGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: s.$size-24;
+    width: 50%;
+    max-height: s.$size-300;
+
+    @media (max-width: s.$tablet) {
+      width: 100%;
+    }
+
+    .image {
+      overflow: hidden;
+      border-radius: s.$size-16;
+
+      img {
+        pointer-events: none;
+        user-select: none;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      &:nth-child(1) {
+        grid-row: span 2;
+      }
+    }
+  }
+}

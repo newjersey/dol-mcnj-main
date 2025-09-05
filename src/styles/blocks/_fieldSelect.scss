@@ -1,0 +1,167 @@
+@use "../settings" as s;
+
+.fieldSelect {
+  padding: s.$size-32 0 s.$size-64;
+
+  @media screen and (max-width: (s.$tablet - 1)) {
+    padding: s.$size-16 0 s.$size-32;
+  }
+
+  &.noPad {
+    padding-bottom: 0;
+  }
+
+  .sectionHeading {
+    margin: 0;
+  }
+
+  .heading-tag {
+    font-size: s.$size-32;
+    margin: 0;
+    display: inline;
+    font-weight: 500;
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      font-size: s.$size-24;
+      font-weight: bold;
+    }
+  }
+
+  .back {
+    color: s.$black;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    width: auto;
+    align-items: center;
+    justify-content: flex-start;
+    gap: s.$size-8;
+  }
+
+  .cards {
+    @media screen and (max-width: (s.$tablet - 1)) {
+      gap: s.$size-16;
+    }
+  }
+
+  .card {
+    @media screen and (min-width: (s.$tablet)) {
+      border: s.$size-1 solid s.$base-lighter;
+      border-radius: s.$size-8;
+      overflow: hidden;
+      padding: s.$size-16;
+    }
+
+    * + p,
+    p + * {
+      margin-top: 0;
+    }
+
+    p {
+      margin: 0;
+
+      @media screen and (max-width: (s.$tablet - 1)) {
+        display: none;
+      }
+    }
+
+    .heading-tag {
+      font-size: s.$size-22;
+      font-weight: 700;
+
+      @media screen and (max-width: (s.$tablet - 1)) {
+        display: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+      gap: s.$size-8;
+
+      @media (max-width: (s.$desktop - 1)) and (min-width: (s.$tablet)) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .usa-button {
+        text-align: left;
+        margin: 0;
+        outline-offset: 0;
+        justify-content: flex-start;
+
+        @media screen and (min-width: (s.$tablet)) {
+          width: s.$size-128;
+        }
+
+        &.learn-more-button {
+          @media screen and (max-width: (s.$tablet - 1)) {
+            width: s.$size-48;
+            height: s.$size-48;
+            justify-content: center;
+          }
+
+          .copy {
+            @media screen and (max-width: (s.$tablet - 1)) {
+              display: none;
+            }
+          }
+
+          svg {
+            @media screen and (max-width: (s.$tablet - 1)) {
+              width: s.$size-32;
+              height: s.$size-32;
+            }
+          }
+        }
+        &.radio-button {
+          padding: s.$size-8 s.$size-8;
+          text-align: left;
+          min-height: s.$size-56;
+
+          @media screen and (min-width: (s.$desktop)) {
+            width: calc(100% - s.$size-128);
+          }
+
+          @media (max-width: (s.$desktop - 1)) and (min-width: (s.$tablet)) {
+            width: 100%;
+          }
+
+          @media screen and (max-width: (s.$tablet - 1)) {
+            width: calc(100% - s.$size-48);
+          }
+
+          svg {
+            color: s.$base;
+            width: s.$size-24;
+            height: s.$size-24;
+
+            + span {
+              display: inline-block;
+              width: calc(100% - s.$size-32);
+            }
+          }
+
+          span {
+            span {
+              @media screen and (max-width: (s.$tablet - 1)) {
+                display: none;
+              }
+            }
+          }
+
+          &.active {
+            background-color: s.$primary-lighter;
+            border-color: s.$black;
+
+            svg {
+              color: s.$primary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

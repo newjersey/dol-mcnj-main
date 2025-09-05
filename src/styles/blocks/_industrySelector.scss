@@ -1,0 +1,41 @@
+@use "../settings" as s;
+
+.industrySelector {
+  .container {
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      padding: 0;
+    }
+
+    > .inner {
+      background-color: s.$tertiary-lighter;
+      padding: s.$size-32;
+      border-radius: s.$size-16;
+      overflow: hidden;
+
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        padding: s.$size-32 s.$size-16;
+      }
+    }
+
+    h2 {
+      margin: 0;
+
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        font-size: s.$size-24;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .labelBox {
+    svg {
+      width: s.$size-32;
+      height: s.$size-32;
+    }
+
+    .heading-tag {
+      font-size: s.$size-18;
+      font-weight: 500;
+    }
+  }
+}

@@ -1,0 +1,129 @@
+@use "../settings" as s;
+
+.tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: s.$size-4;
+  padding: s.$size-6 s.$size-12;
+  border-radius: s.$size-2;
+  font-weight: 500;
+  color: s.$ink;
+
+  &.small {
+    padding: s.$size-2 s.$size-8;
+    font-size: s.$size-14;
+    line-height: 1;
+
+    * {
+      font-size: s.$size-14;
+    }
+
+    svg {
+      width: s.$size-14;
+      height: s.$size-14;
+    }
+  }
+
+  &.chip {
+    padding: 5px 15px;
+    border-radius: s.$size-20;
+    border: none;
+    font-weight: bold;
+
+    &.color-green {
+      background-color: s.$secondary-light;
+    }
+
+    &.color-blue {
+      background-color: s.$primary-light;
+    }
+
+    &.color-purple {
+      background-color: s.$tertiary-light;
+    }
+
+    &.color-navy {
+      background-color: s.$info-light;
+    }
+
+    &.color-orange {
+      background-color: #fcdbb6;
+    }
+  }
+
+  &.color-base {
+    background-color: s.$base-lighter;
+    color: s.$base-darker;
+  }
+
+  &.color-green {
+    background-color: s.$success-lighter;
+    color: s.$secondary-dark;
+  }
+
+  &.color-blue {
+    background-color: s.$primary-extra-light;
+    color: s.$primary-darker;
+  }
+
+  &.color-purple {
+    background-color: s.$tertiary-lighter;
+    color: s.$tertiary-darker;
+  }
+
+  &.color-navy {
+    background-color: s.$info-lighter;
+    color: s.$info-darker;
+  }
+
+  &.color-orange {
+    background-color: #fcdbb6;
+    color: s.$accent-warm-darker;
+  }
+}
+
+button,
+a {
+  .tag-item {
+    cursor: pointer;
+    &:hover {
+      color: s.$white;
+    }
+
+    &.color-base {
+      &:hover {
+        background-color: s.$base;
+      }
+    }
+
+    &.color-green {
+      &:hover {
+        background-color: s.$secondary;
+      }
+    }
+
+    &.color-blue {
+      &:hover {
+        background-color: s.$primary-light;
+      }
+    }
+
+    &.color-purple {
+      &:hover {
+        background-color: s.$tertiary;
+      }
+    }
+
+    &.color-navy {
+      &:hover {
+        background-color: s.$info;
+      }
+    }
+
+    &.color-orange {
+      &:hover {
+        background-color: s.$accent-warm;
+      }
+    }
+  }
+}

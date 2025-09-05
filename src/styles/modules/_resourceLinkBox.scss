@@ -1,0 +1,39 @@
+@use "../settings" as s;
+
+.resourceLinkBox {
+  border-radius: s.$border-radius-10;
+  overflow: hidden;
+  padding: s.$size-48 s.$size-16;
+
+  .heading-tag {
+    color: s.$white;
+    text-align: center;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: s.$size-24;
+  }
+
+  .usa-button {
+    margin: 0;
+    justify-content: center;
+  }
+
+  &.color-navy {
+    background: s.$info-darker;
+  }
+  &.color-blue {
+    background: s.$primary;
+  }
+  &.color-green {
+    background: s.$secondary-dark;
+  }
+  &.color-purple {
+    background: s.$tertiary;
+  }
+  &.color-orange {
+    background: s.$accent-warm-dark;
+  }
+}
