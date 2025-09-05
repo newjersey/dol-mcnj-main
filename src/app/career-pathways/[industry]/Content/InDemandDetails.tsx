@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { RelatedTrainingCard } from "./RelatedTrainingCard";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
+import { getPercentEmployed } from "@utils/outcomeHelpers";
 
 export const InDemandDetails = (props: {
   inDemandList?: InDemandItemProps[];
@@ -41,18 +42,20 @@ export const InDemandDetails = (props: {
     setLoadingNumber(true);
     if (props.content && props.content.relatedTrainings) {
       const sortedCourses = props.content.relatedTrainings.sort((a, b) => {
-        if (a.percentEmployed === null && b.percentEmployed === null) {
+        const aEmploymentRate = getPercentEmployed(a.outcomes);
+        const bEmploymentRate = getPercentEmployed(b.outcomes);
+        // Handle undefined or null values safely
+        const aRate = aEmploymentRate ?? -1;
+        const bRate = bEmploymentRate ?? -1;
+        if (aRate === -1 && bRate === -1) {
           return a.name.localeCompare(b.name);
-        } else if (a.percentEmployed === null) {
+        } else if (aRate === -1) {
           return 1;
-        } else if (b.percentEmployed === null) {
+        } else if (bRate === -1) {
           return -1;
-        } else if (a.percentEmployed !== b.percentEmployed) {
-          return b.percentEmployed - a.percentEmployed;
-        } else if (
-          a.percentEmployed === b.percentEmployed &&
-          a.name !== b.name
-        ) {
+        } else if (aRate !== bRate) {
+          return bRate - aRate;
+        } else if (a.name !== b.name) {
           return a.name.localeCompare(b.name);
         } else {
           return 0;

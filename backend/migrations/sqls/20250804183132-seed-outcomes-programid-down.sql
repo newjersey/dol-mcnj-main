@@ -1,0 +1,1 @@
+DELETE FROM outcomes_programid;

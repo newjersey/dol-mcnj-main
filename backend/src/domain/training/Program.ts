@@ -1,3 +1,5 @@
+import {ProgramOutcome} from "./outcomes";
+
 export interface Program {
   programid: string;
   cipcode: string;
@@ -29,8 +31,7 @@ export interface Program {
   phone: string | null;
   phoneextension: string | null;
   indemandcip: string | null;
-  peremployed2: string | null;
-  avgquarterlywage2: string | null;
+  outcomes?: ProgramOutcome;
   onlineprogramid: string | null;
   eveningcourses: string;
   languages: string | null;
