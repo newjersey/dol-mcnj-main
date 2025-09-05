@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  productionBrowserSourceMaps: true,
   env: {
     REACT_APP_API_URL: process.env.REACT_APP_API_URL,
     REACT_APP_BASE_URL: process.env.REACT_APP_BASE_URL,
@@ -18,13 +19,14 @@ const nextConfig: NextConfig = {
     REACT_APP_SITE_URL: process.env.REACT_APP_SITE_URL,
   },
   images: {
-    unoptimized: true,
+    unoptimized: false,
+    domains: ["images.ctfassets.net", "www.nj.gov"],
   },
   async rewrites() {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:8080/:path*", // Proxy all API calls to backend
+        destination: "http://localhost:8080/api/:path*",
       },
     ];
   },
