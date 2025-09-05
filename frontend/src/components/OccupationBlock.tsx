@@ -124,6 +124,18 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
     }
   }, [props.content]);
 
+ const setQueryParam = (key: string, value: string) => {
+    const url = new URL(window.location.href);
+
+    // 1) set with spaces (URLSearchParams will encode to %20)
+    url.searchParams.set(key, value.trim().toLowerCase());
+
+    // 2) convert %20 → + for display
+    const pretty = url.toString().replace(/%20/g, "+");
+
+    window.history.replaceState({}, "", pretty);
+};
+
   return (
     <section className="occupation-block">
       <div className="container">
@@ -153,8 +165,9 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   key={item.sys.id}
                   className="occupation"
                   onClick={() => {
-                    props.setOccupation(item.idNumber);
-                    setOpen(false);
+                      props.setOccupation(item.idNumber); // still keep SOC internally
+                      setQueryParam("occupation", item.title); // slugified in helper
+                      setOpen(false);
                   }}
                 >
                   {item.title}

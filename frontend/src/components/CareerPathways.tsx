@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { OccupationNodeProps, CareerMapProps, SinglePathwayProps } from "../types/contentful";
 import { PathwayGroup } from "./PathwayGroup";
 import { Client } from "../domain/Client";
@@ -28,6 +28,7 @@ export const CareerPathways = ({
 }) => {
   const [selected, setSelected] = useState<SelectedProps>({});
   const [fieldChanged, setFieldChanged] = useState(false);
+  const [fieldId, setFieldId] = useState<string>("");
   const [mapOpen, setMapOpen] = useState(false);
   const [paths, setPaths] = useState<{
     mapId: string;
@@ -36,11 +37,121 @@ export const CareerPathways = ({
   }>();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    setFieldChanged(true);
-    setSelected({});
-  }, [paths]);
+  // Refs to control reset behavior
+  const prevMapId = useRef<string | null>(null);
+  const skipFirstResetDueToURL = useRef<boolean>(false);
 
+ const updateQueryParam = (params: Record<string, string | undefined>) => {
+  const url = new URL(window.location.href);
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value) {
+      // normalize spaces → "+"
+      const formatted = value.trim().toLowerCase().replace(/\s+/g, "+");
+      url.searchParams.set(key, formatted);
+    } else {
+      url.searchParams.delete(key);
+    }
+  });
+
+  // URLSearchParams will encode + as %2B if left alone.
+  // Replace both "%20" and "%2B" back into "+" for pretty output.
+  const pretty = url.toString().replace(/%20/g, "+").replace(/%2B/g, "+");
+
+  window.history.replaceState({}, "", pretty);
+};
+
+
+  // Parse URL and hydrate field/occupation on load and whenever careerMaps/paths change
+  useEffect(() => {
+    const normalizeParam = (s?: string) => (s ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+    const params = new URLSearchParams(window.location.search);
+
+    const fieldParams = params.get("field");
+    const fieldOccupation = params.get("occupation");
+
+    // If URL has occupation on first load, allow hydration before resets
+    if (fieldOccupation) {
+      skipFirstResetDueToURL.current = true;
+    }
+
+    if (fieldParams && careerMaps.length > 0) {
+      const normalizedField = normalizeParam(fieldParams);
+      console.log(careerMaps)
+      const matchedField = careerMaps.find(
+        (m) =>
+          m.title.toLowerCase() === normalizedField ||
+          m.sys.id === fieldParams
+      );
+      setFieldId(matchedField?.sys.id as string);
+
+      if (matchedField) {
+        setSelected((prev) => ({
+          ...prev,
+          groupId: matchedField.sys.id,
+        }));
+      }
+    }
+
+    // Once paths exist (after a field is selected), restore occupation if present
+    if (fieldOccupation && paths) {
+      const normalizedOcc = normalizeParam(fieldOccupation);
+      const matchedPath = paths.items.find((p) =>
+        p.occupationsCollection?.items.some((o) => o.title.toLowerCase() === normalizedOcc)
+      );
+
+      const matchedOccupation = matchedPath?.occupationsCollection?.items.find(
+        (o) => o.title.toLowerCase() === normalizedOcc
+      );
+
+      if (matchedPath && matchedOccupation) {
+        setSelected({
+          pathway: matchedPath.occupationsCollection?.items,
+          id: matchedOccupation.sys.id,
+          title: matchedOccupation.title,
+          pathTitle: matchedPath.title,
+          shortTitle: matchedOccupation.shortTitle,
+          groupId: paths.mapId,
+        });
+        setFieldChanged(false);
+      }
+    }
+  }, [careerMaps, paths]);
+
+  // Reset occupation & URL when the field (paths.mapId) changes
+  useEffect(() => {
+    if (!paths?.mapId) return;
+
+    // Skip the very first reset if we came in with a deep link that includes ?occupation=
+    if (!prevMapId.current && skipFirstResetDueToURL.current) {
+      prevMapId.current = paths.mapId;
+      return;
+    }
+
+    if (prevMapId.current !== paths.mapId) {
+      // Reset occupation UI/state
+      setSelected({});
+      setFieldChanged(true);
+      setOpen(false);
+
+      // Clear any saved occupation
+      try {
+        localStorage.removeItem("occupation");
+      } catch {
+        // ignore
+      }
+
+      // Update URL: set new field name (or use paths.mapId) and remove occupation
+      updateQueryParam({
+        field: paths.listTitle, // or use paths.mapId if you prefer IDs
+        occupation: undefined,
+      });
+
+      prevMapId.current = paths.mapId;
+    }
+  }, [paths?.mapId, paths?.listTitle]);
+
+  // Close dropdown handlers
   useEffect(() => {
     const closeDropdown = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -51,8 +162,13 @@ export const CareerPathways = ({
     const closeOnEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
+
     document.addEventListener("keydown", closeOnEsc);
     document.addEventListener("click", closeDropdown);
+    return () => {
+      document.removeEventListener("keydown", closeOnEsc);
+      document.removeEventListener("click", closeDropdown);
+    };
   }, []);
 
   const details = selected.id ? selected : {};
@@ -84,6 +200,7 @@ export const CareerPathways = ({
                 setMapOpen={setMapOpen}
                 industry={industry}
                 setOpen={setOpen}
+                fieldId={fieldId}
               />
             ))}
           </div>
@@ -108,11 +225,12 @@ export const CareerPathways = ({
               {!paths
                 ? "-Select an occupation-"
                 : !fieldChanged
-                  ? details?.shortTitle ||
-                    details?.title ||
-                    `-Select a ${paths.listTitle} occupation-`
-                  : `-Select a ${paths.listTitle} occupation-`}
+                ? details?.shortTitle ||
+                  details?.title ||
+                  `-Select a ${paths.listTitle} occupation-`
+                : `-Select a ${paths.listTitle} occupation-`}
             </button>
+
             {open && (
               <div className="dropdown-select">
                 {paths?.items.map((path) => (
@@ -150,7 +268,10 @@ export const CareerPathways = ({
                           );
                           setMapOpen(false);
                           setOpen(false);
-
+                          updateQueryParam({
+                            field: paths.listTitle,       
+                            occupation: occupation.title, 
+                          });
                           setTimeout(() => {
                             const el = document.getElementById("map-block");
                             if (el) {
@@ -176,6 +297,7 @@ export const CareerPathways = ({
           </div>
         </div>
       </div>
+
       {details.id && notEmpty && (
         <CareerDetail
           detailsId={details.id}
