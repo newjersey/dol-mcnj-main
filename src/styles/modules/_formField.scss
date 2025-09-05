@@ -15,8 +15,9 @@
     padding: s.$size-12 s.$size-8;
     text-align: left;
 
-    &::placeholder {
-      color: s.$base-light;
+    &::placeholder,
+    &.is-placeholder {
+      color: s.$base;
     }
   }
   select {
@@ -102,13 +103,11 @@
         width: auto;
       }
     }
+  }
 
-    &.error {
-      svg {
-        &.icon {
-          bottom: s.$size-32 + s.$size-4;
-        }
-      }
+  .inDemandOnly & {
+    label span {
+      font-weight: bold;
     }
   }
 
@@ -116,7 +115,6 @@
     &.checkbox {
       label {
         padding: 0;
-        font-weight: bold;
 
         &:before {
           content: none;

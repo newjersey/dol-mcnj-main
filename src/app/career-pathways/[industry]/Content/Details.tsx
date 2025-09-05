@@ -30,9 +30,11 @@ export const Details = ({
   const boxArray = [];
 
   const getJobNumbers = async () => {
-    const jobNumbers = await fetch(
-      `/api/jobcount/${content.title}`
-    );
+    const jobNumbers = await fetch(`/api/jobcount/${content.title}`);
+
+    if (jobNumbers.status !== 200) {
+      return undefined;
+    }
 
     const jobNumbersArray = await jobNumbers.json();
 
@@ -116,9 +118,7 @@ export const Details = ({
     setLoadingTraining(true);
     const searchTerm = content.trainingSearchTerms || content.title;
     const getTrainingList = async () => {
-      const training = await fetch(
-        `/api/trainings/search?query=${searchTerm}`
-      );
+      const training = await fetch(`/api/trainings/search?query=${searchTerm}`);
 
       const trainingArray = await training.json();
 
@@ -178,7 +178,7 @@ export const Details = ({
             <InfoBox
               eyebrow="Jobs Open in NJ"
               number={jobNumbers as number}
-              loading={!jobNumbers || loadingNumber}
+              loading={jobNumbers === null || loadingNumber}
               theme="purple"
               notAvailableText="Job data not available"
               tooltip="Job openings are based on postings from the NLx job board and reflect positions in New Jersey. The actual number of available jobs may vary."

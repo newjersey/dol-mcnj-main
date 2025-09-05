@@ -25,11 +25,11 @@ export const TOOLS_PAGE_DATA = {
         },
         items: [
           {
-            title: "National Labor Exchange",
+            title: "One Stop Job Board",
             message: "Search for jobs",
             icon: "ArrowSquareOut",
             link: {
-              href: "https://www.naswa.org/partnerships/nlx",
+              href: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=",
             },
           },
           {

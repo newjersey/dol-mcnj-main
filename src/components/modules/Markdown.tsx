@@ -1,6 +1,4 @@
-import MarkdownIt from "markdown-it";
-
-const mdParser = new MarkdownIt(/* Markdown-it options */);
+import { marked } from "marked";
 
 export const Markdown = ({
   content,
@@ -9,11 +7,13 @@ export const Markdown = ({
   content: string;
   className?: string;
 }) => {
+  const htmlContent = marked.parse(content, { async: false });
+
   return (
     <div
       className={className}
       dangerouslySetInnerHTML={{
-        __html: mdParser.render(content),
+        __html: htmlContent,
       }}
     />
   );
