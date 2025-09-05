@@ -20,9 +20,13 @@ import { ErrorBox } from "@components/modules/ErrorBox";
 import { colors } from "@utils/settings";
 import { FieldSelect } from "@components/blocks/FieldSelect";
 import { OccupationGroups } from "@components/blocks/OccupationGroups";
+import { useRouter, useSearchParams } from "next/navigation";
 import { numberShorthand } from "@utils/numberShorthand";
 
 export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [activeMap, setActiveMap] = useState<CareerMapProps>();
   const [open, setOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
@@ -41,9 +45,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const getCareerMap = async (id: string) => {
     const mapData = await client({
       query: CAREER_PATHWAY_QUERY,
-      variables: {
-        id,
-      },
+      variables: { id },
     });
     setActiveMap(mapData);
   };
@@ -51,30 +53,60 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const getOccupation = async (id: string) => {
     const occupationData = await client({
       query: OCCUPATION_QUERY,
-      variables: {
-        id,
-      },
+      variables: { id },
     });
     setActiveOccupation(occupationData);
   };
 
+  const setInDemandFromItem = (item: InDemandItemProps) => {
+    setActiveInDemand(item);
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    params.set("indemand", String(item.idNumber));
+    params.delete("occupation");
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
+
   useEffect(() => {
-    // if hit escape key, close .dropdown-select
+    const urlInDemand = searchParams?.get("indemand");
+    if (!urlInDemand) return;
+
+    if (activeInDemand && String(activeInDemand.idNumber) === urlInDemand) {
+      return;
+    }
+
+    const match = thisIndustry.inDemandCollection?.items?.find(
+      (i) => String(i.idNumber) === urlInDemand
+    );
+
+    if (match) {
+      setActiveInDemand(match);
+      return;
+    }
+
+    setActiveInDemand({
+      idNumber: urlInDemand,
+      title: `Occupation ${urlInDemand}`,
+      sys: { id: urlInDemand } as any,
+    } as InDemandItemProps);
+  }, [searchParams]);
+
+  useEffect(() => {
     const closeDropdown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setInDemandOpen(false);
-      }
+      if (e.key === "Escape") setInDemandOpen(false);
     };
     window.addEventListener("keydown", closeDropdown);
 
-    // if click outside of .dropdown-select, close .dropdown-select
     const closeDropdownClick = (e: MouseEvent) => {
       if (!(e.target as HTMLElement).closest(".occupationSelector")) {
         setInDemandOpen(false);
       }
     };
-
     window.addEventListener("click", closeDropdownClick);
+
+    return () => {
+      window.removeEventListener("keydown", closeDropdown);
+      window.removeEventListener("click", closeDropdownClick);
+    };
   }, []);
 
   useEffect(() => {
@@ -87,27 +119,26 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   }, [activePathway]);
 
   useEffect(() => {
-    if (activeInDemand) {
-      const getInDemandOccupation = async () => {
-        setLoading(true);
-        const occupation = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`
-        );
+    if (!activeInDemand) return;
 
-        if (!occupation.ok) {
-          setInDemandError("There was an error fetching the occupation data.");
-          setLoading(false);
-          return;
-        }
+    const getInDemandOccupation = async () => {
+      setLoading(true);
+      const occupation = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/occupations/${activeInDemand.idNumber}`
+      );
 
-        const occupationData = await occupation.json();
-
-        setInDemandOccupationData(occupationData);
+      if (!occupation.ok) {
+        setInDemandError("There was an error fetching the occupation data.");
         setLoading(false);
-      };
+        return;
+      }
 
-      getInDemandOccupation();
-    }
+      const occupationData = await occupation.json();
+      setInDemandOccupationData(occupationData);
+      setLoading(false);
+    };
+
+    getInDemandOccupation();
   }, [activeInDemand]);
 
   const hasPathways: boolean = thisIndustry.careerMaps?.items.length !== 0;
@@ -184,7 +215,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                         >
                                           {path.map((occupation) => {
                                             const isActive =
-                                              activeOccupation.careerMapObject
+                                              activeOccupation!.careerMapObject
                                                 .sys.id === occupation.sys.id;
                                             return (
                                               <button
@@ -192,11 +223,26 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                                 type="button"
                                                 onClick={() => {
                                                   setMapOpen(false);
-
                                                   setActivePathway(pathItem);
-
                                                   getOccupation(
                                                     occupation.sys.id
+                                                  );
+
+                                                  const params =
+                                                    new URLSearchParams(
+                                                      searchParams?.toString() ??
+                                                        ""
+                                                    );
+                                                  params.set(
+                                                    "occupation",
+                                                    occupation.sys.id
+                                                  );
+                                                  params.delete("indemand");
+                                                  router.replace(
+                                                    `?${params.toString()}`,
+                                                    {
+                                                      scroll: false,
+                                                    }
                                                   );
                                                 }}
                                                 className={`path-stop${
@@ -300,7 +346,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                         type="button"
                         className="occupation"
                         onClick={() => {
-                          setActiveInDemand(item);
+                          setInDemandFromItem(item);
                           setInDemandOpen(false);
                         }}
                       >
@@ -310,6 +356,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                   </div>
                 )}
               </div>
+
               {(loading || inDemandError || inDemandOccupationData) && (
                 <>
                   {loading ? (
@@ -320,11 +367,9 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                       copy="We couldn't find any entries with that name. Please try again."
                     />
                   ) : (
-                    <>
-                      {inDemandOccupationData && (
-                        <InDemandDetails content={inDemandOccupationData} />
-                      )}
-                    </>
+                    inDemandOccupationData && (
+                      <InDemandDetails content={inDemandOccupationData} />
+                    )
                   )}
                 </>
               )}
