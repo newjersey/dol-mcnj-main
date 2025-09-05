@@ -1,7 +1,5 @@
 import { LinkProps } from "@utils/types";
 import { InfoBlocks } from "../PageBanner/InfoBlocks";
-import { formatPercentEmployed } from "@utils/formatPercentEmployed";
-import { toUsCurrency } from "@utils/toUsCurrency";
 import { CrumbSearch } from "./CrumbSearch";
 import { TitleBox } from "./TitleBox";
 
@@ -12,8 +10,6 @@ interface ProgramBannerProps {
   printHandler: () => void;
   breadcrumbsCollection?: { items: LinkProps[] };
   inDemand?: boolean;
-  employmentRate?: number;
-  salary?: number;
 }
 
 export const ProgramBanner = (props: ProgramBannerProps) => {
@@ -46,22 +42,6 @@ export const ProgramBanner = (props: ProgramBannerProps) => {
                   }
                 : undefined
             }
-            costBlock={{
-              copy: "Avg Salary after Program",
-              number: props.salary
-                ? toUsCurrency(props.salary)
-                : "Not available",
-              definition:
-                "Average salary 6 months after completion of this class or classes like it at this provider. * This information is missing because we haven't received enough data from this institute.",
-            }}
-            rateBlock={{
-              copy: "Program Employment Rate",
-              number: props.employmentRate
-                ? formatPercentEmployed(props.employmentRate)
-                : "Not available",
-              definition:
-                "Percentage of enrolled students employed within 6 months of this class or classes like it at this provider. * This information is missing because we haven't received enough data from this institute.",
-            }}
           />
         </div>
       </div>

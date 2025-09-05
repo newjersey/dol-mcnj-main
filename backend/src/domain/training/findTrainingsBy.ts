@@ -71,9 +71,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                 suppliesToolsCost: parseFloat(program.suppliestoolscost),
                 otherCost: parseFloat(program.othercosts),
                 totalCost: parseFloat(program.totalcost),
+                outcomes: program.outcomes || { completion: {}, employment: [] },
                 online: !!program.onlineprogramid,
-                percentEmployed: formatPercentEmployed(program.peremployed2),
-                averageSalary: formatAverageSalary(program.avgquarterlywage2),
                 hasEveningCourses: mapStrNumToBool(program.eveningcourses),
                 languages: formatLanguages(program.languages),
                 isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
@@ -119,23 +118,6 @@ const formatCounty = (county: string): string => {
   }
 
   return `${county} County`;
-};
-
-const formatPercentEmployed = (perEmployed: string | null): number | null => {
-  if (perEmployed === null || perEmployed === NAN_INDICATOR) {
-    return null;
-  }
-
-  return parseFloat(perEmployed);
-};
-
-const formatAverageSalary = (averageQuarterlyWage: string | null): number | null => {
-  if (averageQuarterlyWage === null || averageQuarterlyWage === NAN_INDICATOR) {
-    return null;
-  }
-
-  const QUARTERS_IN_A_YEAR = 4;
-  return parseFloat(averageQuarterlyWage) * QUARTERS_IN_A_YEAR;
 };
 
 const formatPrerequisites = (prereq: string | null): string => {

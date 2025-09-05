@@ -5,6 +5,8 @@ import { useReactToPrint } from "react-to-print";
 import { TrainingProps } from "@utils/types";
 import { Button } from "@components/modules/Button";
 import { ProgramBanner } from "@components/blocks/ProgramBanner";
+import { OutcomeDetails } from "@components/modules/OutcomeDetails";
+import { hasOutcomeData } from "@utils/outcomeHelpers";
 import { AssociatedOccupationsIndustries } from "./sections/AssociatedOccupationsIndustries";
 import { Cost } from "./sections/Cost";
 import { Description } from "./sections/Description";
@@ -19,6 +21,7 @@ import { generateJsonLd } from "./jsonLd";
 import { createPortal } from "react-dom";
 
 const Content = ({ training }: { training: TrainingProps }) => {
+  const [activeTab, setActiveTab] = useState<"details" | "crc">("details");
   const [cipDrawerOpen, setCipDrawerOpen] = useState(false);
   const [socDrawerOpen, setSocDrawerOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -61,45 +64,136 @@ const Content = ({ training }: { training: TrainingProps }) => {
           ],
         }}
         inDemand={training.inDemand}
-        employmentRate={training.percentEmployed}
-        salary={training.averageSalary}
       />
 
       <section className="body-copy">
         <div className="container">
-          <div className="inner">
-            <div>
-              <Description training={training} />
-              <QuickFacts training={training} />
-              <Cost training={training} mobileOnly />
-              <LocationContactDetails training={training} mobileOnly />
-              <InstructionalPrograms
-                training={training}
-                setCipDrawerOpen={setCipDrawerOpen}
-                cipDrawerOpen={cipDrawerOpen}
-              />
-              <AssociatedOccupationsIndustries
-                training={training}
-                setSocDrawerOpen={setSocDrawerOpen}
-                socDrawerOpen={socDrawerOpen}
-              />
-              <HowToGetFunding desktopOnly />
-            </div>
-            <div>
-              <Cost training={training} desktopOnly />
-              <LocationContactDetails training={training} desktopOnly />
-              <SupportServices training={training} />
-              <HowToGetFunding mobileOnly />
-              <Button
-                type="button"
-                highlight="orange"
-                label="See something wrong? Report an issue."
-                onClick={() => {
-                  window.location.href = `?contactModal=true&path=/training/${training.id}&title=${training.name}`;
-                }}
-                newTab
-                iconPrefix="Flag"
-              />
+          {/* Mobile View: Tabs */}
+          <div className="tabletMd:hidden">
+            {hasOutcomeData(training.outcomes) ? (
+              <>
+                <div className="bg-primaryLighter rounded-lg p-1 mb-6">
+                  <nav className="flex justify-around">
+                    <button
+                      onClick={() => setActiveTab("details")}
+                      className={`py-2.5 text-base font-medium leading-5 border-b-4 w-full ${
+                        activeTab === "details"
+                          ? "text-primary border-primary"
+                          : "text-gray-600 border-transparent hover:text-gray-800"
+                      }`}
+                    >
+                      Details
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("crc")}
+                      className={`py-2.5 text-base font-medium leading-5 border-b-4 w-full ${
+                        activeTab === "crc"
+                          ? "text-primary border-primary"
+                          : "text-gray-600 border-transparent hover:text-gray-800"
+                      }`}
+                    >
+                      Consumer report card
+                    </button>
+                  </nav>
+                </div>
+
+                {activeTab === "details" && (
+                  <div className="inner">
+                    <div>
+                      <Description training={training} />
+                      <QuickFacts training={training} />
+                      <Cost training={training} />
+                      <LocationContactDetails training={training} />
+                      <InstructionalPrograms
+                        training={training}
+                        setCipDrawerOpen={setCipDrawerOpen}
+                        cipDrawerOpen={cipDrawerOpen}
+                      />
+                      <AssociatedOccupationsIndustries
+                        training={training}
+                        setSocDrawerOpen={setSocDrawerOpen}
+                        socDrawerOpen={socDrawerOpen}
+                      />
+                      <SupportServices training={training} />
+                      <HowToGetFunding />
+                      <Button
+                        type="link"
+                        highlight="orange"
+                        label="See something wrong? Report an issue."
+                        link={`/contact?path=/training/${training.id}&title=${training.name}`}
+                        newTab
+                        iconPrefix="Flag"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "crc" && <OutcomeDetails outcomes={training.outcomes} />}
+              </>
+            ) : (
+              <div className="inner">
+                <div>
+                  <Description training={training} />
+                  <QuickFacts training={training} />
+                  <Cost training={training} />
+                  <LocationContactDetails training={training} />
+                  <InstructionalPrograms
+                    training={training}
+                    setCipDrawerOpen={setCipDrawerOpen}
+                    cipDrawerOpen={cipDrawerOpen}
+                  />
+                  <AssociatedOccupationsIndustries
+                    training={training}
+                    setSocDrawerOpen={setSocDrawerOpen}
+                    socDrawerOpen={socDrawerOpen}
+                  />
+                  <SupportServices training={training} />
+                  <HowToGetFunding />
+                  <Button
+                    type="link"
+                    highlight="orange"
+                    label="See something wrong? Report an issue."
+                    link={`/contact?path=/training/${training.id}&title=${training.name}`}
+                    newTab
+                    iconPrefix="Flag"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop View: No Tabs */}
+          <div className="hidden tabletMd:block">
+            {hasOutcomeData(training.outcomes) && <OutcomeDetails outcomes={training.outcomes} />}
+            <div className="inner mt-6">
+              <div>
+                <Description training={training} />
+                <QuickFacts training={training} />
+                <InstructionalPrograms
+                  training={training}
+                  setCipDrawerOpen={setCipDrawerOpen}
+                  cipDrawerOpen={cipDrawerOpen}
+                />
+                <AssociatedOccupationsIndustries
+                  training={training}
+                  setSocDrawerOpen={setSocDrawerOpen}
+                  socDrawerOpen={socDrawerOpen}
+                />
+                <HowToGetFunding />
+              </div>
+              <div>
+                <Cost training={training} />
+                <LocationContactDetails training={training} />
+                <SupportServices training={training} />
+                <Button
+                  type="link"
+                  highlight="orange"
+                  label="See something wrong? Report an issue."
+                  link={`/contact?path=/training/${training.id}&title=${training.name}`}
+                  newTab
+                  iconPrefix="Flag"
+                />
+              </div>
             </div>
           </div>
         </div>

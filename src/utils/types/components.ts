@@ -232,6 +232,37 @@ export interface LinkProps {
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
+// Consumer Report Card Outcome Interfaces
+
+export interface NAICSIndustry {
+  code: string;
+  title: string;
+  rank: number;
+}
+
+export interface QuarterlyEmploymentMetrics {
+  quarter: 2 | 4;
+  employedCount?: number;
+  employmentRate?: number | string;
+  medianAnnualSalary?: number | string;
+  naicsIndustries?: NAICSIndustry[];
+}
+
+export interface CompletionMetrics {
+  exiters?: number;
+  completers?: number;
+  completionRate?: number | string;
+  credentialRate?: number | string;
+}
+
+export interface ProgramOutcome {
+  completion?: CompletionMetrics;
+  employment?: QuarterlyEmploymentMetrics[];
+}
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 export interface CipDefinition {
   cip: string;
   cipcode: string;
@@ -522,8 +553,7 @@ export interface TrainingProps {
   name: string;
   description: string;
   inDemand: boolean;
-  percentEmployed?: number;
-  averageSalary?: number;
+  outcomes: ProgramOutcome;
   localExceptionCounty: string[];
   prerequisites?: string;
   certifications?: string;
@@ -572,7 +602,7 @@ export interface TrainingResult {
   name: string;
   cipCode: string;
   totalCost: number;
-  percentEmployed: number | null;
+  outcomes: ProgramOutcome;
   calendarLength: CalendarLength;
   totalClockHours: number;
   inDemand: boolean;
@@ -614,7 +644,7 @@ export interface ResultProps {
   cipDefinition: CipDefinition;
   cipCode?: string;
   totalCost?: number;
-  percentEmployed?: number;
+  outcomes?: ProgramOutcome;
   calendarLength?: number;
   localExceptionCounty?: [];
   online?: boolean;
