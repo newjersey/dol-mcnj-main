@@ -1,6 +1,7 @@
 import { CalendarLength } from "../CalendarLength";
 import { Occupation } from "../occupations/Occupation";
 import {CipDefinition} from "./Program";
+import {ProgramOutcome} from "./outcomes";
 
 export interface Training {
   id: string;
@@ -22,8 +23,7 @@ export interface Training {
   otherCost: number;
   totalCost: number;
   online: boolean;
-  percentEmployed: number | null;
-  averageSalary: number | null;
+  outcomes: ProgramOutcome;
   hasEveningCourses: boolean;
   languages: string[];
   isWheelchairAccessible: boolean;

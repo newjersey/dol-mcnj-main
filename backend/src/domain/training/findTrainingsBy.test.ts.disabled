@@ -4,7 +4,7 @@ import { FindTrainingsBy } from "../types";
 import { CalendarLength } from "../CalendarLength";
 import { findTrainingsByFactory, formatLanguages, mapStrNumToBool } from "./findTrainingsBy";
 import { StubDataClient } from "../test-objects/StubDataClient";
-import { buildLocalException, buildOccupation, buildProgram} from "../test-objects/factories";
+import { buildLocalException, buildOccupation, buildProgram } from "../test-objects/factories";
 import { Selector } from "./Selector";
 
 describe("findTrainingsBy", () => {
@@ -40,7 +40,7 @@ describe("findTrainingsBy", () => {
       {
         cipCode: program.cipcode,
         cipTitle: program.ciptitle,
-      }
+      },
     ]);
 
     expect(await findTrainingsBy(Selector.ID, ["123"])).toEqual([
@@ -86,7 +86,8 @@ describe("findTrainingsBy", () => {
         otherCost: parseFloat(program.othercosts),
         totalCost: parseFloat(program.totalcost),
         online: true,
-        outcomes: program.outcomes || { completion: {}, employment: [] },
+        percentEmployed: parseFloat(program.peremployed2!),
+        averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         languages: formatLanguages(program.languages),
         isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
@@ -154,7 +155,7 @@ describe("findTrainingsBy", () => {
       {
         cipCode: program.cipcode,
         cipTitle: program.ciptitle,
-      }
+      },
     ]);
 
     expect(await findTrainingsBy(Selector.CIP_CODE, ["123456"])).toEqual([
@@ -200,7 +201,8 @@ describe("findTrainingsBy", () => {
         otherCost: parseFloat(program.othercosts),
         totalCost: parseFloat(program.totalcost),
         online: true,
-        outcomes: program.outcomes || { completion: {}, employment: [] },
+        percentEmployed: parseFloat(program.peremployed2!),
+        averageSalary: parseFloat(program.avgquarterlywage2!) * 4,
         hasEveningCourses: mapStrNumToBool(program.eveningcourses),
         languages: formatLanguages(program.languages),
         isWheelchairAccessible: mapStrNumToBool(program.accessfordisabled),
@@ -247,8 +249,8 @@ describe("findTrainingsBy", () => {
       phone: null,
       phoneextension: null,
       indemandcip: null,
-      // peremployed2: null, // removed - outcomes used instead
-      // avgquarterlywage2: null, // removed - outcomes used instead
+      peremployed2: null,
+      avgquarterlywage2: null,
       onlineprogramid: null,
       description: null,
     });
@@ -269,8 +271,8 @@ describe("findTrainingsBy", () => {
     expect(training.provider.phoneNumber).toEqual("");
     expect(training.provider.phoneExtension).toEqual("");
     expect(training.inDemand).toEqual(false);
-    // percentEmployed no longer exists - now part of outcomes
-    // averageSalary no longer exists - now part of outcomes
+    expect(training.percentEmployed).toEqual(null);
+    expect(training.averageSalary).toEqual(null);
     expect(training.online).toEqual(false);
     expect(training.description).toEqual("");
   });
@@ -278,21 +280,21 @@ describe("findTrainingsBy", () => {
   it("returns null if percent employed is -99999", async () => {
     const program = buildProgram({
       programid: "123",
-      // peremployed2: "-99999", // removed - outcomes used instead
+      peremployed2: "-99999",
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
     const [training] = await findTrainingsBy(Selector.ID, ["123"]);
-    // percentEmployed no longer exists - now part of outcomes
+    expect(training.percentEmployed).toEqual(null);
   });
 
   it("creates yearly salary by multiplying quarterly wage by 4", async () => {
     const program = buildProgram({
       programid: "123",
-      // avgquarterlywage2: "25000", // removed - outcomes used instead
+      avgquarterlywage2: "25000",
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
     const [training] = await findTrainingsBy(Selector.ID, ["123"]);
-    // averageSalary no longer exists - now part of outcomes
+    expect(training.averageSalary).toEqual(100000);
   });
 
   it("strips surrounding quotation marks from title/description/more of training", async () => {
