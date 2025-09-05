@@ -108,7 +108,7 @@ People who need 24-hour supervision, but don't need to be hospitalized stay in n
         description:
           "Pathways for this sector are in development but you can still explore the most in-demand TDL occupations.",
         drawerDescription:
-          "Be an important part of our nation's supply chain with a career in transportation, distribution, and logistics (TDL). The diverse range of job roles and responsibilities listed below represent the latest in-demand TDL positions in the state of New Jersey.",
+          "Be an important part of our nation's supply chain with a career in Transportation, Distribution, and Logistics (TDL). The diverse range of job roles and responsibilities listed below represent the latest in-demand TDL positions in the state of New Jersey.",
         drawerCards: [
           {
             icon: "tdl" as SelectorProps["name"],
