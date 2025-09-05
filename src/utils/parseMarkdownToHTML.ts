@@ -4,7 +4,7 @@ import { slugify } from "./slugify";
 
 // Initialize MarkdownIt
 const mdParser = new MarkdownIt({
-  html: true, // Allow HTML tags in the Markdown content
+  html: false, // Disallow HTML tags in the Markdown content to prevent XSS
   linkify: true, // Automatically link URLs
 });
 
