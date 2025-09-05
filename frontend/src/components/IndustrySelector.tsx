@@ -12,7 +12,6 @@ const Panel = ({
   photo,
   description,
   title,
-  shorthandTitle,
   drawerCards,
 }: {
   open: boolean;
@@ -42,7 +41,7 @@ const Panel = ({
           <div className="sr-only">Close</div>
         </button>
 
-        <Heading level={3}>{shorthandTitle || title} in New Jersey</Heading>
+        <Heading level={3}>{title} in New Jersey</Heading>
 
         <div className="copy">
           {description && <p>{description}</p>}
