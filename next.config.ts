@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     unoptimized: true,
+    domains: ["example.com"], // Add test domain for Jest tests
   },
   async rewrites() {
     return [

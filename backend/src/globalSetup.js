@@ -10,10 +10,12 @@ module.exports = async () => {
     await executeCommand("psql", ["-c", "CREATE DATABASE d4adtest;", "-U", "postgres", "-h", "localhost", "-p", "5432"]);
     console.log("✅ Database created successfully.");
 
-    console.log("Running database migrations...");
+    console.log("Running database migrations with increased memory...");
 
     const migrationTimeout = 15 * 60 * 1000; // 15 minutes timeout
-    const migrationPromise = executeCommand("npm", ["run", "db-migrate", "up", "--", "-e", "test"], false);
+    
+    // Run migrations with more memory allocated
+    const migrationPromise = executeCommandWithMemory("npm", ["run", "db-migrate", "up", "--", "-e", "test"], false, "--max_old_space_size=4096");
 
     await Promise.race([
       migrationPromise,
@@ -32,6 +34,34 @@ module.exports = async () => {
 function executeCommand(command, args = [], silent = false) {
   return new Promise((resolve, reject) => {
     const proc = spawn(command, args);
+
+    // Stream logs to Jest in real-time to avoid CI timeouts
+    proc.stdout.on("data", (data) => {
+      console.log(`[${command}]: ${data.toString().trim()}`);
+    });
+
+    proc.stderr.on("data", (data) => {
+      console.error(`[${command} ERROR]: ${data.toString().trim()}`);
+    });
+
+    proc.on("close", (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`❌ Command "${command}" exited with code ${code}`));
+      }
+    });
+
+    proc.on("error", (err) => {
+      reject(new Error(`❌ Failed to start process "${command}": ${err.message}`));
+    });
+  });
+}
+
+function executeCommandWithMemory(command, args = [], silent = false, nodeOptions = "--max_old_space_size=2048") {
+  return new Promise((resolve, reject) => {
+    const env = { ...process.env, NODE_OPTIONS: nodeOptions };
+    const proc = spawn(command, args, { env });
 
     // Stream logs to Jest in real-time to avoid CI timeouts
     proc.stdout.on("data", (data) => {

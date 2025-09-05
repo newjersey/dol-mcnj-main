@@ -7,15 +7,14 @@ set -e
 cd $(git rev-parse --show-toplevel)
 
 # Run linters
-npm --prefix=frontend run lint
-npm --prefix=backend run lint
+npm run lint
+cd backend && npm run lint && cd ..
 
-# Run fence checks
-npm --prefix=frontend run fences
+# Run fence checks (only backend has fences in this structure)
 npm --prefix=backend run fences
 
 # Run Jest tests and ensure failure on error
-npm --prefix=frontend run test:ci
+npm run test -- --watchAll=false
 npm --prefix=backend run test -- --no-cache
 
 echo "  _            _                             _"

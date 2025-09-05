@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { YouTube } from "./YouTube";
+import { YouTube } from "./Youtube";
 
 describe("YouTube Component", () => {
   it("renders without crashing with default props", () => {

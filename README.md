@@ -2,6 +2,8 @@
 
 [![build](https://circleci.com/gh/newjersey/dol-mcnj-main.svg?style=shield)](https://circleci.com/gh/newjersey/dol-mcnj-main)
 
+<!-- CircleCI debug build trigger Sept 4, 2025 -->
+
 ## Overview
 
 This repo is the home for the My Career NJ web app ([mycareer.nj.gov](https://mycareer.nj.gov/)), a one-stop shop for New Jerseyans seeking to explore training programs, in-demand career insights, and data-driven career advice custom-tailored to users’ experiences. Note that this repository does not yet include Career Navigator.
@@ -184,7 +186,7 @@ npm run cypress:open
 ### Tools and libraries
 
 - **UI Components**: We use modular CSS from the [New Jersey Web Design System](https://github.com/newjersey/njwds), which is a customized version of the [U.S. Web Design System](https://designsystem.digital.gov/).
-- **Internationalization (i18n)**: We use the [i18next](https://react.i18next.com/) library to implement the logic of storing English and Spanish content and switching between the two on the client-side. All the content is stored in JSON files in `frontend/src/locales`.
+- **Internationalization (i18n)**: We use the [i18next](https://react.i18next.com/) library to implement the logic of storing English and Spanish content and switching between the two on the client-side. All the content is stored in JSON files in `src/locales`.
 - **Routing**: We leverage the built-in routing capabilities of [Next.js](https://nextjs.org/docs/routing/introduction), which simplifies client-side routing and provides server-side rendering and static site generation out of the box.
 - **User engagement**: We track user engagement using [Google Analytics](https://analytics.google.com/), including pageviews and specific event-based interactions that we implement manually in different parts of the app, such as tracking what filters a user clicks on the training search page. Please request access from the NJ Office of Innovation in order to view our analytics dashboards.
 - **Accessibility**: We have automated a11y tests that run as part of our [Cypress](https://www.cypress.io/) feature tests using the [`cypress-axe`](https://www.npmjs.com/package/cypress-axe) package. We also use tools such as [axe DevTools](https://www.deque.com/axe/devtools/) and [WAVE](https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh) Chrome extensions to do manual checks.
@@ -196,6 +198,7 @@ npm run cypress:open
 This repo uses [good-fences](https://github.com/smikula/good-fences) to enforce module boundaries.
 Most importantly, the `backend` and `frontend` cannot import from each other.
 
+
 Additionally, fences are used in the backend subdirectories to enforce [dependency inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle).
 The `routes` and `database` folders depend on the interfaces defined in `domain` (only - not on each other), and `domain` is not allowed to
 import from any of these implementation directories.
@@ -203,6 +206,8 @@ import from any of these implementation directories.
 Fences are enforced via a linting-like command that will fail when any violations are flagged:
 
 ```shell script
+```bash
 npm --prefix=backend run fences
-npm --prefix=frontend run fences
+```
 ``` -->
+# Trigger build with enhanced branch debugging

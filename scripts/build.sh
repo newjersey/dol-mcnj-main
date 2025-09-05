@@ -3,7 +3,5 @@
 set -e
 
 cd $(git rev-parse --show-toplevel)
-npm --prefix=frontend run build
+npm run build:prod
 npm --prefix=backend run build
-
-mv frontend/build backend/dist
