@@ -13,7 +13,9 @@ export const Format = () => {
 
   return (
     <div className="section format">
-      <p className="label">Class Format</p>
+      <p className="label">
+        <strong>Class Format</strong>
+      </p>
       <FormInput
         type="checkbox"
         inputId="in-person"

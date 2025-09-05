@@ -13,7 +13,9 @@ export const CompletionTime = () => {
 
   return (
     <div className="section completion">
-      <p className="label">Time to Complete</p>
+      <p className="label">
+        <strong>Time to Complete</strong>
+      </p>
       <div className="items">
         <FormInput
           type="checkbox"

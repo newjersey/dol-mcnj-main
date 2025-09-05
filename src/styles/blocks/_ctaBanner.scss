@@ -4,6 +4,10 @@
   padding: s.$size-48 0;
   background: s.$white;
 
+  .heading-tag {
+    font-weight: 700;
+  }
+
   &.light {
     @extend .container;
     margin-bottom: s.$size-48;
