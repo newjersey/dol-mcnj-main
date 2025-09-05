@@ -117,6 +117,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
 
     const params = new URLSearchParams(searchParams?.toString() ?? "");
     params.set("occupation", id);
+    params.delete("indemand"); // keep modes mutually exclusive
     router.replace(`?${params.toString()}`, { scroll: false });
 
     await ensureFieldForOccupation(id);
@@ -132,6 +133,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
 
     const params = new URLSearchParams(searchParams?.toString() ?? "");
     params.set("occupation", id);
+    params.delete("indemand"); // keep modes mutually exclusive
     router.replace(`?${params.toString()}`, { scroll: false });
 
     ensureFieldForOccupation(id);
@@ -140,6 +142,54 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const getOccupationAndSync = async (id: string) => {
     return setOccupationFromId(id);
   };
+
+  const setInDemandFromItem = (item: InDemandItemProps) => {
+    setActiveInDemand(item);
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    params.set("indemand", String(item.idNumber));
+    params.delete("occupation"); // keep modes mutually exclusive
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
+
+  useEffect(() => {
+    const urlOcc = searchParams?.get("occupation");
+    if (!urlOcc) return;
+
+    if (activeOccupation?.careerMapObject?.sys?.id === urlOcc) {
+      ensureFieldForOccupation(urlOcc);
+      return;
+    }
+
+    (async () => {
+      const occ = await getOccupation(urlOcc);
+      if (occ?.careerMapObject?.sys?.id) {
+        await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+      }
+    })();
+  }, [searchParams]);
+
+  useEffect(() => {
+    const urlInDemand = searchParams?.get("indemand");
+    if (!urlInDemand) return;
+
+    if (activeInDemand && String(activeInDemand.idNumber) === urlInDemand) {
+      return;
+    }
+
+    const match = thisIndustry.inDemandCollection?.items?.find(
+      (i) => String(i.idNumber) === urlInDemand
+    );
+
+    if (match) {
+      setActiveInDemand(match);
+    } else {
+      setActiveInDemand({
+        idNumber: urlInDemand,
+        title: `Occupation ${urlInDemand}`,
+        sys: { id: urlInDemand } as any,
+      } as InDemandItemProps);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const closeDropdown = (e: KeyboardEvent) => {
@@ -159,23 +209,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       window.removeEventListener("click", closeDropdownClick);
     };
   }, []);
-
-  useEffect(() => {
-    const urlOcc = searchParams?.get("occupation");
-    if (!urlOcc) return;
-
-    if (activeOccupation?.careerMapObject?.sys?.id === urlOcc) {
-      ensureFieldForOccupation(urlOcc);
-      return;
-    }
-
-    (async () => {
-      const occ = await getOccupation(urlOcc);
-      if (occ?.careerMapObject?.sys?.id) {
-        await ensureFieldForOccupation(occ.careerMapObject.sys.id);
-      }
-    })();
-  }, [searchParams]);
 
   useEffect(() => {
     const filteredPathways = activeMap?.careerMap.pathways?.items?.filter(
@@ -278,8 +311,8 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                       >
                                         {path.map((occupation) => {
                                           const isActive =
-                                            activeOccupation.careerMapObject.sys
-                                              .id === occupation.sys.id;
+                                            activeOccupation!.careerMapObject
+                                              .sys.id === occupation.sys.id;
                                           return (
                                             <button
                                               key={`occ${occupation.sys.id}`}
@@ -388,7 +421,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                         type="button"
                         className="occupation"
                         onClick={() => {
-                          setActiveInDemand(item);
+                          setInDemandFromItem(item); // updates state + ?indemand=
                           setInDemandOpen(false);
                         }}
                       >
