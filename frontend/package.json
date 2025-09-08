@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^17.1.1",
-    "@contentful/rich-text-react-renderer": "^16.1.0",
+    "@contentful/rich-text-react-renderer": "^16.1.1",
     "@contentful/rich-text-types": "^17.2.0",
     "@hookform/resolvers": "^5.2.1",
     "@material-ui/core": "^4.12.4",
