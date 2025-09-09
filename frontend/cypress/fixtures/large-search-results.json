@@ -1,0 +1,79 @@
+{
+  "data": [
+    {
+      "id": "1001",
+      "name": "Comprehensive Healthcare Management Program",
+      "description": "Advanced healthcare management and administration training",
+      "provider": {
+        "name": "Healthcare Training Institute"
+      },
+      "deliveryTypes": ["Online"],
+      "calendarLength": "SIX_TO_TWELVE_MONTHS",
+      "totalCost": 12500,
+      "inDemand": true,
+      "cipCode": "51.0701"
+    },
+    {
+      "id": "1002", 
+      "name": "Medical Assistant Certification",
+      "description": "Complete medical assistant training and certification",
+      "provider": {
+        "name": "Medical Training Center"
+      },
+      "deliveryTypes": ["In-Person"],
+      "calendarLength": "THREE_TO_FIVE_MONTHS",
+      "totalCost": 8500,
+      "inDemand": true,
+      "cipCode": "51.0801"
+    },
+    {
+      "id": "1003",
+      "name": "Nursing Assistant Program",
+      "description": "Certified nursing assistant training program",
+      "provider": {
+        "name": "Nursing Education Institute"
+      },
+      "deliveryTypes": ["Blended"],
+      "calendarLength": "ONE_TO_TWO_MONTHS", 
+      "totalCost": 3500,
+      "inDemand": true,
+      "cipCode": "51.3902"
+    },
+    {
+      "id": "1004",
+      "name": "Healthcare IT Specialist",
+      "description": "Health information technology specialist certification",
+      "provider": {
+        "name": "Tech Healthcare Solutions"
+      },
+      "deliveryTypes": ["Online"],
+      "calendarLength": "SIX_TO_TWELVE_MONTHS",
+      "totalCost": 15000,
+      "inDemand": true,
+      "cipCode": "11.0401"
+    },
+    {
+      "id": "1005",
+      "name": "Physical Therapy Assistant",
+      "description": "Physical therapy assistant training and certification",
+      "provider": {
+        "name": "Rehabilitation Training Academy"
+      },
+      "deliveryTypes": ["In-Person"],
+      "calendarLength": "TWELVE_TO_EIGHTEEN_MONTHS",
+      "totalCost": 18000,
+      "inDemand": true,
+      "cipCode": "51.0806"
+    }
+  ],
+  "meta": {
+    "currentPage": 1,
+    "totalPages": 20,
+    "totalItems": 100,
+    "itemsPerPage": 5,
+    "hasNextPage": true,
+    "hasPreviousPage": false,
+    "nextPage": 2,
+    "previousPage": null
+  }
+}
