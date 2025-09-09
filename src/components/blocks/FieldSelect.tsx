@@ -7,7 +7,7 @@ import { Heading } from "@components/modules/Heading";
 import { LearnMoreDrawer } from "@components/blocks/LearnMoreDrawer";
 import { LinkObject } from "@components/modules/LinkObject";
 import { SectionHeading } from "@components/modules/SectionHeading";
-import { OccupationSelector } from "./OccupationSelector";
+import { OccupationCombobox } from "./OccupationCombobox";
 
 interface FieldSelectProps {
   industry: IndustryProps;
@@ -36,28 +36,30 @@ export const FieldSelect = ({
     <section className={`fieldSelect${isField ? "" : " noPad"}`}>
       <div className="container">
         <Flex direction="column" gap="xxl">
-          <Breadcrumbs
-            crumbs={[
-              {
-                copy: "Home",
-                url: "/",
-                sys: {
-                  id: "home",
+          <div className="desktop:flex w-full justify-between align-center">
+            <Breadcrumbs
+              crumbs={[
+                {
+                  copy: "Home",
+                  url: "/",
+                  sys: {
+                    id: "home",
+                  },
                 },
-              },
-              {
-                copy: "New Jersey Career Pathways",
-                url: "/career-pathways",
-                sys: {
-                  id: "career-pathways",
+                {
+                  copy: "New Jersey Career Pathways",
+                  url: "/career-pathways",
+                  sys: {
+                    id: "career-pathways",
+                  },
                 },
-              },
-            ]}
-            pageTitle={`Select a ${industry.title} ${
-              isField ? "field" : "occupation"
-            }`}
-          />
-          <OccupationSelector />
+              ]}
+              pageTitle={`Select a ${industry.title} ${
+                isField ? "field" : "occupation"
+              }`}
+            />
+            <OccupationCombobox compact />
+          </div>
           <Flex direction="column" gap="xs" fill>
             <LinkObject url="/career-pathways" className="back">
               <ArrowLeftIcon size={24} />

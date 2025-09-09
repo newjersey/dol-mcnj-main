@@ -74,7 +74,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       },
     } as MinimalBannerProps,
     industrySelector: {
-      heading: "Choose an industry below to start exploring.",
+      heading: "Choose an occupation from the list.",
       items: [
         {
           image: welder,
