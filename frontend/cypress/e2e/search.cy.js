@@ -122,9 +122,7 @@ describe("Search", () => {
     cy.get('input[aria-label="search"]').should("have.value", "baking");
 
     // matches by title
-    cy.contains("Bakery and Pastry").should(
-      "exist",
-    );
+    cy.contains("Bakery and Pastry").should("exist");
 
     cy.contains(
       "...career preparation program offers hands-on courses in the fundamentals of baking and pastry. It will also prepare you for the National Restaurant...",
@@ -175,9 +173,7 @@ describe("Search", () => {
     cy.url().should("eq", `${Cypress.config().baseUrl}/training/search?q=baking`);
 
     // matches by title
-    cy.contains("Baking and Pastry").should(
-      "exist",
-    );
+    cy.contains("Baking and Pastry").should("exist");
 
     // matches by title but is suspended
     cy.contains("Art of International Bread Baking").should("not.exist");

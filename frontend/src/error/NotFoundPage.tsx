@@ -3,7 +3,7 @@ import { RouteComponentProps } from "@reach/router";
 import { ErrorPage } from "./ErrorPage";
 import { useTranslation } from "react-i18next";
 import { Client } from "../domain/Client";
-import {Helmet} from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 
 interface Props extends RouteComponentProps {
   client: Client;

@@ -31,7 +31,6 @@ const SearchResultsPage = React.lazy(() =>
     default: module.SearchResultsPage,
   })),
 );
-
 const OccupationPage = React.lazy(() =>
   import("./occupation-page/OccupationPage").then((module) => ({ default: module.OccupationPage })),
 );

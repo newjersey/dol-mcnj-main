@@ -32,14 +32,27 @@ export class PostgresDataClient implements DataClient {
   };
 
   getLocalExceptionsBySoc = (): Promise<LocalException[]> => {
-    return this.kdb
-        .select("localexceptioncips.soc", "localexceptioncips.county", "localexceptioncips.occupation as title")
+    return (
+      this.kdb
+        .select(
+          "localexceptioncips.soc",
+          "localexceptioncips.county",
+          "localexceptioncips.occupation as title",
+        )
         .from("localexceptioncips")
         // Join with the indemandsocs table to exclude in-demand SOCs
         .leftJoin("indemandsocs", "localexceptioncips.soc", "indemandsocs.soc")
         // Left join with a crosswalk table to support both 2010 and 2018 SOC codes
-        .leftJoin("soc2010to2018crosswalk", "localexceptioncips.soc", "soc2010to2018crosswalk.soccode2018")
-        .leftJoin("indemandsocs as indemandsocs2010", "soc2010to2018crosswalk.soccode2010", "indemandsocs2010.soc")
+        .leftJoin(
+          "soc2010to2018crosswalk",
+          "localexceptioncips.soc",
+          "soc2010to2018crosswalk.soccode2018",
+        )
+        .leftJoin(
+          "indemandsocs as indemandsocs2010",
+          "soc2010to2018crosswalk.soccode2010",
+          "indemandsocs2010.soc",
+        )
         // Filter out SOCs that are in the indemandsocs table for both 2010 and 2018 codes
         .whereNull("indemandsocs.soc")
         .whereNull("indemandsocs2010.soc")
@@ -50,7 +63,8 @@ export class PostgresDataClient implements DataClient {
         .catch((e) => {
           console.log("DB error:", e);
           return Promise.reject();
-        });
+        })
+    );
   };
 
   findLocalExceptionsBySoc = (soc: string): Promise<LocalException[]> => {

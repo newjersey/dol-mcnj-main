@@ -48,10 +48,20 @@ export const getTrainingData = (
 
     if (cachedData) {
       setLoading(false); // Set loading to false immediately
-      const parsedData = JSON.parse(cachedData) as TrainingData;
-      setMetaData(parsedData.meta);
-      setTrainings(parsedData.data);
-      return; // Skip the API call
+      try {
+        const parsedData = JSON.parse(cachedData) as TrainingData;
+        if (parsedData && parsedData.meta && Array.isArray(parsedData.data)) {
+          setMetaData(parsedData.meta);
+          setTrainings(parsedData.data);
+          return; // Skip the API call
+        } else {
+          console.warn('Invalid cached data format, removing from cache');
+          sessionStorage.removeItem(cacheKey);
+        }
+      } catch (error) {
+        console.error('Error parsing cached data:', error);
+        sessionStorage.removeItem(cacheKey);
+      }
     }
 
     // If no cached data, proceed with API call
@@ -59,12 +69,25 @@ export const getTrainingData = (
       queryToSearch,
       {
         onSuccess: (data: TrainingData) => {
-          // Cache the data for future use
-          sessionStorage.setItem(cacheKey, JSON.stringify(data));
+          try {
+            // Validate the data structure before using it
+            if (data && data.meta && Array.isArray(data.data)) {
+              // Cache the data for future use
+              sessionStorage.setItem(cacheKey, JSON.stringify(data));
 
-          setMetaData(data.meta);
-          setTrainings(data.data);
-          setLoading(false);
+              setMetaData(data.meta);
+              setTrainings(data.data);
+              setLoading(false);
+            } else {
+              console.error('Invalid data structure received from API:', data);
+              setIsError(true);
+              setLoading(false);
+            }
+          } catch (error) {
+            console.error('Error processing API response:', error);
+            setIsError(true);
+            setLoading(false);
+          }
         },
         onError: () => {
           setIsError(true);

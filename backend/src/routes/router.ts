@@ -63,7 +63,7 @@ export const routerFactory = ({
       .catch((e) => res.status(500).send(e));
   })
 
-  router.get("/trainings/search", (req: Request, res: Response<TrainingData>) => {
+  router.get("/trainings/search", (req: Request, res: Response<TrainingData | { error: string }>) => {
     let page = parseInt(req.query.page as string);
     if (isNaN(page) || page < 1) {
       page = 1;
@@ -85,8 +85,8 @@ export const routerFactory = ({
       county: req.query.county as string,
       in_demand: req.query.in_demand === "true",
       languages: req.query.languages ? (req.query.languages as string).split(",") : undefined,
-      max_cost: parseInt(req.query.max_cost as string),
-      miles: parseInt(req.query.miles as string),
+      max_cost: req.query.max_cost ? parseInt(req.query.max_cost as string) : undefined,
+      miles: req.query.miles ? parseInt(req.query.miles as string) : undefined,
       services: req.query.services ? (req.query.services as string).split(",") : undefined,
       soc_code: req.query.soc_code as string,
       zipcode: req.query.zipcode as string,
@@ -94,28 +94,31 @@ export const routerFactory = ({
       .then((trainings: TrainingData) => {
         res.status(200).json(trainings);
       })
-      .catch((e) => res.status(500).send(e));
+      .catch((e) => {
+        console.error("Error in /trainings/search:", e);
+        res.status(500).json({ error: e.message || "Internal server error" });
+      });
   });
 
-    router.get("/trainings/:id", (req: Request, res: Response<Training | { error: string }>) => {
-        findTrainingsBy(Selector.ID, [req.params.id as string])
-            .then((trainings: Training[]) => {
-                if (trainings.length === 0) {
-                    res.set("X-Robots-Tag", "noindex");
-                    return res.status(404).json({ error: "Not found" });
-                }
-                return res.status(200).json(trainings[0]);
-            })
-            .catch((e) => {
-                if (e?.message === "NOT_FOUND") {
-                    res.set("X-Robots-Tag", "noindex");
-                    return res.status(404).json({ error: "Not found" });
-                }
-                return res.status(500).json({ error: "Server error" });
-            });
-    });
+  router.get("/trainings/:id", (req: Request, res: Response<Training | { error: string }>) => {
+    findTrainingsBy(Selector.ID, [req.params.id as string])
+      .then((trainings: Training[]) => {
+        if (trainings.length === 0) {
+          res.set("X-Robots-Tag", "noindex");
+          return res.status(404).json({ error: "Not found" });
+        }
+        return res.status(200).json(trainings[0]);
+      })
+      .catch((e) => {
+        if (e?.message === "NOT_FOUND") {
+          res.set("X-Robots-Tag", "noindex");
+          return res.status(404).json({ error: "Not found" });
+        }
+        return res.status(500).json({ error: "Server error" });
+      });
+  });
 
-    router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
+  router.get("/occupations", (req: Request, res: Response<Occupation[]>) => {
     getInDemandOccupations()
       .then((occupations: Occupation[]) => {
         res.status(200).json(occupations);

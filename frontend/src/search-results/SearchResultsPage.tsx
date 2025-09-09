@@ -67,28 +67,33 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
       // Log other filters here if needed
     });
 
-    const updatedFilters = {
-      pageNumber: parseInt(urlParams.get("p") || "1", 10),
-      itemsPerPage: parseInt(urlParams.get("limit") || "10", 10),
-      sortBy: (urlParams.get("sort") as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match") || "best_match",
-      cipCode: urlParams.get("cip") || undefined,
-      classFormat: urlParams.get("format") ? urlParams.get("format")!.split(",") : [],
-      completeIn: urlParams.get("completeIn") ? urlParams.get("completeIn")!.split(",") : [],
-      county: urlParams.get("county") ? ({ name: urlParams.get("county")! } as unknown as CountyProps) : undefined,
-      inDemand: urlParams.get("inDemand") === "true",
-      languages: urlParams.get("languages") ? (urlParams.get("languages")!.split(",") as LanguageProps[]) : [],
-      maxCost: urlParams.get("maxCost") ? parseInt(urlParams.get("maxCost")!) : undefined,
-      miles: urlParams.get("miles") ? parseInt(urlParams.get("miles")!) : undefined,
-      services: urlParams.get("services") ? urlParams.get("services")!.split(",") : [],
-      socCode: urlParams.get("soc") || undefined,
-      zipcode: urlParams.get("zipcode") || undefined,
-      searchQuery: getSearchQuery(window.location.search) || ""
-    };
+    try {
+      const updatedFilters = {
+        pageNumber: parseInt(urlParams.get("p") || "1", 10),
+        itemsPerPage: parseInt(urlParams.get("limit") || "10", 10),
+        sortBy: (urlParams.get("sort") as "asc" | "desc" | "price_asc" | "price_desc" | "EMPLOYMENT_RATE" | "best_match") || "best_match",
+        cipCode: urlParams.get("cip") || undefined,
+        classFormat: urlParams.get("format") ? urlParams.get("format")!.split(",") : [],
+        completeIn: urlParams.get("completeIn") ? urlParams.get("completeIn")!.split(",") : [],
+        county: urlParams.get("county") ? ({ name: urlParams.get("county")! } as unknown as CountyProps) : undefined,
+        inDemand: urlParams.get("inDemand") === "true",
+        languages: urlParams.get("languages") ? (urlParams.get("languages")!.split(",") as LanguageProps[]) : [],
+        maxCost: urlParams.get("maxCost") ? parseInt(urlParams.get("maxCost")!) : undefined,
+        miles: urlParams.get("miles") ? parseInt(urlParams.get("miles")!) : undefined,
+        services: urlParams.get("services") ? urlParams.get("services")!.split(",") : [],
+        socCode: urlParams.get("soc") || undefined,
+        zipcode: urlParams.get("zipcode") || undefined,
+        searchQuery: getSearchQuery(window.location.search) || ""
+      };
 
-    setFilters((prev) => ({
-      ...prev,
-      ...updatedFilters,
-    }));
+      setFilters((prev) => ({
+        ...prev,
+        ...updatedFilters,
+      }));
+    } catch (error) {
+      console.error('Error parsing URL parameters:', error);
+      setIsError(true);
+    }
   }, [window.location.search]);
 
   useEffect(() => {
@@ -164,28 +169,34 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
     }));
 
     /** Fetch training data using correct filters */
-    getTrainingData(
-      client,
-      searchQuery || "",
-      setIsError,
-      setIsLoading,
-      setMetaData,
-      setTrainings,
-      filters.cipCode,
-      filters.classFormat,
-      completeInArray,
-      filters.county,
-      filters.inDemand,
-      filters.itemsPerPage,
-      filters.languages,
-      filters.maxCost,
-      filters.miles,
-      filters.pageNumber,
-      filters.services,
-      filters.socCode,
-      filters.sortBy,
-      filters.zipcode
-    );
+    try {
+      getTrainingData(
+        client,
+        searchQuery || "",
+        setIsError,
+        setIsLoading,
+        setMetaData,
+        setTrainings,
+        filters.cipCode,
+        filters.classFormat,
+        completeInArray,
+        filters.county,
+        filters.inDemand,
+        filters.itemsPerPage,
+        filters.languages,
+        filters.maxCost,
+        filters.miles,
+        filters.pageNumber,
+        filters.services,
+        filters.socCode,
+        filters.sortBy,
+        filters.zipcode
+      );
+    } catch (error) {
+      console.error('Error calling getTrainingData:', error);
+      setIsError(true);
+      setIsLoading(false);
+    }
   }, [client, searchQuery, JSON.stringify(filters)]);
 
   const handleLimitChange = (event: ChangeEvent<{ value: string }>): void => {
@@ -275,6 +286,11 @@ export const SearchResultsPage = ({ client, location }: Props): ReactElement<Pro
             </div>
           )}
           {!isLoading && !isError && trainings.length <= 5 && filters.pageNumber === 1 && <SearchTips />}
+          {!isLoading && isError && (
+            <div className="error-message">
+              <p>There was an error loading the search results. Please try again.</p>
+            </div>
+          )}
           {!isLoading && !isError && trainings.length > 0 && (
             <div id="results-list">
               {trainings.map((training) => (

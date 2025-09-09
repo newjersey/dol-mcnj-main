@@ -11,7 +11,7 @@ export const formatCip = (cipCode: string): string => {
   cipCode = cipCode.replace('.', '');
 
   // Pad the code to ensure it's at least 6 digits
-  cipCode = cipCode.padStart(6, '0');
+  cipCode = cipCode.padStart(6, "0");
 
   // Split into xx.xxxx format
   const firstPart = cipCode.slice(0, 2); // First two characters

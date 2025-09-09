@@ -14,16 +14,20 @@ export const validateSignupForm = async (req: Request, res: Response, next: Next
   const isEmailValid = await isValidEmail(email); // 🔹 Await the validation here
 
   if (!isEmailValid) {
-    return res.status(400).json({ error: "This email address seems invalid. Please check for typos or try a different one." });
+    return res
+      .status(400)
+      .json({
+        error: "This email address seems invalid. Please check for typos or try a different one.",
+      });
   }
 
   // Validate first name (Optional but must be a safe string if provided)
-  if (fname && (!isValidName(fname))) {
+  if (fname && !isValidName(fname)) {
     return res.status(400).json({ error: "Invalid first name" });
   }
 
   // Validate last name (Optional but must be a safe string if provided)
-  if (lname && (!isValidName(lname))) {
+  if (lname && !isValidName(lname)) {
     return res.status(400).json({ error: "Invalid last name" });
   }
 

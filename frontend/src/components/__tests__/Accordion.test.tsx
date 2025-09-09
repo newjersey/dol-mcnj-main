@@ -58,7 +58,7 @@ describe("Accordion", () => {
   it("should render with closed state by default", () => {
     act(() => {
       render(<Accordion {...mockData} />);
-    })
+    });
     const accordion = screen.getByTestId("accordion-0");
     expect(accordion).toHaveClass("closed");
   });
@@ -66,7 +66,7 @@ describe("Accordion", () => {
   it("should open when the button is clicked", () => {
     act(() => {
       render(<Accordion {...mockData} />);
-    })
+    });
     const button = screen.getByTestId("accordion-button");
     fireEvent.click(button);
     const accordion = screen.getByTestId("accordion-0");
@@ -76,7 +76,7 @@ describe("Accordion", () => {
   it("should close when the button is clicked again", () => {
     act(() => {
       render(<Accordion {...mockData} />);
-    })
+    });
     const button = screen.getByTestId("accordion-button");
     fireEvent.click(button);
     fireEvent.click(button);
@@ -87,7 +87,7 @@ describe("Accordion", () => {
   it("should render the title and content", () => {
     act(() => {
       render(<Accordion {...mockData} />);
-    })
+    });
     // const title = screen.getByText(mockData.title);
     // expect(title).toBeInTheDocument();
     const content = screen.getByTestId("accordion-content-0");

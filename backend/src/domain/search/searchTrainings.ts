@@ -71,84 +71,142 @@ const COMMON_WORDS = new Set([
 /**
  * Ranks search results based on query relevance using multiple criteria.
  */
-const rankResults = (query: string, results: TrainingResult[], minScore = 500): TrainingResult[] => {
+const rankResults = (query: string, results: TrainingResult[], minScore = 0): TrainingResult[] => {
   if (!query || results.length === 0) return [];
-  console.log(`🔍 Ranking ${results.length} results for query: "${query}"`);
+  
+  const DEBUG_RANKING = process.env.NODE_ENV === 'development';
+  if (DEBUG_RANKING) {
+    console.log(`🔍 Ranking ${results.length} results for query: "${query}"`);
+  }
+  
   const queryTokens = new Set(tokenize(query.toLowerCase()));
   const queryPhrase = queryTokens.size > 1 ? [...queryTokens].join(" ") : null;
   const uniqueResults = Array.from(new Map(results.map(item => [item.ctid, item])).values());
+  
   return uniqueResults
     .map((training) => {
       if (!training.name) return { ...training, rank: 0 };
+      
+      // Pre-compute all text data once
       const trainingName = training.name.trim().toLowerCase();
       const trainingDesc = (training.description || "").trim().toLowerCase();
       const providerName = (training.providerName || "").trim().toLowerCase();
       const trainingLocation = training.availableAt?.map(a => a.city?.trim()?.toLowerCase() || "").filter(Boolean) || [];
       const cipTitle = (training.cipDefinition?.ciptitle || "").trim().toLowerCase();
+      
+      // Pre-tokenize once
       const nameTokens = new Set(tokenize(trainingName));
       const descTokens = new Set(tokenize(trainingDesc));
       const providerTokens = new Set(tokenize(providerName));
       const cipTokens = new Set(tokenize(cipTitle));
-      const allTokensArray = [...nameTokens, ...descTokens, ...providerTokens, ...cipTokens];
+      
       let score = 0;
       let strongMatch = false;
-      console.log(`\n🔹 Evaluating: ${training.name} (${training.ctid})`);
+      
+      if (DEBUG_RANKING) {
+        console.log(`\n🔹 Evaluating: ${training.name} (${training.ctid})`);
+      }
+      
+      // Fast exact matches first (highest value, lowest cost)
       if (query === providerName) {
         score += 15000;
         strongMatch = true;
-        console.log(`🎯 Exact Provider Match: ${providerName} +15000`);
+        if (DEBUG_RANKING) console.log(`🎯 Exact Provider Match: ${providerName} +15000`);
       }
-      if (query === trainingName || cipTitle) {
+      
+      if (query === trainingName || query === cipTitle) {
         score += 2000;
         strongMatch = true;
-        console.log(`🎯 Exact Training Name or CIP Match: ${trainingName} / ${cipTitle} +2000`);
+        if (DEBUG_RANKING) console.log(`🎯 Exact Training Name or CIP Match: ${trainingName} / ${cipTitle} +2000`);
       }
-      if (queryPhrase && allTokensArray.join(" ").includes(queryPhrase)) {
-        score += 1000;
-        strongMatch = true;
-        console.log(`✅ Exact Phrase Match: "${queryPhrase}" +1000`);
+      
+      // Early termination if no basic overlap
+      const hasAnyTokenOverlap = [...queryTokens].some(token => 
+        nameTokens.has(token) || providerTokens.has(token) || descTokens.has(token)
+      );
+      
+      if (!strongMatch && !hasAnyTokenOverlap && score === 0) {
+        if (DEBUG_RANKING) console.log(`❌ Early termination: no token overlap`);
+        return { ...training, rank: 0 };
       }
-      queryTokens.forEach((token) => {
-        if (COMMON_WORDS.has(token)) {
-          console.log(`⚠️ Skipping common word: "${token}"`);
-          return;
+      
+      // Phrase matching (medium cost)
+      if (queryPhrase) {
+        const allText = [trainingName, trainingDesc, providerName, cipTitle].join(" ");
+        if (allText.includes(queryPhrase)) {
+          score += 1000;
+          strongMatch = true;
+          if (DEBUG_RANKING) console.log(`✅ Exact Phrase Match: "${queryPhrase}" +1000`);
         }
+      }
+      
+      // Token-based scoring (optimized loop)
+      for (const token of queryTokens) {
+        if (COMMON_WORDS.has(token)) {
+          if (DEBUG_RANKING) console.log(`⚠️ Skipping common word: "${token}"`);
+          continue;
+        }
+        
         if (nameTokens.has(token)) {
           score += 150;
           strongMatch = true;
-          console.log(`✅ Name Match: "${token}" +150`);
+          if (DEBUG_RANKING) console.log(`✅ Name Match: "${token}" +150`);
         } else if (providerTokens.has(token)) {
           score += 100;
           strongMatch = true;
-          console.log(`✅ Provider Match: "${token}" +100`);
+          if (DEBUG_RANKING) console.log(`✅ Provider Match: "${token}" +100`);
         } else if (descTokens.has(token)) {
           score += 50;
-          console.log(`✅ Description Match: "${token}" +50`);
+          if (DEBUG_RANKING) console.log(`✅ Description Match: "${token}" +50`);
         }
-      });
-      trainingLocation.forEach((city) => {
+      }
+      
+      // Location matching (optimized)
+      for (const city of trainingLocation) {
         if (queryTokens.has(city)) {
           score += 1500;
           strongMatch = true;
-          console.log(`📍 City Match: "${city}" +1500`);
+          if (DEBUG_RANKING) console.log(`📍 City Match: "${city}" +1500`);
+          break; // Only count first city match
         }
-      });
-      queryTokens.forEach((queryToken) => {
-        allTokensArray.forEach((textToken) => {
-          if (!textToken.includes(queryToken) && fuzzyMatch(queryToken, textToken)) {
-            score += 50;
-            console.log(`🔍 Fuzzy Match: "${queryToken}" ~ "${textToken}" +50`);
-          }
-        });
-      });
-      console.log(`🔹 Final Score for "${training.name}": ${score}`);
-      if (!strongMatch || score < minScore) {
-        console.log(`❌ Discarding "${training.name}" (score: ${score})`);
+      }
+      
+      // Early exit for low scores before expensive fuzzy matching
+      if (!strongMatch || score < minScore * 0.5) {
+        if (DEBUG_RANKING) console.log(`❌ Discarding "${training.name}" (score: ${score}, early exit)`);
         return { ...training, rank: 0 };
       }
+      
+      // Fuzzy matching only for promising candidates (most expensive operation)
+      let fuzzyMatches = 0;
+      const maxFuzzyMatches = 3; // Limit expensive operations
+      const allTokensArray = [...nameTokens, ...descTokens, ...providerTokens, ...cipTokens];
+      
+      for (const queryToken of queryTokens) {
+        if (fuzzyMatches >= maxFuzzyMatches) break;
+        
+        for (const textToken of allTokensArray) {
+          if (fuzzyMatches >= maxFuzzyMatches) break;
+          
+          if (!textToken.includes(queryToken) && fuzzyMatch(queryToken, textToken)) {
+            score += 50;
+            fuzzyMatches++;
+            if (DEBUG_RANKING) console.log(`🔍 Fuzzy Match: "${queryToken}" ~ "${textToken}" +50`);
+          }
+        }
+      }
+      
+      if (DEBUG_RANKING) {
+        console.log(`🔹 Final Score for "${training.name}": ${score}`);
+      }
+      
+      if (!strongMatch || score < minScore) {
+        if (DEBUG_RANKING) console.log(`❌ Discarding "${training.name}" (score: ${score})`);
+        return { ...training, rank: 0 };
+      }
+      
       return { ...training, rank: score };
     })
-    .filter((r) => r.rank > 0)
     .sort((a, b) => b.rank - a.rank);
 };
 
@@ -172,20 +230,27 @@ const searchLearningOpportunities = async (query: object, offset = 0, limit = 10
  * Fetch all learning opportunities in batches.
  */
 // Fetch all learning opportunities in batches with pagination
-const searchLearningOpportunitiesInBatches = async (query: object, page = 1, batchSize = 25) => {
-  const cacheKey = `learningOpportunities-${JSON.stringify(query)}-page-${page}`;
+const searchLearningOpportunitiesInBatches = async (query: object, page = 1, batchSize = 100) => {
+  const cacheKey = `learningOpportunities-${JSON.stringify(query)}`;
 
   // Try to get from cache first
   const cachedOpportunities = await redis.get(cacheKey);
 
   if (cachedOpportunities) {
-    console.log(`✅ Cache hit for query: "${JSON.stringify(query)}" (page: ${page})`);
-    return JSON.parse(cachedOpportunities);
+    console.log(`✅ Cache hit for query: "${JSON.stringify(query)}"`);
+    const parsed = JSON.parse(cachedOpportunities);
+    // Handle both cache formats for backwards compatibility
+    if (parsed.learningOpportunities) {
+      return parsed;
+    } else if (parsed.results) {
+      return { learningOpportunities: parsed.results, totalResults: parsed.totalResults };
+    }
+    return parsed;
   }
 
   const learningOpportunities: CTDLResource[] = [];
   let totalResults = Infinity;
-  let currentPage = page;
+  let currentPage = 1; // Always start from page 1 to fetch all results
 
 // Fetch data in batches and aggregate them
   while (learningOpportunities.length < totalResults) {
@@ -195,17 +260,15 @@ const searchLearningOpportunitiesInBatches = async (query: object, page = 1, bat
     const { learningOpportunities: currentBatch, totalResults: fetchedTotalResults } = await searchLearningOpportunities(query, offset, batchSize);
 
     // Handle 503 errors and filter out results with "Provider not available"
-    if (!currentBatch.length || fetchedTotalResults === 0) {
+    if (!currentBatch || !currentBatch.length || fetchedTotalResults === 0) {
       console.error(`❌ Error fetching records for query: "${JSON.stringify(query)}" (offset: ${offset})`);
       break;
     }
 
-    // Filter out "Provider not available" items
-    const validBatch = currentBatch.filter((opportunity: CTDLResource) => {
-      // Ensure ownedBy is an array and check if it contains "Provider not available"
-      return !(opportunity["ceterms:ownedBy"]?.includes("Provider not available"));
-    });
+    // Include all records - don't filter out "Provider not available" items
+    const validBatch = currentBatch;
 
+    console.log(`📋 Batch ${currentPage}: fetched ${currentBatch.length}, valid after filtering: ${validBatch.length}`);
     learningOpportunities.push(...validBatch);
     totalResults = fetchedTotalResults;
 
@@ -218,17 +281,18 @@ const searchLearningOpportunitiesInBatches = async (query: object, page = 1, bat
     currentPage++;
   }
 
-  // If no valid data, do not cache
+  // If no data at all, do not cache
   if (learningOpportunities.length === 0) {
-    console.log("❌ No valid data to cache (likely due to 503 or 'Provider not available')");
-    return { learningOpportunities, totalResults };
+    console.log("❌ No data to cache (likely due to API errors)");
+    return { learningOpportunities, totalResults: 0 };
   }
 
-  // Cache the results for the current page
-  await redis.set(cacheKey, JSON.stringify({ learningOpportunities, totalResults }), 'EX', 900); // Cache for 15 minutes
+  // Cache the results
+  const cacheData = { learningOpportunities, totalResults };
+  await redis.set(cacheKey, JSON.stringify(cacheData), 'EX', 900); // Cache for 15 minutes
   console.log(`✅ Caching ${learningOpportunities.length} valid results`);
 
-  return { learningOpportunities, totalResults };
+  return cacheData;
 };
 
 /**
@@ -249,6 +313,7 @@ const filterRecords = async (
   services?: string[]
 ): Promise<TrainingResult[]> => {
   let filteredResults = results;
+  
   if (cip_code) {
     const normalizedCip = normalizeCipCode(cip_code);
     filteredResults = filteredResults.filter(
@@ -428,8 +493,7 @@ function normalizeQueryParams(params: {
     county: params.county?.trim(),
     zipcode: params.zipcode?.trim(),
     in_demand: params.in_demand || false,
-    page: params.page || 1,
-    limit: params.limit || 10,
+    // Remove page and limit from cache key - pagination should be applied to cached results
     sort: params.sort || "best_match",
     filters: params.filters
       ? [...params.filters].sort((a, b) => a.key.localeCompare(b.key))
@@ -458,6 +522,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
     const overallStart = performance.now();
     const { page = 1, limit = 10, sort = "best_match" } = params;
     const query = buildQuery(params);
+    console.log(`🔧 Built query for "${params.searchQuery}":`, JSON.stringify(query, null, 2));
     const normalizedParams = normalizeQueryParams(params);
     const cacheKey = `searchResults-${JSON.stringify(normalizedParams)}`;
     console.time("TotalSearchTime");
@@ -474,21 +539,52 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
       // Fetch the data from the API
       const fetchStart = performance.now();
-      const { learningOpportunities, totalResults } = await searchLearningOpportunitiesInBatches(query);
+      let apiResult = await searchLearningOpportunitiesInBatches(query);
+      
+      // If the main query returned no results (likely due to 400 error), try fallback strategies
+      if (apiResult.totalResults === 0 && params.searchQuery && params.searchQuery.includes(' ')) {
+        console.log(`🔄 Main query returned 0 results, trying fallback strategies for: "${params.searchQuery}"`);
+        
+        // Try searching for individual words
+        const words = params.searchQuery.split(' ').filter(word => word.length > 2); // Skip very short words
+        
+        for (const word of words) {
+          const fallbackQuery = buildQuery({ ...params, searchQuery: word });
+          console.log(`🔄 Trying fallback query with word: "${word}"`);
+          const fallbackResult = await searchLearningOpportunitiesInBatches(fallbackQuery);
+          
+          if (fallbackResult.totalResults > 0) {
+            console.log(`✅ Fallback query with "${word}" returned ${fallbackResult.totalResults} results`);
+            apiResult = fallbackResult;
+            break; // Use the first successful fallback
+          }
+        }
+      }
+      
+      const { learningOpportunities, totalResults } = apiResult;
       console.log(`📊 API fetch took ${performance.now() - fetchStart} ms`);
+      console.log(`📊 Raw API returned: ${learningOpportunities?.length || 0} opportunities, totalResults: ${totalResults}`);
 
-      // Transform the results
-      const transformStart = performance.now();
-      const results = await Promise.all(
-        learningOpportunities.map((lo: CTDLResource) =>
-          transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-        )
-      );
-      console.log(`🔄 Transformation took ${performance.now() - transformStart} ms`);
+      // Ensure we have valid data before transformation
+      if (!learningOpportunities || !Array.isArray(learningOpportunities)) {
+        console.error(`❌ Invalid learningOpportunities data:`, learningOpportunities);
+        cachedData = { results: [], totalResults: 0 };
+        await redis.set(cacheKey, JSON.stringify(cachedData), 'EX', 900);
+      } else {
+        // Transform the results
+        const transformStart = performance.now();
+        const results = await Promise.all(
+          learningOpportunities.map((lo: CTDLResource) =>
+            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
+          )
+        );
+        console.log(`🔄 Transformation took ${performance.now() - transformStart} ms`);
+        console.log(`🔄 After transformation: ${results.length} results`);
 
-      // Store the results in Redis cache as a string (JSON stringified)
-      cachedData = { results, totalResults };
-      await redis.set(cacheKey, JSON.stringify(cachedData), 'EX', 900); // Cache for 15 minutes
+        // Store the results in Redis cache as a string (JSON stringified)
+        cachedData = { results, totalResults };
+        await redis.set(cacheKey, JSON.stringify(cachedData), 'EX', 900); // Cache for 15 minutes
+      }
     } else {
       console.log(`✅ Cache hit for query: "${normalizedParams.searchTerm}"`);
 
@@ -510,6 +606,7 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
 
     // Apply filtering
     const filterStart = performance.now();
+    console.log(`⚡ Before filtering: ${cachedData.results.length} results`);
     const filteredResults = await filterRecords(
       cachedData.results,
       params.cip_code,
@@ -525,13 +622,16 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       params.services
     );
     console.log(`⚡ Filtering took ${performance.now() - filterStart} ms`);
+    console.log(`⚡ After filtering: ${filteredResults.length} results`);
 
     const rankStart = performance.now();
     const rankedResults = rankResults(params.searchQuery, filteredResults);
     console.log(`📈 Ranking took ${performance.now() - rankStart} ms`);
+    console.log(`📈 After ranking: ${rankedResults.length} results`);
 
     // Apply sorting
     const sortedResults = sortTrainings(rankedResults, sort);
+    console.log(`🔀 After sorting: ${sortedResults.length} results`);
 
     // Apply pagination
     const { results: paginatedResults, totalPages, totalResults, currentPage } = paginateRecords(sortedResults, page, limit);
@@ -574,12 +674,14 @@ function buildQuery(params: {
   let termGroup: TermGroup = {
     "search:operator": "search:orTerms",
     ...(isSOC || isCIP || !!isZipCode || isCounty ? undefined : {
-      "ceterms:name": [
-        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-      ],
-      "ceterms:description": [
-        { "search:value": params.searchQuery, "search:matchType": "search:contains" },
-      ],
+      "ceterms:name": {
+        "search:value": params.searchQuery,
+        "search:matchType": "search:contains"
+      },
+      "ceterms:description": {
+        "search:value": params.searchQuery,
+        "search:matchType": "search:contains"
+      },
       "ceterms:ownedBy": {
         "ceterms:name": {
           "search:value": params.searchQuery,

@@ -20,19 +20,33 @@ export const credentialEngineAPI = {
    * @returns A collection of search results from Credential Engine.
    */
   getResults: async function (query: object, skip: number, take: number = DEFAULT_TAKE) {
-    const response = await searchAPI.request({
-      url: `${searchGateway}`,
-      method: "post",
-      data: {
-        Query: query,
-        Skip: skip,
-        Take: take,
-        Sort: "^search:relevance"
-        // IncludeResultsMetadata: true // Uncomment if metadata is needed
-      },
-    });
+    try {
+      const response = await searchAPI.request({
+        url: `${searchGateway}`,
+        method: "post",
+        data: {
+          Query: query,
+          Skip: skip,
+          Take: take,
+          Sort: "^search:relevance"
+          // IncludeResultsMetadata: true // Uncomment if metadata is needed
+        },
+      });
 
-    return response;
+      return response;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`❌ Search API failed for query:`, JSON.stringify(query), 'Error:', errorMessage);
+      
+      // Return empty results structure to prevent complete failure
+      return {
+        data: { data: [], extra: { TotalResults: 0 } },
+        status: 503,
+        statusText: 'Service Unavailable',
+        headers: {},
+        config: {},
+      };
+    }
   },
 
   /**
@@ -57,18 +71,30 @@ export const credentialEngineAPI = {
    * @returns The detailed resource data.
    */
   getResourceByCTID: async function (ctid: string) {
-    const response = await getRecordAPI({
-      url: `${resourcesGateway}/${ctid}`,
-      method: "get",
-    });
+    try {
+      const response = await getRecordAPI({
+        url: `${resourcesGateway}/${ctid}`,
+        method: "get",
+      });
 
-    return response.data;
+      return response.data;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.warn(`⚠️ Failed to fetch resource ${ctid}, using fallback data:`, errorMessage);
+      return null; // Return null for missing/unavailable resources
+    }
   },
 
   getEnvelopeByCTID: async (ctid: string) => {
-    const url = `/ce-registry/envelopes/${ctid}`;
-    const response = await getRecordAPI.get(url);
-    return response.data;
+    try {
+      const url = `/ce-registry/envelopes/${ctid}`;
+      const response = await getRecordAPI.get(url);
+      return response.data;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.warn(`⚠️ Failed to fetch envelope ${ctid}:`, errorMessage);
+      return null; // Return null for missing/unavailable envelopes
+    }
   }
 
   // TODO: Discuss how we can use Cips for better results

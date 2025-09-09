@@ -1,6 +1,6 @@
 import { Occupation } from "../occupations/Occupation";
 import {CalendarLength} from "../CalendarLength";
-import {CipDefinition} from "./Program";
+import { CipDefinition } from "./Program";
 import {DeliveryType} from "../DeliveryType";
 
 export interface Training {
