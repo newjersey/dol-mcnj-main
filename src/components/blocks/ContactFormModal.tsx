@@ -17,7 +17,7 @@ export const ContactFormModal = () => {
   const updateTabIndex = (enable: boolean) => {
     if (modalRef.current) {
       const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
-        'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+        'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])',
       );
       focusableElements.forEach((element) => {
         element.setAttribute("tabindex", enable ? "0" : "-1");

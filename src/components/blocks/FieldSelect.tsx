@@ -1,4 +1,4 @@
-import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr";
 import { Breadcrumbs } from "@components/modules/Breadcrumbs";
 import { Button } from "@components/modules/Button";
 import { CareerMapProps, IndustryProps } from "@utils/types";
@@ -7,6 +7,7 @@ import { Heading } from "@components/modules/Heading";
 import { LearnMoreDrawer } from "@components/blocks/LearnMoreDrawer";
 import { LinkObject } from "@components/modules/LinkObject";
 import { SectionHeading } from "@components/modules/SectionHeading";
+import { OccupationSelector } from "./OccupationSelector";
 
 interface FieldSelectProps {
   industry: IndustryProps;
@@ -56,9 +57,10 @@ export const FieldSelect = ({
               isField ? "field" : "occupation"
             }`}
           />
+          <OccupationSelector />
           <Flex direction="column" gap="xs" fill>
             <LinkObject url="/career-pathways" className="back">
-              <ArrowLeft size={24} />
+              <ArrowLeftIcon size={24} />
               Back
             </LinkObject>
             <SectionHeading

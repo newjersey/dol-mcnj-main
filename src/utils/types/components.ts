@@ -891,4 +891,5 @@ export interface IndustryItemProps {
 export interface IndustrySelectorProps {
   heading: string;
   items: IndustryItemProps[];
+  list: { label: string; value: string }[];
 }
