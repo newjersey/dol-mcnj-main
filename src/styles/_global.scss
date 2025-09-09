@@ -698,3 +698,18 @@ iframe:focus {
 .react-tooltip {
   z-index: 1000;
 }
+
+.occupationCombobox {
+  &.compact {
+    max-width: 500px;
+    margin: s.$size-16 0 0;
+
+    @media screen and (min-width: (s.$desktop)) {
+      margin: 0 auto;
+    }
+
+    .MuiOutlinedInput-root {
+      height: 44px;
+    }
+  }
+}

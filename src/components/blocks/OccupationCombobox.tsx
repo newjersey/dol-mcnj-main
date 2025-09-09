@@ -6,7 +6,15 @@ import { collectAllItemsNormalized, Option } from "@utils/collectAllItems";
 import { OCCUPATIONS_QUERY } from "queries/occupationsQuery";
 import { useEffect, useMemo, useState } from "react";
 
-export const OccupationSelector = () => {
+export const OccupationCombobox = ({
+  style,
+  className,
+  compact = false,
+}: {
+  style?: React.CSSProperties;
+  className?: string;
+  compact?: boolean;
+}) => {
   const [data, setData] = useState<Option[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState<Option | null>(null);
@@ -30,7 +38,12 @@ export const OccupationSelector = () => {
   const options = useMemo<Option[]>(() => data ?? [], [data]);
 
   return (
-    <div className="flex w-full items-center gap-4 max-w-[800px]">
+    <div
+      className={`occupationCombobox flex w-full items-center gap-4 max-w-[475px]${
+        className ? ` ${className}` : ""
+      }${compact ? " compact" : ""}`}
+      style={style}
+    >
       <Autocomplete
         options={options}
         disabled={loading}
@@ -62,7 +75,11 @@ export const OccupationSelector = () => {
         defaultStyle="tertiary"
         type="button"
         disabled={loading}
-        style={{ height: "54px" }}
+        style={{
+          height: compact ? "44px" : "54px",
+          marginRight: "0",
+          width: "auto",
+        }}
         onClick={() => {
           if (value) window.location.href = `/career-pathways/${value.value}`;
         }}

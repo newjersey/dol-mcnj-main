@@ -19,10 +19,12 @@
 
     h2 {
       margin: 0;
+      font-size: s.$size-32;
+      font-weight: 600;
 
       @media screen and (max-width: (s.$tablet-md - 1)) {
         font-size: s.$size-24;
-        font-weight: bold;
+        font-weight: 600;
       }
     }
   }
@@ -36,6 +38,34 @@
     .heading-tag {
       font-size: s.$size-18;
       font-weight: 500;
+    }
+  }
+
+  .or-divider {
+    font-size: s.$size-32;
+    font-weight: 600;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: s.$size-1;
+      background: s.$base-light;
+      transform: translateY(-50%);
+    }
+
+    span {
+      background: s.$tertiary-lighter;
+      padding: 0 s.$size-48;
+      position: relative;
+      z-index: 1;
     }
   }
 }
