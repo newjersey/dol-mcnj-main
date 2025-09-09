@@ -4,8 +4,9 @@ import { TrainingResult } from "../training/TrainingResult";
 const tokenCache = new Map<string, Set<string>>();
 
 const memoizedTokenize = (text: string): Set<string> => {
-  if (tokenCache.has(text)) {
-    return tokenCache.get(text)!;
+  const cached = tokenCache.get(text);
+  if (cached) {
+    return cached;
   }
   
   const tokens = new Set(
@@ -133,16 +134,35 @@ function scoreTraining(
   return { ...training, rank: score };
 }
 
+interface TrainingTextData {
+  name: string;
+  nameLower: string;
+  description: string;
+  descriptionLower: string;
+  providerName: string;
+  providerNameLower: string;
+  cipTitle: string;
+  cipTitleLower: string;
+  locations: string[];
+  nameTokens: Set<string>;
+  descTokens: Set<string>;
+  providerTokens: Set<string>;
+  cipTokens: Set<string>;
+  allTokens: Set<string>;
+  allText: string;
+}
+
 /**
  * Cache training text data to avoid repeated processing
  */
-const trainingDataCache = new Map<string, any>();
+const trainingDataCache = new Map<string, TrainingTextData>();
 
-function getTrainingTextData(training: TrainingResult) {
+function getTrainingTextData(training: TrainingResult): TrainingTextData {
   const cacheKey = training.ctid || `training-${Date.now()}`;
   
-  if (trainingDataCache.has(cacheKey)) {
-    return trainingDataCache.get(cacheKey);
+  const cached = trainingDataCache.get(cacheKey);
+  if (cached) {
+    return cached;
   }
   
   const name = training.name?.trim() || "";
@@ -188,7 +208,7 @@ function getTrainingTextData(training: TrainingResult) {
 /**
  * Optimized token scoring
  */
-function getTokenScore(token: string, trainingData: any): { score: number; isStrong: boolean } {
+function getTokenScore(token: string, trainingData: TrainingTextData): { score: number; isStrong: boolean } {
   if (trainingData.nameTokens.has(token)) {
     return { score: SCORING_WEIGHTS.NAME_MATCH, isStrong: true };
   }
@@ -216,7 +236,7 @@ function getLocationScore(queryTokens: Set<string>, locations: string[]): { scor
 /**
  * Optimized fuzzy matching with early termination
  */
-function getFuzzyScore(queryTokens: Set<string>, trainingData: any): number {
+function getFuzzyScore(queryTokens: Set<string>, trainingData: TrainingTextData): number {
   let fuzzyScore = 0;
   const maxFuzzyMatches = 3; // Limit expensive operations
   let fuzzyMatchCount = 0;

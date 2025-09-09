@@ -230,7 +230,7 @@ const searchLearningOpportunities = async (query: object, offset = 0, limit = 10
  * Fetch all learning opportunities in batches.
  */
 // Fetch all learning opportunities in batches with pagination
-const searchLearningOpportunitiesInBatches = async (query: object, page = 1, batchSize = 100) => {
+const searchLearningOpportunitiesInBatches = async (query: object, batchSize = 100) => {
   const cacheKey = `learningOpportunities-${JSON.stringify(query)}`;
 
   // Try to get from cache first

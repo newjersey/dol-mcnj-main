@@ -85,8 +85,8 @@ export const routerFactory = ({
       county: req.query.county as string,
       in_demand: req.query.in_demand === "true",
       languages: req.query.languages ? (req.query.languages as string).split(",") : undefined,
-      max_cost: req.query.max_cost ? parseInt(req.query.max_cost as string) : undefined,
-      miles: req.query.miles ? parseInt(req.query.miles as string) : undefined,
+      max_cost: parseInt(req.query.max_cost as string),
+      miles: parseInt(req.query.miles as string),
       services: req.query.services ? (req.query.services as string).split(",") : undefined,
       soc_code: req.query.soc_code as string,
       zipcode: req.query.zipcode as string,
@@ -96,7 +96,8 @@ export const routerFactory = ({
       })
       .catch((e) => {
         console.error("Error in /trainings/search:", e);
-        res.status(500).json({ error: e.message || "Internal server error" });
+        const errorMessage = e && typeof e === 'object' && 'message' in e ? e.message : "Internal server error";
+        res.status(500).json({ error: errorMessage });
       });
   });
 
