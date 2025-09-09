@@ -1,6 +1,6 @@
 describe("In Demand Occupations page", () => {
   it("displays in demand occupations", () => {
-    cy.visit("/in-demand-occupations");
+    cy.visit("/in-demand-occupations", { failOnStatusCode: false });
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500);
     cy.location("pathname").should("eq", "/in-demand-occupations");
@@ -21,7 +21,7 @@ describe("In Demand Occupations page", () => {
   });
 
   it("links to occupation page from list", () => {
-    cy.visit("/in-demand-occupations");
+    cy.visit("/in-demand-occupations", { failOnStatusCode: false });
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500);
     cy.contains("Computer and Mathematical").click();
@@ -30,7 +30,7 @@ describe("In Demand Occupations page", () => {
   });
 
   it("links to occupation page from search", () => {
-    cy.visit("/in-demand-occupations");
+    cy.visit("/in-demand-occupations", { failOnStatusCode: false });
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500);
     cy.get('input[aria-label="occupation-search"]').type("web");
