@@ -8,9 +8,7 @@ import {
   CetermsConditionProfile,
   CTDLResource,
 } from "../credentialengine/CredentialEngine";
-import NodeCache from "node-cache";
-
-const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
+import redis from "../../infrastructure/redis/redisClient";
 
 /**
  * Factory function to create a training finder function using a data client.
@@ -22,11 +20,12 @@ const cache = new NodeCache({ stdTTL: 300, checkperiod: 120 });
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     const cacheKey = `findTrainingsBy-${selector}-${values.join(",")}`;
-    const cachedTrainings = cache.get<Training[]>(cacheKey);
-
+    
+    // Try to get cached trainings from Redis
+    const cachedTrainings = await redis.get(cacheKey);
     if (cachedTrainings) {
       console.info(`Cache hit for key: ${cacheKey}`);
-      return cachedTrainings;
+      return JSON.parse(cachedTrainings);
     }
 
     // Fetch in-demand CIP codes for tuition waiver statuses
@@ -101,8 +100,8 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         })
     );
 
-    // Cache the entire trainings array
-    cache.set(cacheKey, trainings, 60 * 60);
+    // Cache the entire trainings array in Redis
+    await redis.set(cacheKey, JSON.stringify(trainings), 'EX', 900); // Cache for 15 minutes
     console.log(`Cache set for key: ${cacheKey}`);
 
     return trainings;

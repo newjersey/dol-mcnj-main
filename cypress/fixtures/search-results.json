@@ -1,0 +1,37 @@
+{
+  "trainings": [
+    {
+      "ctid": "ce-12345",
+      "name": { "en-US": "Registered Nurse Training Program" },
+      "description": { "en-US": "Comprehensive nursing program preparing students for RN certification" },
+      "providerName": "Newark Community College",
+      "estimatedCost": [{ "price": 4500 }],
+      "availableOnlineAt": ["https://ncc.edu/nursing"],
+      "availableAt": [{
+        "ceterms:addressLocality": "Newark",
+        "ceterms:addressRegion": "NJ",
+        "ceterms:postalCode": "07102"
+      }],
+      "instructionalProgramType": [{ "ceterms:codedNotation": "51.3801" }],
+      "scheduleTimingType": [{ "ceterms:targetNode": "scheduleTime:FullTime" }]
+    },
+    {
+      "ctid": "ce-12346",
+      "name": { "en-US": "Licensed Practical Nurse Program" },
+      "description": { "en-US": "Practical nursing program for healthcare professionals" },
+      "providerName": "Hudson County Medical Center",
+      "estimatedCost": [{ "price": 3200 }],
+      "availableAt": [{
+        "ceterms:addressLocality": "Jersey City",
+        "ceterms:addressRegion": "NJ",
+        "ceterms:postalCode": "07302"
+      }],
+      "instructionalProgramType": [{ "ceterms:codedNotation": "51.3902" }],
+      "scheduleTimingType": [{ "ceterms:targetNode": "scheduleTime:PartTime" }]
+    }
+  ],
+  "totalResults": 2,
+  "currentPage": 1,
+  "totalPages": 1,
+  "pageSize": 10
+}

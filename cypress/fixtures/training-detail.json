@@ -1,0 +1,37 @@
+{
+  "ctid": "ce-12345",
+  "name": { "en-US": "Registered Nurse Training Program" },
+  "description": { "en-US": "Comprehensive nursing program preparing students for RN certification and state licensure examination" },
+  "providerName": "Newark Community College",
+  "estimatedCost": [{ "price": 4500 }],
+  "availableOnlineAt": ["https://ncc.edu/nursing"],
+  "availableAt": [{
+    "ceterms:addressLocality": "Newark",
+    "ceterms:addressRegion": "NJ",
+    "ceterms:postalCode": "07102",
+    "ceterms:streetAddress": "31 Green Street"
+  }],
+  "instructionalProgramType": [{ 
+    "ceterms:codedNotation": "51.3801",
+    "ceterms:title": "Registered Nursing/Registered Nurse"
+  }],
+  "scheduleTimingType": [{ "ceterms:targetNode": "scheduleTime:FullTime" }],
+  "scheduleFrequencyType": [{ "ceterms:targetNode": "scheduleFreq:Continuous" }],
+  "estimatedDuration": [{ "exactDuration": "P18M" }],
+  "deliveryType": ["BlendedDelivery"],
+  "aggregateData": {
+    "averageEarnings": 75000,
+    "employmentOutlook": "Much faster than average",
+    "employmentRate": 92,
+    "completionRate": 85
+  },
+  "prerequisites": [
+    "High school diploma or equivalent",
+    "CPR certification",
+    "Background check"
+  ],
+  "credentialAwarded": [{
+    "ceterms:name": { "en-US": "Associate Degree in Nursing" },
+    "ceterms:credentialType": "ceterms:AssociateDegree"
+  }]
+}
