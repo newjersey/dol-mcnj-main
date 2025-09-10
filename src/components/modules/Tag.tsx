@@ -2,6 +2,7 @@ import { IconWeight, ThemeColors } from "@utils/types";
 import { IconSelector } from "./IconSelector";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { JSX } from "react";
+import DOMPurify from "dompurify";
 
 export interface TagItemProps {
   chip?: boolean;
@@ -43,7 +44,9 @@ export const Tag = ({
       {icon && <IconSelector weight={iconWeight} name={icon} size={15} />}
       {markdown ? (
         <span
-          dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(title) }}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(parseMarkdownToHTML(title)),
+          }}
         />
       ) : (
         <>{title}</>

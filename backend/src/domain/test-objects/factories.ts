@@ -7,7 +7,13 @@ import {
   OccupationDetailPartial,
 } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
-import {CipDefinition, LocalException, NullableOccupation, Program, SocDefinition} from "../training/Program";
+import {
+  CipDefinition,
+  LocalException,
+  NullableOccupation,
+  Program,
+  SocDefinition,
+} from "../training/Program";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());
@@ -223,8 +229,8 @@ export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefini
     cipcode: "some-cipcode-" + randomInt(),
     ciptitle: "some-ciptitle-" + randomInt(),
     ...overrides,
-  }
-}
+  };
+};
 
 export const buildLocalException = (overrides: Partial<LocalException>): LocalException => {
   return {
