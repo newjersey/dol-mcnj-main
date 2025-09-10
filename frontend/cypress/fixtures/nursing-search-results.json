@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "ctid": "ce-12345",
+      "name": "Nursing Assistant Program",
+      "description": "Comprehensive nursing assistant training program with hands-on clinical experience.",
+      "deliveryTypes": ["BlendedDelivery"],
+      "totalCost": 2500,
+      "calendarLength": 6,
+      "inDemand": true,
+      "provider": {
+        "name": "Healthcare Training Institute",
+        "city": "Newark",
+        "state": "NJ"
+      }
+    },
+    {
+      "ctid": "ce-12346", 
+      "name": "RN to BSN Program",
+      "description": "Online registered nurse to bachelor of science in nursing program.",
+      "deliveryTypes": ["OnlineOnly"],
+      "totalCost": 15000,
+      "calendarLength": 8,
+      "inDemand": true,
+      "provider": {
+        "name": "University College",
+        "city": "Trenton",
+        "state": "NJ"
+      }
+    }
+  ],
+  "meta": {
+    "currentPage": 1,
+    "totalPages": 2,
+    "totalItems": 15,
+    "itemsPerPage": 10,
+    "hasNextPage": true,
+    "hasPreviousPage": false,
+    "nextPage": 2,
+    "previousPage": null
+  }
+}

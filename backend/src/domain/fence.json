@@ -1,4 +1,11 @@
 {
   "tags": ["domain"],
-  "imports": []
+  "imports": ["credentialengine", "infrastructure"],
+  "dependencies": [
+    "node-cache",
+    "zipcodes",
+    "axios",
+    "@sentry/node",
+    "jest-mock-axios"
+  ]
 }

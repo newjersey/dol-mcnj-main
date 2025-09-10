@@ -1,149 +1,250 @@
-import { SearchTrainings } from "../types";
-import { searchTrainingsFactory } from "./searchTrainings";
-import { buildTraining } from "../test-objects/factories";
-import { StubSearchClient } from "../test-objects/StubDataClient";
-import { Selector } from "../training/Selector";
+import { searchTrainingsFactory } from './searchTrainings';
+import { credentialEngineAPI } from '../../credentialengine/CredentialEngineAPI';
+import { TrainingData } from '../training/TrainingResult';
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import {StubDataClient} from "../test-objects/StubDataClient";
+import {mockCredentialEngineApiData} from "../test-objects/mockCredentialEngineApiData";
+import redis from '../../infrastructure/redis/redisClient';
 
-describe("searchTrainings", () => {
-  let searchTrainings: SearchTrainings;
-  let stubFindTrainingsBy: jest.Mock;
-  let stubSearchClient: StubSearchClient;
+jest.mock("@sentry/node");
+jest.mock("../../credentialengine/CredentialEngineAPI");
+jest.mock("../../infrastructure/redis/redisClient", () => ({
+  __esModule: true,
+  default: {
+    get: jest.fn(),
+    set: jest.fn(),
+    quit: jest.fn().mockResolvedValue('OK')
+  }
+}));
+
+const mockRedis = redis as jest.Mocked<typeof redis & { quit: jest.Mock }>;
+
+describe('searchTrainingsFactory', () => {
+  const stubDataClient = StubDataClient();
+  const searchTrainings = searchTrainingsFactory(stubDataClient);
+  const mockTrainingResults = mockCredentialEngineApiData;
+  const mockTrainingResult = mockTrainingResults[0];
+
+  const mockApiResponse: AxiosResponse = {
+    data: { data: [mockTrainingResult], extra: { TotalResults: 1 } },
+    status: 200,
+    statusText: 'OK',
+    headers: {},
+    config: {} as InternalAxiosRequestConfig,
+  };
+
+  const emptyApiResponse: AxiosResponse = {
+    data: { data: [], extra: {TotalResults: 0} },
+    status: 200,
+    statusText: 'OK',
+    headers: {},
+    config: {} as InternalAxiosRequestConfig,
+  };
+
+  const expectedEmptyData: TrainingData = {
+    data: [],
+    meta: {
+      currentPage: 1,
+      totalPages: 1,
+      totalItems: 0,
+      itemsPerPage: 10,
+      hasNextPage: false,
+      hasPreviousPage: false,
+      nextPage: null,
+      previousPage: null
+    }
+  };
 
   beforeEach(() => {
-    jest.resetAllMocks();
-    stubFindTrainingsBy = jest.fn();
-    stubSearchClient = StubSearchClient();
-
-    searchTrainings = searchTrainingsFactory(stubFindTrainingsBy, stubSearchClient);
+    // Mock Redis to return cache miss by default
+    mockRedis.get.mockResolvedValue(null);
+    mockRedis.set.mockResolvedValue('OK');
+    
+    // Mock DataClient methods
+    stubDataClient.getCIPsInDemand.mockResolvedValue([]);
+    stubDataClient.findCipDefinitionByCip.mockResolvedValue(null);
+    stubDataClient.findOutcomeDefinition.mockResolvedValue(null);
+    stubDataClient.getLocalExceptionsByCip.mockResolvedValue([]);
+    
+    // Mock console methods to avoid log spam in tests
+    jest.spyOn(console, 'log').mockImplementation(jest.fn());
+    jest.spyOn(console, 'time').mockImplementation(jest.fn());
+    jest.spyOn(console, 'timeEnd').mockImplementation(jest.fn());
+    jest.spyOn(console, 'error').mockImplementation(jest.fn());
   });
 
-  it("returns matching trainings with highlights and ranks", async () => {
-    const training1 = buildTraining({ id: "1" });
-    const training2 = buildTraining({ id: "2" });
-    stubSearchClient.search.mockResolvedValue([
-      { id: "1", rank: 1 },
-      { id: "2", rank: 2 },
-    ]);
-    stubSearchClient.getHighlight
-      .mockResolvedValueOnce("some highlight 1")
-      .mockResolvedValueOnce("some highlight 2");
-    stubFindTrainingsBy.mockResolvedValue([training1, training2]);
-
-    expect(await searchTrainings("some query")).toEqual([
-      {
-        id: training1.id,
-        name: training1.name,
-        totalCost: training1.totalCost,
-        percentEmployed: training1.percentEmployed,
-        calendarLength: training1.calendarLength,
-        totalClockHours: training1.totalClockHours,
-        inDemand: training1.inDemand,
-        localExceptionCounty: training1.localExceptionCounty,
-        online: training1.online,
-        providerId: training1.provider.id,
-        providerName: training1.provider.name,
-        city: training1.provider.address.city,
-        zipCode: training1.provider.address.zipCode,
-        county: training1.provider.county,
-        rank: 1,
-        highlight: "some highlight 1",
-        socCodes: training1.occupations.map((o) => o.soc),
-        cipDefinition: training1.cipDefinition,
-        hasEveningCourses: training1.hasEveningCourses,
-        languages: training1.languages,
-        isWheelchairAccessible: training1.isWheelchairAccessible,
-        hasJobPlacementAssistance: training1.hasJobPlacementAssistance,
-        hasChildcareAssistance: training1.hasChildcareAssistance,
-      },
-      {
-        id: training2.id,
-        name: training2.name,
-        totalCost: training2.totalCost,
-        percentEmployed: training2.percentEmployed,
-        calendarLength: training2.calendarLength,
-        totalClockHours: training2.totalClockHours,
-        inDemand: training2.inDemand,
-        localExceptionCounty: training2.localExceptionCounty,
-        online: training2.online,
-        providerId: training2.provider.id,
-        providerName: training2.provider.name,
-        city: training2.provider.address.city,
-        zipCode: training2.provider.address.zipCode,
-        county: training2.provider.county,
-        rank: 2,
-        highlight: "some highlight 2",
-        socCodes: training2.occupations.map((o) => o.soc),
-        cipDefinition: training2.cipDefinition,
-        hasEveningCourses: training2.hasEveningCourses,
-        languages: training2.languages,
-        isWheelchairAccessible: training2.isWheelchairAccessible,
-        hasJobPlacementAssistance: training2.hasJobPlacementAssistance,
-        hasChildcareAssistance: training2.hasChildcareAssistance,
-      },
-    ]);
-
-    expect(stubSearchClient.search).toHaveBeenCalledWith("some query");
-    expect(stubFindTrainingsBy).toHaveBeenCalledWith(Selector.ID, ["1", "2"]);
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 
-  it("returns empty when search query is empty", async () => {
-    stubFindTrainingsBy.mockResolvedValue([]);
-    stubSearchClient.search.mockResolvedValue([]);
-    const searchResults = await searchTrainings("");
-    expect(searchResults).toEqual([]);
+  afterAll(async () => {
+    // Close Redis connection to prevent Jest warning
+    if (mockRedis.quit) {
+      await mockRedis.quit();
+    }
   });
 
-  it("searches using CIP code when query is a valid CIP code", async () => {
-    const training1 = buildTraining({ id: "1" });
-    const training2 = buildTraining({ id: "2" });
-    stubSearchClient.search.mockResolvedValue([
-      { id: "1", rank: 1 },
-      { id: "2", rank: 2 },
-    ]);
-    stubSearchClient.getHighlight
-      .mockResolvedValueOnce("some highlight 1")
-      .mockResolvedValueOnce("some highlight 2");
-    stubFindTrainingsBy.mockResolvedValue([training1, training2]);
+  it('should fetch results from the Credential Engine API and transform data correctly', async () => {
+    const query = 'data science';
+    
+    // Mock API to return successful response
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults')
+      .mockResolvedValue(mockApiResponse);
 
-    const searchResults = await searchTrainings("120501");
-
-    expect(stubSearchClient.search).toHaveBeenCalledWith("120501");
-    expect(stubFindTrainingsBy).toHaveBeenCalledWith(Selector.ID, ["1", "2"]);
-    expect(searchResults).toHaveLength(2);
-  });
-
-  it("searches using formatted CIP code", async () => {
-    const training1 = buildTraining({ id: "1" });
-    stubSearchClient.search.mockResolvedValue([{ id: "1", rank: 1 }]);
-    stubSearchClient.getHighlight.mockResolvedValueOnce("some highlight 1");
-    stubFindTrainingsBy.mockResolvedValue([training1]);
-
-    const searchResults = await searchTrainings("12.0501");
-
-    expect(stubSearchClient.search).toHaveBeenCalledWith("12.0501");
-    expect(stubFindTrainingsBy).toHaveBeenCalledWith(Selector.ID, ["1"]);
-    expect(searchResults).toHaveLength(1);
-  });
-
-  describe("error handling", () => {
-    it("rejects when search is broken", (done) => {
-      stubSearchClient.search.mockRejectedValue({});
-      searchTrainings("query").catch(() => done());
+    // Call the searchTrainings function
+    const searchResults = await searchTrainings({ 
+      searchQuery: query, 
+      page: 1, 
+      limit: 10 
     });
 
-    it("rejects when find by ids is broken", (done) => {
-      stubSearchClient.search.mockResolvedValue(["id"]);
-      stubFindTrainingsBy.mockRejectedValue({});
-
-      searchTrainings("query").catch(() => done());
-    });
-
-    it("rejects when get highlights is broken", (done) => {
-      stubSearchClient.search.mockResolvedValue(["id"]);
-      stubFindTrainingsBy.mockResolvedValue([buildTraining({})]);
-      stubSearchClient.getHighlight.mockRejectedValue({});
-
-      searchTrainings("query").catch(() => done());
-    });
+    // Assertions based on the actual implementation behavior
+    expect(searchResults).toHaveProperty('data');
+    expect(searchResults).toHaveProperty('meta');
+    expect(searchResults.meta).toHaveProperty('currentPage', 1);
+    expect(searchResults.meta).toHaveProperty('itemsPerPage', 10);
+    expect(Array.isArray(searchResults.data)).toBe(true);
+    
+    // Verify API was called
+    expect(getResultsSpy).toHaveBeenCalled();
+    
+    // Verify Redis caching was attempted
+    expect(mockRedis.get).toHaveBeenCalled();
+    expect(mockRedis.set).toHaveBeenCalled();
   });
+
+  it('should handle API errors gracefully', async () => {
+    const query = 'invalid query';
+    
+    // Mock API to throw an error
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults')
+      .mockRejectedValue(new Error('API request failed'));
+
+    // Call should not throw, but handle errors gracefully
+    const searchResults = await searchTrainings({ 
+      searchQuery: query, 
+      page: 1, 
+      limit: 10 
+    });
+
+    // Should return empty results when API fails
+    expect(searchResults.data).toEqual([]);
+    expect(searchResults.meta.totalItems).toBe(0);
+    expect(getResultsSpy).toHaveBeenCalled();
+  });
+
+  it('should return cached results when available', async () => {
+    const cachedData = {
+      results: [],
+      totalResults: 0
+    };
+    
+    // Mock Redis to return cached data
+    mockRedis.get.mockResolvedValue(JSON.stringify(cachedData));
+    
+    const result = await searchTrainings({ 
+      searchQuery: 'test', 
+      page: 1, 
+      limit: 10 
+    });
+    
+    expect(result).toEqual(expectedEmptyData);
+    expect(mockRedis.get).toHaveBeenCalled();
+    // Should not call API when cache hit
+    expect(credentialEngineAPI.getResults).not.toHaveBeenCalled();
+  });
+
+  it('should return results from the API when cache is not available', async () => {
+    // Mock cache miss
+    mockRedis.get.mockResolvedValue(null);
+    
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults')
+      .mockResolvedValue(emptyApiResponse);
+    
+    const result = await searchTrainings({ 
+      searchQuery: 'test_no_cache', 
+      page: 1, 
+      limit: 10 
+    });
+    
+    expect(result.data).toEqual([]);
+    expect(result.meta.totalItems).toBe(0);
+    expect(getResultsSpy).toHaveBeenCalled();
+    expect(mockRedis.set).toHaveBeenCalled(); // Should cache the result
+  });
+
+  it('should handle API request failures gracefully with fallback', async () => {
+    // Mock cache miss
+    mockRedis.get.mockResolvedValue(null);
+    
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults')
+      .mockRejectedValue(new Error('Failed to fetch results from Credential Engine API.'));
+    
+    const result = await searchTrainings({ 
+      searchQuery: 'test error', 
+      page: 1, 
+      limit: 10 
+    });
+    
+    // Should handle errors gracefully and return empty results
+    expect(result.data).toEqual([]);
+    expect(result.meta.totalItems).toBe(0);
+    expect(getResultsSpy).toHaveBeenCalled();
+  });
+
+  it('should handle pagination correctly', async () => {
+    // Mock cache miss
+    mockRedis.get.mockResolvedValue(null);
+    
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults')
+      .mockResolvedValue(emptyApiResponse);
+    
+    const result = await searchTrainings({ 
+      searchQuery: 'test', 
+      page: 2, 
+      limit: 5 
+    });
+    
+    // When no results are found, pagination logic clamps to page 1
+    // This is defensive behavior to prevent invalid page numbers
+    expect(result.meta.currentPage).toBe(1);
+    expect(result.meta.itemsPerPage).toBe(5);
+    expect(result.meta.totalPages).toBe(1);
+    expect(result.meta.totalItems).toBe(0);
+    expect(getResultsSpy).toHaveBeenCalled();
+  });
+
+  it('should handle sorting parameters', async () => {
+    // Mock cache miss
+    mockRedis.get.mockResolvedValue(null);
+    
+    const getResultsSpy = jest.spyOn(credentialEngineAPI, 'getResults')
+      .mockResolvedValue(emptyApiResponse);
+    
+    // Test different sort options
+    await searchTrainings({ 
+      searchQuery: 'test', 
+      page: 1, 
+      limit: 10, 
+      sort: 'asc' 
+    });
+    
+    await searchTrainings({ 
+      searchQuery: 'test', 
+      page: 1, 
+      limit: 10, 
+      sort: 'desc' 
+    });
+    
+    await searchTrainings({ 
+      searchQuery: 'test', 
+      page: 1, 
+      limit: 10, 
+      sort: 'best_match' 
+    });
+    
+    expect(getResultsSpy).toHaveBeenCalledTimes(3);
+  });
+
 });

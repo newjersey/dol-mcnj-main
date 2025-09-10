@@ -44,15 +44,19 @@
 @import "modules/error-message";
 @import "modules/financial-resource";
 @import "modules/footer-banner";
+@import "modules/grouping";
 @import "modules/how-to-button";
 @import "modules/iconCard";
+@import "modules/info-blocks";
 @import "modules/mixins";
 @import "modules/path-menu";
 @import "modules/section-heading";
 @import "modules/single-path";
+@import "modules/stat-block";
 @import "modules/tags";
 
 // COMPONENTS
+@import "components/alertBar";
 @import "components/cardRow";
 @import "components/career-map";
 @import "components/career-pathways";
@@ -72,6 +76,7 @@
 @import "components/labelBox";
 @import "components/occupation-block";
 @import "components/page-banner";
+@import "components/pagination";
 @import "components/pathway-menus";
 @import "components/resource-filter";
 @import "components/resource-links";
@@ -172,15 +177,15 @@ a.link-format-black {
 
 a,
 a.usa-link {
-  color: $primary-vivid;
+  color: $primary;
 
   &:visited {
-    color: $primary-vivid;
+    color: $primary;
   }
 
   &:hover {
     @media screen and (min-width: ($desktop)) {
-      color: $primary;
+      color: $primary-vivid;
     }
   }
 }
@@ -239,6 +244,7 @@ a.link-format-blue {
 }
 
 .language-switch-buttton {
+  background-color: $green-cool-50v;
   position: fixed;
   bottom: $size-16;
   left: $size-16;

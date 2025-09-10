@@ -24,11 +24,11 @@ export type Props = {
 };
 
 export const ContentfulRichText: React.FC<Props> = ({
-  document,
-  imageDescription,
-  assets,
-  className,
-}: Props) => {
+                                                      document,
+                                                      imageDescription,
+                                                      assets,
+                                                      className,
+                                                    }: Props) => {
   const options: Options = {
     renderNode: {
       [INLINES.HYPERLINK]: (node, children) => {

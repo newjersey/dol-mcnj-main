@@ -23,6 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import '@testing-library/cypress/add-commands';
 
 function terminalLog(violations) {
   cy.task(

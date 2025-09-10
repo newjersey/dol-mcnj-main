@@ -11,6 +11,7 @@ import {
   comparisonReducer,
   ComparisonContext,
 } from "./comparison/ComparisonContext";
+// import { FaqRoutes } from "./faqs/FaqRoutes";
 import {
   ContextualInfo,
   ContextualInfoContext,
@@ -22,15 +23,13 @@ import { IndustryPage } from "./career-pathways-page/IndustryPage";
 import { ToolsPage } from "./tools-page/ToolsPage";
 
 import { useTranslation } from "react-i18next";
+import { TrainingPageRouter } from "./training-page/TrainingPageRouter";
 
 // Lazy load pages
 const SearchResultsPage = React.lazy(() =>
   import("./search-results/SearchResultsPage").then((module) => ({
     default: module.SearchResultsPage,
   })),
-);
-const TrainingPage = React.lazy(() =>
-  import("./training-page/TrainingPage").then((module) => ({ default: module.TrainingPage })),
 );
 const OccupationPage = React.lazy(() =>
   import("./occupation-page/OccupationPage").then((module) => ({ default: module.OccupationPage })),
@@ -48,6 +47,9 @@ const TermsOfServicePage = React.lazy(() =>
     default: module.SmsUsePolicyPage,
   })),
 );
+// const FaqPage = React.lazy(() =>
+//   import("./faq-page/FaqPage").then((module) => ({ default: module.FaqPage })),
+// );
 
 const TrainingProviderPage = React.lazy(() =>
   import("./training-provider-page/TrainingProviderPage").then((module) => ({
@@ -78,6 +80,11 @@ const AllSupportPage = React.lazy(() =>
     default: module.AllSupportPage,
   })),
 );
+// const ResourceCategoryPage = React.lazy(() =>
+//   import("./resource-category-page/ResourceCategoryPage").then((module) => ({
+//     default: module.ResourceCategoryPage,
+//   })),
+// );
 const LandingPage = React.lazy(() =>
   import("./landing-page/LandingPage").then((module) => ({ default: module.LandingPage })),
 );
@@ -157,20 +164,22 @@ export const App = (props: Props): ReactElement => {
               <Router>
                 <LandingPage path="/" client={props.client} />
                 <TrainingExplorerPage path="/training" client={props.client} />
+                {/* {FaqRoutes({ client: props.client })} */}
                 <SearchResultsPage path="/training/search" client={props.client} />
                 <SearchResultsPage path="/training/search?q=:searchQuery" client={props.client} />
-                <TrainingPage path="/training/:id" client={props.client} />
+                <TrainingPageRouter path="/training/:id" id=":id" client={props.client} />
                 <InDemandOccupationsPage path="/in-demand-occupations" client={props.client} />
                 <OccupationPage path="/occupation/:soc" client={props.client} />
                 <PrivacyPolicyPage path="/privacy-policy" client={props.client} />
                 <TermsOfServicePage path="/sms-use-policy" client={props.client} />
+                {/* <FaqPage path="/faq" client={props.client} /> */}
                 <SystemErrorPage
                   path="/faq"
                   client={props.client}
                   code="503"
                   heading={t("SystemErrorPage.faqHeading")}
                   subheading={t("SystemErrorPage.faqSubheading")}
-                  copy={t("SystemError_Page.faqCopy")}
+                  copy={t("SystemErrorPage.faqCopy")}
                 />
                 <ContactUsPage path="/contact" client={props.client} />
                 <TrainingProviderPage path="/training-provider-resources" client={props.client} />
@@ -178,6 +187,7 @@ export const App = (props: Props): ReactElement => {
                 <SupportRedirect path="/support-resources/*" />
                 <SystemErrorPage default client={props.client} code="404" />
                 <ToolsPage path="/tools" client={props.client} />
+                {/* <NotFoundPage default client={props.client} /> */}
 
                 <Redirect from="/search" to="/training/search" />
                 <Redirect

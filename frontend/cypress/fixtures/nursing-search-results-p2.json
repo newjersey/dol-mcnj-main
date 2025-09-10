@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "ctid": "ce-12347",
+      "name": "Advanced Nursing Practice",
+      "description": "Advanced practice nursing program for experienced RNs.",
+      "deliveryTypes": ["InPerson"],
+      "totalCost": 8500,
+      "calendarLength": 7,
+      "inDemand": true,
+      "provider": {
+        "name": "Medical Training Center",
+        "city": "Camden",
+        "state": "NJ"
+      }
+    }
+  ],
+  "meta": {
+    "currentPage": 2,
+    "totalPages": 2,
+    "totalItems": 15,
+    "itemsPerPage": 10,
+    "hasNextPage": false,
+    "hasPreviousPage": true,
+    "nextPage": null,
+    "previousPage": 1
+  }
+}
