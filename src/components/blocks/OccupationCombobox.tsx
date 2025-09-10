@@ -21,17 +21,16 @@ export const OccupationCombobox = ({
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState<Option | null>(null);
 
-  async function getOccupations(slug: string) {
+  async function getOccupations() {
     const industry = await client({
       query: OCCUPATIONS_QUERY,
-      variables: { slug },
     });
     return { ...industry };
   }
 
   useEffect(() => {
     (async () => {
-      const d = (await getOccupations("manufacturing")) as any;
+      const d = (await getOccupations()) as any;
       setData(collectAllItemsNormalized(d));
       setLoading(false);
     })();
