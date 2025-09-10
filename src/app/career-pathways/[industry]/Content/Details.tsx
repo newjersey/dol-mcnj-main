@@ -138,6 +138,7 @@ export const Details = ({
     <div className="occupation-block">
       <div className="occupation-box">
         <Breadcrumbs
+          collapsed={false}
           pageTitle={content.title}
           crumbs={[
             {
