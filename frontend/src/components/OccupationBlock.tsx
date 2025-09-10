@@ -166,7 +166,7 @@ export const OccupationBlock = (props: OccupationBlockProps) => {
                   className="occupation"
                   onClick={() => {
                       props.setOccupation(item.idNumber); // still keep SOC internally
-                      setQueryParam("occupation", item.title); // slugified in helper
+                      setQueryParam("occupation", item.title); // trimmed, lowercased, spaces replaced with '+'
                       setOpen(false);
                   }}
                 >
