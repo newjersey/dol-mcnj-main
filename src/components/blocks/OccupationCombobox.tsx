@@ -10,10 +10,12 @@ export const OccupationCombobox = ({
   style,
   className,
   compact = false,
+  placeholder = "Start typing to filter job titles",
 }: {
   style?: React.CSSProperties;
   className?: string;
   compact?: boolean;
+  placeholder?: string;
 }) => {
   const [data, setData] = useState<Option[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -61,9 +63,7 @@ export const OccupationCombobox = ({
         renderInput={(params) => (
           <TextField
             {...params}
-            placeholder={
-              loading ? "Loading..." : "Start typing to filter job titles"
-            }
+            placeholder={loading ? "Loading..." : placeholder}
           />
         )}
         autoHighlight
