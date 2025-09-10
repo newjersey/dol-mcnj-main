@@ -8,70 +8,61 @@ describe("Filter Drawer", () => {
   });
 
   it("should have filters that reflect the url/search", () => {
-    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results-filters.json" })
-    cy.visit("/training/search?q=baking&inDemand=true&maxCost=20000&county=Bergen&format=online&miles=10&zipcode=07625&completeIn=days,weeks&languages=es,fr&services=placement&cip=12.0503&soc=22222", { failOnStatusCode: false })
+    cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match&filters=*", { fixture: "baking-search-results.json" });
+    cy.visit("/training/search?q=baking&inDemand=true&maxCost=20000&county=Bergen&format=online&miles=10&zipcode=07625&completeIn=days,weeks&languages=es,fr&services=placement&cip=12.0503&soc=22222", { failOnStatusCode: false });
 
-    cy.get("#filter-form-container").should("not.exist");
+    // Wait for page to load completely
+    cy.get("body", { timeout: 15000 }).should("be.visible");
     
-    // Wait for page to load and look for the Filters button with very flexible selectors
-    cy.get("body", { timeout: 10000 }).should("be.visible");
+    // Wait for any loading states to complete
+    cy.get('[data-testid="loading"], .loading', { timeout: 1000 }).should("not.exist");
     
-    // Check if filter functionality exists at all, if not skip the test
-    cy.get("body").then(($body) => {
-      const hasFilterButton = $body.find('button:contains("Filter"), button:contains("filter"), [data-testid="filter-button"], .filter-button, #filter-button-container button').length > 0;
+    // Debug: Log what elements are actually present
+    cy.get('body').then(($body) => {
+      const buttons = $body.find('button').map((i, el) => el.textContent || el.getAttribute('aria-label')).get();
+      cy.log('Available buttons:', buttons.join(', '));
       
-      if (hasFilterButton) {
-        cy.get('#filter-button-container button, button:contains("Filter"), button:contains("filter"), [data-testid="filter-button"], .filter-button', { timeout: 10000 }).first().should('exist').click();
-        
-        // Check search query is reflected in the page header (no search input in drawer form)
-        cy.get('h1, h2, [data-testid="page-title"], .page-title', { timeout: 5000 }).should(($elements) => {
-          const text = $elements.text();
-          expect(text.toLowerCase()).to.satisfy((content) => {
-            return content.includes('baking') || content.includes('search') || content.includes('results');
-          });
-        });
-        
-        // Verify the filter form container opens inside the drawer
-        cy.get('#filter-form-container, [data-testid="filter-form"], .filter-form', { timeout: 5000 }).should('exist');
-      } else {
-        // Filter functionality may not be available in this environment
-        cy.log("Filter button not found - filter functionality may not be available in this environment");
-        
-        // Just verify the page loaded with filters in URL
-        cy.url().should('include', 'q=baking');
-        cy.url().should('include', 'inDemand=true');
-        cy.get('body').should('exist');
-      }
+      const filterElements = $body.find('[class*="filter"], [data-testid*="filter"], [aria-label*="filter"]').map((i, el) => el.className || el.getAttribute('data-testid') || el.getAttribute('aria-label')).get();
+      cy.log('Filter-related elements:', filterElements.join(', '));
     });
+    
+    // Find and click the filter toggle button - this SHOULD exist, test should fail if it doesn't
+    cy.get('button[aria-label*="filter"], button:contains("Filter"), .filter-button, [data-testid*="filter"], button[class*="filter"]', { timeout: 15000 })
+      .should("be.visible")
+      .first()
+      .click();
+
+    // Verify filter drawer opens
+    cy.get('.filter-drawer, .filters-container, [role="dialog"], .filters', { timeout: 10000 }).should("be.visible");
+
+    // Verify some filters are checked based on URL params
+    cy.get('input[type="checkbox"][checked], .checkbox.checked, input:checked', { timeout: 5000 }).should("have.length.greaterThan", 0);
+    
+    // Close the filter drawer
+    cy.get('button[aria-label*="filter"], button:contains("Filter"), .filter-button, [data-testid*="filter"], button[class*="filter"]')
+      .first()
+      .click();
   });
 
   it("should clear filters when clear button is clicked", () => {
     cy.intercept("/api/trainings/search?query=baking&page=1&limit=10&sort=best_match", { fixture: "baking-search-results.json" })
     cy.visit("/training/search?q=baking&inDemand=true&maxCost=20000&county=Bergen&format=online&miles=10&zipcode=07625&completeIn=days,weeks&languages=es,fr&services=placement&cip=12.0503&soc=22222", { failOnStatusCode: false })
 
-    // Wait for page to load and look for Clear Filters button with specific class
-    cy.get("body", { timeout: 10000 }).should("be.visible");
+    // Wait for page to load completely
+    cy.get("body", { timeout: 15000 }).should("be.visible");
     
-    // Check if clear filters functionality exists
-    cy.get("body").then(($body) => {
-      const hasClearButton = $body.find('.clear-filters-button, button:contains("Clear filters"), button:contains("Clear"), button:contains("clear")').length > 0;
-      
-      if (hasClearButton) {
-        cy.get(".clear-filters-button, button:contains('Clear filters'), button:contains('Clear'), button:contains('clear')", { timeout: 10000 }).first().click();
-        
-        // After clearing, verify URL has only search query
-        cy.url({ timeout: 5000 }).should("satisfy", (url) => {
-          return url.includes("q=baking") && !url.includes("inDemand");
-        });
-      } else {
-        // Clear functionality may not be available in this environment
-        cy.log("Clear filters button not found - clear functionality may not be available in this environment");
-        
-        // Just verify the page loaded with filters in URL
-        cy.url().should('include', 'q=baking');
-        cy.url().should('include', 'inDemand=true');
-        cy.get('body').should('exist');
-      }
+    // Wait for any loading states to complete
+    cy.get('[data-testid="loading"], .loading', { timeout: 1000 }).should("not.exist");
+    
+    // Look for Clear Filters button - this SHOULD exist, test should fail if it doesn't
+    cy.get(".clear-filters-button, button:contains('Clear filters'), button:contains('Clear'), button:contains('clear')", { timeout: 15000 })
+      .should("be.visible")
+      .first()
+      .click();
+    
+    // After clearing, verify URL has only search query
+    cy.url({ timeout: 10000 }).should("satisfy", (url) => {
+      return url.includes("q=baking") && !url.includes("inDemand");
     });
   });
 
