@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  productionBrowserSourceMaps: true,
   env: {
     REACT_APP_API_URL: process.env.REACT_APP_API_URL,
     REACT_APP_BASE_URL: process.env.REACT_APP_BASE_URL,
@@ -18,7 +19,8 @@ const nextConfig: NextConfig = {
     REACT_APP_SITE_URL: process.env.REACT_APP_SITE_URL,
   },
   images: {
-    unoptimized: true,
+    unoptimized: false,
+    domains: ["images.ctfassets.net", "www.nj.gov"],
   },
   async rewrites() {
     return [
