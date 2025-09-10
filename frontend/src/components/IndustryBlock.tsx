@@ -11,7 +11,6 @@ export const IndustryBlock = ({
   photo,
   slug,
   title,
-  shorthandTitle,
 }: IndustryProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -51,7 +50,7 @@ export const IndustryBlock = ({
           <Info size={22} color="#000" />
 
           <span>
-            What is <strong>{shorthandTitle || title}</strong> like in New Jersey?
+            What is <strong>{title}</strong> like in New Jersey?
           </span>
         </button>
       </div>
@@ -71,7 +70,7 @@ export const IndustryBlock = ({
 
         <div className="heading">
           <h2>
-            <span>{shorthandTitle || title} in New Jersey</span>
+            <span>{title} in New Jersey</span>
           </h2>
         </div>
         <div className="content-wrapper">
