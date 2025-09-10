@@ -311,8 +311,8 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                       >
                                         {path.map((occupation) => {
                                           const isActive =
-                                            activeOccupation!.careerMapObject
-                                              .sys.id === occupation.sys.id;
+                                            activeOccupation?.careerMapObject
+                                              ?.sys?.id === occupation.sys.id;
                                           return (
                                             <button
                                               key={`occ${occupation.sys.id}`}

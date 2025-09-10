@@ -18,10 +18,14 @@
         &::after {
           content: "/";
           background-color: transparent;
-          margin: 0;
           mask: none;
           bottom: 0;
           left: s.$size-5;
+          margin: 0;
+
+          @media screen and (max-width: (s.$mobile-lg - 1)) {
+            margin: 0 s.$size-6;
+          }
         }
       }
     }
