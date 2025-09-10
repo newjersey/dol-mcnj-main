@@ -61,6 +61,22 @@ export const IndustryPage = (props: Props): ReactElement<Props> => {
     }
   }, [occupation]);
 
+  useEffect(() => {
+  if (!industry) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const occParam = params.get("occupation");
+  if (!occParam) return;
+
+  // turn + back to spaces, then compare
+  const occTitle = occParam.replace(/\+/g, " ").toLowerCase().trim();
+
+  const match = industry.inDemandCollection?.items?.find(
+    (i) => i.title?.toLowerCase().trim() === occTitle
+  );
+  if (match?.idNumber) setOccupation(match.idNumber); // SOC for API
+}, [industry]);
+
   if (props.slug && industryData?.industryCollection?.items.length === 0) {
     return <NotFoundPage client={props.client} />;
   }
