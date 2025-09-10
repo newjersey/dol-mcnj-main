@@ -118,8 +118,7 @@ describe('credentialEngineAPI', () => {
         }
       };
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (getRecordAPI as any).mockResolvedValueOnce(mockResponse);
+      (getRecordAPI as unknown as jest.MockedFunction<typeof getRecordAPI>).mockResolvedValueOnce(mockResponse);
 
       const result = await credentialEngineAPI.getResourceByCTID(testCTID);
 
