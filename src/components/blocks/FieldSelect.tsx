@@ -1,11 +1,9 @@
-import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr";
 import { Breadcrumbs } from "@components/modules/Breadcrumbs";
 import { Button } from "@components/modules/Button";
 import { CareerMapProps, IndustryProps } from "@utils/types";
 import { Flex } from "@components/utility/Flex";
 import { Heading } from "@components/modules/Heading";
 import { LearnMoreDrawer } from "@components/blocks/LearnMoreDrawer";
-import { LinkObject } from "@components/modules/LinkObject";
 import { SectionHeading } from "@components/modules/SectionHeading";
 import { OccupationCombobox } from "./OccupationCombobox";
 
@@ -47,7 +45,7 @@ export const FieldSelect = ({
                   },
                 },
                 {
-                  copy: "New Jersey Career Pathways",
+                  copy: "NJ Career Pathways",
                   url: "/career-pathways",
                   sys: {
                     id: "career-pathways",
@@ -58,13 +56,9 @@ export const FieldSelect = ({
                 isField ? "field" : "occupation"
               }`}
             />
-            <OccupationCombobox compact />
+            <OccupationCombobox compact placeholder="Search job titles" />
           </div>
           <Flex direction="column" gap="xs" fill>
-            <LinkObject url="/career-pathways" className="back">
-              <ArrowLeftIcon size={24} />
-              Back
-            </LinkObject>
             <SectionHeading
               headingLevel={1}
               noDivider
