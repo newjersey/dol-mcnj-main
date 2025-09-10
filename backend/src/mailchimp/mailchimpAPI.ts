@@ -17,12 +17,18 @@ if (!LIST_ID) {
 }
 
 if (!DATACENTER) {
-  throw new Error("MAILCHIMP_API_KEY format is incorrect. Expected format: 'key-usX' (e.g., '123456-us21').");
+  throw new Error(
+    "MAILCHIMP_API_KEY format is incorrect. Expected format: 'key-usX' (e.g., '123456-us21').",
+  );
 }
 
 const MAILCHIMP_URL = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${LIST_ID}/members`;
 
-export const addSubscriberToMailchimp = async (fname: string, lname: string, email: string, phone: string) => {
+export const addSubscriberToMailchimp = async (
+  fname: string,
+  lname: string,
+  email: string /*phone: string*/,
+) => {
   if (!email) {
     throw new Error("Email address is required.");
   }
@@ -36,7 +42,7 @@ export const addSubscriberToMailchimp = async (fname: string, lname: string, ema
         merge_fields: {
           FNAME: fname,
           LNAME: lname,
-          PHONE: phone,
+          // PHONE: phone,
         },
       },
       {
@@ -47,15 +53,23 @@ export const addSubscriberToMailchimp = async (fname: string, lname: string, ema
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     return response.data; // Success response
   } catch (error: unknown) {
-    if (error instanceof Error && 'response' in error && error.response && typeof error.response === 'object' && 'data' in error.response) {
-      throw new Error((error.response as { data?: { detail?: string } }).data?.detail || "Mailchimp API error");
+    if (
+      error instanceof Error &&
+      "response" in error &&
+      error.response &&
+      typeof error.response === "object" &&
+      "data" in error.response
+    ) {
+      throw new Error(
+        (error.response as { data?: { detail?: string } }).data?.detail || "Mailchimp API error",
+      );
     } else {
       throw new Error("Failed to connect to Mailchimp.");
     }
   }
-}
+};

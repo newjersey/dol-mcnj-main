@@ -31,7 +31,7 @@ router.get("/nav-menu/:id", routeHandler(NAV_MENU_QUERY));
 router.get("/occupation/:id", routeHandler(OCCUPATION_QUERY));
 router.get("/path-menu/:id", routeHandler(PATH_MENU_QUERY));
 router.get("/resource-category/:slug", routeHandler(RESOURCE_CATEGORY_QUERY));
-router.get("/resource-listing/:tags", routeHandler(RESOURCE_LISTING_QUERY));
+router.get("/resource-listing", routeHandler(RESOURCE_LISTING_QUERY));
 router.get("/training-explorer", routeHandler(TRAINING_EXPLORER_PAGE_QUERY));
 router.get("/training-provider", routeHandler(TRAINING_PROVIDER_PAGE_QUERY));
 router.get("/tution-assistance", routeHandler(TUITION_ASSISTANCE_PAGE_QUERY));

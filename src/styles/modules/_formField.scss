@@ -105,11 +105,16 @@
     }
   }
 
+  .inDemandOnly & {
+    label span {
+      font-weight: bold;
+    }
+  }
+
   .switch & {
     &.checkbox {
       label {
         padding: 0;
-        font-weight: bold;
 
         &:before {
           content: none;
