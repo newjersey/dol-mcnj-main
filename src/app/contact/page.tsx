@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default async function ResourcesPage() {
+export default async function ContactPage() {
   redirect("/?contactModal=true");
 }

@@ -1,0 +1,3 @@
+delete from localexceptioncips where
+    (soc = '39-1013' and occupation = 'First-Line Supervisors of Gambling Services Workers' and county = 'ATLANTIC' and cip = '12.0602' and cipdescription = 'Casino Dealing.' and cipcode = '120602') or
+    (soc = '39-3011' and occupation = 'Gambling Dealers' and county = 'ATLANTIC' and cip = '12.0602' and cipdescription = 'Casino Dealing.' and cipcode = '120602') or

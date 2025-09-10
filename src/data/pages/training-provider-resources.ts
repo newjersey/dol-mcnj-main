@@ -42,7 +42,7 @@ export const TRAINING_PROVIDER_PAGE_DATA = {
         {
           itemId: "1Mun6qXdJnEDZ3WNJOaqj0",
           heading: "Introduction",
-          copy: "As a training program provider, you may have questions about data collection requirements, Eligible Training Provider List (ETPL) listing, and how the Department of Labor deals with Quality Assurance. You can find answers to your questions here, and if you don't see your answer, please reach out to us via our [contact form](https://docs.google.com/forms/d/e/1FAIpQLScqwg2GzgjyA_pdzJGai620SE0a0zVeq39GirQF_6t4CcblqA/viewform), and we will do our best to help you out.\n\nTo view communications that have been sent out to training providers, visit the [Center for Occupational Employment Information (COEI)](https://www.nj.gov/labor/labormarketinformation/contact-us/COEI.shtml) site.",
+          copy: "As a training program provider, you may have questions about data collection requirements, Eligible Training Provider List (ETPL) listing, and how the Department of Labor deals with Quality Assurance. You can find answers to your questions here, and if you don't see your answer, please reach out to us via our [contact form](https://mycareer.nj.gov/contact), and we will do our best to help you out.\n\nTo view communications that have been sent out to training providers, visit the [Center for Occupational Employment Information (COEI)](https://www.nj.gov/labor/labormarketinformation/contact-us/COEI.shtml) site.",
         },
         {
           itemId: "1izOajKXDAG3d1Wuh6aQEP",

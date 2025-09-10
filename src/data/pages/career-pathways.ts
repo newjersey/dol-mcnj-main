@@ -7,7 +7,6 @@ import { IndustrySelectorProps } from "@utils/types/components";
 import placeholder2 from "@images/pathway1.jpg";
 import placeholder1 from "@images/pathway2.jpg";
 import bannerImage from "@images/pathwayBanner.jpg";
-import { ThemeColors } from "@utils/types";
 import { PageHeroProps } from "@components/blocks/PageHero";
 
 export const CAREER_PATHWAYS_PAGE_DATA = {
@@ -41,7 +40,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       image: bannerImage,
       subheading: "Map Out Your Career Path:",
       description:
-        "The pathways tool is easy to use! It saves you time by bringing everything - high growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, without stress.",
+        "The pathways tool is easy to use! It saves you time by bringing high-growth career paths, training options, and job opportunities into one place, to explore your next steps with ease, and without stress.",
       theme: "purple",
       buttons: [
         {
@@ -89,7 +88,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
           drawerCards: [
             {
               icon: "Factory",
-              title: "Why to consider a Manufacturing Career",
+              title: "Why consider a Manufacturing Career",
               copy: "### Growth potential\n\nA lot of manufacturing companies offer on-site job training, so there is always room to grow and advance your career.\n\n### Cutting edge\n\nInnovative new technologies like robotics, wearables, 3D printing, and drones get developed and used in manufacturing.\n\n### Gratifying\n\nYou can actually see the outcome of your work in a tangible object. People who work in the field can say, “I made that.”",
             },
             {
@@ -111,7 +110,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
           drawerCards: [
             {
               icon: "Stethoscope",
-              title: "Why to consider a Healthcare Career",
+              title: "Why consider a Healthcare Career",
               copy: "### Job Security\n\nHealthcare is one of the fastest growing and most stable industries to work in. Health care is the only industry that has added jobs in the state every year from 1990 through 2019, even in times of recessions.\n\n### Educational Options\n\nThere are jobs for people at all education levels.\n\n### Well Paid Meaningful Work\n\nYou can make a meaningful difference in people's lives while earning a living.",
             },
             {
@@ -134,12 +133,12 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
           drawerCards: [
             {
               icon: "Truck",
-              title: "Why to consider a TDL Career",
-              copy: "### Quality Jobs\n\nMany jobs in transportation distribution and logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.\n\n### For a variety of interests\n\nThe industry offers opportunities for people who like working with customers – flight attendants and train conductors, for example - as well as people who like to build and fix things and solve problems, like engineers, service technicians, and mechanics.\n\n### Important Contribution\n\nTransportation disctribulation and logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.",
+              title: "Why consider a TDL Career",
+              copy: "### Quality Jobs\n\nMany jobs in Transportation Distribution and Logistics offer long-term employment, and opportunities for advancement, great benefits, on the job training and mentorship.\n\n### For a variety of interests\n\nThe industry offers opportunities for people who like working with customers – flight attendants and train conductors, for example - as well as people who like to build and fix things and solve problems, like engineers, service technicians, and mechanics.\n\n### Important Contribution\n\nTransportation, Distribution, and Logistics are all critical to the economy and society. When you work in transportation, you can go to work every day knowing you are having an impact on people.",
             },
             {
               icon: "Star",
-              title: "Top Manufacturing Sectors",
+              title: "Top TDL Sectors",
               copy: "### Air Transportation\n\nAircraft are used to move passengers or cargo. They can be scheduled or on-demand and the companies that run them range in size from major airlines to regional carriers. New Jersey is home to three commercial airports - Newark Liberty, Trenton Mercer, and Atlantic City - eight airports that support corporate and private-use general aviation activities, 30 other public-use airports, one seaplane base, as well as several heliports and balloon ports.\n\n### Road Trucking\n\nTrucks play a major role in the New Jersey economy, a part of the larger freight industry. Terminals and warehousing centers connect these systems to deliver goods and also jobs. Of the more than 600 million tons of goods moved each year, 75 percent move by truck. There are rules and regulations that govern the drivers and trucks in this industry\n\n### Warehousing\n\nWarehousing is the process of storing physical inventory for sale or distribution. Warehouses are used by all different types of businesses that need to temporarily store products in bulk before either shipping them to other locations or individually to end consumers.",
             },
           ],
@@ -221,15 +220,15 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
   },
   es: {
     pageHero: {
-      heading: "Trayectorias Profesionales de NJ",
-      subheading: "Planifica tu Trayectoria Profesional:",
+      heading: "Rutas Profesionales de NJ",
       image: bannerImage,
+      subheading: "Traza tu Ruta Profesional:",
       description:
-        "¡La herramienta de trayectorias es fácil de usar! Te ahorra tiempo al reunir todo en un solo lugar — trayectorias profesionales de alto crecimiento, opciones de capacitación y oportunidades laborales — para que explores tus próximos pasos con facilidad y sin estrés.",
+        "¡La herramienta de rutas es fácil de usar! Te ahorra tiempo al reunir en un solo lugar trayectorias profesionales de alto crecimiento, opciones de capacitación y oportunidades laborales, para que explores tus próximos pasos con facilidad y sin estrés.",
       theme: "purple",
       buttons: [
         {
-          label: "Comenzar a Explorar",
+          label: "Comienza a Explorar",
           iconSuffix: "ArrowDown",
           defaultStyle: "tertiary",
           link: "#industry-selector",
@@ -237,18 +236,18 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       ],
     } as PageHeroProps,
     banner: {
-      heading: "¡Bienvenido a New Jersey Career Pathways!",
+      heading: "¡Bienvenido a las Rutas Profesionales de Nueva Jersey!",
       description:
-        "Con New Jersey Career Pathways, explorar trabajos en demanda y oportunidades de capacitación nunca ha sido tan fácil.",
+        "Con Rutas Profesionales de Nueva Jersey, explorar empleos en demanda y oportunidades de capacitación nunca ha sido tan fácil.",
       tag: {
         color: "navy",
         title: "Beta",
         tooltip:
-          "Nuestro equipo está investigando y desarrollando más trayectorias profesionales. Vuelve regularmente para ver las actualizaciones.",
+          "Nuestro equipo está investigando y desarrollando más rutas. Vuelve con frecuencia para ver actualizaciones.",
         icon: "Info",
       },
       crumbs: {
-        pageTitle: "NJ Career Pathways",
+        pageTitle: "Rutas Profesionales de NJ",
         items: [
           {
             copy: "Inicio",
@@ -267,19 +266,19 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
           slug: "manufacturing",
           active: true,
           description:
-            "Explora trayectorias profesionales en el campo de la manufactura en el estado de Nueva Jersey.",
+            "Explora rutas profesionales en el campo de la manufactura en el estado de Nueva Jersey.",
           drawerDescription:
-            "Todo lo que no existe en la naturaleza debe ser fabricado, como barras de chocolate, ropa y zapatos, aviones y turbinas eólicas. En pocas palabras, manufacturar significa 'hacer cosas'.",
+            "Todo lo que no existe en la naturaleza tiene que ser fabricado, como barras de chocolate, ropa y zapatos, aviones y turbinas eólicas. En pocas palabras, manufactura significa “hacer cosas”.",
           drawerCards: [
             {
               icon: "Factory",
-              title: "Por qué considerar una carrera en Manufactura",
-              copy: "### Potencial de crecimiento\n\nMuchas empresas de manufactura ofrecen capacitación en el trabajo, por lo que siempre hay oportunidades para crecer y avanzar en tu carrera.\n\n### Innovación\n\nNuevas tecnologías innovadoras como la robótica, dispositivos portátiles, impresión 3D y drones se desarrollan y utilizan en la manufactura.\n\n### Gratificante\n\nPuedes ver el resultado de tu trabajo en un objeto tangible. Las personas que trabajan en este campo pueden decir: 'Yo hice eso'.",
+              title: "Por qué considerar una Carrera en Manufactura",
+              copy: "### Potencial de crecimiento\n\nMuchas empresas de manufactura ofrecen capacitación en el lugar de trabajo, por lo que siempre hay oportunidades para crecer y avanzar en tu carrera.\n\n### A la vanguardia\n\nNuevas tecnologías innovadoras como la robótica, los dispositivos portátiles, la impresión 3D y los drones se desarrollan y utilizan en la manufactura.\n\n### Gratificante\n\nPuedes ver realmente el resultado de tu trabajo en un objeto tangible. Las personas que trabajan en este campo pueden decir: “Yo hice eso.”",
             },
             {
               icon: "Star",
-              title: "Principales sectores de Manufactura",
-              copy: "### Alimentos\n\nLos fabricantes de alimentos eligen Nueva Jersey porque el estado está en el centro de una de las áreas metropolitanas más grandes del país. Los alimentos producidos en Nueva Jersey llegan fácilmente a millones de personas. Nuestro estado alberga algunas de las marcas de alimentos más importantes del mundo, como Campbell's Soup, Mars Bars, M&Ms y Nabisco, todos hechos aquí. Marcas emergentes como Oatly y Bai también comenzaron aquí.\n\n### Farmacéutica\n\nNueva Jersey es conocida como 'El Botiquín del Mundo' debido a su importancia en la industria farmacéutica global. Empresas como Novartis, Merck & Co., Johnson & Johnson, Bristol-Myers Squibb, Novo Nordisk y Bayer Healthcare tienen presencia en el estado. Las compañías farmacéuticas eligen Nueva Jersey por su mano de obra altamente calificada, incluyendo científicos.\n\n### Metales Fabricados\n\nLos fabricantes de metales transforman los metales en piezas utilizadas en aviones, puentes, edificios, computadoras, maquinaria, barcos, generación de energía y más. Las empresas de esta industria forjan, estampan, doblan, sueldan, moldean y mecanizan metales. Hoy en día, los fabricantes de metales logran un nivel de precisión inimaginable hace 20 años, utilizando tecnologías como el torneado, la impresión 3D, el corte por plasma y el fresado con dispositivos CNC.",
+              title: "Sectores Principales de Manufactura",
+              copy: "### Alimentos\n\nLos fabricantes de alimentos eligen Nueva Jersey porque el estado está en el centro de una de las áreas metropolitanas más grandes del país. Por eso, los alimentos producidos en Nueva Jersey llegan fácilmente a millones de personas. Nuestro estado alberga algunas de las marcas de alimentos más importantes del mundo como Campbells Soup, Mars Bars, M&Ms y Nabisco – todas hechas aquí en el estado. Marcas nuevas y emergentes como Oatly y Bai también comenzaron aquí.\n\n### Farmacéuticos\n\nNueva Jersey es conocida como “El Botiquín del Mundo” por su importancia para la industria farmacéutica global. Novartis, Merck & Co., Johnson & Johnson, Bristol-Myers Squibb, Novo Nordisk y Bayer Healthcare están entre las principales empresas del estado en esta industria. Las compañías farmacéuticas están en Nueva Jersey porque el estado cuenta con una fuerza laboral altamente educada, incluyendo científicos.\n\n### Metales Fabricados\n\nLos fabricantes de metales transforman los metales en piezas que se utilizan en aviones, puentes, edificios, computadoras, maquinaria, barcos, generación de energía y más. Las empresas en esta industria forjan, estampan, doblan, sueldan, moldean y mecanizan metales. Hoy en día, los fabricantes de metales logran un nivel de precisión inimaginable hace apenas 20 años para realizar cosas como torneado, impresión 3D, corte por plasma y fresado usando dispositivos de control numérico por computadora (CNC).",
             },
           ],
         },
@@ -289,19 +288,19 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
           slug: "healthcare",
           active: false,
           description:
-            "Las trayectorias para este sector están en desarrollo, pero aún puedes explorar las ocupaciones más demandadas en salud.",
+            "Las rutas para este sector están en desarrollo, pero aún puedes explorar las ocupaciones de salud más demandadas.",
           drawerDescription:
-            "Promueve y protege el bienestar de tu comunidad: descubre tu próximo paso profesional en el sector salud. Los trabajos a continuación representan las posiciones más demandadas en el estado de Nueva Jersey. Cualquier persona interesada en una carrera en salud debe pasar una verificación de antecedentes para garantizar la seguridad de los pacientes.",
+            "Promueve y mantén el bienestar de tu comunidad — descubre tu próximo movimiento profesional en el área de la salud. Los empleos a continuación representan las posiciones de salud más demandadas en el estado de Nueva Jersey. Cualquier persona interesada en una carrera en salud debe pasar una verificación de antecedentes para mantener a los pacientes seguros.",
           drawerCards: [
             {
               icon: "Stethoscope",
-              title: "Por qué considerar una carrera en Salud",
-              copy: "### Seguridad laboral\n\nLa salud es una de las industrias de más rápido crecimiento y más estables para trabajar. Es la única industria que ha agregado empleos en el estado todos los años desde 1990 hasta 2019, incluso en tiempos de recesión.\n\n### Opciones educativas\n\nExisten trabajos para personas con diferentes niveles educativos.\n\n### Trabajo bien remunerado y significativo\n\nPuedes hacer una diferencia real en la vida de las personas mientras ganas un buen salario.",
+              title: "Por qué considerar una Carrera en Salud",
+              copy: "### Seguridad Laboral\n\nLa salud es una de las industrias de más rápido crecimiento y más estables para trabajar. Es la única industria que ha agregado empleos en el estado cada año desde 1990 hasta 2019, incluso en tiempos de recesión.\n\n### Opciones Educativas\n\nExisten trabajos para personas con todos los niveles educativos.\n\n### Trabajo Bien Pagado y Significativo\n\nPuedes marcar una diferencia significativa en la vida de las personas mientras ganas un salario.",
             },
             {
               icon: "Star",
-              title: "Principales sectores de la Salud",
-              copy: "### Hospitales\n\nLos hospitales brindan atención a pacientes hospitalizados. El tipo más común es el hospital general, que suele contar con un departamento de emergencias, quirófanos, salas de diagnóstico y habitaciones para el tratamiento y recuperación de pacientes. Los hospitales también son centros de formación y lugares clave para la investigación clínica.\n\n### Consultorios de médicos y dentistas\n\nLos consultorios de médicos y dentistas son solo dos de los muchos tipos de entornos de atención ambulatoria. Otros incluyen laboratorios de diagnóstico, centros de atención urgente, centros de cirugía ambulatoria y centros de rehabilitación.\n\n### Cuidado de enfermería y residencial\n\nLas personas que necesitan supervisión las 24 horas, pero no hospitalización, permanecen en centros de cuidado de enfermería y residenciales. Reciben una combinación de servicios de salud y sociales proporcionados por enfermeros especializados.",
+              title: "Sectores Principales de Salud",
+              copy: "### Hospitales\n\nLos hospitales brindan atención hospitalaria. El tipo más común es el hospital general, que típicamente cuenta con un departamento de emergencias, quirófanos, salas de diagnóstico y habitaciones donde los pacientes reciben tratamiento y se recuperan. Los médicos, enfermeras y otros profesionales de la salud a menudo reciben educación en hospitales. Los hospitales también son lugares importantes para la investigación clínica.\n\n### Consultorios de Médicos y Dentistas\n\nLos consultorios de médicos y dentistas son solo dos de muchos tipos de entornos de atención ambulatoria. Otros incluyen laboratorios de diagnóstico, centros de atención urgente, centros de cirugía ambulatoria y centros de rehabilitación.\n\n### Cuidados de Enfermería y Residenciales\n\nLas personas que necesitan supervisión las 24 horas, pero que no requieren hospitalización, permanecen en entornos de cuidado de enfermería y residenciales. La atención que reciben puede ser una mezcla de servicios de salud y sociales. Los servicios de salud proporcionados en entornos de enfermería y residenciales suelen ser ofrecidos por enfermeras calificadas.",
             },
           ],
         },
@@ -312,19 +311,19 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
           slug: "tdl",
           active: false,
           description:
-            "Las rutas para este sector están en desarrollo, pero aún puedes explorar las ocupaciones más demandadas en TDL.",
+            "Las rutas para este sector están en desarrollo, pero aún puedes explorar las ocupaciones de TDL más demandadas.",
           drawerDescription:
-            "Sé una parte importante de la cadena de suministro de nuestra nación con una carrera en transporte, distribución y logística (TDL). La diversidad de roles y responsabilidades laborales que se enumeran a continuación representa las últimas posiciones de TDL en demanda en el estado de Nueva Jersey.",
+            "Sé una parte importante de la cadena de suministro de nuestra nación con una carrera en transporte, distribución y logística (TDL). La diversa gama de roles y responsabilidades que aparecen a continuación representan las posiciones de TDL más demandadas en el estado de Nueva Jersey.",
           drawerCards: [
             {
               icon: "Truck",
-              title: "¿Por qué considerar una carrera en TDL?",
-              copy: `### Trabajos de calidad\n\nMuchos trabajos en transporte, distribución y logística ofrecen empleo a largo plazo, oportunidades de ascenso, grandes beneficios, formación en el puesto de trabajo y tutoría.\n\n### Para una variedad de intereses\n\nLa industria ofrece oportunidades para personas a las que les gusta trabajar con clientes, como asistentes de vuelo y conductores de trenes, así como para personas a las que les gusta construir y reparar cosas y resolver problemas, como ingenieros, técnicos de servicio y mecánicos.\n\n### Contribución Importante\n\nEl transporte, la distribución y la logística son fundamentales para la economía y la sociedad. Cuando trabajas en transporte, puedes ir a trabajar todos los días sabiendo que estás teniendo un impacto en las personas.`,
+              title: "Por qué considerar una Carrera en TDL",
+              copy: "### Empleos de Calidad\n\nMuchos trabajos en transporte, distribución y logística ofrecen empleo a largo plazo, oportunidades de ascenso, excelentes beneficios, capacitación en el trabajo y mentoría.\n\n### Para una variedad de intereses\n\nLa industria ofrece oportunidades para personas a las que les gusta trabajar con clientes – como auxiliares de vuelo y conductores de tren, por ejemplo – así como para personas a las que les gusta construir, reparar y resolver problemas, como ingenieros, técnicos de servicio y mecánicos.\n\n### Contribución Importante\n\nEl transporte, la distribución y la logística son fundamentales para la economía y la sociedad. Cuando trabajas en transporte, puedes ir a trabajar cada día sabiendo que estás teniendo un impacto en las personas.",
             },
             {
               icon: "Star",
-              title: "Principales Sectores de Fabricación",
-              copy: `### Transporte Aéreo\n\nLos aviones se utilizan para mover pasajeros o carga. Pueden ser programados o bajo demanda, y las empresas que los operan varían desde grandes aerolíneas hasta transportistas regionales. Nueva Jersey alberga tres aeropuertos comerciales—Newark Liberty, Trenton Mercer y Atlantic City—ocho aeropuertos que admiten actividades de aviación general corporativa y privada, 30 aeropuertos de uso público, una base de hidroaviones, así como varios helipuertos y puertos de globos aerostáticos.\n\n### Transporte por Carretera\n\nLos camiones juegan un papel importante en la economía de Nueva Jersey, como parte de la industria del transporte de carga. Las terminales y los centros de almacenamiento conectan estos sistemas para entregar bienes y crear empleos. De los más de 600 millones de toneladas de bienes transportados cada año, el 75 por ciento se mueve en camión. Existen reglas y regulaciones que rigen a los conductores y camiones en esta industria.\n\n### Almacenamiento\n\nEl almacenamiento es el proceso de guardar inventario físico para la venta o distribución. Los almacenes son utilizados por todo tipo de empresas que necesitan almacenar temporalmente productos a granel antes de enviarlos a otras ubicaciones o individualmente a los consumidores finales.`,
+              title: "Sectores Principales de TDL",
+              copy: "### Transporte Aéreo\n\nLas aeronaves se utilizan para mover pasajeros o carga. Pueden ser programadas o a demanda, y las compañías que las operan varían en tamaño desde aerolíneas importantes hasta transportistas regionales. Nueva Jersey cuenta con tres aeropuertos comerciales – Newark Liberty, Trenton Mercer y Atlantic City – ocho aeropuertos que apoyan la aviación corporativa y privada, 30 aeropuertos de uso público, una base de hidroaviones, así como varios helipuertos y puertos para globos aerostáticos.\n\n### Transporte por Carretera\n\nLos camiones desempeñan un papel importante en la economía de Nueva Jersey, como parte de la industria de carga más amplia. Los terminales y centros de almacenamiento conectan estos sistemas para entregar mercancías y también empleos. De los más de 600 millones de toneladas de bienes movidos cada año, el 75 por ciento se transporta por camión. Existen normas y regulaciones que rigen a los conductores y camiones en esta industria.\n\n### Almacenamiento\n\nEl almacenamiento es el proceso de guardar inventario físico para la venta o distribución. Los almacenes son utilizados por todo tipo de empresas que necesitan almacenar productos temporalmente en grandes cantidades antes de enviarlos a otros lugares o directamente a los consumidores finales.",
             },
           ],
         },
@@ -335,8 +334,8 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
         image: placeholder1,
         contentBlocks: [
           {
-            theme: "blue" as ThemeColors,
-            copy: `## Trayectorias profesionales y sectores industriales: ¿cuál es la diferencia?\n\n### Piensa en las trayectorias profesionales como un GPS.\n\nCareer Pathways ofrece la mejor ruta para llegar a tu destino profesional, describiendo los pasos que debes seguir para llegar a donde quieres ir, incluyendo educación, capacitación y mejora de habilidades.\n\n### Piensa en la información del sector industrial como una guía.\n\nLa información del sector industrial proporciona una visión general de diversas industrias, incluyendo una imagen del mercado laboral. Aquí hay información útil que encontrarás:\n\n- Tipos de empleos\n- Expectativas salariales\n- Habilidades específicas en alta demanda\n- Empresas clave en la industria\n- Potencial de crecimiento del sector`,
+            theme: "blue",
+            copy: `## Rutas Profesionales y Sectores Industriales — ¿cuál es la diferencia, exactamente?\n\n### Piensa en las Rutas Profesionales como un GPS.\n\nLas Rutas Profesionales ofrecen la mejor ruta para alcanzar tu destino profesional, describiendo los pasos que debes seguir para llegar a donde quieres, incluyendo educación, capacitación y mejora de habilidades.\n\n### Piensa en la Información de Sectores Industriales como una guía.\n\nLa Información de Sectores Industriales ofrece una visión general de varias industrias, incluyendo una panorámica del mercado laboral. Aquí tienes información útil que encontrarás:\n\n- Tipos de trabajos\n- Expectativas salariales\n- Habilidades específicas en alta demanda\n- Empresas que son los principales actores\n- Potencial de crecimiento de la industria`,
           },
         ],
       },
@@ -344,19 +343,19 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
         image: placeholder2,
         contentBlocks: [
           {
-            theme: "purple" as ThemeColors,
-            copy: `## Es importante tomar decisiones informadas. Descubre cómo Career Pathways e información del sector industrial pueden ayudarte.\n\nA través de Career Pathways e información del sector industrial, podrás tomar decisiones impactantes basadas en datos. Por ejemplo, si decides explorar la Trayectoria Profesional en Manufactura, descubrirás:\n- Información sobre los trabajos más demandados en manufactura en Nueva Jersey\n- Perspectivas de más de 40 empresas de manufactura en Nueva Jersey\n- Datos valiosos sobre oportunidades laborales\n- Las habilidades, educación y experiencia necesarias para comenzar.`,
+            theme: "purple",
+            copy: `## Es importante tomar decisiones informadas. Mira cómo las Rutas Profesionales y la Información de Sectores Industriales pueden ayudarte.\n\nA través de las Rutas Profesionales y la Información de Sectores Industriales, podrás tomar decisiones impactantes basadas en datos. Por ejemplo, si eliges explorar la Ruta Profesional de Manufactura, descubrirás:\n\n- Información sobre los trabajos de manufactura más demandados en Nueva Jersey\n- Perspectivas de más de 40 empresas manufactureras en Nueva Jersey\n- Datos valiosos sobre empleos disponibles\n- Las habilidades, educación y experiencia que necesitas para comenzar.`,
           },
           {
-            theme: "green" as ThemeColors,
-            copy: `## Nuestra investigación puede ayudarte a avanzar en tu carrera.\n\nNuestra información proviene de fuentes confiables con datos actualizados:\n\n- Analistas del mercado laboral de Nueva Jersey con experiencia en tendencias laborales\n- Empleadores reales en Nueva Jersey\n- Encuestas recientes de empleo y salarios\n\nCada trayectoria profesional es diferente. Con Career Pathways y la información del sector industrial, tendrás lo necesario para avanzar con éxito.`,
+            theme: "green",
+            copy: `## Nuestro trabajo previo puede ayudarte a avanzar en tu carrera.\n\nNuestros datos provienen de fuentes confiables con la información más actualizada:\n\n- Analistas del mercado laboral de Nueva Jersey que estudian tendencias de empleo\n- Empleadores reales de Nueva Jersey\n- Encuestas recientes de empleo y salarios\n\nCada trayectoria profesional es diferente. Con Rutas Profesionales e Información de Sectores Industriales, tendrás lo que necesitas para avanzar con éxito.`,
           },
         ],
       },
     ],
     markdownSection: ``,
     ctaBanner: {
-      heading: "Explora estas otras herramientas útiles.",
+      heading: "Explora estas otras excelentes herramientas.",
       fullColor: true,
       theme: "purple",
       headingLevel: 3,
@@ -364,28 +363,28 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
         {
           iconPrefix: "Compass",
           link: "/navigator",
-          label: "NJ Career Navigator",
+          label: "Navegador de Carreras de NJ",
           type: "link",
           highlight: "blue",
         },
         {
           iconPrefix: "Fire",
           link: "/in-demand-occupations",
-          label: "Ocupaciones en demanda",
+          label: "Ocupaciones en Demanda",
           type: "link",
           highlight: "orange",
         },
         {
           iconPrefix: "Briefcase",
           link: "https://www.careeronestop.org/",
-          label: "Bolsa de trabajo One Stop",
+          label: "Bolsa de Trabajo One Stop",
           type: "link",
           highlight: "navy",
         },
         {
           iconPrefix: "GraduationCap",
           link: "/training",
-          label: "Explorador de Capacitación NJ",
+          label: "Explorador de Capacitación de NJ",
           type: "link",
           highlight: "green",
         },
