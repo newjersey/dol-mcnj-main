@@ -26,22 +26,19 @@ describe("Filter Drawer", () => {
       cy.log('Filter-related elements:', filterElements.join(', '));
     });
     
-    // Find and click the filter toggle button - this SHOULD exist, test should fail if it doesn't
-    cy.get('button[aria-label*="filter"], button:contains("Filter"), .filter-button, [data-testid*="filter"], button[class*="filter"]', { timeout: 15000 })
+    // Use the correct selector from working tests
+    cy.get('#filter-button-container button', { timeout: 15000 })
       .should("be.visible")
-      .first()
       .click();
 
-    // Verify filter drawer opens
-    cy.get('.filter-drawer, .filters-container, [role="dialog"], .filters', { timeout: 10000 }).should("be.visible");
+    // Use the correct selector for filter drawer from working tests
+    cy.get('#filter-form-container', { timeout: 10000 }).should("be.visible");
 
     // Verify some filters are checked based on URL params
-    cy.get('input[type="checkbox"][checked], .checkbox.checked, input:checked', { timeout: 5000 }).should("have.length.greaterThan", 0);
+    cy.get('#filter-form-container input[type="checkbox"][checked], #filter-form-container input:checked', { timeout: 5000 }).should("have.length.greaterThan", 0);
     
-    // Close the filter drawer
-    cy.get('button[aria-label*="filter"], button:contains("Filter"), .filter-button, [data-testid*="filter"], button[class*="filter"]')
-      .first()
-      .click();
+    // Close the filter drawer by clicking the filter button again
+    cy.get('#filter-button-container button').click();
   });
 
   it("should clear filters when clear button is clicked", () => {
@@ -54,10 +51,10 @@ describe("Filter Drawer", () => {
     // Wait for any loading states to complete
     cy.get('[data-testid="loading"], .loading', { timeout: 1000 }).should("not.exist");
     
-    // Look for Clear Filters button - this SHOULD exist, test should fail if it doesn't
-    cy.get(".clear-filters-button, button:contains('Clear filters'), button:contains('Clear'), button:contains('clear')", { timeout: 15000 })
+    // The clear filters button only appears when there are active filters (chips)
+    // It's inside the chip container - use the exact selector from the source code
+    cy.get(".clear-filters-button", { timeout: 15000 })
       .should("be.visible")
-      .first()
       .click();
     
     // After clearing, verify URL has only search query
