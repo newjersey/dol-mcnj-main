@@ -77,7 +77,7 @@ export const CareerPathways = ({
 
     if (fieldParams && careerMaps.length > 0) {
       const normalizedField = normalizeParam(fieldParams);
-      console.log(careerMaps)
+      
       const matchedField = careerMaps.find(
         (m) =>
           m.title.toLowerCase() === normalizedField ||
