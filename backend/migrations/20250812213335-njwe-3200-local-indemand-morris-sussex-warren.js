@@ -34,7 +34,7 @@ exports.up = function(db) {
 };
 
 exports.down = function(db) {
-  var filePath = path.join(__dirname, 'sqls', '2025081221.3335-njwe-3200-local-indemand-morris-sussex-warren-down.sql');
+  var filePath = path.join(__dirname, 'sqls', '20250812213335-njwe-3200-local-indemand-morris-sussex-warren-down.sql');
   return new Promise( function( resolve, reject ) {
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
       if (err) return reject(err);
