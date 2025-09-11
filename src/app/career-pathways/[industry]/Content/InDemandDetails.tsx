@@ -28,9 +28,7 @@ export const InDemandDetails = (props: {
   });
 
   const getJobNumbers = async () => {
-    const jobNumbers = await fetch(
-      `${process.env.REACT_APP_API_URL}/api/jobcount/${props.content.title}`
-    );
+    const jobNumbers = await fetch(`/api/jobcount/${props.content.title}`);
 
     const jobNumbersArray = await jobNumbers.json();
 
