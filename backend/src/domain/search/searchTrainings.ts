@@ -573,14 +573,8 @@ export const searchTrainingsFactory = (dataClient: DataClient): SearchTrainings 
       } else {
         // Transform the results
         const transformStart = performance.now();
-        const results = await Promise.all(
-          learningOpportunities.map((lo: CTDLResource) =>
-            transformLearningOpportunityCTDLToTrainingResult(dataClient, lo, params.searchQuery)
-          )
-        );
-        console.log(`🔄 Transformation took ${performance.now() - transformStart} ms`);
-        console.log(`🔄 After transformation: ${results.length} results`);
-
+        const results = await transformLearningOpportunityCTDLToTrainingResult(dataClient, learningOpportunities, params.searchQuery)
+        console.log(`📊 transformation took ${performance.now() - transformStart} ms`);
         // Store the results in Redis cache as a string (JSON stringified)
         cachedData = { results, totalResults };
         await redis.set(cacheKey, JSON.stringify(cachedData), 'EX', 900); // Cache for 15 minutes
@@ -732,93 +726,109 @@ function buildQuery(params: {
 
 async function transformLearningOpportunityCTDLToTrainingResult(
   dataClient: DataClient,
-  learningOpportunity: CTDLResource,
+  learningOpportunities: CTDLResource[],
   searchQuery: string
-): Promise<TrainingResult> {
-  try {
-    const desc = learningOpportunity["ceterms:description"]?.["en-US"] || "";
-    const highlightPromise = getHighlight(desc, searchQuery);
-    const providerPromise = credentialEngineUtils.getProviderData(learningOpportunity);
-    const cipCodePromise = credentialEngineUtils.extractCipCode(learningOpportunity);
-    const occupationsPromise = credentialEngineUtils.extractOccupations(learningOpportunity);
-    const costPromise = credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost");
-    const calendarLengthPromise = credentialEngineUtils.getCalendarLengthId(learningOpportunity);
-    const deliveryTypesPromise = credentialEngineUtils.hasLearningDeliveryTypes(learningOpportunity);
-    const availableAtPromise = credentialEngineUtils.getAvailableAtAddresses(learningOpportunity);
-    const eveningCoursesPromise = credentialEngineUtils.hasEveningSchedule(learningOpportunity);
-    const languagesPromise = credentialEngineUtils.getLanguages(learningOpportunity);
+): Promise<TrainingResult[]> {
+    const ownedByToResourceMap = new Map<string, CTDLResource>();
+    for (const lo of learningOpportunities) {
+      const ownedBy = lo["ceterms:ownedBy"]?.[0];
+      if (ownedBy && !ownedByToResourceMap.has(ownedBy)) {
+        ownedByToResourceMap.set(ownedBy, lo);
+      }
+    } 
+    const providerEntries = await Promise.all(
+      Array.from(ownedByToResourceMap.entries()).map(async ([ownedBy, resource]) => {
+        const provider = await credentialEngineUtils.getProviderData(resource);
+        return [ownedBy, provider] as const;
+      })
+    );
+    const providerMap = new Map<string, any | null>(providerEntries);
+  
+  return Promise.all(
+    learningOpportunities.map(async (learningOpportunity) => {
+      try {
+        const desc = learningOpportunity["ceterms:description"]?.["en-US"] || "";
+        const highlightPromise = getHighlight(desc, searchQuery);
+        const ownedBy = learningOpportunity["ceterms:ownedBy"]?.[0] as string;
+        const provider = providerMap.get(ownedBy);  
+        const cipCodePromise = credentialEngineUtils.extractCipCode(learningOpportunity);
+        const occupationsPromise = credentialEngineUtils.extractOccupations(learningOpportunity);
+        const costPromise = credentialEngineUtils.extractCost(learningOpportunity, "costType:AggregateCost");
+        const calendarLengthPromise = credentialEngineUtils.getCalendarLengthId(learningOpportunity);
+        const deliveryTypesPromise = credentialEngineUtils.hasLearningDeliveryTypes(learningOpportunity);
+        const availableAtPromise = credentialEngineUtils.getAvailableAtAddresses(learningOpportunity);
+        const eveningCoursesPromise = credentialEngineUtils.hasEveningSchedule(learningOpportunity);
+        const languagesPromise = credentialEngineUtils.getLanguages(learningOpportunity);
 
-    // Fetch independent promises in parallel
-    const [
-      highlight,
-      provider,
-      cipCode,
-      occupations,
-      totalCost,
-      calendarLength,
-      deliveryTypes,
-      availableAt,
-      hasEveningCourses,
-      languages
-    ] = await Promise.all([
-      highlightPromise,
-      providerPromise,
-      cipCodePromise,
-      occupationsPromise,
-      costPromise,
-      calendarLengthPromise,
-      deliveryTypesPromise,
-      availableAtPromise,
-      eveningCoursesPromise,
-      languagesPromise
-    ]);
+        const [
+          highlight,
+          cipCode,
+          occupations,
+          totalCost,
+          calendarLength,
+          deliveryTypes,
+          availableAt,
+          hasEveningCourses,
+          languages
+        ] = await Promise.all([
+          highlightPromise,
+          cipCodePromise,
+          occupationsPromise,
+          costPromise,
+          calendarLengthPromise,
+          deliveryTypesPromise,
+          availableAtPromise,
+          eveningCoursesPromise,
+          languagesPromise
+        ]);
 
-    const cipDefinitionPromise = cipCode ? dataClient.findCipDefinitionByCip(cipCode) : Promise.resolve(null);
-    const outcomeDefinitionPromise = provider?.providerId ? dataClient.findOutcomeDefinition(provider.providerId, cipCode) : Promise.resolve(null);
-    const inDemandCIPsPromise = dataClient.getCIPsInDemand();
+        const cipDefinitionPromise = cipCode ? dataClient.findCipDefinitionByCip(cipCode) : Promise.resolve(null);
+        const outcomeDefinitionPromise = provider?.providerId ? dataClient.findOutcomeDefinition(provider.providerId, cipCode) : Promise.resolve(null);
+        const inDemandCIPsPromise = dataClient.getCIPsInDemand();
 
-    // Fetch dependent values in parallel
-    const [cipDefinition, outcomeDefinition, inDemandCIPs] = await Promise.all([
-      cipDefinitionPromise,
-      outcomeDefinitionPromise,
-      inDemandCIPsPromise
-    ]);
+        const [cipDefinition, outcomeDefinition, inDemandCIPs] = await Promise.all([
+          cipDefinitionPromise,
+          outcomeDefinitionPromise,
+          inDemandCIPsPromise
+        ]);
 
-    const socCodes = occupations.map((occupation) => occupation.soc);
-    const isInDemand = inDemandCIPs.some((c) => c.cipcode === cipCode);
+        const socCodes = occupations.map((occupation) => occupation.soc);
+        const isInDemand = inDemandCIPs.some((c) => c.cipcode === cipCode);
 
-    // Define async functions but don't await them yet
-    const isWheelchairAccessible = () => credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
-    const hasJobPlacementAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
-    const hasChildcareAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
+        // Define async functions but do not await
+        const isWheelchairAccessible = () => credentialEngineUtils.checkAccommodation(learningOpportunity, "accommodation:PhysicalAccessibility");
+        const hasJobPlacementAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:JobPlacement");
+        const hasChildcareAssistance = () => credentialEngineUtils.checkSupportService(learningOpportunity, "support:Childcare");
 
-    return {
-      ctid: learningOpportunity["ceterms:ctid"] || "",
-      name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
-      description: desc,
-      cipDefinition: cipDefinition ? cipDefinition[0] : null,
-      totalCost,
-      percentEmployed: outcomeDefinition ? formatPercentEmployed(outcomeDefinition.peremployed2) : null,
-      calendarLength,
-      localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
-      deliveryTypes,
-      providerId: provider?.providerId || null,
-      providerName: provider?.name || "Provider not available",
-      availableAt,
-      inDemand: isInDemand,
-      highlight,
-      socCodes,
-      hasEveningCourses,
-      languages,
-      isWheelchairAccessible, // Do not await, return as function
-      hasJobPlacementAssistance, // Do not await, return as function
-      hasChildcareAssistance, // Do not await, return as function
-      totalClockHours: null,
-    };
-  } catch (error) {
-    console.error("Error transforming learning opportunity CTDL to TrainingResult object:", error);
-    throw error;
-  }
+        return {
+          ctid: learningOpportunity["ceterms:ctid"] || "",
+          name: learningOpportunity["ceterms:name"]?.["en-US"] || "",
+          description: desc,
+          cipDefinition: cipDefinition ? cipDefinition[0] : null,
+          totalCost,
+          percentEmployed: outcomeDefinition ? formatPercentEmployed(outcomeDefinition.peremployed2) : null,
+          calendarLength,
+          localExceptionCounty: await getLocalExceptionCounties(dataClient, cipCode),
+          deliveryTypes,
+          providerId: provider?.providerId || null,
+          providerName: provider?.name || "Provider not available",
+          availableAt,
+          inDemand: isInDemand,
+          highlight,
+          socCodes,
+          hasEveningCourses,
+          languages,
+          isWheelchairAccessible,
+          hasJobPlacementAssistance,
+          hasChildcareAssistance,
+          totalClockHours: null,
+        };
+      } catch (error) {
+        console.error("Error transforming a learning opportunity:", error);
+        throw error;
+      }
+    })
+  );
 }
 
 
