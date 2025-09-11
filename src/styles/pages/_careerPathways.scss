@@ -1,0 +1,188 @@
+@use "../settings" as s;
+
+.careerPathways {
+  .map-block {
+    background-color: s.$base-lightest;
+    border-radius: s.$size-16;
+    padding: s.$size-16;
+  }
+  .industries,
+  .stepCards {
+    padding: s.$size-80 0;
+  }
+
+  .buttons {
+    gap: s.$size-16;
+    margin-bottom: s.$size-32;
+    display: flex;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      flex-direction: column;
+    }
+
+    .usa-button {
+      min-width: s.$size-320;
+      justify-content: center;
+      text-align: left;
+      text-align: center;
+
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        margin: 0;
+        min-width: auto;
+        justify-content: flex-start;
+      }
+
+      span {
+        max-width: none;
+        text-align: left;
+
+        @media screen and (max-width: (s.$tablet-md - 1)) {
+          width: calc(100% - s.$size-40);
+        }
+
+        &:not(.svg-container) {
+          width: auto;
+
+          @media screen and (max-width: (s.$tablet-md - 1)) {
+            width: calc(100% - s.$size-30);
+          }
+        }
+      }
+
+      svg {
+        width: s.$size-30;
+      }
+    }
+    .stack {
+      display: flex;
+      gap: s.$size-16;
+      flex-direction: column;
+    }
+
+    .highlight-purple {
+      min-height: s.$size-50;
+    }
+  }
+
+  .spinner {
+    display: flex;
+    justify-content: center;
+    margin-bottom: s.$size-48;
+  }
+
+  .errorBox {
+    max-width: s.$tablet-md;
+    margin: 0 auto s.$size-48;
+  }
+}
+
+.careerPathwaysLanding {
+  .body-copy {
+    &.container {
+      margin: 0 auto;
+      padding-top: s.$size-60;
+      padding-bottom: s.$size-16;
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-48;
+
+      .contentContainer {
+        display: flex;
+        flex-direction: column;
+        gap: s.$size-32;
+
+        @media screen and (min-width: (s.$tablet-lg)) {
+          flex-direction: row-reverse;
+        }
+
+        &:nth-child(2n) {
+          @media screen and (min-width: (s.$tablet-lg)) {
+            flex-direction: row;
+          }
+        }
+      }
+
+      .contentBlocks {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: s.$size-48;
+        flex: 1;
+
+        > div {
+          padding: s.$size-32;
+          border-radius: s.$size-16;
+
+          &.blue {
+            background-color: s.$primary-extra-light;
+          }
+
+          &.purple {
+            background-color: s.$tertiary-lighter;
+          }
+
+          &.green {
+            background-color: s.$success-lighter;
+          }
+        }
+      }
+
+      .image {
+        overflow: hidden;
+        border-radius: s.$size-16;
+        width: 100%;
+
+        @media screen and (min-width: (s.$tablet-lg)) {
+          max-width: s.$size-536;
+        }
+
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          height: 0;
+          padding-bottom: 56.25%;
+          position: relative;
+        }
+      }
+
+      img {
+        display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          height: 100%;
+          width: 100%;
+        }
+      }
+
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-weight: 600;
+      }
+
+      h2 {
+        font-size: s.$size-32;
+
+        @media screen and (max-width: (s.$tablet-md - 1)) {
+          font-size: s.$size-22;
+          font-weight: bold;
+        }
+      }
+
+      h3 {
+        font-size: s.$size-22;
+
+        @media screen and (max-width: (s.$tablet-md - 1)) {
+          font-size: s.$size-18;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

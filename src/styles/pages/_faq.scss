@@ -1,0 +1,47 @@
+@use "../settings" as s;
+
+.faq {
+  .faqSection {
+    padding: s.$size-50 0;
+
+    .inner {
+      display: flex;
+      gap: s.$size-28;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        gap: s.$size-20;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .dropNav,
+  nav {
+    @media screen and (min-width: (s.$tablet-lg - 1)) {
+      width: s.$size-300;
+    }
+  }
+
+  .accordion-block {
+    width: 100%;
+
+    .container {
+      padding: 0;
+    }
+  }
+
+  p.title {
+    font-size: s.$size-18;
+    font-weight: 700;
+    margin-bottom: s.$size-16;
+  }
+
+  hr {
+    background-color: s.$base-cool;
+    margin: 0 s.$size-8;
+  }
+
+  .spinner {
+    margin: 0 auto;
+  }
+}

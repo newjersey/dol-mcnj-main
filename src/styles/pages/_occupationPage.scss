@@ -1,0 +1,73 @@
+@use "../settings" as s;
+
+.occupationPage {
+  .pageBanner {
+    background: s.$white;
+  }
+
+  .related {
+    margin: 0 0 s.$size-48;
+
+    .inner {
+      max-width: s.$size-880;
+      display: flex;
+      flex-direction: column;
+      gap: s.$size-16;
+    }
+
+    .container-full {
+      margin-top: s.$size-72;
+    }
+  }
+
+  .body-copy {
+    margin: s.$size-32 0;
+
+    .openingsLink {
+      margin: 0 0 s.$size-32 0;
+    }
+
+    .relatedBox {
+      a {
+        display: block;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: s.$size-8;
+      }
+    }
+
+    .inner {
+      display: flex;
+      gap: s.$size-16;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        flex-direction: column;
+      }
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        gap: s.$size-16;
+
+        &:first-of-type {
+          @media screen and (min-width: (s.$tablet-lg)) {
+            width: calc(100% - s.$size-360);
+          }
+        }
+        &:last-of-type {
+          @media screen and (min-width: (s.$tablet-lg)) {
+            width: s.$size-360;
+          }
+        }
+      }
+    }
+  }
+}

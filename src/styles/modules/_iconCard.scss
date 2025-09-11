@@ -1,0 +1,325 @@
+@use "../settings" as s;
+
+.iconCard {
+  p {
+    max-width: none;
+    line-height: 1.2;
+  }
+
+  a {
+    border: s.$size-2 solid s.$base-lighter;
+    border-radius: s.$size-16;
+    padding: s.$size-16;
+    color: s.$ink;
+    background: s.$white;
+    text-decoration: none;
+    display: block;
+
+    &.linkObject {
+      display: block;
+    }
+
+    @media screen and (min-width: (s.$desktop)) {
+      transition-duration: s.$transition-speed;
+      transition-timing-function: ease-in-out;
+      transition-property: transform, box-shadow, background-color, border-color;
+    }
+
+    &:hover {
+      color: s.$ink;
+      box-shadow: s.$shadow-3;
+      text-decoration: none;
+    }
+  }
+
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+  }
+
+  .title {
+    font-weight: bold;
+    margin: s.$size-12 0;
+    font-size: s.$size-18;
+  }
+
+  .description {
+    font-size: s.$size-14;
+    line-height: s.$size-20;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  &.blue {
+    a {
+      border: s.$size-2 solid s.$primary;
+
+      &:hover {
+        background-color: s.$primary-extra-light;
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: s.$primary-lighter;
+
+        &:hover {
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$primary;
+
+            svg {
+              color: s.$black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.green {
+    a {
+      border: s.$size-2 solid s.$secondary;
+
+      &:hover {
+        background-color: s.$secondary-extra-light;
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: s.$secondary-lighter;
+
+        &:hover {
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$secondary;
+
+            svg {
+              color: s.$black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.purple {
+    a {
+      border: s.$size-2 solid s.$tertiary-vivid;
+
+      &:hover {
+        background-color: s.$tertiary-extra-light;
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: s.$tertiary-lighter;
+
+        &:hover {
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$tertiary-vivid;
+
+            svg {
+              color: s.$black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.navy {
+    a {
+      border: s.$size-2 solid s.$info-dark;
+
+      &:hover {
+        background-color: s.$info-lighter;
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: s.$info-lighter;
+
+        &:hover {
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$info-dark;
+
+            svg {
+              color: s.$black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.orange {
+    a {
+      border: s.$size-2 solid s.$accent-warm;
+
+      &:hover {
+        background-color: s.$accent-warm-extra-light;
+      }
+    }
+
+    &.fill {
+      a {
+        background-color: s.$accent-warm-lighter;
+
+        &:hover {
+          @media screen and (min-width: (s.$desktop)) {
+            color: s.$white;
+            background-color: s.$accent-warm;
+
+            svg {
+              color: s.$black;
+              filter: invert(1) brightness(10);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.centered {
+    text-align: center;
+
+    a {
+      padding: s.$size-20;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        padding: s.$size-8 s.$size-16;
+        display: flex;
+        gap: s.$size-16;
+        align-items: center;
+      }
+
+      &:hover {
+        @media screen and (min-width: (s.$desktop)) {
+          box-shadow: s.$shadow-3;
+        }
+      }
+    }
+
+    p {
+      margin: s.$size-16 0 0;
+      font-size: s.$size-20;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        margin-top: 0;
+      }
+    }
+
+    .icons {
+      justify-content: center;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        height: 32px;
+      }
+
+      svg {
+        height: 46px;
+        width: auto;
+
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          height: 32px;
+        }
+      }
+    }
+
+    &.hoverFill {
+      svg {
+        width: auto;
+        height: s.$size-32;
+      }
+
+      a {
+        &:hover {
+          @media screen and (min-width: (s.$tablet-lg)) {
+            background: s.$tertiary-lighter;
+            border-color: s.$tertiary-vivid;
+          }
+        }
+      }
+    }
+  }
+
+  &.fill {
+    .title {
+      font-size: s.$size-28;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        font-size: s.$size-22;
+      }
+    }
+  }
+
+  &.noLink {
+    background: s.$primary-lighter;
+    border-radius: s.$size-8;
+    padding: s.$size-24;
+
+    &.blue {
+      background-color: s.$primary-lighter;
+
+      svg {
+        color: s.$primary-dark;
+      }
+    }
+
+    &.green {
+      background-color: s.$secondary-lighter;
+
+      svg {
+        color: s.$secondary-dark;
+      }
+    }
+
+    &.purple {
+      background-color: s.$tertiary-lighter;
+
+      svg {
+        color: s.$tertiary-dark;
+      }
+    }
+
+    &.navy {
+      background-color: s.$info-lighter;
+
+      svg {
+        color: s.$info-dark;
+      }
+    }
+
+    &.orange {
+      background-color: s.$accent-warm-lighter;
+
+      svg {
+        color: s.$accent-warm-dark;
+      }
+    }
+
+    .title {
+      margin: s.$size-8 0;
+      font-size: s.$size-22;
+    }
+
+    svg {
+      height: auto;
+      width: 32px;
+    }
+  }
+}

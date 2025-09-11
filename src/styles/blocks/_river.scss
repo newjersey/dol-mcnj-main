@@ -1,0 +1,76 @@
+@use "../settings" as s;
+
+.river {
+  padding: s.$size-48 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: s.$size-100;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      gap: s.$size-48;
+    }
+
+    &:before,
+    &:after {
+      content: none;
+    }
+  }
+
+  .item {
+    display: flex;
+    gap: s.$size-32;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      flex-direction: column-reverse;
+    }
+
+    .image {
+      @media screen and (min-width: (s.$tablet-lg)) {
+        width: 60%;
+      }
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        padding-bottom: 56.25%;
+      }
+    }
+
+    .content {
+      @media screen and (min-width: (s.$tablet-lg)) {
+        width: 40%;
+      }
+    }
+
+    &:nth-child(2n) {
+      @media screen and (min-width: (s.$tablet-lg)) {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+
+  .image {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .heading {
+    font-weight: bold;
+    color: s.$tertiary-dark;
+    font-size: s.$size-32;
+    line-height: 1.2;
+    margin-bottom: s.$size-20;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      font-size: s.$size-20;
+    }
+  }
+
+  .content {
+    @media screen and (min-width: (s.$tablet-lg)) {
+      padding: s.$size-80 0;
+    }
+  }
+}

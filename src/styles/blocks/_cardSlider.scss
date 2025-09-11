@@ -1,0 +1,78 @@
+@use "../settings" as s;
+
+.cardSlider {
+  position: relative;
+  width: 100%;
+  padding: s.$size-48 0;
+  background-color: s.$white;
+
+  .container {
+    padding: 0 s.$size-16;
+    max-width: s.$desktop-xl + 16px;
+    position: relative;
+  }
+
+  .inner {
+    @media screen and (min-width: (s.$desktop-lg)) {
+      padding: 0 s.$size-16 s.$size-6;
+      position: relative;
+    }
+  }
+
+  .sectionHeading {
+    margin-bottom: s.$size-32;
+
+    @media screen and (max-width: (s.$tablet - 1)) {
+      position: sticky;
+      top: 0;
+      left: 0;
+      padding-top: s.$size-16;
+      z-index: 1;
+    }
+  }
+
+  .slider-container {
+    transition: transform s.$transition-speed ease;
+    margin-top: s.$size-4;
+    padding-bottom: s.$size-16;
+
+    @media screen and (max-width: (s.$desktop-lg - 1)) {
+      transform: none !important;
+    }
+
+    .iconCard {
+      min-height: s.$size-160;
+
+      a {
+        height: 100%;
+      }
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    top: calc(50% + s.$size-40);
+    transform: translateY(-50%);
+    width: s.$size-40;
+    height: s.$size-40;
+    font-size: s.$size-24;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: (s.$desktop-lg - 1)) {
+      display: none;
+    }
+
+    &.left {
+      left: -(s.$size-12);
+    }
+
+    &.right {
+      right: -(s.$size-12);
+    }
+  }
+}

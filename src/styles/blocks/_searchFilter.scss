@@ -1,0 +1,220 @@
+@use "../settings" as s;
+@use "sass:math";
+
+.searchFilter {
+  background-color: s.$secondary-lighter;
+  border-radius: s.$size-8;
+  width: 0;
+  display: block;
+  transition-duration: s.$transition-speed;
+  user-select: none;
+  pointer-events: none;
+
+  @media screen and (min-width: (s.$tablet-md)) {
+    position: sticky;
+    top: 0;
+    max-height: 100svh;
+    opacity: 0;
+  }
+
+  @media screen and (max-width: (s.$tablet-md - 1)) {
+    width: 100%;
+    display: block;
+    position: fixed;
+    left: 0;
+    max-height: 90svh;
+    z-index: 16;
+    bottom: -110svh;
+  }
+
+  &.open {
+    bottom: 0;
+    pointer-events: all;
+    user-select: text;
+
+    @media screen and (min-width: (s.$tablet)) {
+      width: s.$size-320;
+      margin-right: s.$size-24;
+      opacity: 1;
+    }
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      width: 100%;
+    }
+
+    .overlay {
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        pointer-events: all;
+        opacity: 1;
+        height: calc(100svh - 10px);
+      }
+    }
+
+    .section {
+      &.search {
+        @media screen and (max-width: (s.$tablet-md - 1)) {
+          bottom: 0;
+        }
+      }
+    }
+
+    > form {
+      @media screen and (min-width: (s.$tablet-md)) {
+        opacity: 1;
+        transition-delay: math.div(s.$transition-speed, 2);
+      }
+    }
+  }
+
+  > form {
+    white-space: nowrap;
+
+    @media screen and (min-width: (s.$tablet-md)) {
+      transition-duration: s.$transition-speed;
+      min-width: s.$size-320;
+      opacity: 0;
+    }
+  }
+
+  .overlay {
+    transition-duration: s.$transition-speed;
+    display: block;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: s.$size-24;
+    padding: 0 s.$size-16 s.$size-16;
+    margin-top: 0;
+    background-color: s.$secondary-lighter;
+    z-index: 1;
+    position: relative;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      padding-bottom: s.$size-200;
+      height: calc(100svh - s.$size-128);
+    }
+
+    @media screen and (min-width: (s.$tablet-md)) {
+      height: calc(100svh - s.$size-64);
+      padding-bottom: s.$size-112;
+    }
+  }
+
+  .heading {
+    font-weight: bold;
+    font-size: s.$size-20;
+    margin: 0;
+    background-color: s.$secondary-lighter;
+    padding: s.$size-16;
+    position: relative;
+
+    @media screen and (min-width: (s.$tablet-md)) {
+      border-radius: s.$size-8 s.$size-8 0 0;
+    }
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    button {
+      display: none;
+      cursor: pointer;
+
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        display: block;
+        position: absolute;
+        right: s.$size-16;
+        top: s.$size-16;
+      }
+    }
+  }
+
+  .language,
+  .completion {
+    a {
+      margin-top: s.$size-16;
+      display: inline-flex;
+      align-items: center;
+      gap: s.$size-8;
+      justify-content: flex-start;
+    }
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+
+      .formField {
+        width: 50%;
+      }
+    }
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    span:not(.formField) {
+      display: block;
+      text-align: center;
+      width: s.$size-52;
+    }
+
+    .formField {
+      width: calc(50% - s.$size-26);
+    }
+  }
+  .errorMessage {
+    color: s.$error;
+    margin-top: s.$size-8;
+  }
+
+  .section {
+    &.search {
+      padding: s.$size-16;
+      background-color: s.$secondary-light;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition-duration: s.$transition-speed;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+
+      @media screen and (min-width: (s.$tablet-md)) {
+        bottom: 0;
+        border-radius: 0 0 s.$size-8 s.$size-8;
+        position: absolute;
+      }
+
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        bottom: -100px;
+        position: fixed;
+      }
+
+      button {
+        width: s.$size-144;
+
+        &.apply {
+          @media screen and (min-width: (s.$tablet-md)) {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
+}

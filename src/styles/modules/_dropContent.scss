@@ -1,0 +1,38 @@
+@use "../settings" as s;
+
+.dropContent {
+  border-radius: s.$border-radius-5;
+  border: s.$size-1 solid s.$base-lightest;
+
+  button {
+    &.usa-button {
+      width: 100%;
+    }
+
+    span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: s.$size-16;
+    }
+  }
+
+  .heading-tag {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: s.$size-20;
+  }
+
+  .content {
+    padding: s.$size-32 s.$size-16;
+    background: s.$white;
+    border-top: s.$size-1 solid s.$base-lightest;
+    display: none;
+
+    &.open {
+      display: block;
+    }
+  }
+}

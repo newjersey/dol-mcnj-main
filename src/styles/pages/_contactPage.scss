@@ -1,0 +1,42 @@
+@use "../settings" as s;
+
+.contact-page {
+  margin-top: s.$size-48;
+  margin-bottom: s.$size-48;
+
+  .address {
+    width: 100%;
+    padding: s.$size-24;
+
+    @media screen and (min-width: (s.$desktop)) {
+      max-width: s.$size-480;
+    }
+  }
+
+  .form-container {
+    padding: s.$size-24;
+    width: 100%;
+
+    @media screen and (min-width: (s.$desktop)) {
+      width: calc(100% - s.$size-480);
+      max-width: s.$size-640;
+    }
+
+    form {
+      input,
+      textarea {
+        max-width: none;
+        width: 100%;
+      }
+
+      .usa-radio__label {
+        margin: 0;
+      }
+
+      * + p,
+      p + * {
+        margin-top: 0;
+      }
+    }
+  }
+}

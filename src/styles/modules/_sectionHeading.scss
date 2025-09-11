@@ -1,0 +1,172 @@
+@use "../settings" as s;
+
+.sectionHeading {
+  margin-bottom: s.$size-32;
+
+  &.noDivider {
+    margin-bottom: s.$size-16;
+
+    .heading-tag {
+      border-bottom: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .heading-tag {
+    color: s.$ink;
+    font-size: s.$size-32;
+    display: inline-block;
+    font-weight: 700;
+    width: 100%;
+    margin-bottom: s.$size-8;
+    border-bottom: s.$size-2 solid s.$base-lighter;
+    padding-bottom: s.$size-16;
+  }
+
+  &.strikeThrough {
+    text-align: center;
+    padding-bottom: 0;
+    position: relative;
+
+    &:before {
+      content: "";
+      height: s.$size-1;
+      width: 100%;
+      background: s.$base-lighter;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      border: 0;
+      background: s.$white;
+      width: initial;
+      position: relative;
+      padding: 0 s.$size-16;
+    }
+
+    &.color-blue {
+      &:before {
+        background: s.$primary;
+      }
+    }
+
+    &.color-green {
+      &:before {
+        background: s.$secondary;
+      }
+    }
+
+    &.color-purple {
+      &:before {
+        background: s.$tertiary;
+      }
+    }
+
+    &.color-navy {
+      &:before {
+        background: s.$info-darker;
+      }
+    }
+
+    &.color-orange {
+      &:before {
+        background: s.$accent-warm-dark;
+      }
+    }
+  }
+
+  &.color-blue {
+    .heading-tag {
+      border-color: s.$primary;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: s.$primary;
+    }
+  }
+
+  &.color-green {
+    .heading-tag {
+      border-color: s.$secondary;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: s.$secondary;
+    }
+  }
+
+  &.color-purple {
+    .heading-tag {
+      border-color: s.$tertiary;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: s.$tertiary;
+    }
+  }
+
+  &.color-navy {
+    .heading-tag {
+      border-color: s.$info-darker;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: s.$info-darker;
+    }
+  }
+
+  &.color-orange {
+    .heading-tag {
+      border-color: s.$accent-warm-dark;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: s.$accent-warm-dark;
+    }
+  }
+
+  .description {
+    margin: s.$size-1 0 0;
+    font-size: s.$size-16;
+  }
+}

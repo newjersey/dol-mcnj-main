@@ -1,0 +1,110 @@
+@use "../settings" as s;
+
+.occupationGroups {
+  margin-bottom: s.$size-48;
+
+  &.disabled {
+    .heading-tag {
+      color: s.$base;
+    }
+  }
+
+  .groups {
+    background: white;
+    position: relative;
+
+    .select {
+      max-width: s.$size-560;
+      position: relative;
+    }
+
+    .select-button {
+      margin-top: 0.7rem;
+      width: 100%;
+      appearance: none;
+      color: s.$ink;
+      cursor: pointer;
+      padding: 0.7rem 2rem 0.7rem 0.7rem;
+      position: relative;
+      border: s.$size-2 solid s.$black;
+      border-radius: 5px;
+
+      &[disabled] {
+        background: s.$base-lighter;
+        border-color: s.$black;
+        color: s.$base;
+        cursor: not-allowed;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        right: s.$size-16;
+        bottom: s.$size-16;
+        width: 0;
+        height: 0;
+        border-left: 0.35rem solid transparent;
+        border-right: 0.35rem solid transparent;
+        border-top: 0.35rem solid s.$ink;
+      }
+    }
+
+    .dropdown-select {
+      font-weight: normal;
+      margin-top: s.$size-16;
+      box-shadow: 0 10px 20px -15px s.$ink;
+      max-height: s.$size-330;
+      border-radius: s.$size-8;
+      position: absolute;
+      overflow: auto;
+      z-index: 11;
+      background-color: s.$white;
+      width: 100%;
+
+      &[aria-expanded="true"] {
+        display: block;
+      }
+
+      .path-title,
+      button {
+        display: block;
+        width: 100%;
+      }
+
+      p {
+        &.path-title {
+          display: flex;
+          margin: 0;
+
+          align-items: center;
+          gap: 0.5rem;
+          background: s.$base-lighter;
+          padding: 0.5rem s.$size-16;
+
+          + * {
+            margin-top: 0;
+          }
+        }
+      }
+
+      button {
+        padding: s.$size-16;
+        cursor: pointer;
+
+        @media screen and (min-width: (s.$tablet)) {
+          padding: s.$size-16 s.$size-16 s.$size-16 5rem;
+        }
+
+        &:nth-of-type(2n - 1) {
+          background: s.$base-cool;
+        }
+
+        &:hover {
+          @media screen and (min-width: (s.$tablet)) {
+            background: s.$tertiary-lighter;
+          }
+        }
+      }
+    }
+  }
+}

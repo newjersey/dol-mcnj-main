@@ -1,0 +1,50 @@
+@use "../settings" as s;
+
+.full-map {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: s.$size-32;
+
+  .extra {
+    background-color: s.$white;
+    z-index: 20;
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    overflow: hidden;
+  }
+
+  &.open {
+    .extra {
+      visibility: visible;
+      height: auto;
+      width: auto;
+      overflow: visible;
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  .path-title {
+    font-size: s.$size-18;
+    font-weight: bold;
+  }
+
+  .map-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .single-path {
+    overflow: unset;
+  }
+
+  .close {
+    position: absolute;
+    top: s.$size-32;
+    right: s.$size-32;
+    cursor: pointer;
+  }
+}
