@@ -1,5 +1,5 @@
 "use client";
-import { ArrowSquareOut, House } from "@phosphor-icons/react";
+import { ArrowSquareOutIcon, HouseIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 
 interface LinkObjectProps {
@@ -57,7 +57,7 @@ const LinkObject = ({
     >
       {children}
       {!noIndicator && isHomePage && (
-        <House weight="fill" size={14} className="ml-[4px] inline-block" />
+        <HouseIcon weight="fill" size={14} className="ml-[4px] inline-block" />
       )}
     </Link>
   ) : (
@@ -89,7 +89,7 @@ const LinkObject = ({
     >
       {children}
       {!noIndicator && (
-        <ArrowSquareOut size={14} className="ml-[4px] inline-block" />
+        <ArrowSquareOutIcon size={14} className="ml-[4px] inline-block" />
       )}
     </a>
   );
