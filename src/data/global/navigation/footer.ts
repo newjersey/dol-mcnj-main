@@ -102,34 +102,14 @@ export const FOOTER_NAV_1_DATA = {
           subItemsCollection: {
             items: [
               {
-                copy: "Browse Support by Category",
+                copy: "Helpful Resources",
                 url: "/support-resources",
                 itemId: "4ec33mgyIj1ghaZ9GYNCGR",
-              },
-              {
-                copy: "Career Support",
-                url: "/support-resources/career-support",
-                itemId: "3YouqKxnUQiRodAUNnv8nR",
-              },
-              {
-                copy: "Tuition Assistance",
-                url: "/support-resources/tuition-assistance",
-                itemId: "2gqhjZAj8srnVuvuVdXUBf",
-              },
-              {
-                copy: "Other Assistance",
-                url: "/support-resources/other",
-                itemId: "6f98Wu1WAn4oyLkrbd22y7",
               },
               {
                 copy: "Training Provider Resources",
                 url: "/training-provider-resources",
                 itemId: "4eb9EtRlHD03bDlUfJ8mkt",
-              },
-              {
-                copy: "Frequently Asked Questions",
-                url: "/faq",
-                itemId: "4gnP8eZ8H64LIclMrHvnx0",
               },
               {
                 copy: "Career Services",
