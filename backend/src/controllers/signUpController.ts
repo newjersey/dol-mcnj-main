@@ -3,7 +3,7 @@ import { addSubscriberToDynamo } from "../dynamodb/writeSignupEmails";
 // import { addSubscriberToMailchimp } from "../mailchimp/mailchimpAPI";
 
 export const submitSignupForm = async (req: Request, res: Response) => {
-  const { firstName, lastName, email /*phone*/ } = req.body;
+  const { firstName, lastName, email /*phone*/ } = req.body || {};
 
   try {
     await addSubscriberToDynamo(firstName, lastName, email /*phone*/);
