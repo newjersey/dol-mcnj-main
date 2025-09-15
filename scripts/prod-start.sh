@@ -1,21 +1,32 @@
 #!/bin/bash
 set -e
 
-# Build everything
+echo "🔨 Building applications..."
+# Build both Next.js and backend
 npm run build:only
 
-# Kill any existing Next.js SSR process
-sudo fuser -k 3000/tcp || true
+echo "🧹 Cleaning up existing processes..."
+# Stop and delete any existing PM2 processes
+pm2 delete all || true
 
-# Start Next.js SSR server
-PORT=3000 npm run start &
+echo "🚀 Starting applications with PM2..."
+# Start both applications using the ecosystem config
+pm2 start ecosystem.config.js
 
-# Wait a bit to ensure Next.js is up
-sleep 5
+echo "💾 Saving PM2 configuration..."
+pm2 save
 
-# Start backend API (Express) - assumes build output is in backend/dist/server.js
-cd backend
-pm2 start dist/server.js --name dol-mcnj-backend --env production --watch
-cd ..
+echo "📊 Process status:"
+pm2 status
 
-echo "SSR proxy setup: API on :8080, Next.js SSR on :3000, all browser requests proxied to Next.js."
+echo ""
+echo "✅ Deployment complete!"
+echo "🌐 Frontend (Next.js): http://localhost:3000"
+echo "🔌 Backend (Express): http://localhost:8080"
+echo "🌍 Public site should be accessible at your domain"
+echo ""
+echo "📝 Useful commands:"
+echo "  npm run status:prod   - Check process status"
+echo "  npm run logs:prod     - View all logs"
+echo "  npm run restart:prod  - Restart both services"
+echo "  npm run stop:prod     - Stop all services"

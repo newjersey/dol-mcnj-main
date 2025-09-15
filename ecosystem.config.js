@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'dol-mcnj-frontend',
       script: 'npm',
-      args: 'run start:frontend',
+      args: 'start',
       cwd: './',
       env: {
         NODE_ENV: 'production',
@@ -16,12 +16,10 @@ module.exports = {
     },
     {
       name: 'dol-mcnj-backend',
-      script: 'npm',
-      args: 'run start:backend',
-      cwd: './',
+      script: './dist/server.js',
+      cwd: './backend/',
       env: {
-        NODE_ENV: 'awsdev',
-        DB_ENV: 'awsdev',
+        NODE_ENV: 'production',
         PORT: 8080
       },
       instances: 1,
