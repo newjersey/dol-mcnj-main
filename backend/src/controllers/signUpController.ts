@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { addSubscriberToMailchimp } from "../mailchimp/mailchimpAPI";
+import { addSubscriberToDynamo } from "../dynamodb/wirteSignupEmails";
+// import { addSubscriberToMailchimp } from "../mailchimp/mailchimpAPI";
 
 export const submitSignupForm = async (req: Request, res: Response) => {
   const { firstName, lastName, email /*phone*/ } = req.body;
 
   try {
-    await addSubscriberToMailchimp(firstName, lastName, email /*phone*/);
+    await addSubscriberToDynamo(firstName, lastName, email /*phone*/);
     return res.status(200).json({ message: "Signup successful" });
   } catch (error: unknown) {
     let errorMessage = "An unexpected error occurred. Please try again later.";
