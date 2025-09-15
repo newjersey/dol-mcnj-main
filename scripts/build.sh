@@ -3,13 +3,14 @@
 set -e
 
 cd $(git rev-parse --show-toplevel)
-npm --prefix=frontend run build
+
+echo "🔨 Building Next.js frontend to backend/build..."
+npx next build
+
+echo "🔨 Building backend TypeScript..."
 npm --prefix=backend run build
 
-rm -rf backend/dist_old || true
-[ -d backend/dist ] && mv backend/dist backend/dist_old
-
-mv backend/dist_temp backend/dist
-mv frontend/build backend/dist
-
 echo "✅ Build successfully completed."
+echo "📁 Frontend built to: backend/build/"
+echo "📁 Backend built to: backend/dist/"
+echo "🚀 Start with: cd backend && npm start"
