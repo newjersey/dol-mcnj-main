@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  distDir: 'backend/build',
   productionBrowserSourceMaps: true,
   env: {
     REACT_APP_API_URL: process.env.REACT_APP_API_URL,
@@ -20,8 +19,16 @@ const nextConfig: NextConfig = {
     REACT_APP_SITE_URL: process.env.REACT_APP_SITE_URL,
   },
   images: {
-    unoptimized: true,
+    unoptimized: false,
     domains: ["images.ctfassets.net", "www.nj.gov"],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://localhost:8080/api/:path*",
+      },
+    ];
   },
   sassOptions: {
     // Silences the 'legacy-js-api' deprecation warning
