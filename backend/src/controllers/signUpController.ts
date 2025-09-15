@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addSubscriberToDynamo } from "../dynamodb/wirteSignupEmails";
+import { addSubscriberToDynamo } from "../dynamodb/writeSignupEmails";
 // import { addSubscriberToMailchimp } from "../mailchimp/mailchimpAPI";
 
 export const submitSignupForm = async (req: Request, res: Response) => {
