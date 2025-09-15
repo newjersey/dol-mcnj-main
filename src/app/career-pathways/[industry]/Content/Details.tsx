@@ -124,9 +124,9 @@ export const Details = ({
 
       if (trainingArray && trainingArray.length > 0) {
         setLoadingTraining(false);
-
         setTrainingData(trainingArray.slice(0, 3));
       }
+
       setLoadingTraining(false);
     };
 
