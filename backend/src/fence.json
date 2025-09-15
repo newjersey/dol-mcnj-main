@@ -2,6 +2,9 @@
   "tags": ["backend"],
   "dependencies": [
     "aws-sdk",
+    "@aws-sdk/client-dynamodb",
+    "@aws-sdk/lib-dynamodb",
+    "@aws-sdk/client-kms",
     "@contentful/rich-text-types",
     "@sentry/node",
     "axios",

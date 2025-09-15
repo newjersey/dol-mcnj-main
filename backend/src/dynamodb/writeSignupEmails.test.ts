@@ -12,10 +12,19 @@ jest.mock("@aws-sdk/lib-dynamodb", () => ({
   UpdateCommand: jest.fn().mockImplementation((input) => ({ input })),
 }));
 
+// Mock PII safety utilities
+jest.mock("../utils/piiSafety", () => ({
+  createSafeLogger: jest.fn(() => ({
+    info: jest.fn(),
+    error: jest.fn(),
+  })),
+  auditPIIOperation: jest.fn(),
+}));
+
 // Import the function to test after mocking
 import { addSubscriberToDynamo } from "./writeSignupEmails";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, UpdateCommand } from "@aws-sdk/lib-dynamodb";
+import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
+import { auditPIIOperation } from "../utils/piiSafety";
 
 // Mock environment variables
 const originalEnv = process.env;
@@ -38,9 +47,9 @@ describe("addSubscriberToDynamo", () => {
     it("should successfully add a new subscriber with all fields", async () => {
       const mockResponse = {
         Attributes: {
-          email: "test@example.com",
-          fname: "John",
-          lname: "Doe",
+          email: "user@domain.com",
+          fname: "TestFirst",
+          lname: "TestLast",
           status: "subscribed",
           createdAt: "2023-01-01T00:00:00.000Z",
           updatedAt: "2023-01-01T00:00:00.000Z",
@@ -49,13 +58,23 @@ describe("addSubscriberToDynamo", () => {
       
       mockSend.mockResolvedValueOnce(mockResponse);
 
-      const result = await addSubscriberToDynamo("John", "Doe", "test@example.com");
+      const result = await addSubscriberToDynamo("TestFirst", "TestLast", "user@domain.com");
 
       expect(mockSend).toHaveBeenCalledTimes(1);
+      expect(auditPIIOperation).toHaveBeenCalledWith(
+        'CREATE', 
+        'EMAIL', 
+        true, 
+        undefined, 
+        expect.objectContaining({
+          operationId: expect.any(String),
+          tableName: "test-marketing-userEmails"
+        })
+      );
       expect(UpdateCommand).toHaveBeenCalledWith(
         expect.objectContaining({
-          TableName: "marketing-userEmails", // Use default table name since env var setup happens after import
-          Key: { email: "test@example.com" },
+          TableName: "test-marketing-userEmails",
+          Key: { email: "user@domain.com" },
           ExpressionAttributeNames: {
             "#FNAME": "fname",
             "#LNAME": "lname",
@@ -64,8 +83,8 @@ describe("addSubscriberToDynamo", () => {
             "#CREATED_AT": "createdAt",
           },
           ExpressionAttributeValues: expect.objectContaining({
-            ":fname": "John",
-            ":lname": "Doe",
+            ":fname": "TestFirst",
+            ":lname": "TestLast",
             ":status": "subscribed",
             ":updatedAt": expect.any(String),
             ":createdAt": expect.any(String),
@@ -130,7 +149,7 @@ describe("addSubscriberToDynamo", () => {
     it("should handle missing names correctly", async () => {
       mockSend.mockResolvedValueOnce({ Attributes: {} });
 
-      await addSubscriberToDynamo(undefined as any, null as any, "test@example.com");
+      await addSubscriberToDynamo("", "", "test@example.com");
 
       expect(UpdateCommand).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -145,23 +164,36 @@ describe("addSubscriberToDynamo", () => {
 
   describe("error handling", () => {
     it("should throw an error when email is not provided", async () => {
-      await expect(addSubscriberToDynamo("John", "Doe", "")).rejects.toThrow(
+      await expect(addSubscriberToDynamo("TestFirst", "TestLast", "")).rejects.toThrow(
         "Email address is required."
       );
       
       expect(mockSend).not.toHaveBeenCalled();
+      expect(auditPIIOperation).not.toHaveBeenCalled();
     });
 
     it("should throw an error when email is null", async () => {
-      await expect(addSubscriberToDynamo("John", "Doe", null as any)).rejects.toThrow(
+      await expect(addSubscriberToDynamo("TestFirst", "TestLast", null as unknown as string)).rejects.toThrow(
         "Email address is required."
       );
       
       expect(mockSend).not.toHaveBeenCalled();
+      expect(auditPIIOperation).not.toHaveBeenCalled();
+    });
+
+    it("should throw an error when email is too long", async () => {
+      const longEmail = "a".repeat(250) + "@domain.com"; // Over 254 characters
+      
+      await expect(addSubscriberToDynamo("TestFirst", "TestLast", longEmail)).rejects.toThrow(
+        "Email address exceeds maximum length."
+      );
+      
+      expect(mockSend).not.toHaveBeenCalled();
+      expect(auditPIIOperation).not.toHaveBeenCalled();
     });
 
     it("should throw an error when email is undefined", async () => {
-      await expect(addSubscriberToDynamo("John", "Doe", undefined as any)).rejects.toThrow(
+      await expect(addSubscriberToDynamo("TestFirst", "TestLast", undefined as unknown as string)).rejects.toThrow(
         "Email address is required."
       );
       
@@ -172,18 +204,19 @@ describe("addSubscriberToDynamo", () => {
       const dynamoError = new Error("DynamoDB service unavailable");
       mockSend.mockRejectedValueOnce(dynamoError);
 
-      // Note: The current implementation doesn't re-throw errors, just logs them
-      const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+      await expect(addSubscriberToDynamo("TestFirst", "TestLast", "user@domain.com"))
+        .rejects.toThrow("Database operation failed");
 
-      const result = await addSubscriberToDynamo("John", "Doe", "test@example.com");
-
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Error while saving emails in dynamodb: ",
-        dynamoError
+      expect(auditPIIOperation).toHaveBeenCalledWith(
+        'CREATE', 
+        'EMAIL', 
+        false, 
+        undefined, 
+        expect.objectContaining({
+          operationId: expect.any(String),
+          tableName: "test-marketing-userEmails"
+        })
       );
-      expect(result).toBeUndefined();
-
-      consoleSpy.mockRestore();
     });
 
     it("should handle AWS throttling errors", async () => {
@@ -191,17 +224,19 @@ describe("addSubscriberToDynamo", () => {
       throttleError.name = "ProvisionedThroughputExceededException";
       mockSend.mockRejectedValueOnce(throttleError);
 
-      const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+      await expect(addSubscriberToDynamo("TestFirst", "TestLast", "user@domain.com"))
+        .rejects.toThrow("Service temporarily unavailable. Please try again later.");
 
-      const result = await addSubscriberToDynamo("John", "Doe", "test@example.com");
-
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Error while saving emails in dynamodb: ",
-        throttleError
+      expect(auditPIIOperation).toHaveBeenCalledWith(
+        'CREATE', 
+        'EMAIL', 
+        false, 
+        undefined, 
+        expect.objectContaining({
+          operationId: expect.any(String),
+          tableName: "test-marketing-userEmails"
+        })
       );
-      expect(result).toBeUndefined();
-
-      consoleSpy.mockRestore();
     });
 
     it("should handle conditional check failed errors", async () => {
@@ -209,17 +244,19 @@ describe("addSubscriberToDynamo", () => {
       conditionError.name = "ConditionalCheckFailedException";
       mockSend.mockRejectedValueOnce(conditionError);
 
-      const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+      await expect(addSubscriberToDynamo("TestFirst", "TestLast", "user@domain.com"))
+        .rejects.toThrow("is already a list member");
 
-      const result = await addSubscriberToDynamo("John", "Doe", "test@example.com");
-
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Error while saving emails in dynamodb: ",
-        conditionError
+      expect(auditPIIOperation).toHaveBeenCalledWith(
+        'CREATE', 
+        'EMAIL', 
+        false, 
+        undefined, 
+        expect.objectContaining({
+          operationId: expect.any(String),
+          tableName: "test-marketing-userEmails"
+        })
       );
-      expect(result).toBeUndefined();
-
-      consoleSpy.mockRestore();
     });
   });
 
@@ -318,7 +355,7 @@ describe("addSubscriberToDynamo", () => {
       // For now, let's verify the function works with different inputs
       mockSend.mockResolvedValueOnce({ Attributes: {} });
       
-      const result = await addSubscriberToDynamo("John", "Doe", "test@example.com");
+      await addSubscriberToDynamo("John", "Doe", "test@example.com");
       
       expect(UpdateCommand).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -349,7 +386,7 @@ describe("addSubscriberToDynamo", () => {
 
       expect(UpdateCommand).toHaveBeenCalledWith(
         expect.objectContaining({
-          TableName: "marketing-userEmails", // Use default table name
+          TableName: "test-marketing-userEmails", // Use test table name
           Key: { email: "test@example.com" },
           UpdateExpression: expect.stringContaining("SET #FNAME = :fname"),
           ExpressionAttributeNames: {
