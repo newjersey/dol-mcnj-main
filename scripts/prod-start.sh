@@ -6,8 +6,15 @@ echo "🔨 Building applications..."
 npm run build:only
 
 echo "🧹 Cleaning up existing processes..."
+# Kill any existing processes on the ports
+sudo fuser -k 3000/tcp || true
+sudo fuser -k 8080/tcp || true
+
 # Stop and delete any existing PM2 processes
 pm2 delete all || true
+
+# Wait a moment for processes to fully terminate
+sleep 2
 
 echo "🚀 Starting applications with PM2..."
 # Start both applications using the ecosystem config

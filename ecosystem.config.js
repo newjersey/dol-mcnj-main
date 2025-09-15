@@ -19,7 +19,7 @@ module.exports = {
       script: './dist/server.js',
       cwd: './backend/',
       env: {
-        NODE_ENV: 'production',
+        NODE_ENV: process.env.NODE_ENV || 'production',
         PORT: 8080
       },
       instances: 1,
