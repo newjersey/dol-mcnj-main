@@ -123,24 +123,25 @@
 
       .toggle {
         background-color: s.$disabled-dark;
-        width: s.$size-52;
-        height: s.$size-28;
+        width: s.$size-40;
+        height: s.$size-14;
         cursor: pointer;
         display: block;
-        border: s.$size-1 solid s.$base;
         border-radius: s.$size-32;
         position: relative;
+        margin-top: s.$size-8;
         transition-duration: s.$transition-speed;
 
         .dot {
-          background-color: s.$base;
+          background-color: s.$white;
+          box-shadow: s.$shadow-4;
           width: s.$size-20;
           height: s.$size-20;
           display: block;
           border-radius: 100%;
           position: absolute;
           top: 50%;
-          left: s.$size-4;
+          left: 0;
           transition-duration: s.$transition-speed;
           transform: translateY(-50%);
         }
@@ -157,10 +158,10 @@
       }
 
       .toggle {
-        background-color: s.$secondary;
+        background-color: s.$base;
         .dot {
-          left: calc(100% - s.$size-24);
-          background-color: s.$white;
+          left: calc(100% - s.$size-18);
+          background-color: s.$base-darker;
         }
       }
     }
