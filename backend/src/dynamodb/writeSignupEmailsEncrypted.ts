@@ -2,6 +2,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import dotenv from "dotenv";
 import { createSafeLogger, auditPIIOperation } from "../utils/piiSafety";
+import { encryptSearchablePII, SearchableEncryptedData } from "../utils/piiEncryption";
 import crypto from "crypto";
 
 dotenv.config();
@@ -25,21 +26,28 @@ const docClient = DynamoDBDocumentClient.from(ddb, {
 });
 
 /**
- * Insert a new subscriber record with PII-safe handling
- * - Idempotent: same email won't create duplicates (PK = email)
+ * Insert a new subscriber record with client-side encryption for PII
+ * - Email addresses are encrypted before storage using AWS KMS
+ * - Supports searchable encryption for duplicate detection
+ * - Idempotent: same email won't create duplicates (using search hash)
  * - Includes audit logging for PII operations
  * - Error handling without PII exposure
  */
-export const addSubscriberToDynamo = async (
+export const addSubscriberToDynamoEncrypted = async (
   fname: string,
   lname: string,
   email: string
 ) => {
   const operationId = crypto.randomUUID();
   const TABLE_NAME = process.env.DDB_TABLE_NAME || "marketing-userEmails";
+  const KMS_KEY_ID = process.env.KMS_KEY_ID;
 
   if (!TABLE_NAME) {
     throw new Error("DDB_TABLE_NAME is missing in environment variables.");
+  }
+
+  if (!KMS_KEY_ID) {
+    throw new Error("KMS_KEY_ID is required for encryption.");
   }
   
   // Validate required email
@@ -59,33 +67,60 @@ export const addSubscriberToDynamo = async (
   const nowIso = new Date().toISOString();
 
   try {
-    logger.info("Attempting to save subscriber to DynamoDB", { 
+    logger.info("Attempting to encrypt and save subscriber to DynamoDB", { 
       operationId, 
       hasFirstName: !!fname, 
       hasLastName: !!lname,
       tableName: TABLE_NAME 
     });
 
+    // Encrypt email with searchable encryption
+    const encryptedEmail: SearchableEncryptedData = await encryptSearchablePII(
+      email, 
+      KMS_KEY_ID, 
+      operationId
+    );
+
+    // Encrypt names if provided
+    let encryptedFname = null;
+    let encryptedLname = null;
+
+    if (fname) {
+      const fnameEncrypted = await encryptSearchablePII(fname, KMS_KEY_ID, operationId);
+      encryptedFname = fnameEncrypted.encrypted;
+    }
+
+    if (lname) {
+      const lnameEncrypted = await encryptSearchablePII(lname, KMS_KEY_ID, operationId);
+      encryptedLname = lnameEncrypted.encrypted;
+    }
+
     const updateCommand = new UpdateCommand({
       TableName: TABLE_NAME,
-      Key: { email },
+      Key: { 
+        // Use search hash as the key to maintain uniqueness while keeping email encrypted
+        emailHash: encryptedEmail.searchHash 
+      },
       UpdateExpression: `
-        SET #FNAME = :fname,
-            #LNAME = :lname,
+        SET #EMAIL_DATA = :emailData,
+            #FNAME_DATA = :fnameData,
+            #LNAME_DATA = :lnameData,
             #STATUS = :status,
             #UPDATED_AT = :updatedAt,
             #CREATED_AT = if_not_exists(#CREATED_AT, :createdAt)
       `,
       ExpressionAttributeNames: {
-        "#FNAME": "fname",
-        "#LNAME": "lname",
+        "#EMAIL_DATA": "encryptedEmail",
+        "#FNAME_DATA": "encryptedFname", 
+        "#LNAME_DATA": "encryptedLname",
         "#STATUS": "status",
         "#UPDATED_AT": "updatedAt",
         "#CREATED_AT": "createdAt"
       },
       ExpressionAttributeValues: {
-        ":fname": fname || null,
-        ":lname": lname || null,
+        ":emailData": encryptedEmail.encrypted,
+        ":fnameData": encryptedFname,
+        ":lnameData": encryptedLname,
         ":status": "subscribed",
         ":updatedAt": nowIso,
         ":createdAt": nowIso
@@ -98,10 +133,11 @@ export const addSubscriberToDynamo = async (
     // Audit successful PII storage
     auditPIIOperation('CREATE', 'EMAIL', true, undefined, { 
       operationId,
-      tableName: TABLE_NAME 
+      tableName: TABLE_NAME,
+      encrypted: true 
     });
     
-    logger.info("Successfully saved subscriber to DynamoDB", { 
+    logger.info("Successfully saved encrypted subscriber to DynamoDB", { 
       operationId,
       hasAttributes: !!response.Attributes 
     });
@@ -112,7 +148,8 @@ export const addSubscriberToDynamo = async (
     // Audit failed PII operation
     auditPIIOperation('CREATE', 'EMAIL', false, undefined, { 
       operationId,
-      tableName: TABLE_NAME 
+      tableName: TABLE_NAME,
+      encrypted: true 
     });
 
     // Log error without exposing PII
@@ -127,6 +164,9 @@ export const addSubscriberToDynamo = async (
       } else if (error.name === 'ProvisionedThroughputExceededException') {
         logger.error("DynamoDB throttling error", error, { operationId });
         throw new Error("Service temporarily unavailable. Please try again later.");
+      } else if (error.message.includes("KMS")) {
+        logger.error("KMS encryption error", error, { operationId });
+        throw new Error("Encryption service unavailable. Please try again later.");
       } else {
         logger.error("DynamoDB operation failed", error, { operationId });
         throw new Error("Database operation failed");
@@ -140,3 +180,6 @@ export const addSubscriberToDynamo = async (
     }
   }
 };
+
+// Keep the original function for backward compatibility during migration
+export { addSubscriberToDynamo } from "./writeSignupEmails";

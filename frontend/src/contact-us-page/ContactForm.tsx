@@ -129,13 +129,14 @@ const ContactForm = ({
               ),
             }}
             error={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
             {...register("email")}
           />
-          <div className="form-error-message">{errors.email?.message}</div>
+          <div className="form-error-message" id="email-error">{errors.email?.message}</div>
         </div>
         <div className={`input-container${errors.topic ? " radio-errors" : ""}`}>
           <div className="label-container">
-            <label htmlFor="topic">{t("ContactPage.formTopicLabel")}</label>{" "}
+            <span id="topic-label">{t("ContactPage.formTopicLabel")}</span>{" "}
             <span className="required">*</span>
           </div>
           <Controller
@@ -144,7 +145,9 @@ const ContactForm = ({
             render={({ field }) => (
               <RadioGroup
                 {...field}
-                aria-label="topic"
+                aria-labelledby="topic-label"
+                aria-describedby={errors.topic ? "topic-error" : undefined}
+                role="radiogroup"
                 value={field.value}
                 onChange={(e) => field.onChange(e.target.value)}
               >
@@ -160,7 +163,7 @@ const ContactForm = ({
               </RadioGroup>
             )}
           />
-          <div className="form-error-message">{errors.topic?.message}</div>
+          <div className="form-error-message" id="topic-error">{errors.topic?.message}</div>
         </div>
         <div className="input-container">
           <div className="label-container">
@@ -171,14 +174,16 @@ const ContactForm = ({
             id="message"
             className={errors.message ? "error-textarea" : ""}
             placeholder={t("ContactPage.formMessageLabel")}
+            aria-describedby={errors.message ? "message-error" : "message-count"}
             {...register("message")}
           />
           <div
+            id="message-count"
             className={`message-count ${getValues("message")?.length > 1000 || !!errors.message ? "required" : undefined}`}
           >
             {watchMessage ? `${getValues("message").length}` : `0`} / 1000
           </div>
-          <div className="form-error-message">{errors.message?.message}</div>
+          <div className="form-error-message" id="message-error">{errors.message?.message}</div>
         </div>
         <div className="button-container">
           <button type="submit" data-testid="submit-button" className="usa-button">
