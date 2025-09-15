@@ -7,6 +7,14 @@ npx next build
 echo "Building backend TypeScript..."
 cd backend
 npm run build
+
+# Verify the build was successful
+if [ ! -f "dist/server.js" ]; then
+    echo "❌ Error: Backend build failed - dist/server.js not found"
+    exit 1
+fi
+
+echo "✅ Backend build successful - server.js found"
 cd ..
 
 echo "Starting Express server with integrated Next.js build..."
