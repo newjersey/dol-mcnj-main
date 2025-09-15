@@ -31,7 +31,6 @@ export const addSubscriberToDynamo = async (
   const nowIso = new Date().toISOString();
 
   try {
-    // The above ADD trick isn't ideal for ISO strings. Let's do a second version using if_not_exists:
     const betterCmd = new UpdateCommand({
       TableName: TABLE_NAME,
       Key: { email },
@@ -63,5 +62,6 @@ export const addSubscriberToDynamo = async (
     return resp.Attributes; // contains the saved subscriber
     } catch (error) {
       console.error(`Error while saving emails in dynamodb: `, error);
+      throw error
     }
 };
