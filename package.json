@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build:only": "next build && npm --prefix backend run build",
-    "build": "next build && npm --prefix backend run build",
+    "build": "next build",
+    "build:backend": "npm --prefix backend run build",
     "build:prod": "next build && npm --prefix backend run build",
     "start:backend": "cd backend && node ./dist/server.js",
     "start:frontend": "next start",
