@@ -7,7 +7,7 @@ html {
 
 * {
   &::selection {
-    background-color: s.$primary-light;
+    background-color: s.$primary-dark;
     color: s.$white;
     text-shadow: s.$size-2 s.$size-2 s.$size-2 rgba(0, 0, 0, 0.5);
   }
