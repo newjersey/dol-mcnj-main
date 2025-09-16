@@ -46,7 +46,7 @@ describe("SurveyMonkeyModal", () => {
 
     // Clear any pending navigation data
     delete (window as any).__pendingNavigation;
-    
+
     // Reset timers and act on timers immediately
     jest.useFakeTimers();
   });
@@ -136,14 +136,18 @@ describe("SurveyMonkeyModal", () => {
   it("closes modal when Escape key is pressed", async () => {
     // This test is skipped due to JSDOM navigation limitations
     // The component relies on complex navigation interception that doesn't work in test environment
-    console.warn("Skipping Escape key test - requires full browser navigation support");
+    console.warn(
+      "Skipping Escape key test - requires full browser navigation support"
+    );
     expect(true).toBe(true); // Pass the test
   });
 
   it("renders iframe when modal is open", async () => {
     // This test is skipped due to JSDOM navigation limitations
     // The component relies on complex navigation interception that doesn't work in test environment
-    console.warn("Skipping iframe test - requires full browser navigation support");
+    console.warn(
+      "Skipping iframe test - requires full browser navigation support"
+    );
     expect(true).toBe(true); // Pass the test
   });
 
@@ -157,7 +161,9 @@ describe("SurveyMonkeyModal", () => {
   it("sets body overflow to hidden when modal is open", async () => {
     // This test is skipped due to JSDOM navigation limitations
     // The component relies on complex navigation interception that doesn't work in test environment
-    console.warn("Skipping body overflow test - requires full browser navigation support");
+    console.warn(
+      "Skipping body overflow test - requires full browser navigation support"
+    );
     expect(true).toBe(true); // Pass the test
   });
 
@@ -181,7 +187,7 @@ describe("SurveyMonkeyModal", () => {
   it("does not show modal when already dismissed", async () => {
     // Mock localStorage to return dismissed state
     localStorageMock.getItem.mockReturnValue("dismissed");
-    
+
     render(
       <div>
         <SurveyMonkeyModal {...defaultProps} />
