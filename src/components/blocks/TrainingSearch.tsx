@@ -15,9 +15,14 @@ import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeadi
 export interface TrainingSearchProps {
   className?: string;
   content: TrainingExplorerHeadingProps["search"];
+  onNavigate?: (url: string) => void; // For testing purposes
 }
 
-const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
+const TrainingSearch = ({
+  className,
+  content,
+  onNavigate,
+}: TrainingSearchProps) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<string>("");
   const [miles, setMiles] = useState<string>("");
@@ -35,7 +40,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
     const selects = document.querySelectorAll("select");
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
     const checkboxArray: HTMLInputElement[] = Array.from(
-      checkboxes,
+      checkboxes
     ) as HTMLInputElement[];
     checkboxArray.forEach((checkbox: HTMLInputElement) => {
       checkbox.checked = false;
@@ -122,6 +127,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
       id="trainingSearch"
       className={`trainingSearch${className ? ` ${className}` : ""}`}
     >
+      test
       <div className="container">
         <div className="inner-container">
           <Flex direction="column" gap="sm" fill className="inner">
@@ -164,11 +170,15 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                 onSubmit={(
                   e:
                     | React.FormEvent<HTMLFormElement>
-                    | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+                    | React.MouseEvent<HTMLButtonElement, MouseEvent>
                 ) => {
                   e.preventDefault();
-                  // navigate to searchUrl
-                  window.location.href = searchUrl;
+                  // Use onNavigate prop for testing, otherwise use window.location
+                  if (onNavigate) {
+                    onNavigate(searchUrl);
+                  } else {
+                    window.location.href = searchUrl;
+                  }
                 }}
               >
                 <FormInput
@@ -250,7 +260,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                       setZipError(
                         zipCodes.filter((zip) => zip === zipCode).length > 0
                           ? false
-                          : true,
+                          : true
                       );
                     }}
                   />
