@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { addSubscriberToDynamoEncrypted } from "../dynamodb/writeSignupEmailsEncrypted";
 import { createSafeLogger, auditPIIOperation, validateAndSanitizePII } from "../utils/piiSafety";
-import crypto from "crypto";
+import * as crypto from "crypto";
 
 const logger = createSafeLogger(console.log);
 

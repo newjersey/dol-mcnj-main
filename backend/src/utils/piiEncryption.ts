@@ -8,7 +8,7 @@
  * - Secure key derivation and rotation
  */
 
-import crypto from "crypto";
+import * as crypto from "crypto";
 import { KMSClient, DecryptCommand, GenerateDataKeyCommand } from "@aws-sdk/client-kms";
 import { createSafeLogger, auditPIIOperation } from "./piiSafety";
 

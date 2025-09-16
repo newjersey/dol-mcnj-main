@@ -8,6 +8,7 @@
     "@contentful/rich-text-types",
     "@sentry/node",
     "axios",
+    "commander",
     "cors",
     "dotenv",
     "express",
