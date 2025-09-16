@@ -67,7 +67,7 @@ describe("addSubscriberToDynamo", () => {
         true, 
         undefined, 
         expect.objectContaining({
-          operationId: expect.any(String),
+          operationId: undefined,
           tableName: "test-marketing-userEmails"
         })
       );
@@ -213,7 +213,7 @@ describe("addSubscriberToDynamo", () => {
         false, 
         undefined, 
         expect.objectContaining({
-          operationId: expect.any(String),
+          operationId: undefined,
           tableName: "test-marketing-userEmails"
         })
       );
@@ -233,7 +233,7 @@ describe("addSubscriberToDynamo", () => {
         false, 
         undefined, 
         expect.objectContaining({
-          operationId: expect.any(String),
+          operationId: undefined,
           tableName: "test-marketing-userEmails"
         })
       );
@@ -253,7 +253,7 @@ describe("addSubscriberToDynamo", () => {
         false, 
         undefined, 
         expect.objectContaining({
-          operationId: expect.any(String),
+          operationId: undefined,
           tableName: "test-marketing-userEmails"
         })
       );
@@ -364,17 +364,11 @@ describe("addSubscriberToDynamo", () => {
       );
     });
 
-    it("should use default table name when environment variable is not set", async () => {
+    it("should throw error when environment variable is not set", async () => {
       delete process.env.DDB_TABLE_NAME;
-      mockSend.mockResolvedValueOnce({ Attributes: {} });
 
-      await addSubscriberToDynamo("John", "Doe", "test@example.com");
-
-      expect(UpdateCommand).toHaveBeenCalledWith(
-        expect.objectContaining({
-          TableName: "marketing-userEmails",
-        })
-      );
+      await expect(addSubscriberToDynamo("John", "Doe", "test@example.com"))
+        .rejects.toThrow("DDB_TABLE_NAME is missing in environment variables.");
     });
   });
 

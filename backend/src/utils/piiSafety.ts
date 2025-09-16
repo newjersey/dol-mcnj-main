@@ -1,5 +1,5 @@
 // PII-Safe Error Handling and Logging Recommendations
-import crypto from "crypto";
+import * as crypto from "crypto";
 
 // 1. Create a PII-safe logging utility
 export const createSafeLogger = (originalLogger: typeof console.log) => {
