@@ -36,7 +36,7 @@ export const addSubscriberToDynamo = async (
   email: string
 ) => {
   const operationId = crypto.randomUUID();
-  const TABLE_NAME = process.env.DDB_TABLE_NAME || "marketing-userEmails";
+  const TABLE_NAME = process.env.DDB_TABLE_NAME;
 
   if (!TABLE_NAME) {
     throw new Error("DDB_TABLE_NAME is missing in environment variables.");
