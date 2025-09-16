@@ -29,7 +29,7 @@
     "fuse.js": "^7.1.0",
     "graphql-request": "^7.2.0",
     "i18next": "^25.5.2",
-    "libphonenumber-js": "^1.12.16",
+    "libphonenumber-js": "^1.12.17",
     "markdown-it": "^14.1.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
