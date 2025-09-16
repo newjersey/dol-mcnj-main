@@ -47,17 +47,17 @@ describe("convertToCardObjects", () => {
         sys: { id: "1" },
         title: "Explore",
         url: "/explore",
-        svg: "ExploreBold",
+        svg: "explore",
         description: "Explore our services",
-        icon: "explore",
+        icon: undefined,
       },
       {
         sys: { id: "2" },
         title: "Jobs",
         url: "/jobs",
-        svg: "JobsBold",
+        svg: "jobs",
         description: "Find a job",
-        icon: "jobs",
+        icon: undefined,
       },
     ];
 
@@ -83,7 +83,7 @@ describe("convertToCardObjects", () => {
         url: "/support",
         svg: "supportBold",
         description: "",
-        icon: "",
+        icon: undefined,
       },
     ];
 
@@ -107,9 +107,9 @@ describe("convertToCardObjects", () => {
         sys: { id: "Training" },
         title: "Training",
         url: "/training",
-        svg: "TrainingBold",
+        svg: "training",
         description: "Our training programs",
-        icon: "training",
+        icon: undefined,
       },
     ];
 
