@@ -130,12 +130,10 @@
         border: s.$size-1 solid s.$base;
         border-radius: s.$size-32;
         position: relative;
-        margin-top: s.$size-8;
         transition-duration: s.$transition-speed;
 
         .dot {
           background-color: s.$base;
-          box-shadow: s.$shadow-4;
           width: s.$size-20;
           height: s.$size-20;
           display: block;
