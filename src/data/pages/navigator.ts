@@ -90,7 +90,7 @@ export const NAVIGATOR_PAGE_DATA = {
     },
     howTo: {
       sectionHeading: {
-        heading: "How to use the Career Navigator",
+        heading: "How to use the NJ Career Navigator",
       },
       cards: [
         {
