@@ -26,12 +26,15 @@ const docClient = DynamoDBDocumentClient.from(dynamoClient);
 const kmsClient = new KMSClient({ region });
 
 interface EncryptedRecord {
-  id: string;
-  encryptedEmail?: string;
-  encryptedFname?: string;
-  encryptedLname?: string;
-  createdAt: string;
-  updatedAt: string;
+  id?: string;
+  pk?: string;
+  recordId?: string;
+  encryptedEmail?: any;
+  encryptedFname?: any;
+  encryptedLname?: any;
+  createdAt?: string;
+  updatedAt?: string;
+  [key: string]: any; // Allow any additional properties
 }
 
 async function analyzeEncryptedData() {
@@ -50,17 +53,19 @@ async function analyzeEncryptedData() {
     
     for (let i = 0; i < Math.min(records.length, 3); i++) {
       const record = records[i];
-      console.log(`\n🔍 Analyzing record ${i + 1}: ${record.id}`);
+      const recordId = record.id || record.pk || record.recordId || `record-${i + 1}`;
+      console.log(`\n🔍 Analyzing record ${i + 1}: ${recordId}`);
+      console.log(`    📊 Record keys: ${Object.keys(record).join(', ')}`);
       
       // Analyze the structure of encrypted data
       if (record.encryptedEmail) {
-        await analyzeEncryptedField('email', record.encryptedEmail, record.id);
+        await analyzeEncryptedField('email', record.encryptedEmail, recordId);
       }
       if (record.encryptedFname) {
-        await analyzeEncryptedField('firstName', record.encryptedFname, record.id);
+        await analyzeEncryptedField('firstName', record.encryptedFname, recordId);
       }
       if (record.encryptedLname) {
-        await analyzeEncryptedField('lastName', record.encryptedLname, record.id);
+        await analyzeEncryptedField('lastName', record.encryptedLname, recordId);
       }
     }
     
@@ -69,12 +74,23 @@ async function analyzeEncryptedData() {
   }
 }
 
-async function analyzeEncryptedField(fieldName: string, encryptedData: string, recordId: string) {
+async function analyzeEncryptedField(fieldName: string, encryptedData: any, recordId: string) {
   console.log(`\n  📝 Analyzing ${fieldName} field:`);
   
   try {
-    // Parse the encrypted data structure
-    const parsed = JSON.parse(encryptedData);
+    let parsed: any;
+    
+    // Handle both string and object formats
+    if (typeof encryptedData === 'string') {
+      parsed = JSON.parse(encryptedData);
+    } else if (typeof encryptedData === 'object' && encryptedData !== null) {
+      parsed = encryptedData;
+    } else {
+      console.log(`    ❌ Unexpected data type: ${typeof encryptedData}`);
+      console.log(`    Raw data: ${JSON.stringify(encryptedData)}`);
+      return;
+    }
+    
     console.log(`    Structure: ${Object.keys(parsed).join(', ')}`);
     
     if (parsed.encryptedDataKey && parsed.iv && parsed.encryptedData && parsed.authTag) {
@@ -94,8 +110,8 @@ async function analyzeEncryptedField(fieldName: string, encryptedData: string, r
     }
     
   } catch (parseError) {
-    console.log(`    ❌ Failed to parse encrypted data: ${parseError instanceof Error ? parseError.message : String(parseError)}`);
-    console.log(`    Raw data (first 100 chars): ${encryptedData.substring(0, 100)}...`);
+    console.log(`    ❌ Failed to process encrypted data: ${parseError instanceof Error ? parseError.message : String(parseError)}`);
+    console.log(`    Raw data: ${JSON.stringify(encryptedData, null, 2)}`);
   }
 }
 
