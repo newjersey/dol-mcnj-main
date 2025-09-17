@@ -359,11 +359,34 @@ export async function decryptLegacyPII(
       // Try with some common default values that might have been used
       Buffer.from('default-operation-id'),
       Buffer.from('encryption-operation'),
+      // Try some UUIDs that might have been used during development
+      Buffer.from('00000000-0000-0000-0000-000000000000'),
+      Buffer.from('11111111-1111-1111-1111-111111111111'),
+      // Try common patterns that might have been used
+      Buffer.from('signup-operation'),
+      Buffer.from('encrypt-pii'),
+      Buffer.from('data-encryption'),
     ];
 
-    for (let i = 0; i < aadAttempts.length; i++) {
+    // Additionally, try some AAD values derived from the encrypted data itself
+    // Sometimes the AAD might be related to parts of the encrypted content
+    const derivedAADs = [
+      // Try using parts of the encrypted key as AAD
+      Buffer.from(encryptedKey, 'base64').slice(0, 16),
+      // Try using the key ID as AAD
+      Buffer.from(keyId),
+      // Try using the IV as AAD
+      Buffer.from(iv, 'base64'),
+      // Try using a hash of the encrypted data
+      Buffer.from(crypto.createHash('sha256').update(data).digest('hex').substring(0, 36)),
+    ];
+
+    // Combine all attempts
+    const allAADAttempts = [...aadAttempts, ...derivedAADs];
+
+    for (let i = 0; i < allAADAttempts.length; i++) {
       try {
-        const aad = aadAttempts[i];
+        const aad = allAADAttempts[i];
         
         // Create decipher
         const decipher = crypto.createDecipheriv(algorithm, dataKey, Buffer.from(iv, 'base64'));
@@ -388,13 +411,15 @@ export async function decryptLegacyPII(
           keyId: keyId,
           algorithm: algorithm,
           legacyDecryption: true,
-          aadAttempt: i
+          aadAttempt: i,
+          aadType: i < aadAttempts.length ? 'standard' : 'derived'
         });
         
         logger.info("Legacy PII decryption successful", { 
           operationId: opId,
           algorithm: algorithm,
-          aadAttempt: i
+          aadAttempt: i,
+          aadType: i < aadAttempts.length ? 'standard' : 'derived'
         });
         
         return decrypted;
@@ -403,7 +428,8 @@ export async function decryptLegacyPII(
         // Continue to next AAD attempt if this one fails
         logger.info(`AAD attempt ${i} failed, trying next approach`, { 
           operationId: opId,
-          attempt: i 
+          attempt: i,
+          aadType: i < aadAttempts.length ? 'standard' : 'derived'
         });
         continue;
       }
