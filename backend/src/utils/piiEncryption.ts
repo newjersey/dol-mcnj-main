@@ -78,7 +78,8 @@ export async function encryptPII(
     
     // Create cipher
     const cipher = crypto.createCipheriv(ALGORITHM, dataKey, iv);
-    cipher.setAAD(Buffer.from(opId)); // Use operation ID as additional authenticated data
+    // Note: Not using AAD to avoid dependency on operation ID during decryption
+    // This ensures data can be decrypted without requiring the original operation ID
     
     // Encrypt the data
     let encrypted = cipher.update(plaintext, 'utf8', 'base64');
@@ -178,11 +179,11 @@ export async function decryptPII(
       throw new Error("Failed to decrypt data key");
     }
 
-    // Try standard decryption first (with operation ID as AAD)
+    // Try standard decryption first (without AAD for new data)
     try {
-      // Create decipher
+      // Create decipher for new data format (no AAD)
       const decipher = crypto.createDecipheriv(algorithm, dataKey, Buffer.from(iv, 'base64'));
-      decipher.setAAD(Buffer.from(opId)); // Use operation ID as additional authenticated data
+      // No AAD set for new data format
       decipher.setAuthTag(Buffer.from(tag, 'base64'));
       
       // Decrypt the data
@@ -196,10 +197,11 @@ export async function decryptPII(
       auditPIIOperation('READ', 'EMAIL', true, undefined, { 
         operationId: opId,
         keyId: keyId,
-        algorithm: algorithm
+        algorithm: algorithm,
+        decryptionMethod: 'standard-no-aad'
       });
       
-      logger.info("PII decryption successful", { 
+      logger.info("PII decryption successful (no AAD)", { 
         operationId: opId,
         algorithm: algorithm
       });
@@ -207,15 +209,15 @@ export async function decryptPII(
       return decrypted;
       
     } catch (standardError) {
-      logger.info("Standard decryption failed, trying legacy decryption without AAD", { 
+      logger.info("Standard decryption (no AAD) failed, trying legacy decryption with AAD", { 
         operationId: opId,
         error: standardError instanceof Error ? standardError.message : String(standardError)
       });
       
-      // Try legacy decryption without AAD (for data encrypted before AAD was implemented)
+      // Try legacy decryption with AAD (for old data)
       try {
         const legacyDecipher = crypto.createDecipheriv(algorithm, dataKey, Buffer.from(iv, 'base64'));
-        // No AAD set for legacy compatibility
+        legacyDecipher.setAAD(Buffer.from(opId)); // Use operation ID as AAD for legacy data
         legacyDecipher.setAuthTag(Buffer.from(tag, 'base64'));
         
         let legacyDecrypted = legacyDecipher.update(data, 'base64', 'utf8');
@@ -229,28 +231,63 @@ export async function decryptPII(
           operationId: opId,
           keyId: keyId,
           algorithm: algorithm,
-          legacyDecryption: true
+          decryptionMethod: 'legacy-with-aad'
         });
         
-        logger.info("Legacy PII decryption successful (no AAD)", { 
+        logger.info("Legacy PII decryption successful (with AAD)", { 
           operationId: opId,
           algorithm: algorithm
         });
         
         return legacyDecrypted;
         
-      } catch (legacyError) {
-        // Clear the plaintext data key from memory
-        dataKey.fill(0);
-        
-        logger.error("Both standard and legacy decryption failed", {
+      } catch (legacyWithAADError) {
+        logger.info("Legacy decryption with AAD failed, trying without AAD", { 
           operationId: opId,
-          standardError: standardError instanceof Error ? standardError.message : String(standardError),
-          legacyError: legacyError instanceof Error ? legacyError.message : String(legacyError)
+          error: legacyWithAADError instanceof Error ? legacyWithAADError.message : String(legacyWithAADError)
         });
         
-        // Throw the original standard error
-        throw standardError;
+        // Try legacy decryption without AAD (for data encrypted before AAD was implemented)
+        try {
+          const legacyNoAADDecipher = crypto.createDecipheriv(algorithm, dataKey, Buffer.from(iv, 'base64'));
+          // No AAD set for legacy compatibility
+          legacyNoAADDecipher.setAuthTag(Buffer.from(tag, 'base64'));
+          
+          let legacyDecrypted = legacyNoAADDecipher.update(data, 'base64', 'utf8');
+          legacyDecrypted += legacyNoAADDecipher.final('utf8');
+          
+          // Clear the plaintext data key from memory
+          dataKey.fill(0);
+          
+          // Audit successful legacy decryption
+          auditPIIOperation('READ', 'EMAIL', true, undefined, { 
+            operationId: opId,
+            keyId: keyId,
+            algorithm: algorithm,
+            decryptionMethod: 'legacy-no-aad'
+          });
+          
+          logger.info("Legacy PII decryption successful (no AAD)", { 
+            operationId: opId,
+            algorithm: algorithm
+          });
+          
+          return legacyDecrypted;
+          
+        } catch (legacyNoAADError) {
+          // Clear the plaintext data key from memory
+          dataKey.fill(0);
+          
+          logger.error("All decryption attempts failed", {
+            operationId: opId,
+            standardError: standardError instanceof Error ? standardError.message : String(standardError),
+            legacyWithAADError: legacyWithAADError instanceof Error ? legacyWithAADError.message : String(legacyWithAADError),
+            legacyNoAADError: legacyNoAADError instanceof Error ? legacyNoAADError.message : String(legacyNoAADError)
+          });
+          
+          // Throw the original standard error
+          throw standardError;
+        }
       }
     }
     
