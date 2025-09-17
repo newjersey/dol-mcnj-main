@@ -1,5 +1,4 @@
 import { EnvelopeIcon } from "@phosphor-icons/react";
-import { slugify } from "@utils/slugify";
 import { FormInputProps } from "@utils/types";
 
 export const FormInput = (props: FormInputProps) => {
