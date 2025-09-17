@@ -266,7 +266,7 @@ We use [CircleCI](https://circleci.com/gh/newjersey/dol-mcnj-main) for automated
 - `REACT_APP_FEATURE_MULTILANG` - Enable/disable multi-language support
 - `REACT_APP_FEATURE_CAREER_PATHWAYS` - Toggle career pathways feature
 - `REACT_APP_FEATURE_CAREER_NAVIGATOR` - Toggle Career Navigator landing page
-- `REACT_APP_SIGNUP_FOR_UPDATES` - Toggle user signup modal (MailChimp)
+- `REACT_APP_SIGNUP_FOR_UPDATES` - Toggle user signup modal
 
 #### 🔌 External APIs
 - `ONET_BASEURL` - O*NET API base URL
