@@ -7,7 +7,7 @@
 
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
-import { decryptPII, EncryptedData } from "./piiEncryption";
+import { decryptPII, decryptLegacyPII, EncryptedData } from "./piiEncryption";
 import { createSafeLogger, auditPIIOperation } from "./piiSafety";
 import * as crypto from "crypto";
 
@@ -159,10 +159,24 @@ export async function exportSubscribersAsCSV(
         // Decrypt email
         if (item.encryptedEmail) {
           try {
-            decryptedRecord.email = await decryptPII(
-              item.encryptedEmail as EncryptedData, 
-              opId
-            );
+            // Try standard decryption first, then fall back to legacy decryption
+            try {
+              decryptedRecord.email = await decryptPII(
+                item.encryptedEmail as EncryptedData, 
+                opId
+              );
+            } catch (standardError) {
+              // Fall back to legacy decryption for older data
+              logger.info("Standard decryption failed, trying legacy decryption", { 
+                operationId: opId,
+                recordId: item.emailHash 
+              });
+              
+              decryptedRecord.email = await decryptLegacyPII(
+                item.encryptedEmail as EncryptedData, 
+                opId
+              );
+            }
           } catch (error) {
             logger.error("Failed to decrypt email", error, { 
               operationId: opId,
@@ -176,10 +190,24 @@ export async function exportSubscribersAsCSV(
         // Decrypt first name if present
         if (item.encryptedFname) {
           try {
-            decryptedRecord.fname = await decryptPII(
-              item.encryptedFname as EncryptedData, 
-              opId
-            );
+            // Try standard decryption first, then fall back to legacy decryption
+            try {
+              decryptedRecord.fname = await decryptPII(
+                item.encryptedFname as EncryptedData, 
+                opId
+              );
+            } catch (standardError) {
+              // Fall back to legacy decryption for older data
+              logger.info("Standard decryption failed, trying legacy decryption", { 
+                operationId: opId,
+                recordId: item.emailHash 
+              });
+              
+              decryptedRecord.fname = await decryptLegacyPII(
+                item.encryptedFname as EncryptedData, 
+                opId
+              );
+            }
           } catch (error) {
             logger.error("Failed to decrypt first name", error, { 
               operationId: opId,
@@ -193,10 +221,24 @@ export async function exportSubscribersAsCSV(
         // Decrypt last name if present
         if (item.encryptedLname) {
           try {
-            decryptedRecord.lname = await decryptPII(
-              item.encryptedLname as EncryptedData, 
-              opId
-            );
+            // Try standard decryption first, then fall back to legacy decryption
+            try {
+              decryptedRecord.lname = await decryptPII(
+                item.encryptedLname as EncryptedData, 
+                opId
+              );
+            } catch (standardError) {
+              // Fall back to legacy decryption for older data
+              logger.info("Standard decryption failed, trying legacy decryption", { 
+                operationId: opId,
+                recordId: item.emailHash 
+              });
+              
+              decryptedRecord.lname = await decryptLegacyPII(
+                item.encryptedLname as EncryptedData, 
+                opId
+              );
+            }
           } catch (error) {
             logger.error("Failed to decrypt last name", error, { 
               operationId: opId,

@@ -305,6 +305,139 @@ export function generateSearchHash(plaintext: string): string {
 }
 
 /**
+ * Attempts to decrypt legacy PII data that may have been encrypted with unknown operation IDs
+ * This is a fallback function for data that was encrypted before operation ID tracking was standardized
+ */
+export async function decryptLegacyPII(
+  encryptedData: EncryptedData,
+  fallbackOperationId?: string
+): Promise<string> {
+  const opId = fallbackOperationId || crypto.randomUUID();
+  
+  try {
+    // Validate encrypted data structure
+    if (!encryptedData || typeof encryptedData !== 'object') {
+      throw new Error("Invalid encrypted data structure");
+    }
+    
+    const { encryptedData: data, encryptedKey, iv, tag, keyId, algorithm, version } = encryptedData;
+    
+    if (!data || !encryptedKey || !iv || !tag || !keyId || !algorithm) {
+      throw new Error("Missing required encryption components");
+    }
+    
+    if (algorithm !== ALGORITHM) {
+      throw new Error(`Unsupported encryption algorithm: ${algorithm}`);
+    }
+    
+    if (version !== 1) {
+      throw new Error(`Unsupported encryption version: ${version}`);
+    }
+
+    // Decrypt the data key using KMS
+    logger.info("Decrypting data key for legacy PII decryption", { operationId: opId });
+    
+    const decryptCommand = new DecryptCommand({
+      CiphertextBlob: Buffer.from(encryptedKey, 'base64'),
+      KeyId: keyId
+    });
+    
+    const { Plaintext: dataKey } = await kmsClient.send(decryptCommand);
+    
+    if (!dataKey) {
+      throw new Error("Failed to decrypt data key");
+    }
+
+    // Try different AAD approaches for legacy compatibility
+    const aadAttempts = [
+      // Try with current operation ID first (most recent approach)
+      Buffer.from(opId),
+      // Try with no AAD (original approach might not have used AAD)
+      null,
+      // Try with empty string
+      Buffer.from(''),
+      // Try with some common default values that might have been used
+      Buffer.from('default-operation-id'),
+      Buffer.from('encryption-operation'),
+    ];
+
+    for (let i = 0; i < aadAttempts.length; i++) {
+      try {
+        const aad = aadAttempts[i];
+        
+        // Create decipher
+        const decipher = crypto.createDecipheriv(algorithm, dataKey, Buffer.from(iv, 'base64'));
+        
+        // Set AAD if provided
+        if (aad !== null) {
+          decipher.setAAD(aad);
+        }
+        
+        decipher.setAuthTag(Buffer.from(tag, 'base64'));
+        
+        // Decrypt the data
+        let decrypted = decipher.update(data, 'base64', 'utf8');
+        decrypted += decipher.final('utf8');
+        
+        // Clear the plaintext data key from memory
+        dataKey.fill(0);
+        
+        // Audit successful decryption
+        auditPIIOperation('READ', 'EMAIL', true, undefined, { 
+          operationId: opId,
+          keyId: keyId,
+          algorithm: algorithm,
+          legacyDecryption: true,
+          aadAttempt: i
+        });
+        
+        logger.info("Legacy PII decryption successful", { 
+          operationId: opId,
+          algorithm: algorithm,
+          aadAttempt: i
+        });
+        
+        return decrypted;
+        
+      } catch (decryptError) {
+        // Continue to next AAD attempt if this one fails
+        logger.info(`AAD attempt ${i} failed, trying next approach`, { 
+          operationId: opId,
+          attempt: i 
+        });
+        continue;
+      }
+    }
+
+    // Clear the plaintext data key from memory if all attempts failed
+    dataKey.fill(0);
+    
+    // If all AAD attempts failed, throw the final error
+    throw new Error("All decryption attempts failed - data may be corrupted or use unsupported encryption parameters");
+    
+  } catch (error) {
+    // Audit failed decryption
+    auditPIIOperation('READ', 'EMAIL', false, undefined, { 
+      operationId: opId,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      legacyDecryption: true
+    });
+    
+    logger.error("Legacy PII decryption failed", error, { operationId: opId });
+    
+    // Re-throw original error if it's a validation error, otherwise wrap it
+    if (error instanceof Error && 
+        (error.message.includes("Invalid encrypted data") || 
+         error.message.includes("Missing required encryption") ||
+         error.message.includes("Unsupported encryption"))) {
+      throw error;
+    }
+    
+    throw new Error("Legacy decryption operation failed");
+  }
+}
+
+/**
  * Validates KMS key accessibility and permissions
  */
 export async function validateKMSKey(kmsKeyId: string): Promise<boolean> {
