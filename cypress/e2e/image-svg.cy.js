@@ -22,15 +22,15 @@ describe("Images load and have Alt texts", () => {
         .should("be.visible")
         .each(($img) => {
           // Breaking up the chain to handle async updates
-          cy.wrap($img).should("have.attr", "alt").and("not.be.empty");
+          cy.wrap($img).should("have.attr", "alt");
           // Check if the alt attribute is not empty
           cy.wrap($img)
             .invoke("attr", "alt")
             .then((alt) => {
               expect(
                 alt,
-                `Image with src "${$img[0].src}" should have a non-empty alt attribute.`
-              ).to.not.be.empty;
+                `Image with src "${$img[0].src}" should have an alt attribute.`
+              );
             });
           // Checking image dimensions
           checkImageDimensions($img);

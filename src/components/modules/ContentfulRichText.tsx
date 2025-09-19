@@ -30,7 +30,7 @@ export const ContentfulRichText: React.FC<Props> = ({
         if (!node.data.target.sys.id) return;
 
         const currentAsset = assets?.assets.block.find(
-          (asset) => asset.sys.id === node.data.target.sys.id,
+          (asset) => asset.sys.id === node.data.target.sys.id
         );
 
         if (!currentAsset) return;
@@ -42,6 +42,7 @@ export const ContentfulRichText: React.FC<Props> = ({
               src={`${currentAsset.url}`}
               width={currentAsset.width}
               height={currentAsset.height}
+              alt={currentAsset?.description || currentAsset?.title || ""}
             />
 
             {imageDescription && (

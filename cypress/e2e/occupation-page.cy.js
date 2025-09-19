@@ -41,7 +41,7 @@ describe("Occupation Page", () => {
     cy.contains("See More").click();
 
     // should display all tasks
-    cy.get(".seeMoreList li:visible").should("have.length", 14);
+    cy.get(".seeMoreList li:visible").should("have.length", 15);
 
     // more tasks
     cy.contains(
