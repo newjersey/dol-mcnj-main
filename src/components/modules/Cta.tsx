@@ -1,3 +1,4 @@
+"use client";
 import { ButtonProps, HeadingLevel, ThemeColors } from "@utils/types";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
@@ -50,7 +51,6 @@ const Cta = ({
       >
         {links.map((button, index: number) => {
           const isExternal = button.link?.startsWith("http");
-          const isParam = button.link?.startsWith("?");
 
           return (
             <Button
@@ -62,17 +62,6 @@ const Cta = ({
               className={`flex items-center justify-center w-full${
                 index > 0 ? " usa-button--outline" : ""
               }${linkDirection === "row" ? " w-auto min-w-[140px]" : ""}`}
-              type={isParam ? "button" : "link"}
-              onClick={() => {
-                if (isParam && button.link) {
-                  const url = new URL(window.location.href);
-                  const params = new URLSearchParams(button.link);
-                  params.forEach((value, key) => {
-                    url.searchParams.set(key, value);
-                  });
-                  window.location.href = url.toString();
-                }
-              }}
             />
           );
         })}
