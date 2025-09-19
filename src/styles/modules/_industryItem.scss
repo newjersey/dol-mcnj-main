@@ -37,7 +37,28 @@
     height: 100%;
   }
 
-  .drawer {
+  .buttons {
+    display: flex;
+    gap: s.$size-16;
+    margin-top: s.$size-16;
+    width: 100%;
+
+    @media (max-width: (s.$desktop-md - 1)) and (min-width: (s.$tablet-md)) {
+      flex-direction: column;
+    }
+
+    @media screen and (max-width: (s.$mobile-lg - 1)) {
+      flex-direction: column;
+    }
+
+    > * {
+      width: 100%;
+    }
+  }
+}
+
+.drawer {
+  .industryDrawer {
     img {
       width: 100%;
       height: auto;
@@ -58,25 +79,6 @@
           font-weight: bold;
         }
       }
-    }
-  }
-
-  .buttons {
-    display: flex;
-    gap: s.$size-16;
-    margin-top: s.$size-16;
-    width: 100%;
-
-    @media (max-width: (s.$desktop-md - 1)) and (min-width: (s.$tablet-md)) {
-      flex-direction: column;
-    }
-
-    @media screen and (max-width: (s.$mobile-lg - 1)) {
-      flex-direction: column;
-    }
-
-    > * {
-      width: 100%;
     }
   }
 }

@@ -12,7 +12,7 @@ export const Pagination = () => {
 
   useEffect(() => {
     const breakElements = document.querySelectorAll(
-      ".usa-pagination .usa-pagination__overflow"
+      ".usa-pagination .usa-pagination__overflow",
     );
     breakElements.forEach((element, index) => {
       element.setAttribute("aria-label", `Break ${index + 1}`);
@@ -47,7 +47,7 @@ export const Pagination = () => {
         if (
           i >
           Array.from(pageElements).indexOf(
-            breakElements[breakElements.length - 1]
+            breakElements[breakElements.length - 1],
           )
         ) {
           if (!pageElements[i].classList.contains("control")) {
@@ -55,9 +55,9 @@ export const Pagination = () => {
               `end_${
                 i -
                 Array.from(pageElements).indexOf(
-                  breakElements[breakElements.length - 1]
+                  breakElements[breakElements.length - 1],
                 )
-              }`
+              }`,
             );
           }
         }
@@ -71,7 +71,7 @@ export const Pagination = () => {
           pageElements[i].classList.remove("middle");
           pageElements[i].classList.remove(`start_${i}`);
           pageElements[i].classList.remove(
-            `end_${i - Array.from(pageElements).indexOf(breakElements[0])}`
+            `end_${i - Array.from(pageElements).indexOf(breakElements[0])}`,
           );
         }
       }
@@ -92,8 +92,8 @@ export const Pagination = () => {
         breakCount === 1
           ? " single-break"
           : breakCount === 2
-          ? " multi-break"
-          : " no-break"
+            ? " multi-break"
+            : " no-break"
       }`}
     >
       {!loading && (

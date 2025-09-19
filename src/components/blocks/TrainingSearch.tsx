@@ -35,7 +35,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
     const selects = document.querySelectorAll("select");
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
     const checkboxArray: HTMLInputElement[] = Array.from(
-      checkboxes
+      checkboxes,
     ) as HTMLInputElement[];
     checkboxArray.forEach((checkbox: HTMLInputElement) => {
       checkbox.checked = false;
@@ -164,7 +164,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                 onSubmit={(
                   e:
                     | React.FormEvent<HTMLFormElement>
-                    | React.MouseEvent<HTMLButtonElement, MouseEvent>
+                    | React.MouseEvent<HTMLButtonElement, MouseEvent>,
                 ) => {
                   e.preventDefault();
                   // navigate to searchUrl
@@ -250,7 +250,7 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                       setZipError(
                         zipCodes.filter((zip) => zip === zipCode).length > 0
                           ? false
-                          : true
+                          : true,
                       );
                     }}
                   />

@@ -48,13 +48,13 @@ export const NAVIGATOR_PAGE_DATA = {
         {
           label: "Log In",
           defaultStyle: "primary",
-          link: "/navigator/#/login",
+          link: "https://mycareer.nj.gov/navigator/#/login",
         },
         {
           label: "Sign Up",
           defaultStyle: "primary",
           outlined: true,
-          link: "/navigator/#/login",
+          link: "https://mycareer.nj.gov/navigator/#/login",
         },
       ],
     } as PageHeroProps,
@@ -90,7 +90,7 @@ export const NAVIGATOR_PAGE_DATA = {
     },
     howTo: {
       sectionHeading: {
-        heading: "How to use the Career Navigator",
+        heading: "How to use the NJ Career Navigator",
       },
       cards: [
         {
@@ -124,14 +124,14 @@ export const NAVIGATOR_PAGE_DATA = {
             id: "bhGAVbaJfPuVniKl3FoaO",
           },
           copy: "Log In",
-          url: "/navigator/#/login",
+          url: "https://mycareer.nj.gov/navigator/#/login",
         },
         {
           sys: {
             id: "44ygVngSycN2d1w5Zwb4x4",
           },
           copy: "Sign Up",
-          url: "/navigator/#/login",
+          url: "https://mycareer.nj.gov/navigator/#/login",
         },
       ],
     } as CtaBannerProps,
@@ -268,13 +268,13 @@ export const NAVIGATOR_PAGE_DATA = {
         {
           label: "Iniciar sesión",
           defaultStyle: "primary",
-          link: "/navigator/#/login",
+          link: "https://mycareer.nj.gov/navigator/#/login",
         },
         {
           label: "Registrarse",
           defaultStyle: "primary",
           outlined: true,
-          link: "/navigator/#/login",
+          link: "https://mycareer.nj.gov/navigator/#/login",
         },
       ],
     } as PageHeroProps,
@@ -346,14 +346,14 @@ export const NAVIGATOR_PAGE_DATA = {
             id: "bhGAVbaJfPuVniKl3FoaO",
           },
           copy: "Iniciar sesión",
-          url: "/navigator/#/login",
+          url: "https://mycareer.nj.gov/navigator/#/login",
         },
         {
           sys: {
             id: "44ygVngSycN2d1w5Zwb4x4",
           },
           copy: "Regístrate",
-          url: "/navigator/#/login",
+          url: "https://mycareer.nj.gov/navigator/#/login",
         },
       ],
     } as CtaBannerProps,

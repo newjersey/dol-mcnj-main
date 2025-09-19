@@ -15,7 +15,7 @@ export async function getSearchData(props: {
   const searchData = await fetch(
     `${
       props.serverSide ? process.env.REACT_APP_API_URL : ""
-    }/api/trainings/search?query=${searchParams.q}`
+    }/api/trainings/search?query=${searchParams.q}`,
   );
 
   if (!searchData.ok) {
@@ -51,8 +51,8 @@ export async function getSearchData(props: {
     searchParams.mockData === "baking"
       ? baking
       : searchParams.mockData === "digitalMarketing"
-      ? digitalMarketing
-      : undefined;
+        ? digitalMarketing
+        : undefined;
 
   const pageData = mockData || searchDataItems;
 
@@ -68,7 +68,7 @@ export async function getSearchData(props: {
   if (searchParams.miles && searchParams.zip) {
     const zipCodes = getZipCodesInRadius(
       searchParams.zip,
-      parseInt(searchParams.miles)
+      parseInt(searchParams.miles),
     );
 
     filterObject = {
@@ -350,7 +350,7 @@ export async function getSearchData(props: {
     if (searchParams.socCode.length === 6) {
       const socCode = `${searchParams.socCode.slice(
         0,
-        2
+        2,
       )}-${searchParams.socCode.slice(2)}`;
       filterObject = {
         ...filterObject,

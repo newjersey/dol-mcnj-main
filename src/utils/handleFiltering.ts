@@ -3,7 +3,7 @@ import { ResultProps } from "./types";
 
 export function handleFiltering(
   items: ResultProps[],
-  filterObject?: FilterProps
+  filterObject?: FilterProps,
 ): ResultProps[] {
   if (!filterObject) return items;
 
@@ -74,7 +74,7 @@ export function handleFiltering(
         isMatch &&
         item.languages !== undefined &&
         filterObject.languages.some((language) =>
-          item.languages?.includes(language)
+          item.languages?.includes(language),
         );
     }
 

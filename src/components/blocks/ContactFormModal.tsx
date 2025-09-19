@@ -17,7 +17,7 @@ export const ContactFormModal = () => {
   const updateTabIndex = (enable: boolean) => {
     if (modalRef.current) {
       const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
-        'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+        'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])',
       );
       focusableElements.forEach((element) => {
         element.setAttribute("tabindex", enable ? "0" : "-1");
@@ -40,6 +40,9 @@ export const ContactFormModal = () => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsOpen(false);
+        const url = new URL(window.location.href);
+        url.searchParams.delete("contactModal");
+        window.history.replaceState({}, document.title, url.toString());
       }
     };
 
@@ -48,6 +51,9 @@ export const ContactFormModal = () => {
     const overlay = document.querySelector(".overlay-contact");
     overlay?.addEventListener("click", () => {
       setIsOpen(false);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("contactModal");
+      window.history.replaceState({}, document.title, url.toString());
     });
   }, []);
   useEffect(() => {
@@ -96,7 +102,15 @@ export const ContactFormModal = () => {
             </>
           </Alert>
           <div className="inner">
-            <button onClick={() => setIsOpen(false)} className="close">
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                const url = new URL(window.location.href);
+                url.searchParams.delete("contactModal");
+                window.history.replaceState({}, document.title, url.toString());
+              }}
+              className="close"
+            >
               <XIcon size={20} weight="bold" />
               <div className="sr-only">Close</div>
             </button>
