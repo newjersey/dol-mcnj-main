@@ -2,21 +2,39 @@
 
 .resourceCard {
   border: s.$size-2 solid #e5e5e5;
-  padding: s.$size-24;
-  background-color: #fcfcfc;
+  overflow: hidden;
+  transition-duration: 0.2s;
 
-  a.title {
+  &:hover {
+    box-shadow: s.$shadow-2;
+  }
+
+  a {
+    display: block;
+    padding: s.$size-24;
+    background-color: #fcfcfc;
+    color: s.$black;
+    text-decoration: none;
+
+    &:hover {
+      color: s.$black;
+      text-decoration: none;
+
+      span.title {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  span.title {
     color: s.$primary;
     font-size: s.$size-24;
     margin-bottom: 0;
     text-decoration: none;
-
-    &:hover {
-      color: s.$primary-light;
-    }
   }
 
   .tag-item {
     border: none;
+    pointer-events: none;
   }
 }

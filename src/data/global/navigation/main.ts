@@ -28,7 +28,7 @@ export const MAIN_NAV_DATA = {
               },
               {
                 copy: "One Stop Job Board",
-                url: "https://www.careeronestop.org/",
+                url: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=",
                 itemId: "6qnHxliOmFomI5qoV1IdSz",
               },
               {
@@ -83,6 +83,11 @@ export const MAIN_NAV_DATA = {
                 copy: "NJ Career Pathways",
                 url: "/career-pathways",
                 itemId: "4qo1suhSHJek5pbDGLYqUZ",
+              },
+              {
+                copy: "In-Demand Occupations List",
+                url: "/in-demand-occupations",
+                itemId: "1I96MEcDkMtqHj36y6O2Tu",
               },
             ],
           },
@@ -142,7 +147,7 @@ export const MAIN_NAV_DATA = {
               },
               {
                 copy: "Bolsa de Trabajo One Stop",
-                url: "https://www.careeronestop.org/",
+                url: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=",
                 itemId: "6qnHxliOmFomI5qoV1IdSz",
               },
               {

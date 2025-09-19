@@ -26,7 +26,7 @@ export const mainNavItems = {
             {
               itemId: "6qnHxliOmFomI5qoV1IdSz",
               copy: "One Stop Job Board",
-              url: "https://www.careeronestop.org/",
+              url: "https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=&location=New%20Jersey&radius=",
             },
             {
               itemId: "1I96MEcDkMtqHj36y6O2Tu",

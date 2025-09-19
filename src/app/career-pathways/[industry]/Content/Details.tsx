@@ -122,7 +122,11 @@ export const Details = ({
 
       const trainingArray = await training.json();
 
-      setTrainingData(trainingArray.slice(0, 3));
+      if (trainingArray && trainingArray.length > 0) {
+        setLoadingTraining(false);
+        setTrainingData(trainingArray.slice(0, 3));
+      }
+
       setLoadingTraining(false);
     };
 
@@ -138,6 +142,7 @@ export const Details = ({
     <div className="occupation-block">
       <div className="occupation-box">
         <Breadcrumbs
+          collapsed={false}
           pageTitle={content.title}
           crumbs={[
             {

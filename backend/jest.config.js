@@ -1,6 +1,8 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  globalSetup: "<rootDir>/src/globalSetup.js",
-  globalTeardown: "<rootDir>/src/globalTeardown.js",
+  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true
 };
