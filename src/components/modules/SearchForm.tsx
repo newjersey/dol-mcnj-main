@@ -17,7 +17,7 @@ export const SearchForm = ({ className, label }: SearchFormProps) => {
           document.getElementById("searchForm") as HTMLInputElement
         ).value;
 
-        window.location.href = `/training/search?q=${searchQuery}`;
+        window.location.href = `/training/search?q=${encodeURIComponent(searchQuery)}`;
       }}
     >
       <Flex direction="column" gap="xxs" fill>
