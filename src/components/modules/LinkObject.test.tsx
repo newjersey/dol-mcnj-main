@@ -45,7 +45,7 @@ describe("LinkObject", () => {
       "button",
     );
     expect(getByText("External Link").closest("a")).toHaveStyle({
-      color: "red",
+      color: "rgb(255, 0, 0)",
     });
     expect(getByTestId("arrow-square-out")).toBeInTheDocument();
   });

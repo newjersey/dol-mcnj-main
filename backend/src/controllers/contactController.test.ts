@@ -24,8 +24,6 @@ describe("submitContactForm", () => {
       status: jest.fn().mockReturnThis(),
       json: jest.fn().mockReturnThis(),
     };
-
-    (sendEmail as jest.Mock).mockClear();
   });
 
   it("should send an email and respond with success", async () => {

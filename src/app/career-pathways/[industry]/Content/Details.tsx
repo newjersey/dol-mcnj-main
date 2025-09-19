@@ -116,57 +116,25 @@ export const Details = ({
   useEffect(() => {
     setLoadingNumber(true);
     setLoadingTraining(true);
-
     const searchTerm = content.trainingSearchTerms || content.title;
-
     const getTrainingList = async () => {
-      try {
-        const res = await fetch(
-          `/api/trainings/search?query=${encodeURIComponent(searchTerm)}`
-        );
-        if (!res.ok) {
-          setTrainingData([]);
-          return;
-        }
+      const training = await fetch(`/api/trainings/search?query=${searchTerm}`);
 
-        const payload = await res.json();
+      const trainingArray = await training.json();
 
-        // Normalize to an array no matter how the API shapes it
-        const list: TrainingResult[] = Array.isArray(payload)
-          ? payload
-          : Array.isArray(payload.results)
-          ? payload.results
-          : Array.isArray(payload.items)
-          ? payload.items
-          : Array.isArray(payload.data)
-          ? payload.data
-          : [];
-
-        setTrainingData(list.slice(0, 3));
-      } catch (err) {
-        console.error("Failed to load trainings:", err);
-        setTrainingData([]);
-      } finally {
+      if (trainingArray && trainingArray.length > 0) {
         setLoadingTraining(false);
+        setTrainingData(trainingArray.slice(0, 3));
       }
+
+      setLoadingTraining(false);
     };
 
-    const getNumbers = async () => {
-      try {
-        setLoadingNumber(true);
-        const jobNumbers = await fetch(`/api/jobcount/${content.title}`);
-        if (!jobNumbers.ok) {
-          setJobNumbers(null);
-          return;
-        }
-        const jobNumbersArray = await jobNumbers.json();
-        setJobNumbers(jobNumbersArray?.count ?? null);
-      } finally {
-        setLoadingNumber(false);
-      }
-    };
+    getJobNumbers().then((count) => {
+      setJobNumbers(count);
+      setLoadingNumber(false);
+    });
 
-    getNumbers();
     getTrainingList();
   }, [content]);
 

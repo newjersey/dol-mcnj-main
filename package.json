@@ -3,11 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build:only": "npm --prefix backend run build && next build",
-    "build": "npm --prefix backend run build && npm --prefix backend run start & wait-on tcp:8080 && next build",
-    "build:prod": "npm --prefix backend run build && next build",
+    "build:only": "next build && npm --prefix backend run build",
+    "build": "next build",
+    "build:backend": "npm --prefix backend run build",
+    "build:prod": "next build && npm --prefix backend run build",
     "start:backend": "cd backend && node ./dist/server.js",
     "start:frontend": "next start",
+    "start:prod": "pm2 start ecosystem.config.js",
+    "stop:prod": "pm2 delete all",
+    "restart:prod": "pm2 restart all",
+    "logs:prod": "pm2 logs",
+    "status:prod": "pm2 status",
     "check": "prettier --check .",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
@@ -76,7 +82,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
-    "typescript": "^5",
+    "typescript": "5.9.2",
     "wait-on": "^8.0.4"
   }
 }
