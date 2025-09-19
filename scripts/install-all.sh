@@ -2,5 +2,5 @@
 
 set -e
 
-npm --prefix=frontend install
+npm install
 npm --prefix=backend install
