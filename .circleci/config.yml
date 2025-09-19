@@ -25,30 +25,16 @@ jobs:
             ip addr show || ifconfig || echo "Network interface info unavailable"
             echo "=== END NETWORK DIAGNOSTICS ==="
       - run:
-          name: Force checkout specific branch (nextjs)
+          name: Branch and environment debugging
           command: |
-            echo "=== INITIAL BRANCH DEBUGGING ==="
+            echo "=== BRANCH AND ENVIRONMENT DEBUGGING ==="
             echo "Current branch: $(git branch --show-current)"
             echo "All branches: $(git branch -a)"
             echo "Current commit: $(git rev-parse HEAD)"
             echo "CIRCLE_BRANCH env var: $CIRCLE_BRANCH"
             echo "Origin branches: $(git ls-remote --heads origin)"
-            echo "=== CHECKING IF nextjs EXISTS ==="
-            if git ls-remote --heads origin | grep -q "refs/heads/nextjs"; then
-              echo "✓ nextjs branch exists on origin"
-              git fetch origin nextjs
-              git checkout nextjs
-              git reset --hard origin/nextjs
-              git clean -fdx
-              echo "After checkout - Current branch: $(git branch --show-current)"
-              echo "After checkout - Current commit: $(git rev-parse HEAD)"
-            else
-              echo "✗ nextjs branch NOT found on origin!"
-              echo "Available branches:"
-              git ls-remote --heads origin
-              echo "=== CONTINUING WITHOUT CHECKOUT SINCE WE'RE ALREADY ON THE RIGHT BRANCH ==="
-              echo "Current branch appears to be correct: $(git branch --show-current)"
-            fi
+            echo "Working on branch: $(git branch --show-current || echo $CIRCLE_BRANCH)"
+            echo "=== END BRANCH DEBUGGING ==="
       - run:
           name: Install dependencies with skip Cypress
           command: |
@@ -189,37 +175,21 @@ jobs:
             ip addr show || ifconfig || echo "Network interface info unavailable"
             echo "=== END NETWORK DIAGNOSTICS ==="
       - run:
-          name: Force checkout specific branch (nextjs) and clear any cache
+          name: Branch and environment debugging and cache cleanup
           command: |
-            echo "=== INITIAL BRANCH DEBUGGING (BUILD JOB) ==="
+            echo "=== BRANCH AND ENVIRONMENT DEBUGGING (BUILD JOB) ==="
             echo "Current branch: $(git branch --show-current)"
             echo "CIRCLE_BRANCH env var: $CIRCLE_BRANCH"
             echo "Current commit: $(git rev-parse HEAD)"
-            echo "=== CHECKING IF nextjs EXISTS ==="
-            if git ls-remote --heads origin | grep -q "refs/heads/nextjs"; then
-              echo "✓ nextjs branch exists on origin"
-              git fetch origin nextjs
-              git checkout nextjs
-              git reset --hard origin/nextjs
-              git clean -fdx
-              rm -rf node_modules backend/node_modules
-              rm -rf frontend || true
-              echo "Current commit: $(git rev-parse HEAD)"
-              # Create dummy frontend directory to prevent legacy script errors
-              mkdir -p frontend
-              echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
-            else
-              echo "✗ nextjs branch NOT found on origin!"
-              echo "Available branches:"
-              git ls-remote --heads origin
-              echo "=== CONTINUING WITHOUT CHECKOUT SINCE WE'RE ALREADY ON THE RIGHT BRANCH ==="
-              echo "Current branch appears to be correct: $(git branch --show-current)"
-              rm -rf node_modules backend/node_modules
-              rm -rf frontend || true
-              # Create dummy frontend directory to prevent legacy script errors
-              mkdir -p frontend
-              echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
-            fi
+            echo "Working on branch: $(git branch --show-current || echo $CIRCLE_BRANCH)"
+            echo "=== CLEANING UP CACHE AND LEGACY DIRECTORIES ==="
+            rm -rf node_modules backend/node_modules
+            rm -rf frontend || true
+            echo "Current commit: $(git rev-parse HEAD)"
+            # Create dummy frontend directory to prevent legacy script errors
+            mkdir -p frontend
+            echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
+            echo "=== END BRANCH DEBUGGING ==="
       - run:
           name: Install PostgreSQL client and setup database
           command: |
@@ -361,15 +331,5 @@ jobs:
 workflows:
   build-test-deploy:
     jobs:
-      - lint-and-test:
-          filters:
-            branches:
-              only: 
-                - nextjs
-                - main
-      - build-and-feature-tests:
-          filters:
-            branches:
-              only: 
-                - nextjs
-                - main
+      - lint-and-test
+      - build-and-feature-tests
