@@ -1,15 +1,24 @@
 {
+  "root": true,
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2020,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
-  "rules": {}
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+  },
+  "env": {
+    "node": true,
+    "jest": true,
+    "es2020": true
+  },
+  "ignorePatterns": ["src/secure-export/automatedExportLambda.ts"]
 }

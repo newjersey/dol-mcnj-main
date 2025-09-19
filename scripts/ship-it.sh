@@ -5,7 +5,7 @@ cd $(git rev-parse --show-toplevel)
 set -e
 
 # format files
-npm --prefix=frontend run prettier
+npm run format
 npm --prefix=backend run prettier
 
 # check if uncommited changes
