@@ -1,4 +1,4 @@
-import { marked } from "marked";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
 export const Markdown = ({
   content,
@@ -7,13 +7,11 @@ export const Markdown = ({
   content: string;
   className?: string;
 }) => {
-  const htmlContent = marked.parse(content, { async: false });
-
   return (
     <div
       className={className}
       dangerouslySetInnerHTML={{
-        __html: htmlContent,
+        __html: parseMarkdownToHTML(content),
       }}
     />
   );

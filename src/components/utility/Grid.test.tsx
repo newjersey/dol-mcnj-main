@@ -20,7 +20,7 @@ describe("Grid component", () => {
   it("renders with default props", () => {
     const { container } = renderComponent();
     expect(container.firstChild).toHaveClass(
-      "mcnj-grid gap-undefined columns-3",
+      "mcnj-grid gap-undefined columns-3"
     );
   });
 
@@ -58,7 +58,9 @@ describe("Grid component", () => {
   it("applies style prop", () => {
     const style = { backgroundColor: "blue" };
     const { container } = renderComponent({ style });
-    expect(container.firstChild).toHaveStyle("background-color: blue");
+    expect(container.firstChild).toHaveStyle(
+      "background-color: rgb(0, 0, 255)"
+    );
   });
 
   it("applies componentId prop", () => {
