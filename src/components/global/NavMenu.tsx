@@ -97,15 +97,25 @@ export const NavMenu = ({
                       />
                     ) : (
                       <>
-                        <LinkObject
-                          noIndicator={!icons}
-                          className={`${
-                            item.classes ? ` ${item.classes}` : ""
-                          }`}
-                          url={item.url as string}
-                        >
-                          {item.copy}
-                        </LinkObject>
+                        {item.url ? (
+                          <LinkObject
+                            noIndicator={!icons}
+                            className={`${
+                              item.classes ? ` ${item.classes}` : ""
+                            }`}
+                            url={item.url as string}
+                          >
+                            {item.copy}
+                          </LinkObject>
+                        ) : (
+                          <span
+                            className={`title${
+                              item.classes ? ` ${item.classes}` : ""
+                            }`}
+                          >
+                            {item.copy}
+                          </span>
+                        )}
 
                         {item.subItemsCollection &&
                           item.subItemsCollection.items.length > 0 && (
@@ -120,6 +130,7 @@ export const NavMenu = ({
                                         : ""
                                     }
                                     url={subItem.url as string}
+                                    onClick={subItem.onClick}
                                   >
                                     {subItem.copy}
                                   </LinkObject>

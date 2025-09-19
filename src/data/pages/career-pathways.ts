@@ -213,7 +213,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       items: [
         {
           copy: "Contact Us",
-          url: "/contact",
+          url: "?contactModal=true",
         },
       ],
     } as CtaBannerProps,

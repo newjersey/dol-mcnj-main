@@ -260,6 +260,7 @@ export interface NavItemProps {
   copy: string;
   screenReaderOnlyCopy?: string;
   classes?: string;
+  onClick?: () => void;
   url?: string;
 }
 

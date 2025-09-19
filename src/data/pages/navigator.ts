@@ -220,7 +220,7 @@ export const NAVIGATOR_PAGE_DATA = {
             id: "7pHmRVYgW7tVAELau6UYNU",
           },
           copy: "Contact Us",
-          url: "https://mycareer.nj.gov/contact",
+          url: "?contactModal=true",
         },
       ],
     } as CtaBannerProps,

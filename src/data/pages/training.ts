@@ -181,7 +181,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
       items: [
         {
           copy: "Contact Us",
-          url: "https://mycareer.nj.gov/contact",
+          url: "?contactModal=true",
         },
       ],
     },
@@ -323,7 +323,7 @@ export const TRAINING_EXPLORER_PAGE_DATA = {
       items: [
         {
           copy: "Contáctanos",
-          url: "https://mycareer.nj.gov/contact",
+          url: "?contactModal=true",
         },
       ],
     },

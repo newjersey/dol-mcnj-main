@@ -8,7 +8,6 @@ export const FOOTER_NAV_1_DATA = {
         {
           copy: "Find a Job",
           classes: "no-link",
-          url: "#jobs",
           itemId: "671OHO6toaAKS1jIkyQYlS",
           subItemsCollection: {
             items: [
@@ -43,7 +42,6 @@ export const FOOTER_NAV_1_DATA = {
         {
           copy: "Get Training",
           classes: "no-link",
-          url: "#training",
           itemId: "2Q7fHTof7rUdSUdrzp2SDk",
           subItemsCollection: {
             items: [
@@ -77,7 +75,6 @@ export const FOOTER_NAV_1_DATA = {
         },
         {
           copy: "Explore Careers",
-          url: "#",
           itemId: "2ZTghf6TUoZgAKd2cUHy4P",
           subItemsCollection: {
             items: [
@@ -97,39 +94,18 @@ export const FOOTER_NAV_1_DATA = {
         {
           copy: "Find Support and Assistance",
           classes: "no-link",
-          url: "#support",
           itemId: "5SPeK1gJLpMBLGuTFEAVmg",
           subItemsCollection: {
             items: [
               {
-                copy: "Browse Support by Category",
+                copy: "Helpful Resources",
                 url: "/support-resources",
                 itemId: "4ec33mgyIj1ghaZ9GYNCGR",
-              },
-              {
-                copy: "Career Support",
-                url: "/support-resources/career-support",
-                itemId: "3YouqKxnUQiRodAUNnv8nR",
-              },
-              {
-                copy: "Tuition Assistance",
-                url: "/support-resources/tuition-assistance",
-                itemId: "2gqhjZAj8srnVuvuVdXUBf",
-              },
-              {
-                copy: "Other Assistance",
-                url: "/support-resources/other",
-                itemId: "6f98Wu1WAn4oyLkrbd22y7",
               },
               {
                 copy: "Training Provider Resources",
                 url: "/training-provider-resources",
                 itemId: "4eb9EtRlHD03bDlUfJ8mkt",
-              },
-              {
-                copy: "Frequently Asked Questions",
-                url: "/faq",
-                itemId: "4gnP8eZ8H64LIclMrHvnx0",
               },
               {
                 copy: "Career Services",
@@ -142,13 +118,12 @@ export const FOOTER_NAV_1_DATA = {
         {
           copy: "Contact Us",
           classes: "no-link",
-          url: "/contact",
           itemId: "5rEIg0E1yASZgJXNm537PX",
           subItemsCollection: {
             items: [
               {
                 copy: "Contact Us",
-                url: "/contact",
+                url: "?contactModal=true",
                 itemId: "2Mi5UQIdSBuhJXl1CckrWA",
               },
             ],
@@ -163,7 +138,6 @@ export const FOOTER_NAV_1_DATA = {
         {
           copy: "Buscar Empleo",
           classes: "no-link",
-          url: "#jobs",
           itemId: "671OHO6toaAKS1jIkyQYlS",
           subItemsCollection: {
             items: [
@@ -198,7 +172,6 @@ export const FOOTER_NAV_1_DATA = {
         {
           copy: "Obtener Capacitación",
           classes: "no-link",
-          url: "#training",
           itemId: "2Q7fHTof7rUdSUdrzp2SDk",
           subItemsCollection: {
             items: [
@@ -232,7 +205,6 @@ export const FOOTER_NAV_1_DATA = {
         },
         {
           copy: "Explorar Carreras",
-          url: "#",
           itemId: "2ZTghf6TUoZgAKd2cUHy4P",
           subItemsCollection: {
             items: [
@@ -252,7 +224,6 @@ export const FOOTER_NAV_1_DATA = {
         {
           copy: "Encontrar Apoyo y Asistencia",
           classes: "no-link",
-          url: "#support",
           itemId: "5SPeK1gJLpMBLGuTFEAVmg",
           subItemsCollection: {
             items: [
@@ -299,10 +270,12 @@ export const FOOTER_NAV_1_DATA = {
           classes: "no-link",
           url: "/contact",
           itemId: "5rEIg0E1yASZgJXNm537PX",
+          noIndicator: true,
           subItemsCollection: {
             items: [
               {
                 copy: "Contáctenos",
+                noIndicator: true,
                 url: "/contact",
                 itemId: "2Mi5UQIdSBuhJXl1CckrWA",
               },
