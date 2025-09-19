@@ -1,0 +1,456 @@
+"use client";
+import { Button } from "@components/modules/Button";
+import { client } from "@utils/client";
+import {
+  CareerMapProps,
+  InDemandItemProps,
+  IndustryProps,
+  OccupationDetail,
+  OccupationNodeProps,
+  SinglePathwayProps,
+} from "@utils/types";
+import { OCCUPATION_QUERY } from "queries/occupationQuery";
+import { CAREER_PATHWAY_QUERY } from "queries/pathway";
+import { Fragment, useEffect, useState } from "react";
+import { Details } from "./Details";
+import { groupObjectsByLevel } from "@utils/groupObjectsByLevel";
+import { InDemandDetails } from "./InDemandDetails";
+import { Spinner } from "@components/modules/Spinner";
+import { ErrorBox } from "@components/modules/ErrorBox";
+import { colors } from "@utils/settings";
+import { FieldSelect } from "@components/blocks/FieldSelect";
+import { OccupationGroups } from "@components/blocks/OccupationGroups";
+import { useRouter, useSearchParams } from "next/navigation";
+import { numberShorthand } from "@utils/numberShorthand";
+
+export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [activeMap, setActiveMap] = useState<CareerMapProps>();
+  const [open, setOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
+  const [inDemandOpen, setInDemandOpen] = useState(false);
+  const [activeInDemand, setActiveInDemand] = useState<InDemandItemProps>();
+  const [inDemandOccupationData, setInDemandOccupationData] =
+    useState<OccupationDetail>();
+  const [activePathway, setActivePathway] = useState<SinglePathwayProps>();
+  const [inDemandError, setInDemandError] = useState<string>();
+  const [activeOccupation, setActiveOccupation] = useState<{
+    careerMapObject: OccupationNodeProps;
+  }>();
+  const [fullMap, setFullMap] = useState<SinglePathwayProps[]>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const getCareerMap = async (id: string) => {
+    const mapData = await client({
+      query: CAREER_PATHWAY_QUERY,
+      variables: { id },
+    });
+    setActiveMap(mapData);
+  };
+
+  const fetchCareerMap = async (id: string) => {
+    return client({
+      query: CAREER_PATHWAY_QUERY,
+      variables: { id },
+    });
+  };
+
+  const getOccupation = async (id: string) => {
+    try {
+      const occupationData = await client({
+        query: OCCUPATION_QUERY,
+        variables: { id },
+      });
+      setActiveOccupation(occupationData);
+      return occupationData;
+    } catch (e) {
+      console.error("Failed to fetch occupation", e);
+      return undefined;
+    }
+  };
+
+  const ensureFieldForOccupation = async (occupationId: string) => {
+    const inCurrent = activeMap?.careerMap?.pathways?.items?.find((p) =>
+      p.occupationsCollection?.items?.some(
+        (o: OccupationNodeProps) => o.sys.id === occupationId
+      )
+    );
+
+    if (inCurrent) {
+      setActivePathway(inCurrent);
+      const filtered = activeMap?.careerMap?.pathways?.items?.filter(
+        (p) => p.title !== inCurrent.title
+      );
+      if (filtered) setFullMap([inCurrent, ...(filtered ?? [])]);
+      return;
+    }
+
+    for (const mapRef of thisIndustry.careerMaps?.items ?? []) {
+      const mapId = (mapRef as any)?.sys?.id;
+      if (!mapId) continue;
+
+      const mapData: CareerMapProps | undefined = await fetchCareerMap(mapId);
+      const pathwayHit = mapData?.careerMap?.pathways?.items?.find(
+        (p: SinglePathwayProps) =>
+          p.occupationsCollection?.items?.some(
+            (o: OccupationNodeProps) => o.sys.id === occupationId
+          )
+      );
+
+      if (pathwayHit) {
+        setActiveMap(mapData);
+        setActivePathway(pathwayHit);
+
+        const filtered = mapData?.careerMap?.pathways?.items?.filter(
+          (p: SinglePathwayProps) => p.title !== pathwayHit.title
+        );
+        if (filtered) setFullMap([pathwayHit, ...filtered]);
+        break;
+      }
+    }
+  };
+
+  const setOccupationFromId = async (id: string) => {
+    const occ = await getOccupation(id);
+
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    params.set("occupation", id);
+    params.delete("indemand"); // keep modes mutually exclusive
+    router.replace(`?${params.toString()}`, { scroll: false });
+
+    await ensureFieldForOccupation(id);
+    return occ;
+  };
+
+  const setActiveOccupationAndSync = (occObj: {
+    careerMapObject: OccupationNodeProps;
+  }) => {
+    setActiveOccupation(occObj);
+    const id = occObj?.careerMapObject?.sys?.id;
+    if (!id) return;
+
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    params.set("occupation", id);
+    params.delete("indemand"); // keep modes mutually exclusive
+    router.replace(`?${params.toString()}`, { scroll: false });
+
+    ensureFieldForOccupation(id);
+  };
+
+  const getOccupationAndSync = async (id: string) => {
+    return setOccupationFromId(id);
+  };
+
+  const setInDemandFromItem = (item: InDemandItemProps) => {
+    setActiveInDemand(item);
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    params.set("indemand", String(item.idNumber));
+    params.delete("occupation"); // keep modes mutually exclusive
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
+
+  useEffect(() => {
+    const urlOcc = searchParams?.get("occupation");
+    if (!urlOcc) return;
+
+    if (activeOccupation?.careerMapObject?.sys?.id === urlOcc) {
+      ensureFieldForOccupation(urlOcc);
+      return;
+    }
+
+    (async () => {
+      const occ = await getOccupation(urlOcc);
+      if (occ?.careerMapObject?.sys?.id) {
+        await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+      }
+    })();
+  }, [searchParams]);
+
+  useEffect(() => {
+    const urlInDemand = searchParams?.get("indemand");
+    if (!urlInDemand) return;
+
+    if (activeInDemand && String(activeInDemand.idNumber) === urlInDemand) {
+      return;
+    }
+
+    const match = thisIndustry.inDemandCollection?.items?.find(
+      (i) => String(i.idNumber) === urlInDemand
+    );
+
+    if (match) {
+      setActiveInDemand(match);
+    } else {
+      setActiveInDemand({
+        idNumber: urlInDemand,
+        title: `Occupation ${urlInDemand}`,
+        sys: { id: urlInDemand } as any,
+      } as InDemandItemProps);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const closeDropdown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setInDemandOpen(false);
+    };
+    window.addEventListener("keydown", closeDropdown);
+
+    const closeDropdownClick = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest(".occupationSelector")) {
+        setInDemandOpen(false);
+      }
+    };
+    window.addEventListener("click", closeDropdownClick);
+
+    return () => {
+      window.removeEventListener("keydown", closeDropdown);
+      window.removeEventListener("click", closeDropdownClick);
+    };
+  }, []);
+
+  useEffect(() => {
+    const filteredPathways = activeMap?.careerMap.pathways?.items?.filter(
+      (path) => path.title !== activePathway?.title
+    );
+    if (filteredPathways && activePathway) {
+      setFullMap([activePathway, ...filteredPathways]);
+    }
+  }, [activePathway, activeMap]);
+
+  useEffect(() => {
+    if (!activeInDemand) return;
+    const getInDemandOccupation = async () => {
+      setLoading(true);
+      const occupation = await fetch(
+        `/api/occupations/${activeInDemand.idNumber}`
+      );
+
+      if (!occupation.ok) {
+        setInDemandError("There was an error fetching the occupation data.");
+        setLoading(false);
+        return;
+      }
+
+      const occupationData = await occupation.json();
+      setInDemandOccupationData(occupationData);
+      setLoading(false);
+    };
+
+    getInDemandOccupation();
+  }, [activeInDemand]);
+
+  const hasPathways: boolean = thisIndustry.careerMaps?.items.length !== 0;
+
+  return (
+    <>
+      <FieldSelect
+        activeMap={activeMap}
+        getCareerMap={getCareerMap}
+        industry={thisIndustry}
+        setActiveOccupation={setActiveOccupationAndSync}
+        setActivePathway={setActivePathway}
+        setFullMap={setFullMap}
+        setMapOpen={setMapOpen}
+        setOpen={setOpen}
+        isField={!!hasPathways}
+      />
+
+      {hasPathways && (
+        <OccupationGroups
+          activeOccupation={activeOccupation}
+          activeMap={activeMap}
+          industry={thisIndustry}
+          getOccupation={getOccupationAndSync}
+          open={open}
+          setActivePathway={setActivePathway}
+          setMapOpen={setMapOpen}
+          setOpen={setOpen}
+        />
+      )}
+
+      <div
+        className={`careerPathways container${activeMap ? "" : " disabled"}`}
+      >
+        {hasPathways && activeMap ? (
+          <>
+            {activeOccupation && (
+              <>
+                <div id="map-block" className="map-block">
+                  <Button
+                    tag
+                    type="button"
+                    iconWeight="bold"
+                    iconPrefix={mapOpen ? "ArrowsInSimple" : "ArrowsOutSimple"}
+                    onClick={() => setMapOpen(!mapOpen)}
+                  >
+                    {mapOpen ? "Collapse" : "Expand"}
+                    <strong>{activeMap?.careerMap.title} Pathways</strong>
+                    map
+                  </Button>
+
+                  {fullMap && (
+                    <div className="full-map" id="full-career-map">
+                      <div className="inner">
+                        {(mapOpen ? fullMap : fullMap?.slice(0, 1)).map(
+                          (pathItem) => {
+                            const pathways = groupObjectsByLevel(
+                              pathItem.occupationsCollection.items
+                            );
+                            return (
+                              <Fragment key={pathItem.sys.id}>
+                                <p className="path-title">{pathItem.title}</p>
+                                <ul className="single-path">
+                                  {pathways.map((path) => {
+                                    const isTall = path.length > 1;
+                                    return (
+                                      <li
+                                        key={path[0].sys.id}
+                                        className={isTall ? "tall" : undefined}
+                                      >
+                                        {path.map((occupation) => {
+                                          const isActive =
+                                            activeOccupation?.careerMapObject
+                                              ?.sys?.id === occupation.sys.id;
+                                          return (
+                                            <button
+                                              key={`occ${occupation.sys.id}`}
+                                              type="button"
+                                              onClick={() => {
+                                                setMapOpen(false);
+                                                setActivePathway(pathItem);
+                                                setOccupationFromId(
+                                                  occupation.sys.id
+                                                );
+                                              }}
+                                              className={`path-stop${
+                                                isActive ? " active" : ""
+                                              }`}
+                                            >
+                                              <span className="prev-path-connector"></span>
+                                              <span className="path-connector"></span>
+                                              <span className="arrow"></span>
+                                              <p className="title">
+                                                <strong>
+                                                  {occupation.title}
+                                                </strong>
+                                              </p>
+                                              {!!occupation.salaryRangeStart && (
+                                                <div className="salary">
+                                                  <p>
+                                                    Expected Entry Level Salary
+                                                  </p>
+                                                  <p>
+                                                    <strong>
+                                                      $
+                                                      {numberShorthand(
+                                                        occupation.salaryRangeStart
+                                                      )}
+                                                      {occupation.salaryRangeEnd
+                                                        ? ` - $${numberShorthand(
+                                                            Number(
+                                                              occupation.salaryRangeEnd
+                                                            )
+                                                          )}`
+                                                        : ""}
+                                                    </strong>
+                                                  </p>
+                                                </div>
+                                              )}
+                                              <div className="education">
+                                                <p>Min. Education</p>
+                                                <p>
+                                                  <strong>
+                                                    High School Diploma
+                                                  </strong>
+                                                </p>
+                                              </div>
+                                            </button>
+                                          );
+                                        })}
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </Fragment>
+                            );
+                          }
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <Details
+                  content={activeOccupation.careerMapObject}
+                  parents={{
+                    industry: thisIndustry.title,
+                    field: activeMap?.careerMap.title,
+                  }}
+                />
+              </>
+            )}
+          </>
+        ) : (
+          thisIndustry.inDemandCollection &&
+          thisIndustry.inDemandCollection.items.length > 0 && (
+            <>
+              <div
+                className={`occupationSelector${
+                  activeInDemand ? "" : " inactive"
+                }`}
+              >
+                <button
+                  type="button"
+                  aria-label="occupation selector"
+                  id="occupation-selector"
+                  className="select-button"
+                  onClick={() => setInDemandOpen(!inDemandOpen)}
+                >
+                  {activeInDemand
+                    ? activeInDemand.title
+                    : "-Select an occupation-"}
+                </button>
+                {inDemandOpen && (
+                  <div className="dropdown-select">
+                    {thisIndustry.inDemandCollection.items.map((item) => (
+                      <button
+                        key={item.sys.id}
+                        aria-label="occupation-item"
+                        type="button"
+                        className="occupation"
+                        onClick={() => {
+                          setInDemandFromItem(item); // updates state + ?indemand=
+                          setInDemandOpen(false);
+                        }}
+                      >
+                        {item.title}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {(loading || inDemandError || inDemandOccupationData) && (
+                <>
+                  {loading ? (
+                    <Spinner color={colors.primary} size={75} />
+                  ) : inDemandError ? (
+                    <ErrorBox
+                      heading={inDemandError}
+                      copy="We couldn't find any entries with that name. Please try again."
+                    />
+                  ) : (
+                    inDemandOccupationData && (
+                      <InDemandDetails content={inDemandOccupationData} />
+                    )
+                  )}
+                </>
+              )}
+            </>
+          )
+        )}
+      </div>
+    </>
+  );
+};

@@ -1,0 +1,54 @@
+@use "../settings" as s;
+@use "../mixins" as mixins;
+
+.home {
+  .tools {
+    @include mixins.sectionPadding;
+
+    .container {
+      max-width: s.$desktop-xl;
+    }
+
+    .iconCard {
+      width: 100%;
+
+      @media screen and (min-width: (s.$tablet-lg)) {
+        max-width: 200px;
+      }
+
+      a {
+        height: 100%;
+      }
+    }
+
+    .row {
+      display: flex;
+      gap: s.$size-32;
+
+      @media screen and (min-width: (s.$tablet-lg)) {
+        justify-content: center;
+      }
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        gap: s.$size-16;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .cardSlider {
+    &:nth-child(2n) {
+      background-color: s.$base-cool;
+
+      .inner {
+        &:before {
+          background: linear-gradient(to right, s.$base-cool, transparent);
+        }
+        &:after {
+          border-right: 1rem solid s.$base-cool;
+          background: linear-gradient(to left, s.$base-cool, transparent);
+        }
+      }
+    }
+  }
+}

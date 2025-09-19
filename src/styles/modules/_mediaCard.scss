@@ -1,0 +1,21 @@
+@use "../settings" as s;
+
+.media-card {
+  text-decoration: none;
+  color: s.$ink;
+  border: s.$size-2 solid s.$ink;
+  padding: s.$size-16;
+
+  &:hover {
+    color: s.$primary;
+
+    > span {
+      background-color: s.$secondary;
+    }
+  }
+
+  .image {
+    height: 200px;
+    position: relative;
+  }
+}

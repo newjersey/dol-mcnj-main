@@ -13,6 +13,7 @@
     "dotenv",
     "express",
     "graphql-request",
+    "http-proxy-middleware",
     "helmet",
     "knex",
     "supertest",

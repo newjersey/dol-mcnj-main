@@ -1,0 +1,96 @@
+@use "../settings" as s;
+
+.resourceDetail {
+  .resourceCardsBlock {
+    padding: s.$size-48 0;
+  }
+
+  hr {
+    background-color: s.$base-cool;
+    margin: s.$size-32 0;
+  }
+  .inner {
+    display: flex;
+    gap: s.$size-32;
+    width: 100%;
+    align-items: flex-start;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      flex-direction: column;
+    }
+  }
+
+  .filterWrapper {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      width: calc(100% + 2rem);
+      margin: 0 -1rem;
+    }
+
+    @media screen and (min-width: (s.$tablet-lg)) {
+      top: s.$size-32;
+      max-width: s.$size-411;
+    }
+  }
+
+  .resourceCards {
+    @media screen and (min-width: (s.$tablet-lg)) {
+      width: calc(100% - s.$size-411);
+    }
+
+    .resourceLinkBox {
+      margin-top: s.$size-32;
+
+      @media screen and (min-width: (s.$tablet-lg)) {
+        display: none;
+      }
+    }
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: s.$size-32;
+
+    .spinner {
+      text-align: center;
+    }
+  }
+
+  .listHeading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: s.$size-32;
+
+    > * {
+      width: calc(100% - 155px);
+
+      &:last-child {
+        width: 155px;
+      }
+    }
+
+    .label {
+      font-weight: 700;
+      font-size: s.$size-16;
+
+      &.lrg {
+        font-size: s.$size-22;
+        text-align: right;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .tags:not(.resourceCard .tags) {
+    margin-top: s.$size-16;
+    display: flex;
+    flex-wrap: wrap;
+    gap: s.$size-16;
+  }
+}

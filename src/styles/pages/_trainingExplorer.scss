@@ -1,0 +1,52 @@
+@use "../settings" as s;
+
+.trainingExplorer {
+  .howTo {
+    padding: s.$size-48 0;
+  }
+
+  .faq {
+    padding: s.$size-48 0 0;
+
+    + .ctaBanner {
+      padding-top: 0;
+    }
+  }
+
+  .steps {
+    margin-bottom: s.$size-48;
+  }
+
+  .stepper {
+    margin-top: s.$size-48;
+  }
+
+  .accordion {
+    > div {
+      background-color: s.$base-cool;
+    }
+  }
+
+  .learn-more {
+    margin: s.$size-32 0;
+
+    @media screen and (min-width: (s.$tablet-lg)) {
+      text-align: center;
+    }
+
+    p {
+      display: inline-block;
+      font-weight: 600;
+
+      @media screen and (min-width: (s.$tablet-lg)) {
+        text-align: center;
+        font-size: s.$size-18;
+      }
+    }
+
+    a {
+      color: s.$primary-dark;
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,183 @@
+@use "../settings" as s;
+
+.global-header {
+  background-color: s.$njBlack;
+  min-height: 54px;
+  color: s.$white;
+  padding: s.$size-4 0;
+  font-size: 15px;
+  min-height: 54px;
+  letter-spacing: 0.1px;
+
+  li {
+    margin: 0;
+  }
+
+  svg {
+    fill: s.$white !important;
+  }
+
+  @media screen and (max-width: (s.$desktop)) {
+    min-height: 61px;
+    padding: s.$size-10 s.$size-16 s.$size-4;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0 0 0 0;
+    line-height: 1;
+    width: auto;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 0.89rem;
+    font-weight: 600;
+
+    @media screen and (max-width: (s.$desktop)) {
+      font-size: 0.8rem;
+      gap: 0.2rem;
+    }
+
+    img {
+      @media screen and (max-width: (s.$desktop)) {
+        width: 30px;
+      }
+    }
+
+    span {
+      max-width: calc(100% - 35px);
+      display: block;
+    }
+  }
+
+  .container {
+    width: 100%;
+
+    @media screen and (min-width: (s.$desktop + 1)) {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    @media screen and (max-width: (s.$desktop)) {
+      padding: 0;
+    }
+
+    > * {
+      @media screen and (min-width: (s.$desktop + 1)) {
+        width: 50%;
+      }
+    }
+  }
+
+  nav {
+    text-align: right;
+    font-size: s.$size-14;
+
+    @media screen and (max-width: (s.$desktop)) {
+      padding-top: 0;
+      font-size: 11px;
+    }
+
+    ul {
+      text-align: left;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      margin: 0;
+      padding: 10px 0 0;
+      list-style: none;
+
+      li {
+        padding: 0 10px;
+        position: relative;
+
+        &:before {
+          content: "";
+          width: s.$size-1;
+          height: calc(100% - 5px);
+          background: s.$white;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 0;
+        }
+
+        @media screen and (max-width: (s.$desktop)) {
+          padding: 0 5px;
+        }
+
+        &.desktop-only {
+          @media screen and (max-width: (s.$desktop)) {
+            display: none;
+          }
+        }
+
+        &:last-of-type {
+          padding: 0 0 0 10px;
+
+          &:before {
+            content: none;
+          }
+        }
+
+        a {
+          color: #fff;
+          text-decoration: none;
+          font-size: s.$size-14;
+          font-weight: 600;
+
+          @media screen and (max-width: (s.$desktop)) {
+            padding-top: 0;
+            font-size: s.$size-12;
+          }
+
+          &:hover {
+            color: s.$primary-light;
+          }
+
+          svg {
+            width: 16px;
+            height: auto;
+          }
+        }
+      }
+    }
+  }
+
+  .gov {
+    display: block;
+    font-weight: bold;
+    color: s.$white;
+    text-decoration: none;
+
+    @media screen and (max-width: (s.$desktop)) {
+      display: none;
+    }
+  }
+
+  .has-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+
+    > span {
+      font-size: 1em;
+    }
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: s.$size-1;
+  height: s.$size-1;
+  padding: 0;
+  margin: -(s.$size-1);
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

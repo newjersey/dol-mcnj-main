@@ -1,0 +1,146 @@
+@use "../settings" as s;
+@use "../mixins" as mixins;
+
+.trainingPage {
+  padding-bottom: s.$size-48;
+
+  .pageBanner {
+    background: s.$white;
+  }
+
+  .occupations {
+    .content {
+      .indent {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: s.$size-8;
+      }
+    }
+  }
+
+  .provider,
+  .services {
+    p {
+      display: flex;
+      gap: s.$size-8;
+      align-items: flex-start;
+
+      span {
+        width: calc(100% - s.$size-24);
+      }
+
+      svg {
+        width: s.$size-20;
+        margin-top: s.$size-4;
+      }
+    }
+  }
+
+  .body-copy {
+    margin: 0 0 s.$size-32;
+    overflow-x: hidden;
+
+    @media screen and (min-width: (s.$tablet-lg)) {
+      margin: s.$size-32 0;
+    }
+
+    .inner {
+      display: flex;
+      gap: s.$size-32;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        flex-direction: column;
+      }
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        gap: s.$size-32;
+
+        &:first-of-type {
+          @media screen and (min-width: (s.$tablet-lg)) {
+            width: calc(100% - s.$size-411);
+          }
+        }
+        &:last-of-type {
+          @media screen and (min-width: (s.$tablet-lg)) {
+            width: s.$size-411;
+          }
+        }
+      }
+    }
+
+    .container {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        padding: 0;
+      }
+    }
+  }
+
+  .labelBox {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      border-radius: 0;
+      border: none;
+    }
+
+    strong {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: s.$size-5;
+
+      .popup-tooltip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    button {
+      &.under-dash {
+        span {
+          @include mixins.underDash;
+          font-weight: bold;
+          text-align: left;
+          justify-content: flex-start;
+          width: auto;
+        }
+      }
+    }
+
+    &.cost {
+      .link {
+        margin-top: s.$size-32;
+        text-align: center;
+      }
+
+      .usa-button {
+        font-size: s.$size-14;
+      }
+
+      p {
+        margin-top: s.$size-8;
+        font-size: s.$size-14;
+        line-height: 1.2;
+      }
+    }
+
+    + .usa-button {
+      &.highlight-orange {
+        border: none;
+        padding: s.$size-16;
+
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          max-width: calc(100% - s.$size-32);
+          width: 100%;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+
+  .indent {
+    margin: s.$size-16 0 0 s.$size-16;
+  }
+}

@@ -1,0 +1,14 @@
+@use "../settings" as s;
+
+.relatedHeading {
+  display: flex;
+  gap: s.$size-16;
+  align-items: center;
+  padding-top: s.$size-16;
+
+  a {
+    font-size: s.$size-16;
+    display: flex;
+    align-items: center;
+  }
+}

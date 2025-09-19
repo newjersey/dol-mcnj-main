@@ -1,0 +1,333 @@
+@use "../settings" as s;
+
+.update-notifier {
+  margin: s.$size-48 0;
+
+  .input-wrapper {
+    svg {
+      position: absolute;
+      top: s.$size-45;
+      left: s.$size-12;
+      z-index: 1;
+    }
+  }
+
+  .overlay {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: s.$black;
+    opacity: 0;
+    transition-duration: s.$transition-speed;
+    transition-timing-function: ease-in-out;
+
+    &.open {
+      opacity: 0.4;
+      pointer-events: all;
+    }
+  }
+
+  .usa-button {
+    margin-right: 0;
+    justify-content: center;
+    margin-top: s.$size-16;
+
+    &:disabled,
+    &.submitting {
+      background-color: s.$base;
+      color: s.$white;
+      min-height: s.$size-64;
+      cursor: not-allowed;
+    }
+  }
+
+  .update-content {
+    background-color: s.$base-lightest;
+    position: relative;
+    border-radius: s.$size-24;
+    padding: s.$size-48 0;
+
+    &.fixed {
+      z-index: 1000;
+      width: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: s.$size-1400;
+      position: fixed;
+      transition-duration: s.$transition-speed;
+      border-radius: s.$size-24 s.$size-24 0 0;
+      transition-timing-function: ease-in-out;
+      bottom: -(s.$size-880);
+
+      &.open {
+        bottom: 0;
+      }
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: s.$size-24;
+      position: relative;
+      z-index: 1;
+
+      @media screen and (min-width: (s.$tablet-xl)) {
+        padding-right: s.$size-48;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: s.$size-20;
+      padding: 0 s.$size-24;
+      max-width: s.$size-880;
+
+      @media screen and (min-width: (s.$tablet-xl)) {
+        padding: 0 s.$size-48;
+        width: calc(100% - s.$size-240);
+      }
+
+      .heading-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: s.$size-20;
+
+        &.status {
+          gap: s.$size-12;
+        }
+
+        .status-message {
+          margin-top: 0;
+          text-align: left;
+          font-size: s.$size-20;
+          line-height: s.$size-28;
+        }
+      }
+
+      .heading-tag {
+        font-size: s.$size-22;
+        margin: 0;
+        text-align: center;
+      }
+
+      p {
+        font-size: s.$size-16;
+        text-align: center;
+
+        &.copy {
+          width: 100%;
+          font-size: s.$size-14;
+          text-align: left;
+        }
+      }
+
+      a {
+        color: s.$primary;
+
+        &:hover {
+          @media screen and (min-width: (s.$tablet-xl)) {
+            color: s.$primary-dark;
+          }
+        }
+      }
+
+      form {
+        text-align: center;
+        width: 100%;
+        max-width: none;
+        margin: s.$size-8;
+
+        .usa-form-group {
+          margin: 0;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: s.$size-24;
+          align-items: center;
+
+          .input-row {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: s.$size-32;
+
+            @media screen and (min-width: (s.$tablet-xl)) {
+              flex-direction: row;
+            }
+          }
+
+          .input-wrapper {
+            width: 100%;
+            position: relative;
+            padding: 0;
+
+            &.error {
+              input,
+              .select-button {
+                border-color: s.$error;
+              }
+            }
+
+            input {
+              padding-left: s.$size-45;
+            }
+          }
+
+          > * {
+            margin-top: 0;
+          }
+        }
+      }
+
+      label {
+        font-weight: bold;
+        text-align: left;
+
+        .require-mark {
+          margin-left: s.$size-4;
+        }
+      }
+
+      input {
+        height: s.$size-56;
+        width: 100%;
+        padding-left: s.$size-45;
+        border-width: s.$size-2;
+        border-radius: s.$size-4;
+        border-color: s.$base;
+      }
+    }
+  }
+
+  .close-update-drawer {
+    position: absolute;
+    top: s.$size-24;
+    right: s.$size-24;
+    width: s.$size-32;
+    height: s.$size-32;
+    z-index: 1;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .error-message {
+    color: s.$error;
+    text-align: left;
+    margin-top: s.$size-16;
+    font-weight: bold;
+  }
+
+  .description-selector {
+    display: block;
+    font-weight: bold;
+    position: relative;
+    border-color: s.$base;
+
+    &.open {
+      &:after {
+        border-left: 0.35rem solid transparent;
+        border-right: 0.35rem solid transparent;
+        border-bottom: 0.35rem solid s.$ink;
+        border-top: 0;
+      }
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: s.$size-16;
+      bottom: s.$size-24;
+      width: 0;
+      height: 0;
+      border-left: 0.35rem solid transparent;
+      border-right: 0.35rem solid transparent;
+      border-top: 0.35rem solid s.$ink;
+    }
+
+    select {
+      margin-top: s.$size-12;
+      width: 100%;
+      appearance: none;
+      padding: s.$size-12 s.$size-24 s.$size-12 s.$size-12;
+    }
+  }
+
+  .select-button {
+    margin-top: s.$size-8;
+    width: 100%;
+    color: s.$ink;
+    background: s.$white;
+    appearance: none;
+    padding: s.$size-12 s.$size-32 s.$size-12 s.$size-12;
+    position: relative;
+    height: s.$size-56;
+    font-weight: normal;
+    text-align: left;
+    width: 100%;
+    border: s.$size-2 solid s.$base;
+    border-radius: s.$size-4;
+
+    &.greyed-out {
+      color: s.$base;
+    }
+  }
+
+  .dropdown-select {
+    font-weight: normal;
+    margin-top: s.$size-16;
+    box-shadow: 0 10px 20px -15px s.$ink;
+    position: absolute;
+    background-color: s.$base-cool;
+    z-index: 1;
+    max-height: s.$size-300;
+    overflow: auto;
+    outline: 1px solid s.$base-lighter;
+    border-radius: s.$size-8;
+    width: 100%;
+
+    &[aria-expanded="true"] {
+      display: block;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+    }
+
+    button {
+      padding: s.$size-16;
+      text-align: left;
+
+      @media screen and (min-width: (s.$tablet)) {
+        padding: s.$size-16;
+      }
+
+      &:nth-of-type(2n - 1) {
+        background: s.$base-lighter;
+      }
+
+      &:hover {
+        @media screen and (min-width: (s.$tablet)) {
+          background: s.$tertiary-lighter;
+        }
+      }
+    }
+  }
+
+  .require-mark {
+    display: inline-block;
+    color: s.$error;
+  }
+}

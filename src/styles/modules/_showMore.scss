@@ -1,0 +1,14 @@
+@use "../settings" as s;
+@use "../mixins" as mixins;
+
+.showMore {
+  button {
+    color: s.$primary;
+    display: flex;
+    align-items: center;
+    gap: s.$size-4;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

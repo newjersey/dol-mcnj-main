@@ -1,0 +1,55 @@
+@use "../settings" as s;
+
+.training-explorer-heading {
+  .heading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: s.$size-16;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      padding-bottom: s.$size-32;
+    }
+  }
+
+  .steps {
+    margin-bottom: s.$size-100;
+  }
+
+  .usa-tooltip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .learn-more {
+    margin: s.$size-32 0;
+
+    @media screen and (min-width: (s.$tablet-lg)) {
+      text-align: center;
+    }
+
+    p {
+      display: inline-block;
+      font-weight: 600;
+
+      @media screen and (min-width: (s.$tablet-lg)) {
+        text-align: center;
+        font-size: s.$size-18;
+      }
+    }
+
+    a {
+      color: s.$primary-dark;
+      text-decoration: underline;
+    }
+  }
+
+  .cta {
+    padding: s.$size-32 0;
+
+    .heading-tag {
+      font-size: s.$size-22;
+    }
+  }
+}
