@@ -62,6 +62,10 @@ const Cta = ({
               className={`flex items-center justify-center w-full${
                 index > 0 ? " usa-button--outline" : ""
               }${linkDirection === "row" ? " w-auto min-w-[140px]" : ""}`}
+              type="link"
+              style={{
+                justifyContent: "center",
+              }}
             />
           );
         })}
