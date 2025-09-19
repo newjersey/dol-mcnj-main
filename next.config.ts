@@ -19,8 +19,8 @@ const nextConfig: NextConfig = {
     REACT_APP_SITE_URL: process.env.REACT_APP_SITE_URL,
   },
   images: {
-    unoptimized: false,
-    domains: ["images.ctfassets.net", "www.nj.gov"],
+     unoptimized: false,
+     domains: ["images.ctfassets.net", "www.nj.gov", "mycareer.nj.gov"],
   },
   async rewrites() {
     return [
