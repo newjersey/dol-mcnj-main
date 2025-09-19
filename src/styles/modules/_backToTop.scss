@@ -1,0 +1,34 @@
+@use "../settings" as s;
+
+.backToTop {
+  position: fixed;
+  bottom: s.$size-16;
+  cursor: pointer;
+  right: s.$size-16;
+  background: s.$white;
+  width: s.$size-48;
+  height: s.$size-48;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: s.$size-8;
+  color: s.$primary-vivid;
+  border: 1px solid s.$primary-vivid;
+  border-radius: s.$size-4;
+
+  @media screen and (min-width: (s.$tablet-lg)) {
+    transition-duration: s.$transition-speed;
+    transition-timing-function: ease-in-out;
+  }
+
+  &:hover {
+    @media screen and (min-width: (s.$tablet-lg)) {
+      box-shadow: s.$shadow-3;
+    }
+  }
+
+  &.buttonHide {
+    opacity: 0;
+    pointer-events: none;
+  }
+}

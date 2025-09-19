@@ -1,12 +1,12 @@
 import { CtaBanner } from "@components/blocks/CtaBanner";
 import globalOgImage from "@images/globalOgImage.jpeg";
-import { MinimalBanner } from "@components/blocks/MinimalBanner";
 import { IndustrySelector } from "@components/blocks/IndustrySelector";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 import { CAREER_PATHWAYS_PAGE_DATA as pageData } from "@data/pages/career-pathways";
 import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
+import { PageHero } from "@components/blocks/PageHero";
 
 export const revalidate = 86400;
 
@@ -30,7 +30,7 @@ export default async function CareerPathwaysPage() {
 
   return (
     <div className="careerPathwaysLanding">
-      <MinimalBanner {...pageData[lang].banner} />
+      <PageHero {...pageData[lang].pageHero} />
       <IndustrySelector {...pageData[lang].industrySelector} />
       <section className="body-copy container">
         {pageData[lang].bodyContent.map((block, index) => (

@@ -1,0 +1,52 @@
+@use "../settings" as s;
+@use "../mixins" as mixins;
+
+.mcnj-box {
+  &.radius-5 {
+    @include mixins.radius5;
+  }
+
+  &.radius-10 {
+    @include mixins.radius10;
+  }
+
+  &.radius-15 {
+    @include mixins.radius15;
+  }
+
+  &.radius-20 {
+    @include mixins.radius20;
+  }
+
+  &.radius-5-overflow {
+    @include mixins.radius5overflow;
+  }
+
+  &.radius-10-overflow {
+    @include mixins.radius10overflow;
+  }
+
+  &.radius-15-overflow {
+    @include mixins.radius15overflow;
+  }
+
+  &.radius-20-overflow {
+    @include mixins.radius20overflow;
+  }
+
+  &.shadow-1 {
+    box-shadow: s.$shadow-1;
+  }
+
+  &.shadow-2 {
+    box-shadow: s.$shadow-2;
+  }
+
+  &.shadow-3 {
+    box-shadow: s.$shadow-3;
+  }
+
+  &.shadow-4 {
+    box-shadow: s.$shadow-4;
+  }
+}

@@ -1,0 +1,292 @@
+@use "../settings" as s;
+
+.pageBanner {
+  padding: s.$size-32 0 s.$size-12;
+  background-color: s.$base-cool;
+
+  @media screen and (max-width: (s.$tablet-lg - 1)) {
+    padding: s.$size-16 0;
+  }
+
+  &.noBreadcrumbs {
+    @media screen and (min-width: (s.$tablet-lg)) {
+      padding: s.$size-32 0;
+    }
+  }
+
+  .usa-breadcrumb {
+    border-bottom: s.$size-1 solid s.$base-lighter;
+    padding-bottom: s.$size-8;
+    width: 100%;
+  }
+
+  .save-buttons {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      margin-top: s.$size-16;
+    }
+
+    ul {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        justify-content: center;
+      }
+    }
+
+    li {
+      margin: 0;
+    }
+
+    button {
+      text-decoration: none;
+
+      &.usa-button {
+        &.green {
+          color: s.$secondary;
+        }
+
+        &:hover {
+          color: s.$black;
+        }
+      }
+    }
+  }
+
+  h1 {
+    font-size: s.$size-56;
+    font-weight: 700;
+    margin: 0 0 s.$size-16;
+    padding: 0;
+    line-height: 1;
+
+    @media screen and (max-width: (s.$tablet-lg)) {
+      font-size: s.$size-40;
+      margin-bottom: s.$size-16;
+    }
+  }
+
+  .copy {
+    padding: s.$size-45 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: s.$size-20;
+    gap: s.$size-48;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      display: block;
+    }
+
+    @media screen and (max-width: (s.$tablet-lg)) {
+      padding: s.$size-28 0;
+      font-size: s.$size-16;
+    }
+  }
+
+  .heading {
+    width: calc(100% - 335px);
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      width: 100%;
+    }
+
+    .eyebrow {
+      margin: 0;
+      text-transform: uppercase;
+      margin-bottom: s.$size-16;
+      border-bottom: 1px solid s.$ink;
+      display: inline-block;
+    }
+
+    p {
+      @media screen and (min-width: (s.$tablet-lg)) {
+        font-size: s.$size-20;
+      }
+
+      &.subHeading {
+        font-size: s.$size-24;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.3;
+
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          font-size: s.$size-20;
+        }
+      }
+    }
+  }
+
+  .cta {
+    width: 335px;
+    padding: 0;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      width: 100%;
+      max-width: s.$size-320;
+      margin: s.$size-32 0 0;
+    }
+
+    .heading-text {
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        text-align: left;
+      }
+    }
+
+    .links {
+      a {
+        @media screen and (max-width: (s.$tablet-lg - 1)) {
+          max-width: none;
+        }
+      }
+    }
+  }
+
+  &.data {
+    h1 {
+      font-size: 2.45rem;
+    }
+
+    .copy {
+      > * {
+        @media screen and (min-width: (s.$tablet-lg)) {
+          width: 50%;
+        }
+      }
+    }
+  }
+
+  &.info {
+    h1 {
+      font-size: s.$size-30;
+      margin: 0;
+
+      @media screen and (min-width: (s.$tablet-lg)) {
+        font-size: s.$size-48;
+      }
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        font-weight: 600;
+      }
+    }
+    .subHeading {
+      font-size: s.$size-20;
+      margin-top: s.$size-8;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        font-size: s.$size-18;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .tag-item {
+    font-size: initial;
+    margin-top: s.$size-16;
+  }
+
+  .highlights {
+    border-radius: 10px;
+    padding: s.$size-16;
+    background-color: s.$base-lightest;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      margin-top: s.$size-32;
+    }
+
+    button {
+      margin: s.$size-16 auto 0;
+      color: s.$primary;
+      text-decoration: underline;
+      width: s.$size-120;
+      display: block;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: center;
+    gap: s.$size-16;
+    margin-top: s.$size-16;
+
+    .value {
+      font-size: s.$size-24;
+      font-weight: bold;
+    }
+
+    a {
+      color: s.$ink;
+      line-height: 1.2;
+    }
+  }
+
+  &.counties-empty {
+    .infoBlocks {
+      .box {
+        &:first-of-type {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: -(s.$size-480);
+    background-color: s.$secondary-lighter;
+    height: 100%;
+    z-index: 2;
+    max-width: s.$size-480;
+    padding: s.$size-48 s.$size-32;
+    transition-duration: s.$transition-speed;
+    transition-timing-function: ease-in-out;
+
+    &.open {
+      box-shadow: s.$shadow-5;
+      right: 0;
+    }
+
+    > button {
+      position: absolute;
+      transition-duration: s.$transition-speed;
+      transition-timing-function: ease-in-out;
+      cursor: pointer;
+      top: s.$size-22;
+      right: s.$size-32;
+      height: s.$size-32;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: s.$size-32;
+      border-radius: 100%;
+
+      &:hover {
+        @media screen and (min-width: (s.$tablet)) {
+          background-color: rgba(s.$ink, 0.1);
+        }
+      }
+    }
+  }
+
+  .overlay {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: s.$ink;
+    opacity: 0;
+    z-index: 1;
+
+    &.open {
+      pointer-events: all;
+      opacity: 0.5;
+    }
+  }
+}

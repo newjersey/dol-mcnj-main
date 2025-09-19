@@ -1,0 +1,64 @@
+@use "../settings" as s;
+
+.accordion-block {
+  max-width: s.$desktop;
+  margin: 0 auto;
+}
+
+.accordion {
+  button {
+    font-weight: bold;
+    color: s.$ink;
+    background-color: s.$base-lighter;
+    width: 100%;
+    padding: s.$size-20 s.$size-64 s.$size-20 s.$size-16;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: s.$size-16;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      height: s.$size-2;
+      border-radius: s.$size-2;
+      width: 15px;
+      background: black;
+      top: 50%;
+      right: s.$size-24;
+      z-index: 1;
+      transition-duration: s.$transition-speed;
+      transition-timing-function: ease-in-out;
+    }
+
+    &:after {
+      transform: rotate(90deg);
+    }
+
+    &:focus {
+      background: s.$tertiary-lighter;
+    }
+  }
+
+  &.open {
+    button {
+      &:after {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  .content {
+    height: 0px;
+    overflow: hidden;
+    transition-duration: s.$transition-speed;
+    transition-timing-function: ease-in-out;
+
+    .inner {
+      max-width: s.$size-560;
+      padding: s.$size-16 s.$size-24;
+    }
+  }
+}

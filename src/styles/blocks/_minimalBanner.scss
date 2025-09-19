@@ -1,0 +1,45 @@
+@use "../settings" as s;
+
+.minimalBanner {
+  padding: s.$size-32 0 s.$size-64;
+
+  @media screen and (max-width: (s.$tablet - 1)) {
+    padding: s.$size-16 0 s.$size-32;
+  }
+
+  .heading-tag {
+    margin: 0;
+  }
+  .tag-item {
+    position: relative;
+    bottom: s.$size-4;
+    margin-left: s.$size-16;
+  }
+
+  .heading-tag {
+    font-size: s.$size-32;
+    margin: 0;
+    display: inline;
+    font-weight: 500;
+
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      font-size: s.$size-24;
+      font-weight: bold;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .usa-tooltip__body {
+    @media screen and (min-width: (s.$tablet-md)) {
+      white-space: normal;
+      margin: 0 !important;
+      width: s.$size-216;
+      transform: translateX(calc(-50% + s.$size-8));
+      top: auto !important;
+      bottom: calc(100% + s.$size-4);
+    }
+  }
+}

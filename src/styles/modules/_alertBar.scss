@@ -1,0 +1,47 @@
+@use "../settings" as s;
+
+.alertBar {
+  display: flex;
+  gap: s.$size-16;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: s.$size-16;
+  left: s.$size-16;
+  z-index: 99;
+  padding: s.$size-8;
+  width: calc(100% - s.$size-32);
+  transition-duration: 0.3s;
+  transition-property: opacity, visibility;
+
+  &.fade {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  &.info {
+    background-color: s.$primary;
+    color: s.$white;
+  }
+  &.success {
+    background-color: s.$secondary;
+    color: s.$ink;
+  }
+  &.warning {
+    background-color: s.$accent-warm-light;
+    color: s.$ink;
+  }
+  &.error {
+    background-color: s.$error;
+    color: s.$white;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}

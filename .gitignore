@@ -1,12 +1,51 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+**/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# JetBrains IDEs
 .idea/
-.DS_store
 
-
-# Environments
+# Python Environments
 .env
-.env.*
 .venv
 env/
 venv/
@@ -18,14 +57,10 @@ venv.bak/
 backend/data/programs_*.csv
 backend/data/providers_*.csv
 
-backend/data/transform-for-career-navigator/training.csv
-
 # Old ETPL File when running through etpl table seed guide
 backend/data/standardized_etpl_old.csv
 
-# ################################################################################ #
-# EDITORS                                                                          #
-# ################################################################################ #
+# Visual Studio Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -39,12 +74,9 @@ backend/data/standardized_etpl_old.csv
 # Built Visual Studio Code Extensions
 *.vsix
 
-# ################################################################################ #
-# OS                                                                               #
-# ################################################################################ #
+# OS
 
-#MacOS
-
+# MacOS
 # General
 .DS_Store
 .AppleDouble
@@ -52,7 +84,6 @@ backend/data/standardized_etpl_old.csv
 
 # Icon must end with two \r
 Icon
-
 
 # Thumbnails
 ._*
@@ -99,11 +130,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-.vscode
+# Miscellaneous
 OverlayTool.tsx
 overlayImages
-
-/node_modules
-
-.next
-next-env.d.ts
+frontend
+backend/dist

@@ -1,0 +1,200 @@
+@use "../settings" as s;
+
+.trainingSearch {
+  > .container {
+    width: 100%;
+
+    .inner-container {
+      width: 100%;
+      background-color: s.$secondary-lighter;
+      padding: s.$size-32 s.$size-16 s.$size-48;
+      border-radius: s.$size-16;
+    }
+  }
+
+  label {
+    margin: 0;
+  }
+
+  .inner {
+    max-width: s.$tablet-xl;
+    margin: 0 auto;
+  }
+
+  .heading-tag {
+    font-size: s.$size-24;
+    margin: 0;
+    font-weight: 700;
+  }
+
+  input,
+  select {
+    border: none;
+  }
+
+  .formField
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+      [type="submit"]
+    ),
+  .formField textarea,
+  .formField select {
+    border: none;
+  }
+
+  .input-heading {
+    .clear-all {
+      @media screen and (max-width: (s.$tablet-md - 1)) {
+        display: none !important;
+      }
+    }
+  }
+
+  .search-button {
+    justify-content: center;
+    height: s.$size-48;
+  }
+
+  .items {
+    min-height: s.$size-48;
+
+    input {
+      &.usa-checkbox__input {
+        &:checked {
+          + .usa-checkbox__label {
+            margin: 0;
+            &:before {
+              background-color: s.$secondary;
+            }
+          }
+        }
+      }
+    }
+
+    .usa-checkbox__label {
+      margin: 0;
+      &:before {
+        background-color: s.$white;
+      }
+    }
+  }
+
+  .miles-container {
+    .select,
+    .text {
+      width: 100%;
+      max-width: s.$size-200;
+    }
+
+    .from {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: s.$size-48;
+    }
+  }
+
+  .maxCost {
+    position: relative;
+
+    svg {
+      position: absolute;
+      bottom: s.$size-16;
+      opacity: 0.8;
+      left: s.$size-12;
+      z-index: 1;
+    }
+
+    .formField {
+      input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+          [type="submit"]
+        ) {
+        padding-left: s.$size-32;
+      }
+    }
+  }
+
+  span:not(.formField) {
+    &.error {
+      @media screen and (min-width: (s.$tablet)) {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 200%;
+      }
+    }
+  }
+
+  label.usa-label {
+    span {
+      font-weight: 500;
+    }
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    gap: s.$size-16;
+    width: 100%;
+
+    @media screen and (max-width: (s.$tablet - 1)) {
+      flex-direction: column;
+    }
+
+    .formField {
+      width: 100%;
+
+      @media screen and (min-width: (s.$tablet)) {
+        width: calc(100% - 200px);
+      }
+    }
+
+    input {
+      margin: 0;
+      border: none;
+      max-width: none;
+      width: 100%;
+    }
+
+    .usa-button {
+      margin: 0;
+      min-width: 100%;
+
+      @media screen and (min-width: (s.$tablet)) {
+        min-width: 200px;
+      }
+    }
+  }
+
+  .checks {
+    p {
+      margin: 0;
+    }
+  }
+
+  .usa-select {
+    &:disabled,
+    &[aria-disabled="true"] {
+      background-color: s.$base-lightest;
+      color: s.$base;
+    }
+  }
+
+  .filter-row {
+    @media screen and (max-width: (s.$tablet-md - 1)) {
+      display: none;
+    }
+  }
+
+  .filters {
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      align-items: flex-start;
+    }
+  }
+
+  .usa-tooltip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

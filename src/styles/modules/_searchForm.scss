@@ -1,0 +1,43 @@
+@use "../settings" as s;
+
+.searchForm {
+  display: flex;
+  align-items: stretch;
+
+  label {
+    font-size: s.$size-24;
+    font-weight: 700;
+    margin-bottom: s.$size-8;
+  }
+
+  input {
+    &:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(
+        [type="submit"]
+      ) {
+      height: s.$size-40;
+      border-top: s.$size-2 solid s.$base-light;
+      border-left: s.$size-2 solid s.$base-light;
+      border-bottom: s.$size-2 solid s.$base-light;
+      border-radius: s.$size-4 0 0 s.$size-4;
+      padding: s.$size-8 s.$size-16;
+      min-width: s.$size-256;
+      background-color: s.$white;
+      width: calc(100% - s.$size-48);
+    }
+  }
+
+  button {
+    background-color: s.$secondary;
+    color: s.$white;
+    width: s.$size-48;
+    height: s.$size-40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 s.$size-4 s.$size-4 0;
+
+    &:hover {
+      background-color: s.$secondary-dark;
+    }
+  }
+}

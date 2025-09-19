@@ -1,0 +1,50 @@
+@use "../settings" as s;
+
+.careerNavigator {
+  .info {
+    padding: s.$size-48 0;
+
+    .inner {
+      display: flex;
+      gap: s.$size-32;
+      padding-top: s.$size-24;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        flex-direction: column;
+      }
+    }
+
+    .iconCard {
+      width: 100%;
+    }
+  }
+
+  .opportunities {
+    padding: s.$size-80 0;
+
+    @media screen and (max-width: (s.$tablet-lg - 1)) {
+      padding: s.$size-48 0;
+    }
+
+    .inner {
+      display: flex;
+      gap: s.$size-32;
+
+      @media screen and (max-width: (s.$tablet-lg - 1)) {
+        flex-direction: column;
+      }
+
+      .iconCard {
+        width: 100%;
+
+        a {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .howTo {
+    padding: s.$size-48 0;
+  }
+}

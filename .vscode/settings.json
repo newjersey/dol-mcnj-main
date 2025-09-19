@@ -1,0 +1,41 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#fff",
+    "titleBar.inactiveForeground": "#3b3b3b",
+    "titleBar.activeBackground": "#1a4480",
+    "titleBar.inactiveBackground": "#ffbc78"
+  },
+  "cSpell.words": [
+    "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYY",
+    "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸ",
+    "camelcase",
+    "Career",
+    "datetime",
+    "fieldsets",
+    "flexbugs",
+    "groq",
+    "hotspot",
+    "Jest",
+    "linebreak",
+    "lqip",
+    "lrgx",
+    "meronex",
+    "navs",
+    "nextauth",
+    "nocheck",
+    "offwhite",
+    "paren",
+    "parens",
+    "plusplus",
+    "rmiz",
+    "Swal",
+    "testid",
+    "textareas",
+    "unblur",
+    "wambach",
+    "wordcount",
+    "Žáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþ",
+    "Zaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzb"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

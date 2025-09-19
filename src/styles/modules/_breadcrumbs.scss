@@ -1,0 +1,70 @@
+@use "../settings" as s;
+@use "../mixins" as mixins;
+
+.usa-breadcrumb {
+  padding: 0;
+  display: flex;
+  background-color: transparent;
+  gap: s.$size-16;
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media screen and (max-width: (s.$mobile-lg)) {
+    gap: s.$size-8;
+  }
+
+  .backIcon {
+    height: auto;
+    width: s.$size-20;
+
+    @media screen and (min-width: (s.$mobile-lg + 1)) {
+      display: none;
+    }
+  }
+
+  .usa-breadcrumb__list {
+    .usa-breadcrumb__list-item {
+      &:not(:last-child) {
+        &::after {
+          margin: 0 s.$size-8;
+        }
+      }
+      a {
+        font-size: s.$size-16;
+        @include mixins.linkColor;
+
+        &.usa-breadcrumb__link:visited,
+        &.usa-breadcrumb__link {
+          @media screen and (max-width: (s.$mobile-lg)) {
+            padding-top: s.$size-12;
+            padding-bottom: s.$size-12;
+          }
+
+          &:before {
+            content: none;
+          }
+        }
+      }
+    }
+  }
+
+  &.stay-open {
+    .usa-breadcrumb__list-item {
+      position: relative;
+      left: 0;
+
+      &:not(:last-child) {
+        &::after {
+          margin: 0 s.$size-8;
+        }
+      }
+    }
+
+    .backIcon {
+      display: none;
+    }
+  }
+}

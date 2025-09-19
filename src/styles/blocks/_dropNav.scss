@@ -1,0 +1,77 @@
+@use "../settings" as s;
+
+.dropNav {
+  .dropGroup {
+    background-color: s.$base-lightest;
+    border: s.$size-1 solid s.$base-lighter;
+
+    li {
+      background-color: s.$base-lightest;
+      margin: 0;
+
+      &:last-of-type {
+        button {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    ul {
+      height: 0;
+      overflow: hidden;
+      transition-duration: s.$transition-speed;
+      transition-timing-function: ease-in-out;
+
+      button {
+        padding-left: s.$size-32;
+      }
+
+      li {
+        button {
+          color: s.$ink;
+          font-weight: normal;
+          border-top: s.$size-1 solid s.$base-lighter;
+        }
+
+        &.active {
+          button {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    &.active {
+      background-color: s.$base-lighter;
+      font-weight: bold;
+      color: s.$info-darker;
+
+      ul {
+        display: block;
+      }
+
+      svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  svg {
+    transition-duration: s.$transition-speed;
+    transition-timing-function: ease-in-out;
+    transform: rotate(0deg);
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: s.$size-8 s.$size-16;
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}
