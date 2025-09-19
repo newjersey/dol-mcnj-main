@@ -266,7 +266,7 @@ We use [CircleCI](https://circleci.com/gh/newjersey/dol-mcnj-main) for automated
 - `REACT_APP_FEATURE_MULTILANG` - Enable/disable multi-language support
 - `REACT_APP_FEATURE_CAREER_PATHWAYS` - Toggle career pathways feature
 - `REACT_APP_FEATURE_CAREER_NAVIGATOR` - Toggle Career Navigator landing page
-- `REACT_APP_SIGNUP_FOR_UPDATES` - Toggle user signup modal (MailChimp)
+- `REACT_APP_SIGNUP_FOR_UPDATES` - Toggle user signup modal
 
 #### 🔌 External APIs
 - `ONET_BASEURL` - O*NET API base URL
@@ -447,12 +447,15 @@ npx cypress install
 
 ## 📚 Additional Resources
 
-### Documentation
+### 📖 Documentation Hub
 
-- [📋 Decision Log](decision_log.md) - Architectural decisions and rationale
-- [🗄️ Data Model](data_model.md) - Database tables and schema
-- [🔄 Migration Guide](db_migration_guide.md) - Database update procedures
-- [📊 ETPL Seeding Guide](etpl_table_seed_guide.md) - ETPL database management
+**📂 [Complete Documentation Index](docs/README.md)** - Centralized documentation portal
+
+#### Quick Access by Category:
+- **🔐 Security & Encryption**: [`docs/security/`](docs/security/) - PII encryption, KMS, security guides
+- **🚀 Deployment**: [`docs/deployment/`](docs/deployment/) - Production deployment procedures  
+- **🗄️ Database**: [`docs/database/`](docs/database/) - Data models, migrations, seeding
+- **📋 Project**: [`docs/project/`](docs/project/) - Governance, decisions, contributors
 
 ### External Links
 
