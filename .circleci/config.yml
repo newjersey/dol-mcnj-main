@@ -11,6 +11,20 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Network diagnostics and environment setup
+          command: |
+            echo "=== NETWORK DIAGNOSTICS ==="
+            echo "Date: $(date)"
+            echo "Internet connectivity test:"
+            ping -c 3 8.8.8.8 || echo "Warning: Ping to 8.8.8.8 failed"
+            echo "DNS resolution test:"
+            nslookup registry.npmjs.org || echo "Warning: DNS lookup failed"
+            echo "NPM registry connectivity:"
+            curl -I https://registry.npmjs.org/ || echo "Warning: NPM registry unreachable"
+            echo "Network interfaces:"
+            ip addr show || ifconfig || echo "Network interface info unavailable"
+            echo "=== END NETWORK DIAGNOSTICS ==="
+      - run:
           name: Force checkout specific branch (nextjs-circleci)
           command: |
             echo "=== INITIAL BRANCH DEBUGGING ==="
@@ -38,8 +52,76 @@ jobs:
       - run:
           name: Install dependencies with skip Cypress
           command: |
-            CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile
-            npm --prefix=backend ci --frozen-lockfile
+            echo "=== NPM INSTALL WITH RETRY LOGIC ==="
+            
+            # Function to retry npm install with exponential backoff
+            retry_npm_install() {
+              local max_attempts=3
+              local attempt=1
+              local delay=5
+              
+              while [ $attempt -le $max_attempts ]; do
+                echo "Attempt $attempt of $max_attempts for: $1"
+                if eval "$1"; then
+                  echo "✓ Success on attempt $attempt"
+                  return 0
+                else
+                  echo "✗ Failed attempt $attempt"
+                  if [ $attempt -lt $max_attempts ]; then
+                    echo "Waiting ${delay} seconds before retry..."
+                    sleep $delay
+                    delay=$((delay * 2))  # Exponential backoff
+                  fi
+                fi
+                attempt=$((attempt + 1))
+              done
+              
+              echo "All attempts failed for: $1"
+              return 1
+            }
+            
+            # Configure npm for better reliability
+            npm config set fetch-retry-mintimeout 20000
+            npm config set fetch-retry-maxtimeout 120000
+            npm config set fetch-retries 5
+            npm config set registry https://registry.npmjs.org/
+            
+            # Try with alternative registries if main fails
+            install_with_fallback() {
+              local cmd="$1"
+              
+              # Try primary registry first
+              if eval "$cmd"; then
+                return 0
+              fi
+              
+              echo "Primary registry failed, trying Yarn registry..."
+              npm config set registry https://registry.yarnpkg.com/
+              if eval "$cmd"; then
+                npm config set registry https://registry.npmjs.org/  # Reset
+                return 0
+              fi
+              
+              echo "Yarn registry failed, trying npmjs.com directly..."
+              npm config set registry https://registry.npmjs.com/
+              if eval "$cmd"; then
+                npm config set registry https://registry.npmjs.org/  # Reset
+                return 0
+              fi
+              
+              # Reset to original and fail
+              npm config set registry https://registry.npmjs.org/
+              return 1
+            }
+            
+            echo "NPM configuration:"
+            npm config list
+            
+            # Install root dependencies with retry and fallback
+            retry_npm_install "CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile" || install_with_fallback "CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile"
+            
+            # Install backend dependencies with retry and fallback
+            retry_npm_install "npm --prefix=backend ci --frozen-lockfile" || install_with_fallback "npm --prefix=backend ci --frozen-lockfile"
       - run:
           name: Run linting and formatting checks
           command: |
@@ -93,6 +175,20 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Network diagnostics and environment setup
+          command: |
+            echo "=== NETWORK DIAGNOSTICS (BUILD JOB) ==="
+            echo "Date: $(date)"
+            echo "Internet connectivity test:"
+            ping -c 3 8.8.8.8 || echo "Warning: Ping to 8.8.8.8 failed"
+            echo "DNS resolution test:"
+            nslookup registry.npmjs.org || echo "Warning: DNS lookup failed"
+            echo "NPM registry connectivity:"
+            curl -I https://registry.npmjs.org/ || echo "Warning: NPM registry unreachable"
+            echo "Network interfaces:"
+            ip addr show || ifconfig || echo "Network interface info unavailable"
+            echo "=== END NETWORK DIAGNOSTICS ==="
+      - run:
           name: Force checkout specific branch (nextjs-circleci) and clear any cache
           command: |
             echo "=== INITIAL BRANCH DEBUGGING (BUILD JOB) ==="
@@ -141,8 +237,81 @@ jobs:
       - run:
           name: Install Node.js dependencies
           command: |
-            npm ci --frozen-lockfile
-            npm --prefix=backend ci --frozen-lockfile
+            echo "=== NPM INSTALL WITH RETRY LOGIC (BUILD JOB) ==="
+            
+            # Function to retry npm install with exponential backoff
+            retry_npm_install() {
+              local max_attempts=3
+              local attempt=1
+              local delay=5
+              
+              while [ $attempt -le $max_attempts ]; do
+                echo "Attempt $attempt of $max_attempts for: $1"
+                if eval "$1"; then
+                  echo "✓ Success on attempt $attempt"
+                  return 0
+                else
+                  echo "✗ Failed attempt $attempt"
+                  if [ $attempt -lt $max_attempts ]; then
+                    echo "Waiting ${delay} seconds before retry..."
+                    sleep $delay
+                    delay=$((delay * 2))  # Exponential backoff
+                  fi
+                fi
+                attempt=$((attempt + 1))
+              done
+              
+              echo "All attempts failed for: $1"
+              return 1
+            }
+            
+            # Configure npm for better reliability
+            npm config set fetch-retry-mintimeout 20000
+            npm config set fetch-retry-maxtimeout 120000
+            npm config set fetch-retries 5
+            npm config set registry https://registry.npmjs.org/
+            npm config set network-timeout 300000
+            
+            # Try with alternative registries if main fails
+            install_with_fallback() {
+              local cmd="$1"
+              
+              # Try primary registry first
+              if eval "$cmd"; then
+                return 0
+              fi
+              
+              echo "Primary registry failed, trying Yarn registry..."
+              npm config set registry https://registry.yarnpkg.com/
+              if eval "$cmd"; then
+                npm config set registry https://registry.npmjs.org/  # Reset
+                return 0
+              fi
+              
+              echo "Yarn registry failed, trying npmjs.com directly..."
+              npm config set registry https://registry.npmjs.com/
+              if eval "$cmd"; then
+                npm config set registry https://registry.npmjs.org/  # Reset
+                return 0
+              fi
+              
+              # Reset to original and fail
+              npm config set registry https://registry.npmjs.org/
+              return 1
+            }
+            
+            # Test network connectivity
+            echo "Testing network connectivity..."
+            curl -I https://registry.npmjs.org/ || echo "Warning: Direct registry access failed"
+            
+            echo "NPM configuration:"
+            npm config list
+            
+            # Install root dependencies with retry and fallback
+            retry_npm_install "npm ci --frozen-lockfile" || install_with_fallback "npm ci --frozen-lockfile"
+            
+            # Install backend dependencies with retry and fallback
+            retry_npm_install "npm --prefix=backend ci --frozen-lockfile" || install_with_fallback "npm --prefix=backend ci --frozen-lockfile"
       - run:
           name: Build Next.js application
           command: |

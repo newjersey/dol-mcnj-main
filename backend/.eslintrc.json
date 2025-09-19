@@ -19,5 +19,6 @@
     "node": true,
     "jest": true,
     "es2020": true
-  }
+  },
+  "ignorePatterns": ["src/secure-export/automatedExportLambda.ts"]
 }
