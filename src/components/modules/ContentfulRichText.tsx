@@ -1,11 +1,12 @@
 import * as React from "react";
-import { BLOCKS, Document } from "@contentful/rich-text-types";
+import { BLOCKS, Document, INLINES } from "@contentful/rich-text-types";
 import {
   documentToReactComponents,
   Options,
 } from "@contentful/rich-text-react-renderer";
 import { AssetBlock } from "@utils/types";
 import { ResponsiveImage } from "./ResponsiveImage";
+import { LinkObject } from "./LinkObject";
 
 export type Props = {
   assets?: {
@@ -54,6 +55,9 @@ export const ContentfulRichText: React.FC<Props> = ({
         );
       },
       [BLOCKS.PARAGRAPH]: (_node, children) => <p>{children}</p>,
+      [INLINES.HYPERLINK]: (node, children) => (
+        <LinkObject url={node.data.uri}>{children}</LinkObject>
+      ),
     },
   };
 
