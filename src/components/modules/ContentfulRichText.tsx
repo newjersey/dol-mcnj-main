@@ -43,6 +43,7 @@ export const ContentfulRichText: React.FC<Props> = ({
               src={`${currentAsset.url}`}
               width={currentAsset.width}
               height={currentAsset.height}
+              alt={currentAsset?.description || currentAsset?.title || ""}
             />
 
             {imageDescription && (
