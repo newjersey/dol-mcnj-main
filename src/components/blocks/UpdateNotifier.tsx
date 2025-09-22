@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { checkValidEmail } from "@utils/checkValidEmail";
 import { LinkObject } from "@components/modules/LinkObject";
 import { FormInput } from "@components/modules/FormInput";
+import { errorService } from "../../../services/ErrorService";
 
 interface UpdateNotifierProps {
   className?: string;
@@ -103,26 +104,33 @@ const Content = ({
             setSubmitting(false);
             setSuccess(true);
             setEmail("");
+            
+            // Log successful email submission
+            errorService.logInfo('Email update subscription successful', {
+              page: 'update_notifier',
+              component: 'UpdateNotifier',
+              action: 'email_subscription',
+            });
           }, 1000);
         } else {
-          setTimeout(() => {
-            setSubmitting(false);
-            setError({ status: 500, message: data.message });
-          }, 1000);
+          throw new Error(data.message || 'Subscription failed');
         }
       } else {
-        setTimeout(() => {
-          setSubmitting(false);
-          setError({ status: 500, message: response.statusText });
-        }, 1000);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      // Use ErrorService to handle the error
+      const userMessage = errorService.handleApiError(error, '/api/emails/submit-email', {
+        page: 'update_notifier',
+        component: 'UpdateNotifier',
+        action: 'email_subscription',
+      });
+
       setTimeout(() => {
         setSubmitting(false);
         setError({
           status: 500,
-          message: "An error occurred while sending your email.",
+          message: userMessage || "An error occurred while sending your email.",
         });
       }, 1000);
     }

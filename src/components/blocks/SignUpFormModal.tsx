@@ -7,6 +7,7 @@ import { Alert } from "@components/modules/Alert";
 import { SIGNUP_FORM as contentData } from "@data/global/signupForm";
 import { SupportedLanguages } from "@utils/types/types";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { errorService } from "../../../services/ErrorService";
 
 export const SignUpFormModal = () => {
   const [lang, setLang] = useState<SupportedLanguages>("en");
@@ -104,14 +105,26 @@ export const SignUpFormModal = () => {
       if (response.ok) {
         setSuccess(true);
         setHasErrors("");
+        
+        // Log successful signup
+        errorService.logInfo('User signup completed successfully', {
+          page: 'signup_modal',
+          component: 'SignUpFormModal',
+          action: 'form_submission',
+        });
       } else {
-        setSuccess(false);
-        setHasErrors(result.error || contentData[lang].form.error.general);
+        throw new Error(`HTTP ${response.status}: ${result.error || 'Signup failed'}`);
       }
     } catch (error) {
-      console.error("ERROR:", error);
+      // Use ErrorService to handle the error
+      const userMessage = errorService.handleApiError(error, '/api/signup', {
+        page: 'signup_modal',
+        component: 'SignUpFormModal',
+        action: 'form_submission',
+      });
+
       setSuccess(false);
-      setHasErrors(contentData[lang].form.error.server);
+      setHasErrors(userMessage || contentData[lang].form.error.server);
     }
 
     setSubmitting(false);
