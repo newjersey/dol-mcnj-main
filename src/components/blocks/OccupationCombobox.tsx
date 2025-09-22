@@ -5,6 +5,7 @@ import { client } from "@utils/client";
 import { collectAllItemsNormalized, Option } from "@utils/collectAllItems";
 import { OCCUPATIONS_QUERY } from "queries/occupationsQuery";
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const OccupationCombobox = ({
   style,
@@ -17,6 +18,7 @@ export const OccupationCombobox = ({
   compact?: boolean;
   placeholder?: string;
 }) => {
+  const router = useRouter();
   const [data, setData] = useState<Option[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState<Option | null>(null);
@@ -80,7 +82,10 @@ export const OccupationCombobox = ({
           width: "auto",
         }}
         onClick={() => {
-          if (value) window.location.href = `/career-pathways/${value.value}`;
+          if (value) {
+            // Use Next.js router for client-side navigation
+            router.push(`/career-pathways/${value.value}`);
+          }
         }}
       >
         Select

@@ -43,6 +43,17 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const [fullMap, setFullMap] = useState<SinglePathwayProps[]>();
   const [loading, setLoading] = useState<boolean>(false);
 
+  // Clear state when industry changes to prevent stale data
+  useEffect(() => {
+    setActiveMap(undefined);
+    setActivePathway(undefined);
+    setActiveOccupation(undefined);
+    setActiveInDemand(undefined);
+    setFullMap(undefined);
+    setInDemandOccupationData(undefined);
+    setInDemandError(undefined);
+  }, [thisIndustry.sys.id]);
+
   const getCareerMap = async (id: string) => {
     const mapData = await client({
       query: CAREER_PATHWAY_QUERY,
@@ -194,10 +205,12 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   // Helper function to update URL with field parameter when pathway changes
   const updateFieldInUrl = (pathway: SinglePathwayProps) => {
     const params = new URLSearchParams(searchParams?.toString() ?? "");
-    params.set("field", getFieldSlug(pathway));
+    const newFieldSlug = getFieldSlug(pathway);
+    const currentFieldSlug = params.get("field");
     
-    // Only update if there's an occupation parameter (to maintain field context)
-    if (params.get("occupation")) {
+    // Only update if field has actually changed and there's an occupation parameter
+    if (params.get("occupation") && currentFieldSlug !== newFieldSlug) {
+      params.set("field", newFieldSlug);
       router.replace(`?${params.toString()}`, { scroll: false });
     }
   };
@@ -214,42 +227,67 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
     const urlOcc = searchParams?.get("occupation");
     const urlField = searchParams?.get("field");
     
-    if (!urlOcc) return;
-
-    // If it's already the active occupation, just ensure field is set correctly
-    if (activeOccupation?.careerMapObject && slugify(activeOccupation.careerMapObject.title) === urlOcc) {
-      ensureFieldForOccupation(activeOccupation.careerMapObject.sys.id);
+    if (!urlOcc) {
+      // Clear occupation state if no URL param
+      setActiveOccupation(undefined);
       return;
     }
 
+    // Prevent re-processing if it's already the active occupation
+    if (activeOccupation?.careerMapObject && slugify(activeOccupation.careerMapObject.title) === urlOcc) {
+      return;
+    }
+
+    let isCancelled = false;
+
     (async () => {
-      // First try to find occupation by slug
-      const foundBySlug = await findOccupationBySlug(urlOcc);
-      
-      if (foundBySlug) {
-        // Set the map and pathway context first
-        setActiveMap(foundBySlug.map);
-        setActivePathway(foundBySlug.pathway);
+      try {
+        // First try to find occupation by slug
+        const foundBySlug = await findOccupationBySlug(urlOcc);
         
-        // Then set the occupation
-        const occ = await getOccupation(foundBySlug.occupation.sys.id);
-        if (occ?.careerMapObject?.sys?.id) {
-          await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+        if (isCancelled) return;
+        
+        if (foundBySlug) {
+          // Set the map and pathway context first
+          setActiveMap(foundBySlug.map);
+          setActivePathway(foundBySlug.pathway);
+          
+          // Then set the occupation
+          const occ = await getOccupation(foundBySlug.occupation.sys.id);
+          if (isCancelled) return;
+          
+          if (occ?.careerMapObject?.sys?.id) {
+            await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+          }
+        } else {
+          // Fallback: try treating urlOcc as an ID (for backward compatibility)
+          const occ = await getOccupation(urlOcc);
+          if (isCancelled) return;
+          
+          if (occ?.careerMapObject?.sys?.id) {
+            await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+          }
         }
-      } else {
-        // Fallback: try treating urlOcc as an ID (for backward compatibility)
-        const occ = await getOccupation(urlOcc);
-        if (occ?.careerMapObject?.sys?.id) {
-          await ensureFieldForOccupation(occ.careerMapObject.sys.id);
-        }
+      } catch (error) {
+        console.error("Error processing occupation from URL:", error);
       }
     })();
-  }, [searchParams]);
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [searchParams?.get("occupation")]);  // Only depend on occupation parameter
 
   useEffect(() => {
     const urlInDemand = searchParams?.get("indemand");
-    if (!urlInDemand) return;
+    
+    if (!urlInDemand) {
+      // Clear inDemand state if no URL param
+      setActiveInDemand(undefined);
+      return;
+    }
 
+    // Prevent re-processing if it's already the active inDemand
     if (activeInDemand && String(activeInDemand.idNumber) === urlInDemand) {
       return;
     }
@@ -267,7 +305,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
         sys: { id: urlInDemand } as any,
       } as InDemandItemProps);
     }
-  }, [searchParams]);
+  }, [searchParams?.get("indemand"), thisIndustry.inDemandCollection?.items]);  // More specific dependencies
 
   useEffect(() => {
     const closeDropdown = (e: KeyboardEvent) => {
