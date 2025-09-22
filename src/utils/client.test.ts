@@ -85,12 +85,14 @@ describe("client function", () => {
   it("handles a failed request", async () => {
     const mockResponse = {
       ok: false,
+      status: 500,
+      statusText: "Internal Server Error",
       json: async () => ({ errors: [{ message: "Error" }] }),
     };
     mockFetch.mockResolvedValueOnce(mockResponse);
 
     await expect(client({ query, variables })).rejects.toThrow(
-      "GraphQL request failed",
+      "Server error. Please try again later.",
     );
   });
 
@@ -98,7 +100,7 @@ describe("client function", () => {
     mockFetch.mockRejectedValueOnce(new Error("Network Error"));
 
     await expect(client({ query, variables })).rejects.toThrow(
-      "GraphQL request failed",
+      "Network error. Please check your connection and try again.",
     );
   });
 });

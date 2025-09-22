@@ -10,6 +10,7 @@ import { CONTACT_FORM as contentData } from "@data/global/contactForm";
 import { SupportedLanguages } from "@utils/types/types";
 import { Alert } from "@components/modules/Alert";
 import { CircleNotchIcon } from "@phosphor-icons/react";
+import { errorService } from "../../../services/ErrorService";
 
 export const ContactForm = ({
   lang = "en",
@@ -39,25 +40,49 @@ export const ContactForm = ({
 
   const handleFormSubmit = async () => {
     const formValues = JSON.stringify({ email, topic: selectedTopic, message });
-    const response = await fetch(
-      `${process.env.REACT_APP_SITE_URL}/api/sendEmail`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: formValues,
-      }
-    );
+    
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_SITE_URL}/api/sendEmail`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: formValues,
+        }
+      );
 
-    if (response.ok) {
-      setSuccess(true);
-      setError(false);
-      setLoading(false);
-    } else {
+      if (response.ok) {
+        setSuccess(true);
+        setError(false);
+        setLoading(false);
+        
+        // Log successful form submission
+        errorService.logInfo('Contact form submitted successfully', {
+          page: 'contact',
+          component: 'ContactForm',
+          action: 'form_submission',
+          topic: selectedTopic,
+        });
+      } else {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+    } catch (err) {
+      // Use ErrorService to handle the error
+      errorService.handleApiError(err, '/api/sendEmail', {
+        page: 'contact',
+        component: 'ContactForm',
+        action: 'form_submission',
+        topic: selectedTopic,
+      });
+
       setError(true);
       setSuccess(false);
       setLoading(false);
+
+      // Optionally show a more user-friendly error message
+      errorService.showError('Failed to send your message. Please try again or contact us directly.');
     }
   };
 

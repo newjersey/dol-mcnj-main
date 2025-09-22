@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { RelatedTrainingCard } from "./RelatedTrainingCard";
 import { Button } from "@components/modules/Button";
 import { Flex } from "@components/utility/Flex";
+import { errorService } from "../../../services/ErrorService";
 
 export const InDemandDetails = (props: {
   inDemandList?: InDemandItemProps[];
@@ -28,11 +29,25 @@ export const InDemandDetails = (props: {
   });
 
   const getJobNumbers = async () => {
-    const jobNumbers = await fetch(`/api/jobcount/${props.content.title}`);
+    try {
+      const jobNumbers = await fetch(`/api/jobcount/${props.content.title}`);
 
-    const jobNumbersArray = await jobNumbers.json();
+      if (!jobNumbers.ok) {
+        throw new Error(`HTTP ${jobNumbers.status}: ${jobNumbers.statusText}`);
+      }
 
-    return jobNumbersArray.count;
+      const jobNumbersArray = await jobNumbers.json();
+      return jobNumbersArray.count;
+    } catch (error) {
+      // Use ErrorService to handle the error
+      errorService.handleApiError(error, `/api/jobcount/${props.content.title}`, {
+        page: 'career_pathways_in_demand_details',
+        component: 'InDemandDetails',
+        action: 'fetch_job_numbers',
+        occupationTitle: props.content.title,
+      });
+      return undefined;
+    }
   };
 
   useEffect(() => {
@@ -66,6 +81,9 @@ export const InDemandDetails = (props: {
 
       getJobNumbers().then((count) => {
         setJobNumbers(count);
+        setLoadingNumber(false);
+      }).catch(() => {
+        // Error already handled in getJobNumbers, just update loading state
         setLoadingNumber(false);
       });
     }

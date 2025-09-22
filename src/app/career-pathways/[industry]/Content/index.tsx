@@ -22,6 +22,8 @@ import { FieldSelect } from "@components/blocks/FieldSelect";
 import { OccupationGroups } from "@components/blocks/OccupationGroups";
 import { useRouter, useSearchParams } from "next/navigation";
 import { numberShorthand } from "@utils/numberShorthand";
+import { errorService } from "../../../services/ErrorService";
+import { ErrorBoundary } from "@components/utility/ErrorBoundary";
 
 export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const router = useRouter();
@@ -65,8 +67,14 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       });
       setActiveOccupation(occupationData);
       return occupationData;
-    } catch (e) {
-      console.error("Failed to fetch occupation", e);
+    } catch (error) {
+      // Use ErrorService to handle the error
+      errorService.handleApiError(error, 'GraphQL OCCUPATION_QUERY', {
+        page: 'career_pathways',
+        component: 'Content',
+        action: 'fetch_occupation',
+        occupationId: id,
+      });
       return undefined;
     }
   };
@@ -223,19 +231,31 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
     if (!activeInDemand) return;
     const getInDemandOccupation = async () => {
       setLoading(true);
-      const occupation = await fetch(
-        `/api/occupations/${activeInDemand.idNumber}`
-      );
+      try {
+        const occupation = await fetch(
+          `/api/occupations/${activeInDemand.idNumber}`
+        );
 
-      if (!occupation.ok) {
-        setInDemandError("There was an error fetching the occupation data.");
+        if (!occupation.ok) {
+          throw new Error(`HTTP ${occupation.status}: ${occupation.statusText}`);
+        }
+
+        const occupationData = await occupation.json();
+        setInDemandOccupationData(occupationData);
+        setInDemandError(undefined);
+      } catch (error) {
+        // Use ErrorService to handle the error
+        const userMessage = errorService.handleApiError(error, `/api/occupations/${activeInDemand.idNumber}`, {
+          page: 'career_pathways',
+          component: 'Content',
+          action: 'fetch_in_demand_occupation',
+          occupationId: activeInDemand.idNumber,
+        });
+        
+        setInDemandError(userMessage || "There was an error fetching the occupation data.");
+      } finally {
         setLoading(false);
-        return;
       }
-
-      const occupationData = await occupation.json();
-      setInDemandOccupationData(occupationData);
-      setLoading(false);
     };
 
     getInDemandOccupation();
@@ -244,7 +264,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const hasPathways: boolean = thisIndustry.careerMaps?.items.length !== 0;
 
   return (
-    <>
+    <ErrorBoundary context={{ page: 'career_pathways', component: 'CareerPathwaysContent' }}>
       <FieldSelect
         activeMap={activeMap}
         getCareerMap={getCareerMap}
@@ -451,6 +471,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
           )
         )}
       </div>
-    </>
+    </ErrorBoundary>
   );
 };

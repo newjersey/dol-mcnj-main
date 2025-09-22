@@ -6,6 +6,7 @@ import { SkipToMain } from "@components/modules/SkipToMain";
 import { Header } from "@components/global/Header";
 import { Footer } from "@components/global/Footer";
 import { Alert } from "@components/modules/Alert";
+import { ErrorBoundary } from "@components/utility/ErrorBoundary";
 import { Public_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 import {
@@ -76,7 +77,14 @@ export default async function RootLayout({
           {process.env.REACT_APP_FEATURE_MULTILANG === "true" && (
             <LangSelector />
           )}
-          <div id="main-content">{children}</div>
+          <ErrorBoundary 
+            context={{ 
+              page: 'main_layout',
+              component: 'MainContent'
+            }}
+          >
+            <div id="main-content">{children}</div>
+          </ErrorBoundary>
           <Footer
             lang={lang}
             items={{
