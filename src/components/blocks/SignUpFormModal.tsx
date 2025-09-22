@@ -7,7 +7,7 @@ import { Alert } from "@components/modules/Alert";
 import { SIGNUP_FORM as contentData } from "@data/global/signupForm";
 import { SupportedLanguages } from "@utils/types/types";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
-import { errorService } from "../../../services/ErrorService";
+import { errorService } from "../../services/ErrorService";
 
 export const SignUpFormModal = () => {
   const [lang, setLang] = useState<SupportedLanguages>("en");

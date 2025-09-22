@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import { checkValidEmail } from "@utils/checkValidEmail";
 import { LinkObject } from "@components/modules/LinkObject";
 import { FormInput } from "@components/modules/FormInput";
-import { errorService } from "../../../services/ErrorService";
+import { errorService } from "../../services/ErrorService";
 
 interface UpdateNotifierProps {
   className?: string;
