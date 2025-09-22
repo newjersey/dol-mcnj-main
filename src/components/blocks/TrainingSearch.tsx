@@ -127,7 +127,6 @@ const TrainingSearch = ({
       id="trainingSearch"
       className={`trainingSearch${className ? ` ${className}` : ""}`}
     >
-      test
       <div className="container">
         <div className="inner-container">
           <Flex direction="column" gap="sm" fill className="inner">
