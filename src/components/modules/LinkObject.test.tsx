@@ -31,18 +31,18 @@ describe("LinkObject", () => {
         style={{ color: "red" }}
       >
         External Link
-      </LinkObject>,
+      </LinkObject>
     );
 
     expect(getByText("External Link")).toBeInTheDocument();
     expect(getByText("External Link").closest("a")).toHaveClass("test-class");
     expect(getByText("External Link").closest("a")).toHaveAttribute(
       "id",
-      "test-id",
+      "test-id"
     );
     expect(getByText("External Link").closest("a")).toHaveAttribute(
       "role",
-      "button",
+      "button"
     );
     expect(getByText("External Link").closest("a")).toHaveStyle({
       color: "rgb(255, 0, 0)",
@@ -52,33 +52,33 @@ describe("LinkObject", () => {
 
   it("handles internal links correctly", () => {
     const { getByText } = render(
-      <LinkObject url="/internal">Internal Link</LinkObject>,
+      <LinkObject url="/internal">Internal Link</LinkObject>
     );
     expect(getByText("Internal Link").closest("a")).toHaveAttribute(
       "href",
-      "/internal",
+      "/internal"
     );
     expect(getByText("Internal Link").closest("a")).not.toHaveAttribute(
-      "target",
+      "target"
     );
     expect(getByText("Internal Link").closest("a")).not.toHaveAttribute("rel");
   });
 
   it("handles external links correctly", () => {
     const { getByText, getByTestId } = render(
-      <LinkObject url="https://external.com">External Link</LinkObject>,
+      <LinkObject url="https://external.com">External Link</LinkObject>
     );
     expect(getByText("External Link").closest("a")).toHaveAttribute(
       "href",
-      "https://external.com",
+      "https://external.com"
     );
     expect(getByText("External Link").closest("a")).toHaveAttribute(
       "target",
-      "_blank",
+      "_blank"
     );
     expect(getByText("External Link").closest("a")).toHaveAttribute(
       "rel",
-      "noopener noreferrer",
+      "noopener noreferrer"
     );
     expect(getByTestId("arrow-square-out")).toBeInTheDocument();
   });
@@ -86,11 +86,11 @@ describe("LinkObject", () => {
   it("handles hash links correctly and scrolls to the element", () => {
     document.body.innerHTML = '<div id="hash-element">Hash Element</div>';
     const { getByText } = render(
-      <LinkObject url="#hash-element">Hash Link</LinkObject>,
+      <LinkObject url="#hash-element">Hash Link</LinkObject>
     );
     fireEvent.click(getByText("Hash Link"));
     expect(
-      document.getElementById("hash-element")?.scrollIntoView,
+      document.getElementById("hash-element")?.scrollIntoView
     ).toHaveBeenCalled();
   });
 
@@ -99,7 +99,7 @@ describe("LinkObject", () => {
     const { getByText } = render(
       <LinkObject url="/" onClick={handleClick}>
         Click Me
-      </LinkObject>,
+      </LinkObject>
     );
     fireEvent.click(getByText("Click Me"));
     expect(handleClick).toHaveBeenCalledTimes(1);
@@ -115,20 +115,20 @@ describe("LinkObject", () => {
         url="/"
       >
         Styled Link
-      </LinkObject>,
+      </LinkObject>
     );
     const link = getByText("Styled Link").closest("a");
     expect(link).toHaveClass("test-class");
     expect(link).toHaveAttribute("role", "button");
     expect(link).toHaveAttribute("id", "test-id");
-    expect(link).toHaveStyle({ color: "red" });
+    expect(link).toHaveStyle({ color: "rgb(255, 0, 0)" });
   });
 
   it("displays the House icon when the URL is the homepage and noIndicator is false", () => {
     const { getByTestId } = render(
       <LinkObject url="/" noIndicator={false}>
         Home
-      </LinkObject>,
+      </LinkObject>
     );
     expect(getByTestId("house-icon")).toBeInTheDocument();
   });
@@ -137,7 +137,7 @@ describe("LinkObject", () => {
     const { queryByTestId } = render(
       <LinkObject url="/" noIndicator={true}>
         Home
-      </LinkObject>,
+      </LinkObject>
     );
     expect(queryByTestId("house-icon")).not.toBeInTheDocument();
   });
@@ -146,7 +146,7 @@ describe("LinkObject", () => {
     const { getByTestId } = render(
       <LinkObject url="https://external.com" noIndicator={false}>
         External Link
-      </LinkObject>,
+      </LinkObject>
     );
     expect(getByTestId("arrow-square-out")).toBeInTheDocument();
   });
@@ -155,7 +155,7 @@ describe("LinkObject", () => {
     const { queryByTestId } = render(
       <LinkObject url="https://external.com" noIndicator={true}>
         External Link
-      </LinkObject>,
+      </LinkObject>
     );
     expect(queryByTestId("arrow-square-out")).not.toBeInTheDocument();
   });

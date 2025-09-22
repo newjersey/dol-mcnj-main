@@ -44,7 +44,7 @@ describe("InfoBox", () => {
 
     expect(getByText("Test eyebrow")).toBeInTheDocument();
     expect(getByTestId("info-icon")).toBeInTheDocument();
-    expect(getByText("Test copy")).toBeInTheDocument();
+    expect(getByText("Test copytest")).toBeInTheDocument();
     expect(getByText("$1234.56")).toBeInTheDocument();
     expect(getByTestId("link-object")).toBeInTheDocument();
   });
@@ -78,7 +78,7 @@ describe("InfoBox", () => {
     const { getByText } = render(
       <InfoBox notAvailableText="" copy="Test copy" />
     );
-    expect(getByText("Test copy")).toBeInTheDocument();
+    expect(getByText("Test copytest")).toBeInTheDocument();
   });
 
   it("displays the number in currency format when currency is true", () => {

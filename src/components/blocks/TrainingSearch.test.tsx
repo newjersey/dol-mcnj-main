@@ -65,19 +65,11 @@ describe("TrainingSearch", () => {
   });
 
   it("handles form submission correctly", () => {
-    const mockLocation = {
-      href: "",
-      assign: jest.fn(),
-      reload: jest.fn(),
-      replace: jest.fn(),
-    };
+    const mockNavigate = jest.fn();
 
-    Object.defineProperty(window, "location", {
-      writable: true,
-      value: mockLocation,
-    });
-
-    render(<TrainingSearch content={pageData.en.search} />);
+    render(
+      <TrainingSearch content={pageData.en.search} onNavigate={mockNavigate} />
+    );
 
     const searchInput = document.querySelector(
       "#searchInput"
@@ -91,8 +83,8 @@ describe("TrainingSearch", () => {
       "#search-button"
     ) as HTMLButtonElement;
     fireEvent.click(searchButton);
-    // check the url after form submission
-    expect(window.location.href).toBe("/training/search?q=test+search");
+    // check that navigation was called with the correct URL
+    expect(mockNavigate).toHaveBeenCalledWith("/training/search?q=test+search");
   });
 
   it("handles in-person and online checkboxes correctly", () => {
