@@ -41,6 +41,9 @@
       ],
       "@images/*": [
         "./images/*"
+      ],
+      "@services/*": [
+        "./services/*"
       ]
     }
   },
