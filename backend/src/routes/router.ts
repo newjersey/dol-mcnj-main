@@ -82,16 +82,20 @@ export const routerFactory = ({
       .catch((e) => res.status(500).send(e));
   });
 
-  router.get("/occupations/:soc", (req: Request, res: Response<OccupationDetail>) => {
+  router.get("/occupations/:soc", (req: Request, res: Response<OccupationDetail | { error: string }>) => {
     getOccupationDetail(req.params.soc as string)
       .then((occupationDetail: OccupationDetail) => {
         if (!occupationDetail) {
-          res.status(404).send();
-          throw new Error("NOT_FOUND");
+          res.set("X-Robots-Tag", "noindex");
+          return res.status(404).json({ error: "Occupation not found" });
         }
         res.status(200).json(occupationDetail);
       })
-      .catch(() => res.status(500).send());
+      .catch((error) => {
+        console.error("Error getting occupation detail:", error);
+        res.set("X-Robots-Tag", "noindex");
+        return res.status(500).json({ error: "Internal server error" });
+      });
   });
 
   router.get("/jobcount/:term", async (req: Request, res: Response<{ count: number }>) => {

@@ -36,6 +36,11 @@ interface OccupationProps {
 
 export default async function IndemandOccupationsPage() {
   const { occupationItems } = await getData();
+  
+  if (occupationItems.status !== 200) {
+    throw new Error(`Failed to fetch occupations: ${occupationItems.status}`);
+  }
+  
   const occupations: OccupationProps[] = await occupationItems.json();
 
   const cookieStore = await cookies();

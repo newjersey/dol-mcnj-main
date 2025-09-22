@@ -42,7 +42,35 @@ export const generateMetadata = async ({
     notFound();
   }
 
-  const occupation: OccupationPageProps = await pageData.json();
+  let occupation: OccupationPageProps;
+  try {
+    const text = await pageData.text();
+    if (!text.trim()) {
+      if (!resolvedSearchParams.mockData) {
+        notFound();
+      }
+      // Use a default if we have mock data but no API response
+      occupation = { title: "Default Title", description: "Default Description" } as OccupationPageProps;
+    } else {
+      const parsed = JSON.parse(text);
+      // If the API returned an error object, treat it as not found
+      if (parsed.error) {
+        if (!resolvedSearchParams.mockData) {
+          notFound();
+        }
+        occupation = { title: "Default Title", description: "Default Description" } as OccupationPageProps;
+      } else {
+        occupation = parsed;
+      }
+    }
+  } catch (error) {
+    console.error("Error parsing occupation data:", error);
+    if (!resolvedSearchParams.mockData) {
+      notFound();
+    }
+    // Use a default if we have mock data but API parsing fails
+    occupation = { title: "Default Title", description: "Default Description" } as OccupationPageProps;
+  }
 
   return {
     title: `${occupation.title} | Occupation | ${process.env.REACT_APP_SITE_NAME}`,
@@ -76,7 +104,25 @@ export default async function OccupationPage({
     notFound();
   }
 
-  const occupationData: OccupationPageProps = await pageData.json();
+  let occupationData: OccupationPageProps | null = null;
+  
+  if (pageData.status === 200) {
+    try {
+      const text = await pageData.text();
+      if (text.trim()) {
+        const parsed = JSON.parse(text);
+        // If the API returned an error object, don't use it
+        if (!parsed.error) {
+          occupationData = parsed;
+        }
+      }
+    } catch (error) {
+      console.error("Error parsing occupation data:", error);
+      if (!resolvedSearchParams.mockData) {
+        notFound();
+      }
+    }
+  }
 
   const mockDataMap = {
     civilEngineering: civilEngineering,
@@ -88,6 +134,10 @@ export default async function OccupationPage({
   const occupation =
     (mockDataMap[resolvedSearchParams.mockData] as OccupationPageProps) ||
     occupationData;
+
+  if (!occupation) {
+    notFound();
+  }
 
   return (
     <div className="page occupationPage">

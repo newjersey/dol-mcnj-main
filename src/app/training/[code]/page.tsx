@@ -28,6 +28,10 @@ export const generateMetadata = async ({
     `${process.env.REACT_APP_API_URL}/api/trainings/${resolvedParams.code}`
   );
 
+  if (pageData.status !== 200) {
+    notFound();
+  }
+
   const training: TrainingProps = await pageData.json();
 
   return {
