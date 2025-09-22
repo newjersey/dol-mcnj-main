@@ -1,5 +1,5 @@
 "use client";
-import { ArrowSquareOut, House } from "@phosphor-icons/react";
+import { ArrowSquareOutIcon, HouseIcon } from "@phosphor-icons/react";
 import Link from "next/link";
 
 interface LinkObjectProps {
@@ -25,8 +25,11 @@ const LinkObject = ({
   url,
   style,
 }: LinkObjectProps) => {
-  const isInternal = url.startsWith("/");
+  const isInternal =
+    url.startsWith("/") || url.startsWith("#") || url.startsWith("?");
   const isHomePage = url === "/";
+  const isParameter = url.startsWith("?");
+  const isContactModal = url === "?contactModal=true";
   const hasHttp = !isInternal && url.startsWith("http");
   return isInternal ? (
     <Link
@@ -37,8 +40,16 @@ const LinkObject = ({
       target={target}
       rel={target === "_blank" ? "noopener noreferrer" : undefined}
       onClick={(e) => {
-        if (url.startsWith("#")) {
+        if (isParameter) {
           e.preventDefault();
+          if (isContactModal) {
+            const button = document.getElementById("contactModalButton");
+            if (button) {
+              button.click();
+            }
+          }
+        }
+        if (url.startsWith("#")) {
           // scroll to anchor
           const id = url.replace("#", "");
           const element = document.getElementById(id);
@@ -57,7 +68,7 @@ const LinkObject = ({
     >
       {children}
       {!noIndicator && isHomePage && (
-        <House weight="fill" size={14} className="ml-[4px] inline-block" />
+        <HouseIcon weight="fill" size={14} className="ml-[4px] inline-block" />
       )}
     </Link>
   ) : (
@@ -65,7 +76,13 @@ const LinkObject = ({
       id={id}
       className={`linkObject${className ? ` ${className}` : ""}`}
       role={role}
-      href={url.startsWith("#") ? url : !hasHttp ? `https://${url}` : url}
+      href={
+        url.startsWith("#") || url.startsWith("?")
+          ? url
+          : !hasHttp
+          ? `https://${url}`
+          : url
+      }
       target="_blank"
       rel="noopener noreferrer"
       onClick={(e) => {
@@ -89,7 +106,7 @@ const LinkObject = ({
     >
       {children}
       {!noIndicator && (
-        <ArrowSquareOut size={14} className="ml-[4px] inline-block" />
+        <ArrowSquareOutIcon size={14} className="ml-[4px] inline-block" />
       )}
     </a>
   );
