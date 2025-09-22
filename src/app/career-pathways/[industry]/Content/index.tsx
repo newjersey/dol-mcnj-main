@@ -22,6 +22,7 @@ import { FieldSelect } from "@components/blocks/FieldSelect";
 import { OccupationGroups } from "@components/blocks/OccupationGroups";
 import { useRouter, useSearchParams } from "next/navigation";
 import { numberShorthand } from "@utils/numberShorthand";
+import { slugify } from "@utils/slugify";
 
 export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const router = useRouter();
@@ -80,6 +81,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
 
     if (inCurrent) {
       setActivePathway(inCurrent);
+      updateFieldInUrl(inCurrent);
       const filtered = activeMap?.careerMap?.pathways?.items?.filter(
         (p) => p.title !== inCurrent.title
       );
@@ -102,6 +104,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       if (pathwayHit) {
         setActiveMap(mapData);
         setActivePathway(pathwayHit);
+        updateFieldInUrl(pathwayHit);
 
         const filtered = mapData?.careerMap?.pathways?.items?.filter(
           (p: SinglePathwayProps) => p.title !== pathwayHit.title
@@ -116,7 +119,17 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
     const occ = await getOccupation(id);
 
     const params = new URLSearchParams(searchParams?.toString() ?? "");
-    params.set("occupation", id);
+    
+    // Use slug instead of ID for occupation parameter
+    if (occ?.careerMapObject) {
+      params.set("occupation", slugify(occ.careerMapObject.title));
+      
+      // Add field parameter if we know the active pathway
+      if (activePathway) {
+        params.set("field", getFieldSlug(activePathway));
+      }
+    }
+    
     params.delete("indemand"); // keep modes mutually exclusive
     router.replace(`?${params.toString()}`, { scroll: false });
 
@@ -132,7 +145,15 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
     if (!id) return;
 
     const params = new URLSearchParams(searchParams?.toString() ?? "");
-    params.set("occupation", id);
+    
+    // Use slug instead of ID for occupation parameter
+    params.set("occupation", slugify(occObj.careerMapObject.title));
+    
+    // Add field parameter if we know the active pathway
+    if (activePathway) {
+      params.set("field", getFieldSlug(activePathway));
+    }
+    
     params.delete("indemand"); // keep modes mutually exclusive
     router.replace(`?${params.toString()}`, { scroll: false });
 
@@ -141,6 +162,44 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
 
   const getOccupationAndSync = async (id: string) => {
     return setOccupationFromId(id);
+  };
+
+  // Helper function to find occupation by slug across all career maps
+  const findOccupationBySlug = async (occupationSlug: string): Promise<{ occupation: OccupationNodeProps; pathway: SinglePathwayProps; map: CareerMapProps } | null> => {
+    for (const mapRef of thisIndustry.careerMaps?.items ?? []) {
+      const mapId = (mapRef as any)?.sys?.id;
+      if (!mapId) continue;
+
+      const mapData: CareerMapProps | undefined = await fetchCareerMap(mapId);
+      if (!mapData?.careerMap?.pathways?.items) continue;
+
+      for (const pathway of mapData.careerMap.pathways.items) {
+        if (!pathway.occupationsCollection?.items) continue;
+
+        for (const occupation of pathway.occupationsCollection.items) {
+          if (slugify(occupation.title) === occupationSlug) {
+            return { occupation, pathway, map: mapData };
+          }
+        }
+      }
+    }
+    return null;
+  };
+
+  // Helper function to get field slug from pathway title
+  const getFieldSlug = (pathway: SinglePathwayProps | undefined): string => {
+    return pathway ? slugify(pathway.title) : '';
+  };
+
+  // Helper function to update URL with field parameter when pathway changes
+  const updateFieldInUrl = (pathway: SinglePathwayProps) => {
+    const params = new URLSearchParams(searchParams?.toString() ?? "");
+    params.set("field", getFieldSlug(pathway));
+    
+    // Only update if there's an occupation parameter (to maintain field context)
+    if (params.get("occupation")) {
+      router.replace(`?${params.toString()}`, { scroll: false });
+    }
   };
 
   const setInDemandFromItem = (item: InDemandItemProps) => {
@@ -153,17 +212,36 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
 
   useEffect(() => {
     const urlOcc = searchParams?.get("occupation");
+    const urlField = searchParams?.get("field");
+    
     if (!urlOcc) return;
 
-    if (activeOccupation?.careerMapObject?.sys?.id === urlOcc) {
-      ensureFieldForOccupation(urlOcc);
+    // If it's already the active occupation, just ensure field is set correctly
+    if (activeOccupation?.careerMapObject && slugify(activeOccupation.careerMapObject.title) === urlOcc) {
+      ensureFieldForOccupation(activeOccupation.careerMapObject.sys.id);
       return;
     }
 
     (async () => {
-      const occ = await getOccupation(urlOcc);
-      if (occ?.careerMapObject?.sys?.id) {
-        await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+      // First try to find occupation by slug
+      const foundBySlug = await findOccupationBySlug(urlOcc);
+      
+      if (foundBySlug) {
+        // Set the map and pathway context first
+        setActiveMap(foundBySlug.map);
+        setActivePathway(foundBySlug.pathway);
+        
+        // Then set the occupation
+        const occ = await getOccupation(foundBySlug.occupation.sys.id);
+        if (occ?.careerMapObject?.sys?.id) {
+          await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+        }
+      } else {
+        // Fallback: try treating urlOcc as an ID (for backward compatibility)
+        const occ = await getOccupation(urlOcc);
+        if (occ?.careerMapObject?.sys?.id) {
+          await ensureFieldForOccupation(occ.careerMapObject.sys.id);
+        }
       }
     })();
   }, [searchParams]);
