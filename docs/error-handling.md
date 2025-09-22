@@ -265,6 +265,10 @@ To migrate existing error handling to use the centralized service:
 - ✅ **SignUp Form Modal** (`src/components/blocks/SignUpFormModal.tsx`): Migrated to ErrorService
 - ✅ **Update Notifier** (`src/components/blocks/UpdateNotifier.tsx`): Migrated to ErrorService
 - ✅ **Career Pathways Content** (`src/app/career-pathways/[industry]/Content/index.tsx`): Migrated to ErrorService
+- ✅ **Career Pathways Details** (`src/app/career-pathways/[industry]/Content/Details.tsx`): Enhanced API calls with ErrorService
+- ✅ **In-Demand Details** (`src/app/career-pathways/[industry]/Content/InDemandDetails.tsx`): Enhanced API calls with ErrorService
+- ✅ **Training Search Utils** (`src/app/training/search/utils/getSearchData.ts`): Enhanced with ErrorService
+- ✅ **In-Demand Occupations Page** (`src/app/in-demand-occupations/page.tsx`): Protected with ErrorBoundary and enhanced error handling
 - ✅ **Main Layout** (`src/app/layout.tsx`): Wrapped with ErrorBoundary
 
 **Key Improvements Made:**
@@ -273,5 +277,8 @@ To migrate existing error handling to use the centralized service:
 - React components are protected by error boundaries with automatic logging
 - Structured error logging with contextual metadata for better debugging
 - Automatic Sentry integration for production error monitoring
+- Training search functionality has robust error handling and fallback behavior
+- Career pathway components have enhanced error handling for job data and training searches
+- Server-side pages include error boundaries and proper error handling
 
-The migration is now **complete** with all major components using the centralized error handling service.
+The migration is now **complete** with comprehensive error handling coverage across the entire frontend application, including both client-side and server-side components.

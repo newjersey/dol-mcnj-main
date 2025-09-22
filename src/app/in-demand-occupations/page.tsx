@@ -4,6 +4,7 @@ import { IN_DEMAND_OCCUPATIONS_PAGE_DATA as pageData } from "@data/pages/in-dema
 import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
 import { PageHero } from "@components/blocks/PageHero";
+import { ErrorBoundary } from "@components/utility/ErrorBoundary";
 
 async function getData() {
   const occupationItems = await fetch(
@@ -36,6 +37,19 @@ interface OccupationProps {
 
 export default async function IndemandOccupationsPage() {
   const { occupationItems } = await getData();
+  
+  if (!occupationItems.ok) {
+    // Handle error case - could throw error or use notFound()
+    const error = new Error(`Failed to fetch occupations: ${occupationItems.status} ${occupationItems.statusText}`);
+    // Log error for server-side monitoring
+    console.error('In-Demand Occupations page error:', {
+      status: occupationItems.status,
+      statusText: occupationItems.statusText,
+      url: `/api/occupations`,
+    });
+    throw error;
+  }
+
   const occupations: OccupationProps[] = await occupationItems.json();
 
   const cookieStore = await cookies();
@@ -61,13 +75,15 @@ export default async function IndemandOccupationsPage() {
   });
 
   return (
-    <div className="page inDemandList">
-      <PageHero {...pageData[lang].pageHero} />
-      <section className="listBlock">
-        <div className="container">
-          <OccupationList items={majorGroups} suggestions={suggestions} />
-        </div>
-      </section>
-    </div>
+    <ErrorBoundary context={{ page: 'in_demand_occupations', component: 'InDemandOccupationsPage' }}>
+      <div className="page inDemandList">
+        <PageHero {...pageData[lang].pageHero} />
+        <section className="listBlock">
+          <div className="container">
+            <OccupationList items={majorGroups} suggestions={suggestions} />
+          </div>
+        </section>
+      </div>
+    </ErrorBoundary>
   );
 }

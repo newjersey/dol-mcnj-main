@@ -3,6 +3,7 @@ import { ResultProps } from "@utils/types";
 import { FilterProps } from "../components/Results";
 import { getZipCodesInRadius } from "@utils/getZipCodesInRadius";
 import { handleFiltering } from "@utils/handleFiltering";
+import { errorService } from "../../../services/ErrorService";
 
 export async function getSearchData(props: {
   serverSide?: boolean;
@@ -12,49 +13,42 @@ export async function getSearchData(props: {
 }) {
   const { searchParams } = props;
 
-  const searchData = await fetch(
-    `${
-      props.serverSide ? process.env.REACT_APP_API_URL : ""
-    }/api/trainings/search?query=${searchParams.q}`,
-  );
+  try {
+    const searchData = await fetch(
+      `${
+        props.serverSide ? process.env.REACT_APP_API_URL : ""
+      }/api/trainings/search?query=${searchParams.q}`,
+    );
 
-  if (!searchData.ok) {
-    return {
-      pageData: [],
-      searchParams: "",
-      searchParamsArray: [],
-      itemCount: 0,
-      totalPages: 0,
-      pageNumber: 1,
-    };
-  }
+    if (!searchData.ok) {
+      throw new Error(`HTTP ${searchData.status}: ${searchData.statusText}`);
+    }
 
-  const searchParamsArray = Object.keys(searchParams)
-    .filter((key) => key !== "q")
-    .filter((key) => key !== "p")
-    .filter((key) => key !== "sort")
-    .map((key) => {
-      return {
-        key,
-        value: searchParams[key],
-      };
-    });
+    const contentType = searchData.headers.get("content-type");
+    const searchDataItems =
+      !contentType || !contentType.includes("application/json")
+        ? []
+        : await searchData.json();
 
-  const contentType = searchData.headers.get("content-type");
+    const mockData =
+      searchParams.mockData === "baking"
+        ? baking
+        : searchParams.mockData === "digitalMarketing"
+          ? digitalMarketing
+          : undefined;
 
-  const searchDataItems =
-    !contentType || !contentType.includes("application/json")
-      ? []
-      : await searchData.json();
+    const pageData = mockData || searchDataItems;
 
-  const mockData =
-    searchParams.mockData === "baking"
-      ? baking
-      : searchParams.mockData === "digitalMarketing"
-        ? digitalMarketing
-        : undefined;
-
-  const pageData = mockData || searchDataItems;
+    const searchParamsArray = Object.keys(searchParams)
+      .filter((key) => key !== "q")
+      .filter((key) => key !== "p")
+      .filter((key) => key !== "sort")
+      .map((key) => {
+        return {
+          key,
+          value: searchParams[key],
+        };
+      });
 
   let filterObject = {} as FilterProps;
 
@@ -429,4 +423,24 @@ export async function getSearchData(props: {
     totalPages: Math.ceil(returnedItems.length / itemsPerPage),
     pageNumber,
   };
+  } catch (error) {
+    // Use ErrorService to handle the error
+    errorService.handleApiError(error, `/api/trainings/search?query=${searchParams.q}`, {
+      page: 'training_search',
+      component: 'getSearchData',
+      action: 'search_trainings',
+      searchQuery: searchParams.q,
+      serverSide: props.serverSide,
+    });
+
+    // Return empty results on error
+    return {
+      pageData: [],
+      searchParams: "",
+      searchParamsArray: [],
+      itemCount: 0,
+      totalPages: 0,
+      pageNumber: 1,
+    };
+  }
 }

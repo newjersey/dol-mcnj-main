@@ -12,6 +12,7 @@ import { RelatedTrainingCard } from "./RelatedTrainingCard";
 import { Flex } from "@components/utility/Flex";
 import { Spinner } from "@components/modules/Spinner";
 import { colors } from "@utils/settings";
+import { errorService } from "../../../services/ErrorService";
 
 export const Details = ({
   content,
@@ -30,15 +31,25 @@ export const Details = ({
   const boxArray = [];
 
   const getJobNumbers = async () => {
-    const jobNumbers = await fetch(`/api/jobcount/${content.title}`);
+    try {
+      const jobNumbers = await fetch(`/api/jobcount/${content.title}`);
 
-    if (jobNumbers.status !== 200) {
+      if (!jobNumbers.ok) {
+        throw new Error(`HTTP ${jobNumbers.status}: ${jobNumbers.statusText}`);
+      }
+
+      const jobNumbersArray = await jobNumbers.json();
+      return jobNumbersArray.count;
+    } catch (error) {
+      // Use ErrorService to handle the error
+      errorService.handleApiError(error, `/api/jobcount/${content.title}`, {
+        page: 'career_pathways_details',
+        component: 'Details',
+        action: 'fetch_job_numbers',
+        occupationTitle: content.title,
+      });
       return undefined;
     }
-
-    const jobNumbersArray = await jobNumbers.json();
-
-    return jobNumbersArray.count;
   };
 
   if (content.tasks) {
@@ -118,16 +129,31 @@ export const Details = ({
     setLoadingTraining(true);
     const searchTerm = content.trainingSearchTerms || content.title;
     const getTrainingList = async () => {
-      const training = await fetch(`/api/trainings/search?query=${searchTerm}`);
+      try {
+        const training = await fetch(`/api/trainings/search?query=${searchTerm}`);
 
-      const trainingArray = await training.json();
+        if (!training.ok) {
+          throw new Error(`HTTP ${training.status}: ${training.statusText}`);
+        }
 
-      if (trainingArray && trainingArray.length > 0) {
+        const trainingArray = await training.json();
+
+        if (trainingArray && trainingArray.length > 0) {
+          setLoadingTraining(false);
+          setTrainingData(trainingArray.slice(0, 3));
+        }
+      } catch (error) {
+        // Use ErrorService to handle the error
+        errorService.handleApiError(error, `/api/trainings/search?query=${searchTerm}`, {
+          page: 'career_pathways_details',
+          component: 'Details',
+          action: 'fetch_training_list',
+          searchTerm,
+          occupationTitle: content.title,
+        });
+      } finally {
         setLoadingTraining(false);
-        setTrainingData(trainingArray.slice(0, 3));
       }
-
-      setLoadingTraining(false);
     };
 
     getJobNumbers().then((count) => {
