@@ -52,9 +52,36 @@ build_applications() {
     echo "📁 Copying frontend build to backend..."
     if [ -d ".next" ]; then
         mkdir -p backend/dist/build
+        # Copy Next.js build output
         cp -r .next/* backend/dist/build/ 2>/dev/null || true
+        # Copy public assets
         cp -r public/* backend/dist/build/ 2>/dev/null || true
+        
+        # Create index.html if it doesn't exist (Next.js may not generate one)
+        if [ ! -f "backend/dist/build/index.html" ]; then
+            echo "📄 Creating placeholder index.html for backend serving..."
+            cat > backend/dist/build/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NJ DOL Career Navigator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div id="__next"></div>
+    <script>
+        // Redirect to the Next.js application
+        window.location.href = '/';
+    </script>
+</body>
+</html>
+EOF
+        fi
+        
         echo "✅ Frontend build copied to backend/dist/build/"
+        echo "📋 Contents of backend/dist/build/:"
+        ls -la backend/dist/build/ | head -10
     else
         print_warning "Frontend .next build directory not found"
     fi
