@@ -1,3 +1,4 @@
+"use client";
 import { ButtonProps, HeadingLevel, ThemeColors } from "@utils/types";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
