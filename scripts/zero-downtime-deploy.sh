@@ -36,10 +36,29 @@ build_applications() {
     echo "🔨 Building applications..."
     npm run build:only
     
+    # Debug: Show what was actually built
+    echo "📋 Contents of backend/dist/:"
+    ls -la backend/dist/ || echo "backend/dist/ directory not found"
+    
+    # Validate backend build
     if [ ! -f "backend/dist/server.js" ]; then
         print_error "Backend build failed - server.js not found!"
+        echo "🔍 Searching for .js files in backend/dist/:"
+        find backend/dist/ -name "*.js" -type f || echo "No .js files found"
         exit 1
     fi
+    
+    # Copy frontend build to backend for serving
+    echo "📁 Copying frontend build to backend..."
+    if [ -d ".next" ]; then
+        mkdir -p backend/dist/build
+        cp -r .next/* backend/dist/build/ 2>/dev/null || true
+        cp -r public/* backend/dist/build/ 2>/dev/null || true
+        echo "✅ Frontend build copied to backend/dist/build/"
+    else
+        print_warning "Frontend .next build directory not found"
+    fi
+    
     print_status "Applications built successfully"
 }
 
