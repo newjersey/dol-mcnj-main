@@ -24,7 +24,7 @@ describe("Flex component", () => {
   it("renders with default props", () => {
     const { container } = renderComponent();
     expect(container.firstChild).toHaveClass(
-      "mcnj-flex direction-row align-flex-start justify-flex-start gap-md column-sm",
+      "mcnj-flex direction-row align-flex-start justify-flex-start gap-md column-sm"
     );
   });
 
@@ -94,7 +94,9 @@ describe("Flex component", () => {
   it("applies style prop", () => {
     const style = { backgroundColor: "red" };
     const { container } = renderComponent({ style });
-    expect(container.firstChild).toHaveStyle("background-color: red");
+    expect(container.firstChild).toHaveStyle(
+      "background-color: rgb(255, 0, 0)"
+    );
   });
 
   it("applies componentId prop", () => {
