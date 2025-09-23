@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import { PageLoadTracker } from "./PageLoadTracker";
 import { trackPageLoadTime } from "../../utils/analytics";
 
-jest.mock("../../../utils/analytics", () => ({
+jest.mock("../../utils/analytics", () => ({
   trackPageLoadTime: jest.fn(),
 }));
 
