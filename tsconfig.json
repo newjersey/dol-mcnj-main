@@ -22,7 +22,8 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "@testing-library/jest-dom"] ,
+  // Added "node" to expose require/module globals for jest.config.ts in CI
+  "types": ["node", "jest", "@testing-library/jest-dom"],
     "baseUrl": "./src",
     "paths": {
       "@components/*": [
