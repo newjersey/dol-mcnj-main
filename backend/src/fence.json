@@ -21,6 +21,7 @@
     "express-rate-limit",
     "winston",
     "express-validator",
-    "nodemailer"
+    "nodemailer",
+    "compression"
   ]
 }
