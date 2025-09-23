@@ -42,7 +42,7 @@ export const InDemandDetails = (props: {
       Array.isArray(props.content.relatedTrainings) &&
       props.content.relatedTrainings.length > 0
     ) {
-      const sortedCourses = [...props.content.relatedTrainings].sort((a, b) => {
+      const sortedCourses = props.content.relatedTrainings.slice().sort((a, b) => {
         if (a.percentEmployed === null && b.percentEmployed === null) {
           return a.name.localeCompare(b.name);
         } else if (a.percentEmployed === null) {
