@@ -70,7 +70,8 @@ health_check() {
 # Backup current PM2 configuration
 backup_pm2_config() {
     echo "💾 Backing up current PM2 configuration..."
-    pm2 dump ~/pm2-backup-$(date +%Y%m%d-%H%M%S).json
+    pm2 dump
+    cp ~/.pm2/dump.pm2 ~/pm2-backup-$(date +%Y%m%d-%H%M%S).json
     print_status "PM2 configuration backed up"
 }
 
