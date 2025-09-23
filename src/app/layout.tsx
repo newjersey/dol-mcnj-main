@@ -6,7 +6,6 @@ import { SkipToMain } from "@components/modules/SkipToMain";
 import { Header } from "@components/global/Header";
 import { Footer } from "@components/global/Footer";
 import { Alert } from "@components/modules/Alert";
-import { Public_Sans } from "next/font/google";
 import { cookies } from "next/headers";
 import {
   FOOTER_NAV_1_DATA as footerNav1,
@@ -18,15 +17,11 @@ import { SupportedLanguages } from "@utils/types/types";
 import { Metadata } from "next";
 import { LangSelector } from "@components/global/LangSelector";
 
-const publicSans = Public_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  fallback: ["system-ui", "arial"],
-});
+// Use system fonts with Public Sans as fallback
+const fontClassName = "font-sans";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.REACT_APP_SITE_URL as string),
+  metadataBase: new URL(process.env.REACT_APP_SITE_URL || "https://mycareer.nj.gov"),
   title: {
     default: process.env.REACT_APP_SITE_NAME || "My Career NJ",
     template: `%s | ${process.env.REACT_APP_SITE_NAME || "My Career NJ"}`,
@@ -61,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: process.env.REACT_APP_SITE_URL,
+    url: process.env.REACT_APP_SITE_URL || "https://mycareer.nj.gov",
     siteName: process.env.REACT_APP_SITE_NAME || "My Career NJ",
   },
   twitter: {
@@ -85,11 +80,15 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//images.ctfassets.net" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" 
+          rel="stylesheet"
+        />
         <meta name="theme-color" content="#1B365D" />
         <meta name="msapplication-TileColor" content="#1B365D" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={publicSans.className}>
+      <body className={fontClassName}>
         <Script 
           src="https://newjersey.github.io/njwds/dist/js/uswds.min.js" 
           strategy="lazyOnload"

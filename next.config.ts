@@ -70,7 +70,6 @@ const nextConfig: NextConfig = {
     ];
   },
   experimental: {
-    optimizeCss: true, // Enable CSS optimization
     optimizePackageImports: ['@mui/material', '@mui/icons-material'], // Optimize Material-UI imports
   },
   sassOptions: {
