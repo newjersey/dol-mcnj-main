@@ -32,7 +32,7 @@ const Button = ({
   type,
   unstyled,
   ...rest
-}: ButtonProps & Record<string, any>) => {
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const isCustom = customBgColor || customTextColor;
   const hasIcon = svgName || iconPrefix || iconSuffix;
 
