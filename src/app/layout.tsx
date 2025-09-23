@@ -6,6 +6,7 @@ import { SkipToMain } from "@components/modules/SkipToMain";
 import { Header } from "@components/global/Header";
 import { Footer } from "@components/global/Footer";
 import { Alert } from "@components/modules/Alert";
+import { ClientOnly } from "@components/utils/ClientOnly";
 import { cookies } from "next/headers";
 import {
   FOOTER_NAV_1_DATA as footerNav1,
@@ -74,7 +75,7 @@ export default async function RootLayout({
   const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
 
   return (
-    <html lang={lang || "en"}>
+    <html lang={lang || "en"} suppressHydrationWarning>
       <head>
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
@@ -95,15 +96,17 @@ export default async function RootLayout({
         />
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
-            window.allowedHosts = ['mycareer.nj.gov', 'test.mycareer.nj.gov', 'dev.mycareer.nj.gov'];
-            window.hostname = document.location.hostname;
+            if (typeof window !== 'undefined') {
+              window.allowedHosts = ['mycareer.nj.gov', 'test.mycareer.nj.gov', 'dev.mycareer.nj.gov'];
+              window.hostname = document.location.hostname;
 
-            if (window.allowedHosts.includes(window.hostname)) {
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-KBN58VK9');
+              if (window.allowedHosts.includes(window.hostname)) {
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-KBN58VK9');
+              }
             }
           `}
         </Script>
@@ -117,26 +120,32 @@ export default async function RootLayout({
         </noscript>
         <main>
           {process.env.REACT_APP_FEATURE_MAINTENANCE === "true" && (
-            <Alert
-              copy="We will perform routine maintenance Tuesday, March 12, 2024 from 12 am to 6 am EST. My Career NJ and its applications (Training Explorer and Career Navigator)
+            <ClientOnly>
+              <Alert
+                copy="We will perform routine maintenance Tuesday, March 12, 2024 from 12 am to 6 am EST. My Career NJ and its applications (Training Explorer and Career Navigator)
         will be temporarily inaccessible during this period. We apologize for any inconvenience."
-              heading="Scheduled Maintenance"
-              type="warning"
-              alertId="maintenance"
-              dismissible
-            />
+                heading="Scheduled Maintenance"
+                type="warning"
+                alertId="maintenance"
+                dismissible
+              />
+            </ClientOnly>
           )}
           {process.env.REACT_APP_FEATURE_BETA === "true" && (
-            <Alert
-              copy={process.env.REACT_APP_FEATURE_BETA_MESSAGE as string}
-              type="info"
-              className="beta-alert"
-            />
+            <ClientOnly>
+              <Alert
+                copy={process.env.REACT_APP_FEATURE_BETA_MESSAGE as string}
+                type="info"
+                className="beta-alert"
+              />
+            </ClientOnly>
           )}
           <SkipToMain />
           <Header globalNav={globalNav} mainNav={mainNav} lang={lang} />
           {process.env.REACT_APP_FEATURE_MULTILANG === "true" && (
-            <LangSelector />
+            <ClientOnly>
+              <LangSelector />
+            </ClientOnly>
           )}
           <div id="main-content">{children}</div>
           <Footer
@@ -147,7 +156,9 @@ export default async function RootLayout({
             }}
           />
         </main>
-        <BackToTop />
+        <ClientOnly>
+          <BackToTop />
+        </ClientOnly>
       </body>
     </html>
   );
