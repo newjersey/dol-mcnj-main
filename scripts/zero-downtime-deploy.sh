@@ -70,19 +70,41 @@ health_check() {
     local attempt=1
     
     echo "🏥 Performing health check for $service_name..."
+    echo "🔗 Testing URL: $url"
     
     while [ $attempt -le $max_attempts ]; do
-        if curl -f -s "$url" > /dev/null 2>&1; then
-            print_status "$service_name health check passed"
+        # Test the URL and capture response
+        local response_code=$(curl -s -o /dev/null -w "%{http_code}" "$url" 2>/dev/null || echo "000")
+        local curl_exit_code=$?
+        
+        if [ "$response_code" = "200" ]; then
+            print_status "$service_name health check passed (HTTP $response_code)"
             return 0
         fi
         
-        echo "   Attempt $attempt/$max_attempts failed, waiting 2s..."
+        # Show more detailed error info every 5 attempts
+        if [ $((attempt % 5)) -eq 1 ]; then
+            echo "   🔍 Debug info (attempt $attempt/$max_attempts):"
+            echo "     HTTP response code: $response_code"
+            echo "     Curl exit code: $curl_exit_code"
+            
+            # Check if the service is running in PM2
+            if [ "$service_name" = "Backend" ]; then
+                echo "     PM2 backend status:"
+                pm2 describe dol-mcnj-backend --silent 2>/dev/null | grep -E "(status|pid|memory)" || echo "     Could not get PM2 status"
+                echo "     Recent backend logs:"
+                pm2 logs dol-mcnj-backend --lines 3 --nostream 2>/dev/null || echo "     Could not get logs"
+            fi
+        else
+            echo "   Attempt $attempt/$max_attempts failed (HTTP $response_code), waiting 2s..."
+        fi
+        
         sleep 2
         attempt=$((attempt + 1))
     done
     
     print_error "$service_name health check failed after $max_attempts attempts"
+    print_error "Final response code: $response_code"
     return 1
 }
 
@@ -102,7 +124,19 @@ deploy_backend() {
     pm2 reload dol-mcnj-backend --update-env
     
     # Wait a moment for the reload to complete
-    sleep 3
+    sleep 5
+    
+    # Check if the port is listening
+    echo "🔍 Checking if port 8080 is listening..."
+    if netstat -ln 2>/dev/null | grep ":8080 " >/dev/null || ss -ln 2>/dev/null | grep ":8080 " >/dev/null; then
+        echo "✅ Port 8080 is listening"
+    else
+        echo "❌ Port 8080 is not listening"
+        echo "📋 Current PM2 status:"
+        pm2 list
+        echo "📋 Recent backend logs:"
+        pm2 logs dol-mcnj-backend --lines 10 --nostream
+    fi
     
     # Health check
     if ! health_check "Backend" "http://localhost:8080/health"; then
