@@ -238,7 +238,8 @@ export const Details = ({
               )}
               <Flex direction="column" gap="xs">
                 <Button
-                  type="link"
+                  asLink
+                  type="button"
                   highlight="green"
                   newTab
                   link={`/training/search?q=${
@@ -250,6 +251,7 @@ export const Details = ({
                   defaultStyle="secondary"
                 />
                 <Button
+                  asLink
                   highlight="navy"
                   newTab
                   defaultStyle="quinary"
@@ -257,7 +259,7 @@ export const Details = ({
                   link="/support-resources/tuition-assistance"
                   style={{ width: "100%" }}
                   svgName="SupportBold"
-                  type="link"
+                  type="button"
                 />
               </Flex>
             </LabelBox>
@@ -267,6 +269,7 @@ export const Details = ({
               icon="Briefcase"
             >
               <Button
+                asLink
                 highlight="blue"
                 iconPrefix="Briefcase"
                 iconWeight="bold"
@@ -274,7 +277,7 @@ export const Details = ({
                 iconSuffix="ArrowSquareOut"
                 label="Check out related jobs on Career One Stop"
                 link="https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=welder&amp;location=New%20Jersey&amp;radius=0&amp;source=NLX&amp;currentpage=1&amp;pagesize=100"
-                type="link"
+                type="button"
               />
             </LabelBox>
           </div>

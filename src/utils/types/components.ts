@@ -308,7 +308,14 @@ export interface ButtonProps {
   svgFill?: boolean;
   svgName?: keyof typeof Svg;
   tag?: boolean;
-  type: "button" | "link" | "submit";
+  /**
+   * Button behavior type: only actual <button> element values retained.
+   * Anchor rendering is now controlled by `asLink` (preferred) while legacy
+   * code may still pass "link" which we treat as an alias during migration.
+   */
+  type: "button" | "submit" | "link"; // include legacy 'link' for backward compatibility
+  /** When true and a `link` URL is provided, renders an anchor instead of a <button>. */
+  asLink?: boolean;
   unstyled?: boolean;
 }
 
