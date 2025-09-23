@@ -1,5 +1,7 @@
 export type Option = { label: string; value: string };
 
+import { slugify } from "@utils/slugify";
+
 export function collectAllItems(data: any) {
   const map = new Map<string, Option>();
 
@@ -21,7 +23,7 @@ export function collectAllItems(data: any) {
           if (occ?.title && occ?.sys?.id) {
             map.set(occ.sys.id, {
               label: occ.title,
-              value: `${industry.slug}?occupation=${occ.sys.id}`,
+              value: `${industry.slug}?occupation=${slugify(occ.title)}`,
             });
           }
         });
@@ -53,7 +55,7 @@ export function collectAllItemsNormalized(data: any): Option[] {
           if (occ?.title && occ?.sys?.id) {
             map.set(occ.sys.id, {
               label: occ.title,
-              value: `${industry.slug}?occupation=${occ.sys.id}`,
+              value: `${industry.slug}?occupation=${slugify(occ.title)}`,
             });
           }
         });

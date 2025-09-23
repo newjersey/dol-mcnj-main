@@ -31,7 +31,8 @@ const Button = ({
   tag,
   type,
   unstyled,
-}: ButtonProps) => {
+  ...rest
+}: ButtonProps & Record<string, any>) => {
   const isCustom = customBgColor || customTextColor;
   const hasIcon = svgName || iconPrefix || iconSuffix;
 
@@ -76,6 +77,7 @@ const Button = ({
           ? style
           : undefined
       }
+      {...rest}
     >
       {!noIndicator && svgName && !iconPrefix && (
         <span className="svg-container">
@@ -125,6 +127,7 @@ const Button = ({
           ? style
           : undefined
       }
+      {...rest}
     >
       {!noIndicator && svgName && !iconPrefix && (
         <span className="svg-container">
@@ -173,6 +176,7 @@ const Button = ({
           ? style
           : undefined
       }
+      {...rest}
     >
       <Flex
         className="grouping"

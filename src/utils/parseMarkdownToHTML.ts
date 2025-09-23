@@ -42,6 +42,15 @@ mdParser.renderer.rules.link_open = function (tokens, idx, options, env, self) {
 };
 
 // Exported function
-export const parseMarkdownToHTML = (markdown: string): string => {
-  return mdParser.render(markdown);
+export const parseMarkdownToHTML = (markdown: any): string => {
+  if (markdown == null) return ""; // null/undefined -> empty string
+  if (typeof markdown !== "string") {
+    try {
+      // Attempt safe stringification for objects/arrays
+      markdown = String(markdown);
+    } catch {
+      return "";
+    }
+  }
+  return mdParser.render(markdown as string);
 };

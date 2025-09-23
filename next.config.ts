@@ -34,6 +34,28 @@ const nextConfig: NextConfig = {
     // Silences the 'legacy-js-api' deprecation warning
     silenceDeprecations: ["legacy-js-api"],
   },
+  async redirects() {
+    return [
+      // Root synonym -> canonical industry pathway
+      {
+        source: "/health",
+        destination: "/career-pathways/healthcare",
+        permanent: true,
+      },
+      // Enforce canonical slug under /career-pathways
+      {
+        source: "/career-pathways/health",
+        destination: "/career-pathways/healthcare",
+        permanent: true,
+      },
+      // Also normalize any nested paths (capture all after /health)
+      {
+        source: "/career-pathways/health/:path*",
+        destination: "/career-pathways/healthcare/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

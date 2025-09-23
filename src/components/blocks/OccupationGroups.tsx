@@ -1,3 +1,4 @@
+"use client";
 import { SectionHeading } from "@components/modules/SectionHeading";
 import { Path } from "@phosphor-icons/react";
 import {
@@ -6,6 +7,8 @@ import {
   OccupationNodeProps,
 } from "@utils/types";
 import { useEffect } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { slugify } from "@utils/slugify";
 
 interface OccupationGroupsProps {
   activeMap?: CareerMapProps;
@@ -18,6 +21,8 @@ interface OccupationGroupsProps {
   setActivePathway: (pathway: any) => void;
   getOccupation: (id: string) => void;
   open?: boolean;
+  // Optional optimistic selector (id, title, pathway) to immediately set URL params
+  optimisticSelectOccupation?: (id: string, title: string, pathway: any) => void;
 }
 
 export const OccupationGroups = ({
@@ -29,7 +34,11 @@ export const OccupationGroups = ({
   setActivePathway,
   getOccupation,
   open,
+  optimisticSelectOccupation,
 }: OccupationGroupsProps) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   useEffect(() => {
     const closeDropdown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -100,7 +109,31 @@ export const OccupationGroups = ({
                           setOpen(false);
                           setMapOpen(false);
                           setActivePathway(path);
-                          getOccupation(occupation.sys.id);
+                          if ((window as any)?.__CP_DEBUG__) {
+                            // eslint-disable-next-line no-console
+                            console.log('[CP] OccupationGroups select click', occupation.title, 'pathway', path.title, 'optimistic', !!optimisticSelectOccupation);
+                          }
+                          if (optimisticSelectOccupation) {
+                            optimisticSelectOccupation(occupation.sys.id, occupation.title, path);
+                          } else {
+                            // Fallback manual optimistic URL update when upstream handler not provided
+                            try {
+                              const params = new URLSearchParams(searchParams?.toString() ?? '');
+                              params.set('field', slugify(path.title));
+                              params.set('occupation', slugify(occupation.title));
+                              // order (field then occupation)
+                              const ordered = new URLSearchParams();
+                              const f = params.get('field'); if (f) ordered.set('field', f);
+                              const o = params.get('occupation'); if (o) ordered.set('occupation', o);
+                              const qs = ordered.toString();
+                              router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+                              if ((window as any)?.__CP_DEBUG__) {
+                                // eslint-disable-next-line no-console
+                                console.log('[CP] OccupationGroups fallback optimistic URL', qs);
+                              }
+                            } catch {/* silent */}
+                            getOccupation(occupation.sys.id);
+                          }
                           setTimeout(() => {
                             const element =
                               document.getElementById("map-block");

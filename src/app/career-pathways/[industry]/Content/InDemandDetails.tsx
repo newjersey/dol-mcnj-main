@@ -21,11 +21,11 @@ export const InDemandDetails = (props: {
   const [jobNumbers, setJobNumbers] = useState<number | null>(null);
   const [loadingNumber, setLoadingNumber] = useState(false);
 
-  const taskList = props.content?.tasks.map((task) => {
-    return {
-      copy: task,
-    };
-  });
+  // Defensive: ensure arrays before mapping
+  const rawTasks = Array.isArray(props.content?.tasks)
+    ? (props.content.tasks as string[])
+    : [];
+  const taskList = rawTasks.map((task) => ({ copy: task }));
 
   const getJobNumbers = async () => {
     const jobNumbers = await fetch(`/api/jobcount/${props.content.title}`);
@@ -37,8 +37,12 @@ export const InDemandDetails = (props: {
 
   useEffect(() => {
     setLoadingNumber(true);
-    if (props.content && props.content.relatedTrainings) {
-      const sortedCourses = props.content.relatedTrainings.sort((a, b) => {
+    if (
+      props.content &&
+      Array.isArray(props.content.relatedTrainings) &&
+      props.content.relatedTrainings.length > 0
+    ) {
+      const sortedCourses = [...props.content.relatedTrainings].sort((a, b) => {
         if (a.percentEmployed === null && b.percentEmployed === null) {
           return a.name.localeCompare(b.name);
         } else if (a.percentEmployed === null) {
@@ -62,7 +66,7 @@ export const InDemandDetails = (props: {
           index === self.findIndex((t) => t.name === training.name)
       );
 
-      setSortedTraining(uniqueTrainings);
+  setSortedTraining(uniqueTrainings ?? []);
 
       getJobNumbers().then((count) => {
         setJobNumbers(count);
