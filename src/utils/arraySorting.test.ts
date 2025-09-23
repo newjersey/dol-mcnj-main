@@ -63,6 +63,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 60,
         totalCost: 500,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition2",
+        },
       },
       {
         id: "4",
@@ -70,6 +75,7 @@ describe("arraySorting Function", () => {
         percentEmployed: 70,
         totalCost: 750,
         zipCode: "08330",
+        cipDefinition: "definition4",
       },
       {
         id: "1",
@@ -77,6 +83,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 80,
         totalCost: 1000,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition1",
+        },
       },
       {
         id: "3",
@@ -84,6 +95,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 90,
         totalCost: 1500,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition3",
+        },
       },
     ]);
   });
@@ -97,6 +113,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 90,
         totalCost: 1500,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition3",
+        },
       },
       {
         id: "1",
@@ -104,6 +125,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 80,
         totalCost: 1000,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition1",
+        },
       },
       {
         id: "4",
@@ -111,6 +137,7 @@ describe("arraySorting Function", () => {
         percentEmployed: 70,
         totalCost: 750,
         zipCode: "08330",
+        cipDefinition: "definition4",
       },
       {
         id: "2",
@@ -118,6 +145,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 60,
         totalCost: 500,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition2",
+        },
       },
     ]);
   });
@@ -131,6 +163,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 90,
         totalCost: 1500,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition3",
+        },
       },
       {
         id: "1",
@@ -138,6 +175,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 80,
         totalCost: 1000,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition1",
+        },
       },
       {
         id: "4",
@@ -145,6 +187,7 @@ describe("arraySorting Function", () => {
         percentEmployed: 70,
         totalCost: 750,
         zipCode: "08330",
+        cipDefinition: "definition4",
       },
       {
         id: "2",
@@ -152,6 +195,11 @@ describe("arraySorting Function", () => {
         percentEmployed: 60,
         totalCost: 500,
         zipCode: "08330",
+        cipDefinition: {
+          cipCode: "12345",
+          cipTitle: "CIP Title",
+          cipDefinition: "definition2",
+        },
       },
     ]);
   });
