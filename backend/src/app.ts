@@ -53,7 +53,7 @@ process.on("unhandledRejection", (reason) => {
 
 // CORS options
 const corsOptions = {
-  origin: ["https://mycareer.nj.gov", "http://localhost:3000"],
+  origin: ["https://mycareer.nj.gov", "https://test.mycareer.nj.gov","https://dev.mycareer.nj.gov", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
   optionsSuccessStatus: 200,
