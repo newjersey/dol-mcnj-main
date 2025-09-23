@@ -110,7 +110,6 @@ export const OccupationGroups = ({
                           setMapOpen(false);
                           setActivePathway(path);
                           if ((window as any)?.__CP_DEBUG__) {
-                            // eslint-disable-next-line no-console
                             console.log('[CP] OccupationGroups select click', occupation.title, 'pathway', path.title, 'optimistic', !!optimisticSelectOccupation);
                           }
                           if (optimisticSelectOccupation) {
@@ -128,7 +127,6 @@ export const OccupationGroups = ({
                               const qs = ordered.toString();
                               router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
                               if ((window as any)?.__CP_DEBUG__) {
-                                // eslint-disable-next-line no-console
                                 console.log('[CP] OccupationGroups fallback optimistic URL', qs);
                               }
                             } catch {/* silent */}

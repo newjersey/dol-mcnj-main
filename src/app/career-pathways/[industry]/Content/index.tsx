@@ -32,7 +32,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
 
   // Debug flag (set NEXT_PUBLIC_CP_DEBUG=true in env or window.__CP_DEBUG__=true in console)
   const debugEnabled = typeof window !== 'undefined' && (process.env.NEXT_PUBLIC_CP_DEBUG === 'true' || (window as any).__CP_DEBUG__);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cpLog = (...args: any[]) => { if (debugEnabled) console.log('[CP]', ...args); };
 
   // Central helper: always include pathname to ensure query string updates reliably in tests
@@ -52,6 +51,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
   const [activeOccupation, setActiveOccupation] = useState<{
     careerMapObject: OccupationNodeProps;
   }>();
+  // Ordered list of pathways with the active one first followed by others
   const [fullMap, setFullMap] = useState<SinglePathwayProps[]>();
   const [loading, setLoading] = useState<boolean>(false);
   // While an occupation slug is present in URL but we have not resolved its pathway yet
@@ -142,7 +142,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
         cpLog('auto-select failed', e);
       }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [thisIndustry?.careerMaps?.items, searchParams?.toString()]);
 
   const getCareerMap = async (id: string) => {
@@ -418,7 +417,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
     if (mutated || orderedStr !== current.toString()) {
       replaceQuery(orderedStr);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // SECOND PASS immediate microtask to ensure unknown params pruned even if searchParams snapshot stale
@@ -498,7 +496,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       const newUrl = orderedStr ? `${url.pathname}?${orderedStr}` : url.pathname;
       window.history.replaceState(null, '', newUrl);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Removed ultra-early mismatch substitution (previously injected synthetic fallback occupation slug and caused user-selected occupation to revert).
@@ -570,7 +567,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       replaceQuery(ordered.toString());
       cpLog('ordering effect changed', ordered.toString());
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams?.get("occupation"), searchParams?.get("field")]);
 
   // NOTE: The async normalization effect below remains for heavier resolution (id migrations, field inference, etc.)
@@ -624,7 +620,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       }
     })();
     return () => { cancelled = true; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams?.toString()]);
 
   // Resolving pathway / invalid occupation cleanup effect
@@ -804,7 +799,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
       if (occVal) ordered.set("occupation", occVal);
       replaceQuery(ordered.toString());
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activePathway, activeOccupation]);
 
   useEffect(() => {
@@ -912,7 +906,6 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
     const f = params.get('field'); if (f) ordered.set('field', f);
     ordered.set('occupation', target);
     replaceQuery(ordered.toString());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams?.get('field'), searchParams?.get('occupation')]);
 
   const hasPathways: boolean = thisIndustry.careerMaps?.items.length !== 0;
@@ -975,7 +968,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                 <div className="full-map" id="full-career-map">
                   <div className="inner">
                     {(mapOpen ? fullMap : fullMap?.slice(0, 1)).map(
-                      (pathItem) => {
+                      (pathItem: SinglePathwayProps) => {
                         const pathways = groupObjectsByLevel(
                           pathItem.occupationsCollection.items
                         );
