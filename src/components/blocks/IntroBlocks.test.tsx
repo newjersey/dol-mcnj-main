@@ -92,7 +92,7 @@ describe("IntroBlocks Component", () => {
   it("renders the Button component with correct props based on active section", () => {
     const { getByText, getByRole } = render(<IntroBlocks {...props} />);
 
-    // Check the initial button
+    // Check the initial button (index 0 → secondary)
     let button = getByRole("link", { name: /Learn More/i });
     expect(button).toHaveAttribute("href", "/section1");
     expect(button).toHaveClass("usa-button secondary");
@@ -101,10 +101,10 @@ describe("IntroBlocks Component", () => {
     const section2Button = getByText("Section 2");
     fireEvent.click(section2Button);
 
-    // Check the button for the second section
+    // Check the button for the second section (index 1 → primary)
     button = getByRole("link", { name: /Learn More/i });
     expect(button).toHaveAttribute("href", "/section2");
-    expect(button).toHaveClass("usa-button tertiary");
+    expect(button).toHaveClass("usa-button primary");
   });
 
   it("handles absence of sections correctly", () => {
