@@ -1,11 +1,13 @@
 describe('Career Pathways navigation & URL ordering', () => {
   beforeEach(() => {
+    // Treat only specific IDs as resolvable; others 404 so indemand param is preserved
     cy.intercept('GET', '/api/occupations/*', (req) => {
       const id = req.url.split('/').pop();
-      req.reply({
-        statusCode: 200,
-        body: { id, title: 'Sample Occupation Title' }
-      });
+      if (id === '123' || id === '321') {
+        req.reply({ statusCode: 200, body: { id, title: 'Sample Occupation Title' } });
+      } else {
+        req.reply({ statusCode: 404, body: { error: 'Not found' } });
+      }
     }).as('getOccupation');
   });
 
@@ -17,9 +19,8 @@ describe('Career Pathways navigation & URL ordering', () => {
   it('migrates indemand to occupation when resolvable', () => {
     cy.visit('/career-pathways/health?indemand=123');
     cy.wait('@getOccupation');
-    // After client normalization, should include occupation param (slugified)
     cy.location('search').should((search) => {
-      expect(search).to.match(/occupation=sample-occupation-title$/);
+      expect(search).to.match(/\?occupation=sample-occupation-title$/);
       expect(search).not.to.contain('indemand=');
     });
   });
@@ -50,11 +51,14 @@ describe('Career Pathways navigation & URL ordering', () => {
     cy.location('search').should('eq', '?occupation=resolvable-occupation');
   });
 
-  it('keeps indemand when not resolvable then migrates after manual occupation change', () => {
-    cy.visit('/career-pathways/health?indemand=999');
+  it('keeps indemand when not resolvable then migrates when a resolvable indemand is visited', () => {
+    cy.visit('/career-pathways/health?indemand=999'); // 999 unresolved (404)
     cy.location('search').should('eq', '?indemand=999');
-    // Simulate user navigation by directly visiting occupation param
-    cy.visit('/career-pathways/health?field=test-field&occupation=some-job');
-    cy.location('search').should('eq', '?field=test-field&occupation=some-job');
+    cy.visit('/career-pathways/health?indemand=321'); // resolvable
+    cy.wait('@getOccupation');
+    cy.location('search').should((search) => {
+      expect(search).to.match(/occupation=sample-occupation-title$/);
+      expect(search).not.to.contain('indemand=');
+    });
   });
 });
