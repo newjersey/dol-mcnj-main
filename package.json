@@ -42,7 +42,7 @@
     "@newjersey/njwds": "^2.6.1",
     "@phosphor-icons/react": "^2.1.10",
     "dayjs": "^1.11.13",
-    "dompurify": "^3.2.6",
+    "dompurify": "^3.2.7",
     "fuse.js": "^7.1.0",
     "http-proxy-middleware": "^3.0.5",
     "markdown-it": "^14.1.0",

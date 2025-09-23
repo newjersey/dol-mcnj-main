@@ -36,10 +36,56 @@ build_applications() {
     echo "🔨 Building applications..."
     npm run build:only
     
+    # Debug: Show what was actually built
+    echo "📋 Contents of backend/dist/:"
+    ls -la backend/dist/ || echo "backend/dist/ directory not found"
+    
+    # Validate backend build
     if [ ! -f "backend/dist/server.js" ]; then
         print_error "Backend build failed - server.js not found!"
+        echo "🔍 Searching for .js files in backend/dist/:"
+        find backend/dist/ -name "*.js" -type f || echo "No .js files found"
         exit 1
     fi
+    
+    # Copy frontend build to backend for serving
+    echo "📁 Copying frontend build to backend..."
+    if [ -d ".next" ]; then
+        mkdir -p backend/dist/build
+        # Copy Next.js build output
+        cp -r .next/* backend/dist/build/ 2>/dev/null || true
+        # Copy public assets
+        cp -r public/* backend/dist/build/ 2>/dev/null || true
+        
+        # Create index.html if it doesn't exist (Next.js may not generate one)
+        if [ ! -f "backend/dist/build/index.html" ]; then
+            echo "📄 Creating placeholder index.html for backend serving..."
+            cat > backend/dist/build/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NJ DOL Career Navigator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div id="__next"></div>
+    <script>
+        // Redirect to the Next.js application
+        window.location.href = '/';
+    </script>
+</body>
+</html>
+EOF
+        fi
+        
+        echo "✅ Frontend build copied to backend/dist/build/"
+        echo "📋 Contents of backend/dist/build/:"
+        ls -la backend/dist/build/ | head -10
+    else
+        print_warning "Frontend .next build directory not found"
+    fi
+    
     print_status "Applications built successfully"
 }
 
@@ -51,26 +97,49 @@ health_check() {
     local attempt=1
     
     echo "🏥 Performing health check for $service_name..."
+    echo "🔗 Testing URL: $url"
     
     while [ $attempt -le $max_attempts ]; do
-        if curl -f -s "$url" > /dev/null 2>&1; then
-            print_status "$service_name health check passed"
+        # Test the URL and capture response
+        local response_code=$(curl -s -o /dev/null -w "%{http_code}" "$url" 2>/dev/null || echo "000")
+        local curl_exit_code=$?
+        
+        if [ "$response_code" = "200" ]; then
+            print_status "$service_name health check passed (HTTP $response_code)"
             return 0
         fi
         
-        echo "   Attempt $attempt/$max_attempts failed, waiting 2s..."
+        # Show more detailed error info every 5 attempts
+        if [ $((attempt % 5)) -eq 1 ]; then
+            echo "   🔍 Debug info (attempt $attempt/$max_attempts):"
+            echo "     HTTP response code: $response_code"
+            echo "     Curl exit code: $curl_exit_code"
+            
+            # Check if the service is running in PM2
+            if [ "$service_name" = "Backend" ]; then
+                echo "     PM2 backend status:"
+                pm2 describe dol-mcnj-backend --silent 2>/dev/null | grep -E "(status|pid|memory)" || echo "     Could not get PM2 status"
+                echo "     Recent backend logs:"
+                pm2 logs dol-mcnj-backend --lines 3 --nostream 2>/dev/null || echo "     Could not get logs"
+            fi
+        else
+            echo "   Attempt $attempt/$max_attempts failed (HTTP $response_code), waiting 2s..."
+        fi
+        
         sleep 2
         attempt=$((attempt + 1))
     done
     
     print_error "$service_name health check failed after $max_attempts attempts"
+    print_error "Final response code: $response_code"
     return 1
 }
 
 # Backup current PM2 configuration
 backup_pm2_config() {
     echo "💾 Backing up current PM2 configuration..."
-    pm2 dump ~/pm2-backup-$(date +%Y%m%d-%H%M%S).json
+    pm2 dump
+    cp ~/.pm2/dump.pm2 ~/pm2-backup-$(date +%Y%m%d-%H%M%S).json
     print_status "PM2 configuration backed up"
 }
 
@@ -82,7 +151,19 @@ deploy_backend() {
     pm2 reload dol-mcnj-backend --update-env
     
     # Wait a moment for the reload to complete
-    sleep 3
+    sleep 5
+    
+    # Check if the port is listening
+    echo "🔍 Checking if port 8080 is listening..."
+    if netstat -ln 2>/dev/null | grep ":8080 " >/dev/null || ss -ln 2>/dev/null | grep ":8080 " >/dev/null; then
+        echo "✅ Port 8080 is listening"
+    else
+        echo "❌ Port 8080 is not listening"
+        echo "📋 Current PM2 status:"
+        pm2 list
+        echo "📋 Recent backend logs:"
+        pm2 logs dol-mcnj-backend --lines 10 --nostream
+    fi
     
     # Health check
     if ! health_check "Backend" "http://localhost:8080/health"; then
