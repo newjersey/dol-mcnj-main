@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Tag } from "@components/modules/Tag";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import Fuse from "fuse.js";
+import { trackPageLoadTime } from "@utils/analytics";
 
 export const ResourceList = ({
   resources,
@@ -20,6 +21,22 @@ export const ResourceList = ({
   const [filteredResources, setFilteredResources] = useState<
     ResourceCardProps[]
   >([]);
+
+  // Track page load time for tuition assistance specifically
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const currentPath = window.location.pathname;
+      if (currentPath.includes("tuition-assistance")) {
+        setTimeout(() => {
+          trackPageLoadTime(
+            "Tuition Assistance Page",
+            "/support-resources/tuition-assistance"
+          );
+        }, 100);
+      }
+    }
+  }, []);
+
   const organizedTags = tags?.items.reduce((acc, tag) => {
     const category = tag.category?.title || "Other";
     const sysId = tag.category?.sys?.id || "other-category";

@@ -4,6 +4,7 @@ import { IN_DEMAND_OCCUPATIONS_PAGE_DATA as pageData } from "@data/pages/in-dema
 import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
 import { PageHero } from "@components/blocks/PageHero";
+import { PageLoadTracker } from "@components/utils/PageLoadTracker";
 
 async function getData() {
   const occupationItems = await fetch(
@@ -62,6 +63,10 @@ export default async function IndemandOccupationsPage() {
 
   return (
     <div className="page inDemandList">
+      <PageLoadTracker
+        pageName="In-Demand Occupations Page"
+        pageUrl="/in-demand-occupations"
+      />
       <PageHero {...pageData[lang].pageHero} />
       <section className="listBlock">
         <div className="container">
