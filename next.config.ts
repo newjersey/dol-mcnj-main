@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig: NextConfig = {
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false, // Disable source maps in production for smaller bundles
+  poweredByHeader: false, // Remove X-Powered-By header for security
+  compress: true, // Enable gzip compression
   env: {
     REACT_APP_API_URL: process.env.REACT_APP_API_URL,
     REACT_APP_BASE_URL: process.env.REACT_APP_BASE_URL,
@@ -21,6 +27,39 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: false,
     domains: ["images.ctfassets.net", "www.nj.gov"],
+    formats: ['image/webp', 'image/avif'], // Enable modern image formats
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+      {
+        source: '/(.*)\\.(js|css|woff|woff2|ttf|eot|ico|png|jpg|jpeg|gif|svg|webp|avif)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable', // Cache static assets for 1 year
+          },
+        ],
+      },
+    ];
   },
   async rewrites() {
     return [
@@ -30,10 +69,14 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  experimental: {
+    optimizeCss: true, // Enable CSS optimization
+    optimizePackageImports: ['@mui/material', '@mui/icons-material'], // Optimize Material-UI imports
+  },
   sassOptions: {
     // Silences the 'legacy-js-api' deprecation warning
     silenceDeprecations: ["legacy-js-api"],
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

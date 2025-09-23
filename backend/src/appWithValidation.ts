@@ -22,6 +22,7 @@ import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { getOccupationDetailByCIPFactory } from "./domain/occupations/getOccupationDetailByCIP";
 import helmet from "helmet";
+import compression from "compression";
 // import { rateLimiter } from "./utils/rateLimiter";
 import rateLimit from "express-rate-limit";
 import { validateEncryptionSetup, validateEnvironmentConfig } from "./utils/startupValidation";
@@ -82,15 +83,19 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      defaultSrc: ["'self'"],
+// Enable trust proxy for proper IP detection
+app.set('trust proxy', 1);
 
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'"],
+
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
         "'unsafe-eval'",
         "'report-sample'",
         // Google, GTM, Ads
@@ -228,20 +233,31 @@ app.use(
         "https://*.outbound.surveymonkey.com",
         "https://*.surveymonkeyuser.com",
       ],
-      objectSrc: ["'none'"],
-      baseUri: ["'self'"],
-      formAction: ["'self'"],
-      frameAncestors: ["'self'"],
-      upgradeInsecureRequests: [],
-      // reportUri: "/csp-report",
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'self'"],
+        upgradeInsecureRequests: [],
+        // reportUri: "/csp-report",
+      },
     },
+    // Additional security headers
+    hsts: {
+      maxAge: 31536000, // 1 year
+      includeSubDomains: true,
+      preload: true
+    },
+    noSniff: true,
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
   }),
 );
 
 // const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
 // const contactLimiter = rateLimiter(3600, 20) // max 20 emails in 1 hour per ip
-// app.set('trust proxy', 1)
 app.use(cors(corsOptions));
+
+// Enable gzip compression for better performance
+app.use(compression());
 
 // RequestHandler and TracingHandler configuration...
 app.use(Sentry.Handlers.requestHandler());
@@ -431,17 +447,24 @@ const staticFileLimiter = rateLimit({
   max: 60, // limit each IP to 60 requests per windowMs
 });
 
-// Serve static files from the build directory
-app.use(express.static(path.join(__dirname, "..", "build")));
+// Serve static files from the build directory with proper caching
+app.use(express.static(path.join(__dirname, "..", "build"), {
+  etag: true,
+  lastModified: true,
+  maxAge: '1y', // Cache static assets for 1 year
+  immutable: true
+}));
 
 // Routes for handling root and unknown routes...
 app.get("/", staticFileLimiter, (req: Request, res: Response) => {
-  res.setHeader("Cache-Control", "no-cache");
+  // Cache HTML files for a short time to enable faster navigation while allowing updates
+  res.setHeader("Cache-Control", "public, max-age=300, must-revalidate"); // 5 minutes
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
 app.get("*", staticFileLimiter, (req: Request, res: Response) => {
-  res.setHeader("Cache-Control", "no-cache");
+  // Cache HTML files for a short time to enable faster navigation while allowing updates
+  res.setHeader("Cache-Control", "public, max-age=300, must-revalidate"); // 5 minutes
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 

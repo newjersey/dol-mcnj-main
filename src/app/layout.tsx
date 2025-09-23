@@ -21,10 +21,53 @@ import { LangSelector } from "@components/global/LangSelector";
 const publicSans = Public_Sans({
   subsets: ["latin"],
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "arial"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.REACT_APP_SITE_URL as string),
+  title: {
+    default: process.env.REACT_APP_SITE_NAME || "My Career NJ",
+    template: `%s | ${process.env.REACT_APP_SITE_NAME || "My Career NJ"}`,
+  },
+  description: "Explore career opportunities, training programs, and resources in New Jersey",
+  keywords: ["careers", "jobs", "training", "New Jersey", "employment", "skills"],
+  authors: [{ name: "New Jersey Department of Labor and Workforce Development" }],
+  creator: "New Jersey Department of Labor and Workforce Development",
+  publisher: "New Jersey Department of Labor and Workforce Development",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: process.env.REACT_APP_SITE_URL,
+    siteName: process.env.REACT_APP_SITE_NAME || "My Career NJ",
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@NewJerseyDOL",
+  },
 };
 
 export default async function RootLayout({
@@ -37,8 +80,20 @@ export default async function RootLayout({
 
   return (
     <html lang={lang || "en"}>
+      <head>
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//images.ctfassets.net" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="theme-color" content="#1B365D" />
+        <meta name="msapplication-TileColor" content="#1B365D" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body className={publicSans.className}>
-        <Script src="https://newjersey.github.io/njwds/dist/js/uswds.min.js" />
+        <Script 
+          src="https://newjersey.github.io/njwds/dist/js/uswds.min.js" 
+          strategy="lazyOnload"
+        />
         <Script id="google-tag-manager" strategy="afterInteractive">
           {`
             window.allowedHosts = ['mycareer.nj.gov', 'test.mycareer.nj.gov', 'dev.mycareer.nj.gov'];
@@ -53,6 +108,14 @@ export default async function RootLayout({
             }
           `}
         </Script>
+        <noscript>
+          <iframe 
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KBN58VK9"
+            height="0" 
+            width="0" 
+            style={{display: "none", visibility: "hidden"}}
+          />
+        </noscript>
         <main>
           {process.env.REACT_APP_FEATURE_MAINTENANCE === "true" && (
             <Alert
