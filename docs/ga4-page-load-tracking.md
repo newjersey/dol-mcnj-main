@@ -15,6 +15,7 @@ Enhanced the existing analytics utility with:
 - Uses Performance API (both Level 1 and Level 2) for accurate timing
 - Sends events to GA4 via both gtag and dataLayer
 - Includes fallback mechanisms for browser compatibility
+- Refactored to eliminate code duplication with separate `sendLoadTimeToAnalytics()` helper function
 
 ### 2. PageLoadTracker Component (`src/components/utils/PageLoadTracker.tsx`)
 
@@ -55,7 +56,7 @@ The following 7 pages now include page load time tracking:
 7. **Tuition Assistance Page** (`src/app/support-resources/ResourceList.tsx`)
    - Page Name: "Tuition Assistance Page"
    - URL: "/support-resources/tuition-assistance"
-   - Special handling: Tracked in ResourceList component when URL contains "tuition-assistance"
+   - Implementation: Uses standardized PageLoadTracker component
 
 ## Data Sent to GA4
 
