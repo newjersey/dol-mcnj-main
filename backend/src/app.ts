@@ -474,8 +474,7 @@ app.get("/", staticFileLimiter, (req: Request, res: Response) => {
 });
 
 app.get("*", staticFileLimiter, (req: Request, res: Response) => {
-  // Cache HTML files for a short time to enable faster navigation while allowing updates
-  res.setHeader("Cache-Control", "public, max-age=300, must-revalidate"); // 5 minutes
+  res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
