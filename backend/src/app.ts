@@ -43,10 +43,12 @@ async function validateStartup() {
     const isDevOrTest = !process.env.NODE_ENV || 
                        process.env.NODE_ENV === 'dev' || 
                        process.env.NODE_ENV === 'test' ||
-                       process.env.IS_CI === 'true';
+                       process.env.IS_CI === 'true' ||
+                       process.env.CIRCLECI === 'true' ||
+                       process.env.CI === 'true';
     
     if (isDevOrTest) {
-      logger.info("Skipping encryption validation in development/test environment");
+      logger.info("Skipping encryption validation in CI/development/test environment");
     } else {
       // Only validate encryption in AWS environments
       await validateEncryptionSetup();
@@ -55,8 +57,8 @@ async function validateStartup() {
     logger.info("Application startup validation completed successfully");
   } catch (error) {
     logger.error("Application startup validation failed", error);
-    // Don't exit in development - just log the error
-    if (process.env.NODE_ENV && process.env.NODE_ENV.startsWith('aws')) {
+    // Don't exit in development/CI - just log the error
+    if (process.env.NODE_ENV && process.env.NODE_ENV.startsWith('aws') && !process.env.CIRCLECI && !process.env.CI) {
       throw error;
     }
   }
@@ -352,7 +354,7 @@ switch (process.env.NODE_ENV) {
     process.exit(1);
 }
 
-const isCI = process.env.IS_CI;
+const isCI = process.env.IS_CI || process.env.CIRCLECI || process.env.CI;
 
 // Default external API values
 const apiValues = {

@@ -327,6 +327,12 @@ jobs:
       - store_artifacts:
           path: cypress/videos
           destination: cypress-videos
+      - store_artifacts:
+          path: frontend.log
+          destination: frontend-startup-logs
+      - store_artifacts:
+          path: backend/backend.log
+          destination: backend-startup-logs
 
 workflows:
   build-test-deploy:
