@@ -23,15 +23,18 @@ echo "==============================================="
 echo "starting app"
 ./scripts/build.sh
 
-# Start backend
+# Start backend (skip migrations for feature tests since DB should already be set up)
 echo "Starting backend on port ${BACKEND_PORT}..."
 cd backend
 if [ "$CIRCLECI" = "true" ] || [ "$CI" = "true" ]; then
   # In CI, show output to console for debugging while also logging to file
-  CIRCLECI=true CI=true DB_ENV=dev npm start 2>&1 | tee backend.log &
+  # Skip migrations for feature tests - they should already be run during CI setup
+  echo "Starting backend without migrations (assuming DB is already set up)..."
+  CIRCLECI=true CI=true DB_ENV=dev npm run start:no-migrate 2>&1 | tee backend.log &
 else
-  # In local development, just log to file
-  CIRCLECI=true CI=true DB_ENV=dev npm start > backend.log 2>&1 &
+  # In local development, just log to file and skip migrations too
+  echo "Starting backend without migrations (assuming DB is already set up)..."
+  CIRCLECI=true CI=true DB_ENV=dev npm run start:no-migrate > backend.log 2>&1 &
 fi
 BACKEND_PID=$!
 cd ..

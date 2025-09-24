@@ -202,6 +202,17 @@ jobs:
             done
             createdb -h localhost d4adlocal -U postgres
       - run:
+          name: Run database migrations
+          command: |
+            echo "Running database migrations..."
+            cd backend
+            # Set up environment variables for dev database configuration
+            export DB_HOST_DEV=localhost
+            export DB_PASS_DEV=""
+            DB_ENV=dev npm run db-migrate up -- -e dev
+            echo "Database migrations completed"
+          no_output_timeout: 15m
+      - run:
           name: Install required dependencies for Cypress
           command: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run:
@@ -312,8 +323,13 @@ jobs:
             echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
             echo "Created frontend/package.json:"
             cat frontend/package.json
+            echo "=== SETTING UP ENVIRONMENT ==="
+            # Set up environment variables for dev database configuration
+            export DB_HOST_DEV=localhost
+            export DB_PASS_DEV=""
+            export DB_ENV=dev
             echo "=== RUNNING FEATURE TESTS ==="
-            DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
+            scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
       - store_artifacts:
           path: feature-test-output.txt
