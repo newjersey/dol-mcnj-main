@@ -511,7 +511,7 @@ export async function decryptLegacyPII(
         
         return decrypted;
         
-      } catch (decryptError) {
+      } catch {
         // Continue to next AAD attempt if this one fails
         logger.info(`AAD attempt ${i} failed, trying next approach`, { 
           operationId: opId,
