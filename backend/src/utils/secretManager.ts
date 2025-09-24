@@ -24,7 +24,7 @@ export async function getContentfulAccessToken(): Promise<string> {
       console.log("Secret string is empty or not found in the response.");
       throw new Error("Secret string is empty");
     }
-  } catch (error: unknown) {
+  } catch {
     console.error(
       "Error retrieving secret from Secrets Manager. Falling back to environment variable DELIVERY_API.",
     );
