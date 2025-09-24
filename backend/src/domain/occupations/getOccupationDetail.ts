@@ -94,7 +94,7 @@ export const getOccupationDetailFactory = (
         return trainings.map((training: Training) => {
           return convertTrainingToTrainingResult(training, "", 0);
         });
-      } catch (Error) {
+      } catch {
         return [];
       }
     };
