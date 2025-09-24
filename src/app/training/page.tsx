@@ -10,7 +10,6 @@ import { PageHero } from "@components/blocks/PageHero";
 import { Steps } from "./Steps";
 import { TrainingSearch } from "@components/blocks/TrainingSearch";
 import { Cta } from "@components/modules/Cta";
-import { PageLoadTracker } from "@components/utils/PageLoadTracker";
 
 export const revalidate = 1800;
 
@@ -34,10 +33,6 @@ export default async function TrainingExplorerPage() {
 
   return (
     <div className="page trainingExplorer">
-      <PageLoadTracker
-        pageName="Training Explorer Landing Page"
-        pageUrl="/training"
-      />
       <PageHero {...pageData[lang].pageHero} />
       <Steps theme="green" items={pageData[lang].steps} />
       <TrainingSearch content={pageData[lang].search} />

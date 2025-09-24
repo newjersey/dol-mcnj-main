@@ -17,6 +17,7 @@ import { GLOBAL_NAV_DATA as globalNav } from "@data/global/navigation/global";
 import { SupportedLanguages } from "@utils/types/types";
 import { Metadata } from "next";
 import { LangSelector } from "@components/global/LangSelector";
+import { SmartPageLoadTracker } from "@components/utils/SmartPageLoadTracker";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -72,6 +73,7 @@ export default async function RootLayout({
             />
           )}
           <SkipToMain />
+          <SmartPageLoadTracker />
           <Header globalNav={globalNav} mainNav={mainNav} lang={lang} />
           {process.env.REACT_APP_FEATURE_MULTILANG === "true" && (
             <LangSelector />
