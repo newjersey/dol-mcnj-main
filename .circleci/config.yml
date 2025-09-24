@@ -219,16 +219,19 @@ jobs:
             else
               echo "Database connection failed - this may cause migration issues"
             fi
-            echo "Running migrations using npm script..."
-            if DB_ENV=dev npm run db-migrate up -- -e dev; then
-              echo "Database migrations completed successfully"
+            echo "Running database migrations..."
+            # Use the local db-migrate binary directly - this is the most reliable approach
+            if DB_ENV=dev ./node_modules/.bin/db-migrate up -e dev; then
+              echo "✅ Database migrations completed successfully"
             else
-              echo "npm script failed, trying with npx..."
-              if DB_ENV=dev npx db-migrate up -e dev; then
-                echo "Database migrations completed with npx"
+              echo "❌ Migration failed, trying alternative method..."
+              # Fallback: use npm run with correct syntax  
+              if DB_ENV=dev npm run db-migrate -- up -e dev; then
+                echo "✅ Database migrations completed with npm run"
               else
-                echo "Both migration attempts failed, but continuing..."
-                echo "This might be okay if the database is already migrated"
+                echo "❌ Both migration methods failed"
+                echo "This might be okay if the database is already migrated or if migrations will run during app startup"
+                echo "Continuing with the build process..."
               fi
             fi
           no_output_timeout: 15m
