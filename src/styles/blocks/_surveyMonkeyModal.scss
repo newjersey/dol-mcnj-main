@@ -175,12 +175,100 @@
       border-radius: 0;
 
       .modal-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: s.$white;
+        border-bottom: 1px solid s.$base-light;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         padding: s.$size-12 s.$size-16;
         min-height: s.$size-56;
+        flex-shrink: 0;
 
         .modal-title {
           font-size: s.$size-18;
+          flex: 1;
+          padding-right: s.$size-8;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
+
+        .close {
+          min-width: s.$size-40;
+          min-height: s.$size-40;
+          flex-shrink: 0;
+          margin-left: auto;
+          
+          // Ensure close button is always visible and accessible
+          &:focus,
+          &:hover {
+            background-color: s.$error-lighter;
+            color: s.$error-dark;
+          }
+        }
+      }
+
+      .modal-content {
+        flex: 1;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        
+        .survey-iframe {
+          min-height: 100%;
+          width: 100%;
+        }
+      }
+    }
+    
+    // Add visual indicator for swipe-to-close gesture
+    &::before {
+      content: "";
+      position: absolute;
+      top: s.$size-8;
+      left: 50%;
+      transform: translateX(-50%);
+      width: s.$size-48;
+      height: s.$size-4;
+      background-color: s.$base-light;
+      border-radius: s.$size-2;
+      z-index: 15;
+    }
+  }
+}
+
+// Add safe area support for devices with notches
+@media screen and (max-width: 480px) {
+  .surveyMonkeyModal.open {
+    .modal {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      
+      .modal-header {
+        padding-left: max(s.$size-16, env(safe-area-inset-left));
+        padding-right: max(s.$size-16, env(safe-area-inset-right));
+      }
+    }
+    
+    .overlay {
+      // Make overlay more responsive on mobile
+      touch-action: manipulation;
+    }
+  }
+}
+
+// Improved mobile touch interactions
+@media (hover: none) and (pointer: coarse) {
+  .surveyMonkeyModal {
+    .modal-header .close {
+      // Increase touch target size on touch devices
+      min-width: s.$size-48;
+      min-height: s.$size-48;
+      padding: s.$size-12;
+      
+      &:active {
+        background-color: s.$error-lighter;
+        transform: scale(0.95);
       }
     }
   }
