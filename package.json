@@ -71,7 +71,7 @@
     "@types/marked": "^6.0.0",
     "@types/negotiator": "^0.6.4",
     "@types/node": "^24",
-    "@types/nodemailer": "^6.4.17",
+    "@types/nodemailer": "^7.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
