@@ -5,7 +5,6 @@ import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
 import { SupportedLanguages, ThemeColors } from "@utils/types/types";
 import { cookies } from "next/headers";
 import { Card } from "@components/modules/Card";
-import { PageLoadTracker } from "@components/utils/PageLoadTracker";
 
 export const revalidate = 86400;
 
@@ -36,7 +35,6 @@ export default async function Home() {
 
   return (
     <>
-      <PageLoadTracker pageName="MCNJ Homepage" pageUrl="/" />
       <div className="page home">
         <FancyBanner {...pageData[lang].banner} />
         <div className="container flex-col flex gap-24">

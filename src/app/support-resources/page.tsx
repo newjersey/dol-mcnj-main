@@ -9,7 +9,6 @@ import globalOgImage from "@images/globalOgImage.jpeg";
 import { SUPPORT_RESOURCES_PAGE_DATA as pageData } from "@data/pages/support-resources";
 import { ResourceList } from "./ResourceList";
 import { PageHero } from "@components/blocks/PageHero";
-import { PageLoadTracker } from "@components/utils/PageLoadTracker";
 
 export interface SupportResourcesPageProps {
   resources: {
@@ -55,10 +54,6 @@ export default async function SupportResourcesPage() {
 
   return (
     <div className="page supportResources">
-      <PageLoadTracker
-        pageName="Helpful Resources Page"
-        pageUrl="/support-resources"
-      />
       <PageHero
         heading="Helpful Resources"
         theme="blue"
