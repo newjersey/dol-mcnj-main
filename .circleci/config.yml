@@ -202,40 +202,6 @@ jobs:
             done
             createdb -h localhost d4adlocal -U postgres
       - run:
-          name: Run database migrations
-          command: |
-            echo "Running database migrations..."
-            cd backend
-            # Set up environment variables for dev database configuration
-            export DB_HOST_DEV=localhost
-            export DB_PASS_DEV=""
-            echo "Database configuration:"
-            echo "DB_HOST_DEV=$DB_HOST_DEV"
-            echo "DB_PASS_DEV=$DB_PASS_DEV"
-            echo "Checking database connectivity..."
-            echo "Testing database connection..."
-            if psql -h localhost -U postgres -d d4adlocal -c "SELECT version();"; then
-              echo "Database connection successful"
-            else
-              echo "Database connection failed - this may cause migration issues"
-            fi
-            echo "Running database migrations..."
-            # Use the local db-migrate binary directly - this is the most reliable approach
-            if DB_ENV=dev ./node_modules/.bin/db-migrate up -e dev; then
-              echo "✅ Database migrations completed successfully"
-            else
-              echo "❌ Migration failed, trying alternative method..."
-              # Fallback: use npm run with correct syntax  
-              if DB_ENV=dev npm run db-migrate -- up -e dev; then
-                echo "✅ Database migrations completed with npm run"
-              else
-                echo "❌ Both migration methods failed"
-                echo "This might be okay if the database is already migrated or if migrations will run during app startup"
-                echo "Continuing with the build process..."
-              fi
-            fi
-          no_output_timeout: 15m
-      - run:
           name: Install required dependencies for Cypress
           command: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run:
@@ -315,6 +281,39 @@ jobs:
             
             # Install backend dependencies with retry and fallback
             retry_npm_install "npm --prefix=backend ci --frozen-lockfile" || install_with_fallback "npm --prefix=backend ci --frozen-lockfile"
+      - run:
+          name: Run database migrations
+          command: |
+            echo "Running database migrations..."
+            cd backend
+            # Set up environment variables for dev database configuration
+            export DB_HOST_DEV=localhost
+            export DB_PASS_DEV=""
+            echo "Database configuration:"
+            echo "DB_HOST_DEV=$DB_HOST_DEV"
+            echo "DB_PASS_DEV=$DB_PASS_DEV"
+            echo "Testing database connection..."
+            if psql -h localhost -U postgres -d d4adlocal -c "SELECT version();"; then
+              echo "Database connection successful"
+            else
+              echo "Database connection failed - this may cause migration issues"
+            fi
+            echo "Running database migrations..."
+            # Use the local db-migrate binary directly - this is the most reliable approach
+            if DB_ENV=dev ./node_modules/.bin/db-migrate up -e dev; then
+              echo "✅ Database migrations completed successfully"
+            else
+              echo "❌ Migration failed, trying alternative method..."
+              # Fallback: use npm run with correct syntax  
+              if DB_ENV=dev npm run db-migrate -- up -e dev; then
+                echo "✅ Database migrations completed with npm run"
+              else
+                echo "❌ Both migration methods failed"
+                echo "This might be okay if the database is already migrated or if migrations will run during app startup"
+                echo "Continuing with the build process..."
+              fi
+            fi
+          no_output_timeout: 15m
       - run:
           name: Build Next.js application
           command: |
