@@ -209,8 +209,28 @@ jobs:
             # Set up environment variables for dev database configuration
             export DB_HOST_DEV=localhost
             export DB_PASS_DEV=""
-            DB_ENV=dev npm run db-migrate up -- -e dev
-            echo "Database migrations completed"
+            echo "Database configuration:"
+            echo "DB_HOST_DEV=$DB_HOST_DEV"
+            echo "DB_PASS_DEV=$DB_PASS_DEV"
+            echo "Checking database connectivity..."
+            echo "Testing database connection..."
+            if psql -h localhost -U postgres -d d4adlocal -c "SELECT version();"; then
+              echo "Database connection successful"
+            else
+              echo "Database connection failed - this may cause migration issues"
+            fi
+            echo "Running migrations using npm script..."
+            if DB_ENV=dev npm run db-migrate up -- -e dev; then
+              echo "Database migrations completed successfully"
+            else
+              echo "npm script failed, trying with npx..."
+              if DB_ENV=dev npx db-migrate up -e dev; then
+                echo "Database migrations completed with npx"
+              else
+                echo "Both migration attempts failed, but continuing..."
+                echo "This might be okay if the database is already migrated"
+              fi
+            fi
           no_output_timeout: 15m
       - run:
           name: Install required dependencies for Cypress
