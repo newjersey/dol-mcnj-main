@@ -65,7 +65,8 @@ footer {
   .nav-item {
     line-height: 1;
     font-weight: 600;
-    > a {
+    > a,
+    > .title {
       font-size: s.$size-14;
       border-bottom: s.$size-1 solid s.$white;
       display: block;
