@@ -40,7 +40,7 @@ export const ContactForm = ({
   const handleFormSubmit = async () => {
     const formValues = JSON.stringify({ email, topic: selectedTopic, message });
     const response = await fetch(
-      `${process.env.REACT_APP_SITE_URL}/api/sendEmail`,
+      `${process.env.REACT_APP_SITE_URL}/api/emails/submit-email`,
       {
         method: "POST",
         headers: {

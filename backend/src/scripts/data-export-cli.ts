@@ -64,7 +64,7 @@ function validateSecureEnvironment(): { isSecure: boolean; issues: string[] } {
   if (!fs.existsSync(auditLogDir)) {
     try {
       fs.mkdirSync(auditLogDir, { recursive: true, mode: 0o750 });
-    } catch (error) {
+    } catch {
       issues.push(`Cannot create audit log directory: ${auditLogDir}`);
     }
   }
