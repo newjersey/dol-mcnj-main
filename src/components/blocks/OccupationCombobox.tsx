@@ -3,8 +3,10 @@ import { Button } from "@components/modules/Button";
 import { Autocomplete, TextField } from "@mui/material";
 import { client } from "@utils/client";
 import { collectAllItemsNormalized, Option } from "@utils/collectAllItems";
+import { slugify } from "@utils/slugify";
 import { OCCUPATIONS_QUERY } from "queries/occupationsQuery";
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const OccupationCombobox = ({
   style,
@@ -17,6 +19,7 @@ export const OccupationCombobox = ({
   compact?: boolean;
   placeholder?: string;
 }) => {
+  const router = useRouter();
   const [data, setData] = useState<Option[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState<Option | null>(null);
@@ -40,16 +43,24 @@ export const OccupationCombobox = ({
 
   return (
     <div
+      data-testid="occupation-combobox"
       className={`occupationCombobox flex w-full items-center gap-4 max-w-[475px]${
         className ? ` ${className}` : ""
       }${compact ? " compact" : ""}`}
       style={style}
     >
       <Autocomplete
+        data-testid="occupation-autocomplete"
         options={options}
         disabled={loading}
         value={value}
         onChange={(_, newValue) => setValue(newValue)}
+        onInputChange={(_, inputValue) => {
+          const match = options.find(
+            (o) => o.label.toLowerCase() === inputValue.toLowerCase()
+          );
+            if (match) setValue(match);
+        }}
         getOptionLabel={(opt) =>
           typeof opt === "string" ? opt : opt?.label ?? ""
         }
@@ -71,6 +82,7 @@ export const OccupationCombobox = ({
         clearOnBlur={false}
       />
       <Button
+        data-testid="occupation-select-button"
         defaultStyle="tertiary"
         type="button"
         disabled={loading}
@@ -80,7 +92,32 @@ export const OccupationCombobox = ({
           width: "auto",
         }}
         onClick={() => {
-          if (value) window.location.href = `/career-pathways/${value.value}`;
+          if (value) {
+            // Get current URL params
+            const url = new URL(window.location.href);
+            // Get current industry from pathname
+            const pathParts = url.pathname.split("/");
+            // Derive industry slug either from current path or option value pattern 'industry?occupation=slug'
+            let industry = pathParts[2];
+            if (!industry) {
+              industry = value.value.split('?')[0];
+            }
+            // Replace occupation and field params
+            const params = new URLSearchParams(url.search);
+            // Remove occupation so we can add it last
+            params.delete("occupation");
+            // If a field is selected elsewhere, preserve it
+            // Otherwise, remove field param
+            if (!params.get("field")) {
+              params.delete("field");
+            }
+            // Build the new query string with occupation last
+            let query = params.toString();
+            const occSlug = slugify(value.label);
+            query = query ? `${query}&occupation=${occSlug}` : `occupation=${occSlug}`;
+            const newUrl = `/career-pathways/${industry}?${query}`;
+            router.push(newUrl);
+          }
         }}
       >
         Select

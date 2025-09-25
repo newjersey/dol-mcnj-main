@@ -22,6 +22,8 @@
         "name": "next"
       }
     ],
+  // Added "node" to expose require/module globals for jest.config.ts in CI
+  "types": ["node", "jest", "@testing-library/jest-dom"],
     "baseUrl": "./src",
     "paths": {
       "@components/*": [
@@ -50,14 +52,11 @@
     ".next/types/**/*.ts",
     "backend/build/.next/types/**/*.ts",
     "next-env.d.ts",
+    "jest-dom.d.ts",
     "backend/build/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "backend",
-    "**/*.test.js",
-    "**/*.test.jsx",
-    "**/*.test.tsx",
-    "**/*.test.ts"
+    "backend"
   ]
 }
