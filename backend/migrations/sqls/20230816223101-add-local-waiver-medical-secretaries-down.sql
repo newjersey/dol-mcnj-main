@@ -1,1 +1,0 @@
-DELETE FROM localexceptioncips WHERE soc='43-6013';

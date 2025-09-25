@@ -1,1 +1,0 @@
-alter table indemandcips drop column cipcode;

@@ -1,1 +1,0 @@
-insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('31-1131', 'Nursing Assistants',  'PASSAIC', '51.2601', 'Health Aide.', '512601');

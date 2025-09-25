@@ -1,1 +1,0 @@
-insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('49-3023', 'Automotive Service Technicians and Mechanics', 'OCEAN', '47.0604', 'Automobile/Automotive Mechanics Technology/Technician.', '470604');
