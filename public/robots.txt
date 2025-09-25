@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mycareer.nj.gov/sitemap.xml
+
+# Disallow certain paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /health

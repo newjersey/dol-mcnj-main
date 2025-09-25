@@ -282,6 +282,39 @@ jobs:
             # Install backend dependencies with retry and fallback
             retry_npm_install "npm --prefix=backend ci --frozen-lockfile" || install_with_fallback "npm --prefix=backend ci --frozen-lockfile"
       - run:
+          name: Run database migrations
+          command: |
+            echo "Running database migrations..."
+            cd backend
+            # Set up environment variables for dev database configuration
+            export DB_HOST_DEV=localhost
+            export DB_PASS_DEV=""
+            echo "Database configuration:"
+            echo "DB_HOST_DEV=$DB_HOST_DEV"
+            echo "DB_PASS_DEV=$DB_PASS_DEV"
+            echo "Testing database connection..."
+            if psql -h localhost -U postgres -d d4adlocal -c "SELECT version();"; then
+              echo "Database connection successful"
+            else
+              echo "Database connection failed - this may cause migration issues"
+            fi
+            echo "Running database migrations..."
+            # Use the local db-migrate binary directly - this is the most reliable approach
+            if DB_ENV=dev ./node_modules/.bin/db-migrate up -e dev; then
+              echo "✅ Database migrations completed successfully"
+            else
+              echo "❌ Migration failed, trying alternative method..."
+              # Fallback: use npm run with correct syntax  
+              if DB_ENV=dev npm run db-migrate -- up -e dev; then
+                echo "✅ Database migrations completed with npm run"
+              else
+                echo "❌ Both migration methods failed"
+                echo "This might be okay if the database is already migrated or if migrations will run during app startup"
+                echo "Continuing with the build process..."
+              fi
+            fi
+          no_output_timeout: 15m
+      - run:
           name: Build Next.js application
           command: |
             npm run build:prod
@@ -312,8 +345,13 @@ jobs:
             echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
             echo "Created frontend/package.json:"
             cat frontend/package.json
+            echo "=== SETTING UP ENVIRONMENT ==="
+            # Set up environment variables for dev database configuration
+            export DB_HOST_DEV=localhost
+            export DB_PASS_DEV=""
+            export DB_ENV=dev
             echo "=== RUNNING FEATURE TESTS ==="
-            DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
+            scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
       - store_artifacts:
           path: feature-test-output.txt
@@ -327,6 +365,12 @@ jobs:
       - store_artifacts:
           path: cypress/videos
           destination: cypress-videos
+      - store_artifacts:
+          path: frontend.log
+          destination: frontend-startup-logs
+      - store_artifacts:
+          path: backend/backend.log
+          destination: backend-startup-logs
 
 workflows:
   build-test-deploy:

@@ -3,7 +3,8 @@ import { myNJ, njoit, opra } from "./assets";
 import { ResponsiveImage } from "@components/modules/ResponsiveImage";
 
 export const SubFooter = () => {
-  const year = new Date().getFullYear();
+  // Use static year to prevent hydration mismatches
+  const year = 2025;
   return (
     <div className="sub-footer">
       <div className="container">

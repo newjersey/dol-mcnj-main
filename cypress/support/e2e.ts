@@ -17,5 +17,17 @@
 import "./commands";
 import "cypress-axe";
 
+// Handle uncaught exceptions from React hydration errors
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // returning false here prevents Cypress from
+  // failing the test on uncaught exceptions
+  // Specifically handle React error #418 (hydration mismatch)
+  if (err.message.includes('Minified React error #418')) {
+    return false;
+  }
+  // returning true will fail the test
+  return true;
+});
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

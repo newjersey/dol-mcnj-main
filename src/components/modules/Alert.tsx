@@ -30,7 +30,7 @@ export const Alert = ({
   type,
 }: AlertProps) => {
   const [remove, setRemove] = useState(false);
-  const [loading, setLoading] = useState(!!alertId);
+  const [loading, setLoading] = useState(true); // Start with loading true to prevent hydration mismatch
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -39,16 +39,17 @@ export const Alert = ({
       return;
     }
 
-    if (sessionStorage.getItem(`alert_${alertId}`)) {
+    // Check sessionStorage only on client side
+    if (typeof window !== 'undefined' && sessionStorage.getItem(`alert_${alertId}`)) {
       setRemove(true);
     }
 
-    if (remove) {
+    if (remove && typeof window !== 'undefined') {
       sessionStorage.setItem(`alert_${alertId}`, "true");
     }
 
     setLoading(false);
-  }, [remove]);
+  }, [alertId, remove]);
 
   return (
     <div

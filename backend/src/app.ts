@@ -22,6 +22,7 @@ import { getSalaryEstimateFactory } from "./domain/occupations/getSalaryEstimate
 import { CareerOneStopClient } from "./careeronestop/CareerOneStopClient";
 import { getOccupationDetailByCIPFactory } from "./domain/occupations/getOccupationDetailByCIP";
 import helmet from "helmet";
+import compression from "compression";
 // import { rateLimiter } from "./utils/rateLimiter";
 import rateLimit from "express-rate-limit";
 import { validateEncryptionSetup, validateEnvironmentConfig } from "./utils/startupValidation";
@@ -42,10 +43,12 @@ async function validateStartup() {
     const isDevOrTest = !process.env.NODE_ENV || 
                        process.env.NODE_ENV === 'dev' || 
                        process.env.NODE_ENV === 'test' ||
-                       process.env.IS_CI === 'true';
+                       process.env.IS_CI === 'true' ||
+                       process.env.CIRCLECI === 'true' ||
+                       process.env.CI === 'true';
     
     if (isDevOrTest) {
-      logger.info("Skipping encryption validation in development/test environment");
+      logger.info("Skipping encryption validation in CI/development/test environment");
     } else {
       // Only validate encryption in AWS environments
       await validateEncryptionSetup();
@@ -54,8 +57,8 @@ async function validateStartup() {
     logger.info("Application startup validation completed successfully");
   } catch (error) {
     logger.error("Application startup validation failed", error);
-    // Don't exit in development - just log the error
-    if (process.env.NODE_ENV && process.env.NODE_ENV.startsWith('aws')) {
+    // Don't exit in development/CI - just log the error
+    if (process.env.NODE_ENV && process.env.NODE_ENV.startsWith('aws') && !process.env.CIRCLECI && !process.env.CI) {
       throw error;
     }
   }
@@ -95,36 +98,40 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      defaultSrc: ["'self'"],
+// Enable trust proxy for proper IP detection
+app.set('trust proxy', 1);
 
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        "'report-sample'",
-        // Google, GTM, Ads
-        "https://www.googletagmanager.com",
-        "https://tagmanager.google.com",
-        "https://www.google-analytics.com",
-        "https://analytics.google.com",
-        "https://www.google.com",
-        "https://adservice.google.com",
-        "https://pagead2.googlesyndication.com",
-        "https://*.doubleclick.net",
-        // SurveyMonkey
-        "https://widget.surveymonkey.com",
-        "https://*.surveymonkey.com",
-        "https://*.surveymonkey.net",
-        "https://*.surveymk.com",
-        "https://*.research.net",
-        "https://*.outbound.surveymonkey.com",
-        "https://*.surveymonkeyuser.com",
-        "https://*.smassets.net",
-      ],
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        defaultSrc: ["'self'"],
+
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "'unsafe-eval'",
+          "'report-sample'",
+          // Google, GTM, Ads
+          "https://www.googletagmanager.com",
+          "https://tagmanager.google.com",
+          "https://www.google-analytics.com",
+          "https://analytics.google.com",
+          "https://www.google.com",
+          "https://adservice.google.com",
+          "https://pagead2.googlesyndication.com",
+          "https://*.doubleclick.net",
+          // SurveyMonkey
+          "https://widget.surveymonkey.com",
+          "https://*.surveymonkey.com",
+          "https://*.surveymonkey.net",
+          "https://*.surveymk.com",
+          "https://*.research.net",
+          "https://*.outbound.surveymonkey.com",
+          "https://*.surveymonkeyuser.com",
+          "https://*.smassets.net",
+        ],
       scriptSrcElem: [
         "'self'",
         "'unsafe-inline'",
@@ -241,20 +248,31 @@ app.use(
         "https://*.outbound.surveymonkey.com",
         "https://*.surveymonkeyuser.com",
       ],
-      objectSrc: ["'none'"],
-      baseUri: ["'self'"],
-      formAction: ["'self'"],
-      frameAncestors: ["'self'"],
-      upgradeInsecureRequests: [],
-      // reportUri: "/csp-report",
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'self'"],
+        upgradeInsecureRequests: [],
+        // reportUri: "/csp-report",
+      },
     },
+    // Additional security headers
+    hsts: {
+      maxAge: 31536000, // 1 year
+      includeSubDomains: true,
+      preload: true
+    },
+    noSniff: true,
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" }
   }),
 );
 
 // const contentfulLimiter = rateLimiter(60, 100) // max 100 requests in 1 min per ip
 // const contactLimiter = rateLimiter(3600, 20) // max 20 emails in 1 hour per ip
-// app.set('trust proxy', 1)
 app.use(cors(corsOptions));
+
+// Enable gzip compression for better performance
+app.use(compression());
 
 // RequestHandler and TracingHandler configuration...
 app.use(Sentry.Handlers.requestHandler());
@@ -336,7 +354,7 @@ switch (process.env.NODE_ENV) {
     process.exit(1);
 }
 
-const isCI = process.env.IS_CI;
+const isCI = process.env.IS_CI || process.env.CIRCLECI || process.env.CI;
 
 // Default external API values
 const apiValues = {
@@ -405,7 +423,12 @@ const router = routerFactory({
   ),
 });
 
-app.use(express.static(path.join(__dirname, "build"), { etag: false, lastModified: false }));
+app.use(express.static(path.join(__dirname, "build"), { 
+  etag: true, 
+  lastModified: true,
+  maxAge: '1y', // Cache static assets for 1 year
+  immutable: true
+}));
 app.use(express.json());
 app.use("/api", router);
 app.use("/api/contact", contactRouter);
@@ -447,11 +470,12 @@ const staticFileLimiter = rateLimit({
 
 // Routes for handling root and unknown routes...
 app.get("/", staticFileLimiter, (req: Request, res: Response) => {
-  res.setHeader("Cache-Control", "no-cache");
+  // Cache HTML files for a short time to enable faster navigation while allowing updates
+  res.setHeader("Cache-Control", "public, max-age=300, must-revalidate"); // 5 minutes
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.use(staticFileLimiter, (req: Request, res: Response) => {
+app.get("*", staticFileLimiter, (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });

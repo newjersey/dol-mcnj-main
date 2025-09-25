@@ -3,6 +3,7 @@ import { IconSelector } from "./IconSelector";
 import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { memo } from "react";
 
 export interface CardItemProps {
   title: string;
@@ -18,7 +19,7 @@ export interface CardItemProps {
   iconWeight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
 }
 
-export const Card = ({
+export const Card = memo(({
   title,
   message,
   icon,
@@ -28,14 +29,17 @@ export const Card = ({
   iconWeight = "duotone",
   outline = false,
 }: CardItemProps) => {
+  const isExternal = link.href.includes("http");
+  
   return (
     <Link
       href={link.href}
-      target={link.href.includes("http") ? "_blank" : "_self"}
-      rel={link.href.includes("http") ? "noopener noreferrer" : undefined}
+      target={isExternal ? "_blank" : "_self"}
+      rel={isExternal ? "noopener noreferrer" : undefined}
       className={`cardItem ${className ? className : ""} theme-${theme}${
         outline ? " outline" : ""
       }`}
+      prefetch={!isExternal} // Only prefetch internal links
     >
       <div className="heading">
         <p>{title}</p>
@@ -55,4 +59,6 @@ export const Card = ({
       )}
     </Link>
   );
-};
+});
+
+Card.displayName = "Card";
