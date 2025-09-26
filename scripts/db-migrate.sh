@@ -72,7 +72,8 @@ cat > backend/database.json << EOF
 }
 EOF
 
-npm --prefix=backend run db-migrate up
+# Try with explicit environment specification
+npm --prefix=backend run db-migrate -- --env awstest up
 
 # Restore original database.json
 mv backend/database.json.backup backend/database.json
