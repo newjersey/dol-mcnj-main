@@ -21,17 +21,24 @@ if [[ "$CONFIG_CHECK" == "null" || -z "$CONFIG_CHECK" ]]; then
     exit 1
 fi
 
-HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json 2>/dev/null)
-
-# Check for encoded password and fallback to regular password if not present
-PASSWORD_ENCODED=$(jq -r ".${ENV}.writer.password_encoded.ENV" backend/database.json 2>/dev/null)
-if [[ "$PASSWORD_ENCODED" != "null" && "$PASSWORD_ENCODED" != "" ]]; then
-    PASSWORD_ENV_VAR=$PASSWORD_ENCODED
+# Check if environment has writer/reader structure or simple structure
+HAS_WRITER=$(jq -r ".${ENV}.writer" backend/database.json 2>/dev/null)
+if [[ "$HAS_WRITER" != "null" && "$HAS_WRITER" != "" ]]; then
+    # Environment has writer/reader structure (e.g., dev, awsdev, awstest, awsprod)
+    HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json 2>/dev/null)
+    PASSWORD_ENCODED=$(jq -r ".${ENV}.writer.password_encoded.ENV" backend/database.json 2>/dev/null)
+    if [[ "$PASSWORD_ENCODED" != "null" && "$PASSWORD_ENCODED" != "" ]]; then
+        PASSWORD_ENV_VAR=$PASSWORD_ENCODED
+    else
+        PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json 2>/dev/null)
+    fi
+    DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json 2>/dev/null)
 else
-    PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json 2>/dev/null)
+    # Environment has simple structure (e.g., test)
+    HOST_ENV_VAR=$(jq -r ".${ENV}.host.ENV" backend/database.json 2>/dev/null)
+    PASSWORD_ENV_VAR=$(jq -r ".${ENV}.password.ENV" backend/database.json 2>/dev/null)
+    DB_NAME=$(jq -r ".${ENV}.database" backend/database.json 2>/dev/null)
 fi
-
-DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json 2>/dev/null)
 
 # Get actual values from environment variables
 DB_HOST=${!HOST_ENV_VAR}

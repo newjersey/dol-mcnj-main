@@ -385,6 +385,9 @@ jobs:
             
             # Run database migration using our consolidated migration system
             echo "Running database migrations..."
+            # Ensure all environment variables are properly set for db-migrate script
+            export DB_HOST_TEST=localhost
+            export DB_PASS_TEST=""
             DB_ENV=test ./scripts/db-migrate.sh || {
               echo "Database migration failed, but continuing to test if the database is functional..."
               # Create a basic migrations table for db-migrate compatibility
