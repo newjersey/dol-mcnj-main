@@ -434,6 +434,23 @@ jobs:
             SELECT schemaname, tablename FROM pg_tables WHERE schemaname = 'public' ORDER BY tablename;
             " || echo "Final database check failed"
             
+            echo "=== DEBUGGING BACKEND DATABASE CONNECTION ==="
+            cd backend
+            echo "Backend environment variables for database connection:"
+            echo "NODE_ENV=$NODE_ENV"
+            echo "DB_ENV=$DB_ENV"
+            echo "DB_HOST_TEST=$DB_HOST_TEST"
+            echo "DB_PASS_TEST=$DB_PASS_TEST"
+            
+            echo "Testing backend database connection with same parameters..."
+            echo "Database config for test environment:"
+            cat database.json | jq '.test'
+            
+            # Test direct connection with backend's expected parameters
+            echo "Direct connection test to backend database..."
+            psql -h "$DB_HOST_TEST" -U postgres -d d4adtest -c "SELECT 'Backend can connect' as status; SELECT count(*) as migrations_count FROM migrations;" || echo "Backend connection test failed"
+            cd ..
+            
             echo "=== RUNNING FEATURE TESTS ==="
             NODE_ENV=test DB_ENV=test scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
