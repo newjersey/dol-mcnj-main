@@ -248,11 +248,18 @@ if [[ -n "$DATA_MIGRATION" ]]; then
             
             if [[ "$HAS_DATA" -gt 0 ]]; then
                 echo "Warning: Database contains existing data. Data migration may fail due to conflicts."
-                read -p "Do you want to continue anyway? (y/N): " -n 1 -r
-                echo
-                if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-                    echo "Data migration skipped by user."
-                    exit 0
+                
+                # In CI environments or test environment, automatically proceed
+                if [[ "$CI" == "true" || "$ENV" == "test" || -n "$GITHUB_ACTIONS" || -n "$CIRCLECI" ]]; then
+                    echo "Running in CI/test environment - automatically proceeding with data migration."
+                else
+                    # Only prompt in interactive environments
+                    read -p "Do you want to continue anyway? (y/N): " -n 1 -r
+                    echo
+                    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                        echo "Data migration skipped by user."
+                        exit 0
+                    fi
                 fi
             fi
         fi
