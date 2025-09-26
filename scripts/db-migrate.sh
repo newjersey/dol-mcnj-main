@@ -3,23 +3,55 @@
 cd $(git rev-parse --show-toplevel)
 
 BACKEND_DIR="$(pwd)/backend"
-source ./backend/.env
 
-ENV=${NODE_ENV}
-HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json)
-
-# Check for encoded password and fallback to regular password if not present
-PASSWORD_ENCODED=$(jq -r ".${ENV}.writer.password_encoded.ENV" backend/database.json)
-if [[ "$PASSWORD_ENCODED" != "null" ]]; then
-    PASSWORD_ENV_VAR=$PASSWORD_ENCODED
-else
-    PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json)
+# Source .env file if it exists, otherwise use defaults for local development
+if [[ -f "./backend/.env" ]]; then
+    source ./backend/.env
 fi
 
-DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json)
+# Set default environment if not specified
+ENV=${NODE_ENV:-"dev"}
 
+# Validate environment exists in database.json
+CONFIG_CHECK=$(jq -r ".${ENV}" backend/database.json 2>/dev/null)
+if [[ "$CONFIG_CHECK" == "null" || -z "$CONFIG_CHECK" ]]; then
+    echo "Error: Environment '$ENV' not found in database.json"
+    echo "Available environments: $(jq -r 'keys | join(", ")' backend/database.json 2>/dev/null || echo "Could not read database.json")"
+    exit 1
+fi
+
+HOST_ENV_VAR=$(jq -r ".${ENV}.writer.host.ENV" backend/database.json 2>/dev/null)
+
+# Check for encoded password and fallback to regular password if not present
+PASSWORD_ENCODED=$(jq -r ".${ENV}.writer.password_encoded.ENV" backend/database.json 2>/dev/null)
+if [[ "$PASSWORD_ENCODED" != "null" && "$PASSWORD_ENCODED" != "" ]]; then
+    PASSWORD_ENV_VAR=$PASSWORD_ENCODED
+else
+    PASSWORD_ENV_VAR=$(jq -r ".${ENV}.writer.password.ENV" backend/database.json 2>/dev/null)
+fi
+
+DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json 2>/dev/null)
+
+# Get actual values from environment variables
 DB_HOST=${!HOST_ENV_VAR}
 DB_PASSWORD=${!PASSWORD_ENV_VAR}
+
+# For local development, use defaults if environment variables aren't set
+if [[ "$ENV" == "dev" ]]; then
+    DB_HOST=${DB_HOST:-"localhost"}
+    DB_NAME=${DB_NAME:-"d4adlocal"}
+fi
+
+# Validate required parameters
+if [[ -z "$DB_HOST" ]]; then
+    echo "Error: Database host not configured. Check environment variable: $HOST_ENV_VAR"
+    exit 1
+fi
+
+if [[ -z "$DB_NAME" ]]; then
+    echo "Error: Database name not configured for environment: $ENV"
+    exit 1
+fi
 
 # Handle empty password for local development
 if [[ -z "$DB_PASSWORD" ]]; then
@@ -69,6 +101,23 @@ if [[ -n "$SCHEMA_MIGRATION" ]]; then
         echo "Running schema migration directly..."
         
         if [[ -f "$SQL_FILE" ]]; then
+            # Check if this is a Git LFS pointer file
+            if head -1 "$SQL_FILE" | grep -q "version https://git-lfs.github.com/spec/v1"; then
+                echo "Detected Git LFS file. Attempting to pull LFS content..."
+                git lfs pull --include="$SQL_FILE" 2>/dev/null || {
+                    echo "Warning: Git LFS pull failed. File may not contain actual SQL content."
+                    echo "Please ensure Git LFS is configured and the file is available."
+                    exit 1
+                }
+            fi
+            
+            # Verify the file contains SQL (not LFS pointer)
+            if head -1 "$SQL_FILE" | grep -q "version https://git-lfs.github.com/spec/v1"; then
+                echo "Error: SQL file is still a Git LFS pointer. Cannot execute migration."
+                echo "Please run 'git lfs pull' to download the actual file content."
+                exit 1
+            fi
+            
             # Run the SQL directly
             if [[ -z "$DB_PASSWORD" ]]; then
                 psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -f "$SQL_FILE"
@@ -108,6 +157,29 @@ if [[ -n "$DATA_MIGRATION" ]]; then
     
     if [[ "$MIGRATION_APPLIED" == "0" ]]; then
         echo "Running data migration..."
+        
+        # Check if database already has data (which could cause conflicts)
+        EXISTING_DATA_CHECK=$(psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "
+            SELECT COUNT(*) FROM information_schema.tables 
+            WHERE table_schema='public' AND table_type='BASE TABLE' AND table_name != 'migrations'
+        " 2>/dev/null | xargs || echo "0")
+        
+        if [[ "$EXISTING_DATA_CHECK" -gt 0 ]]; then
+            # Check if any tables have data
+            HAS_DATA=$(psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "
+                SELECT COALESCE(SUM(n_tup_ins), 0) FROM pg_stat_user_tables WHERE schemaname='public'
+            " 2>/dev/null | xargs || echo "0")
+            
+            if [[ "$HAS_DATA" -gt 0 ]]; then
+                echo "Warning: Database contains existing data. Data migration may fail due to conflicts."
+                read -p "Do you want to continue anyway? (y/N): " -n 1 -r
+                echo
+                if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                    echo "Data migration skipped by user."
+                    exit 0
+                fi
+            fi
+        fi
         
         # Change to backend directory and run the Node.js migration script  
         cd "$BACKEND_DIR"
