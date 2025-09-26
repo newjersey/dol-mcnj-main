@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+cd ~/d4ad
+git pull origin main#!/usr/bin/env bash
 
 cd $(git rev-parse --show-toplevel)
 
@@ -108,13 +109,15 @@ if [[ -n "$SCHEMA_MIGRATION" ]]; then
                 # Try multiple approaches to get the actual content
                 git lfs pull --include="$SQL_FILE" 2>/dev/null || \
                 git lfs checkout "$SQL_FILE" 2>/dev/null || \
-                (echo "Git LFS commands failed, trying git pull..." && git pull origin main) || {
-                    echo "Error: Cannot retrieve actual SQL content from Git LFS."
-                    echo "The migration files appear to be LFS pointers but LFS content is unavailable."
-                    echo "Please ensure:"
-                    echo "  1. Git LFS is installed: git lfs install"
-                    echo "  2. LFS content is available: git lfs pull"
-                    echo "  3. Or pull the latest changes: git pull origin main"
+                (echo "Git LFS commands failed, trying git pull..." && git pull origin main) || \
+                (echo "Trying to force-fetch the file from origin..." && git checkout origin/main -- "$SQL_FILE") || \
+                (echo "Trying hard reset to origin/main..." && git reset --hard origin/main) || {
+                    echo "Error: Cannot retrieve actual SQL content."
+                    echo "The migration files appear to be LFS pointers and all retrieval methods failed."
+                    echo "Manual resolution required:"
+                    echo "  1. Check if Git LFS is needed: git lfs install"
+                    echo "  2. Force reset to latest: git reset --hard origin/main"
+                    echo "  3. Or manually replace LFS pointer with SQL content"
                     exit 1
                 }
             fi
