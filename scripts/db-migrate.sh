@@ -53,6 +53,18 @@ if [[ -z "$DB_NAME" ]]; then
     exit 1
 fi
 
+# Validate password for non-local environments
+if [[ "$ENV" != "dev" && -z "$DB_PASSWORD" ]]; then
+    echo "Error: Database password not configured for environment: $ENV"
+    echo "Expected environment variable: $PASSWORD_ENV_VAR"
+    echo "Available password variables:"
+    echo "  - DB_PASS_ENCODED_AWSTEST: ${DB_PASS_ENCODED_AWSTEST:+SET}"
+    echo "  - DB_PASS_AWSTEST: ${DB_PASS_AWSTEST:+SET}" 
+    echo ""
+    echo "Ensure the correct password environment variable is set and sourced from backend/.env"
+    exit 1
+fi
+
 # Handle empty password for local development
 if [[ -z "$DB_PASSWORD" ]]; then
     DATABASE_URL="postgresql://postgres@$DB_HOST:5432/$DB_NAME"
@@ -62,6 +74,27 @@ fi
 
 echo "Using environment: $ENV"
 echo "Database: $DB_NAME on $DB_HOST"
+
+# Test database connection first to catch authentication issues early
+echo "Testing database connection..."
+if [[ -z "$DB_PASSWORD" ]]; then
+    CONNECTION_TEST=$(psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT 1;" 2>&1)
+else
+    CONNECTION_TEST=$(PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT 1;" 2>&1)
+fi
+
+if [[ $? -ne 0 ]]; then
+    echo "Error: Cannot connect to database!"
+    echo "Connection error: $CONNECTION_TEST"
+    echo ""
+    echo "Common issues:"
+    echo "1. Wrong password - check DB_PASS_ENCODED_AWSTEST vs DB_PASS_AWSTEST"
+    echo "2. Network access - ensure security groups allow connection"
+    echo "3. Database not running - verify RDS instance is available"
+    echo "4. Wrong host/database name - check configuration"
+    exit 1
+fi
+echo "✅ Database connection successful"
 
 # Ensure migrations table exists before running db-migrate
 echo "Ensuring migrations table exists..."
