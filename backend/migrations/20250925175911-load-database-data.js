@@ -30,13 +30,20 @@ exports.up = function(db) {
         return reject(new Error('Compressed data file not found: ' + compressedFilePath));
       }
       
-      console.log('🗜️  Decompressing database data (130MB)...');
-      console.log('⏱️  This may take a moment...');
+      // Check if running in CI mode to suppress verbose output
+      var isCI = process.env.CI || process.env.NODE_ENV === 'test';
+      
+      if (!isCI) {
+        console.log('🗜️  Decompressing database data (130MB)...');
+        console.log('⏱️  This may take a moment...');
+      }
       
       // Decompress the file (bunzip2 creates the .sql file)
       execSync(`bunzip2 -k "${compressedFilePath}"`, { cwd: path.dirname(compressedFilePath) });
       
-      console.log('✅ Decompression complete. Loading data...');
+      if (!isCI) {
+        console.log('✅ Decompression complete. Loading data...');
+      }
       
       // Read the decompressed SQL file
       fs.readFile(sqlFilePath, {encoding: 'utf-8'}, function(err, data){
@@ -48,7 +55,11 @@ exports.up = function(db) {
           return reject(err);
         }
         
-        console.log('📊 Executing 37,632 INSERT statements...');
+        // Check if running in CI mode to suppress verbose output
+        var isCI = process.env.CI || process.env.NODE_ENV === 'test';
+        if (!isCI) {
+          console.log('📊 Executing 37,632 INSERT statements...');
+        }
         resolve(data);
       });
     } catch (error) {
@@ -63,7 +74,11 @@ exports.up = function(db) {
     var sqlFilePath = path.join(__dirname, 'sqls', '20250925175911-load-database-data-up.sql');
     if (fs.existsSync(sqlFilePath)) {
       fs.unlinkSync(sqlFilePath);
-      console.log('🎉 Database data loaded successfully! Temporary file cleaned up.');
+      // Check if running in CI mode to suppress verbose output
+      var isCI = process.env.CI || process.env.NODE_ENV === 'test';
+      if (!isCI) {
+        console.log('🎉 Database data loaded successfully! Temporary file cleaned up.');
+      }
     }
     return result;
   })
