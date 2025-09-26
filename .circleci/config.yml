@@ -416,10 +416,11 @@ jobs:
             # Force db-migrate to initialize its metadata table by creating it with the exact schema it expects
             echo "Creating db-migrate metadata table with expected schema..."
             psql -h localhost -U postgres -d d4adtest -c "
-            CREATE TABLE IF NOT EXISTS migrations (
-                id INTEGER PRIMARY KEY,
+            DROP TABLE IF EXISTS migrations;
+            CREATE TABLE migrations (
+                id SERIAL PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
-                run_on TIMESTAMP NOT NULL
+                run_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
             );" || echo "Migrations table creation failed"
             
             # Verify migrations table exists and show its structure
@@ -449,6 +450,19 @@ jobs:
             # Test direct connection with backend's expected parameters
             echo "Direct connection test to backend database..."
             psql -h "$DB_HOST_TEST" -U postgres -d d4adtest -c "SELECT 'Backend can connect' as status; SELECT count(*) as migrations_count FROM migrations;" || echo "Backend connection test failed"
+            cd ..
+            
+            echo "=== TESTING DB-MIGRATE DIRECTLY ==="
+            cd backend
+            echo "Running db-migrate directly to see detailed error..."
+            echo "Environment variables for db-migrate:"
+            env | grep -E "(NODE_ENV|DB_ENV|DB_HOST|DB_PASS)" || echo "No matching env vars"
+            
+            echo "Attempting db-migrate up with verbose output..."
+            npm run db-migrate up -- -e test --verbose || echo "db-migrate failed as expected"
+            
+            echo "Checking what db-migrate created/found..."
+            psql -h localhost -U postgres -d d4adtest -c "\dt" || echo "Table list failed"
             cd ..
             
             echo "=== RUNNING FEATURE TESTS ==="
