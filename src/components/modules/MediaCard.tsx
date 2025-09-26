@@ -1,76 +1,54 @@
-import { highlighter } from "@utils/highlighter";
-import { LinkObject } from "./LinkObject";
-import { ResponsiveImage } from "./ResponsiveImage";
-import { HeadingLevel } from "@utils/types";
-import { JSX } from "react";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
+import { ButtonProps } from "@utils/types";
+import Image, { ImageProps } from "next/image";
+import { Button } from "./Button";
 
-interface MediaCardProps {
-  className?: string;
-  description?: string;
-  headingLevel?: HeadingLevel;
-  image?: {
-    url: string;
-    lqip?: string;
-  };
+export interface MediaCardProps {
   title: string;
-  url?: string;
+  image?: ImageProps;
+  description?: string;
+  button?: ButtonProps;
+  className?: string;
 }
 
-const Content = ({
-  className,
-  description,
-  headingLevel = 3,
-  image,
+export const MediaCard = ({
   title,
+  image,
+  description,
+  button,
+  className,
 }: MediaCardProps) => {
-  const Heading = `h${headingLevel}` as keyof JSX.IntrinsicElements;
   return (
-    <div className={`media-card${className ? ` ${className}` : ""}`}>
+    <div
+      className={`${
+        className ? `${className} ` : ""
+      }media-card border-[1px] bg-[#fcfcfc] border-[#DCDEE0] border-solid rounded-[16px] overflow-hidden`}
+    >
       {image && (
-        <div className="image">
-          <ResponsiveImage
-            src={image.url}
-            lqip={image.lqip}
-            isBackground
-            alt={`Image for "${title}"`}
+        <div className="relative h-[167px] overflow-hidden">
+          <Image
+            className="object-cover h-full w-full"
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            placeholder={image.blurDataURL ? "blur" : undefined}
+            blurDataURL={image.blurDataURL}
           />
         </div>
       )}
-      {title && (
-        <Heading
-          dangerouslySetInnerHTML={{
-            __html: highlighter(title),
-          }}
-        />
-      )}
-      {description && (
-        <p
-          dangerouslySetInnerHTML={{
-            __html: highlighter(description),
-          }}
-        />
-      )}
-      <span className="link">Read More</span>
+      <div className="p-6 flex items-start   flex-col gap-4">
+        <p className="text-[24px] leading-[1.2] font-bold margin-0">{title}</p>
+        {description && (
+          <span
+            className="description mt-0"
+            dangerouslySetInnerHTML={{
+              __html: parseMarkdownToHTML(description),
+            }}
+          />
+        )}
+        {button && <Button {...button} className="mt-0" />}
+      </div>
     </div>
   );
 };
-
-const MediaCard = ({ image, title, description, url }: MediaCardProps) => {
-  const cardProps = {
-    image,
-    title,
-    description,
-  };
-  return url ? (
-    <LinkObject url={url} className="media-card">
-      <Content {...cardProps} />
-      rwar
-    </LinkObject>
-  ) : (
-    <div className="media-card">
-      <Content {...cardProps} />
-    </div>
-  );
-};
-
-export { MediaCard };

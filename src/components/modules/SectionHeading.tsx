@@ -1,5 +1,6 @@
 import { HeadingLevel, ThemeColors } from "@utils/types";
 import { Heading } from "./Heading";
+import { slugify } from "@utils/slugify";
 
 export interface SectionHeadingProps {
   className?: string;
@@ -8,11 +9,13 @@ export interface SectionHeadingProps {
   heading: string;
   noDivider?: boolean;
   headingLevel?: HeadingLevel;
+  withIds?: boolean;
   strikeThrough?: boolean;
 }
 
 const SectionHeading = ({
   className,
+  withIds,
   noDivider,
   color,
   description,
@@ -26,7 +29,9 @@ const SectionHeading = ({
         strikeThrough ? " strikeThrough" : ""
       }${noDivider ? " noDivider" : ""}${className ? ` ${className}` : ""}`}
     >
-      <Heading level={headingLevel}>{heading}</Heading>
+      <Heading id={withIds ? slugify(heading) : undefined} level={headingLevel}>
+        {heading}
+      </Heading>
       {description && <p className="description">{description}</p>}
     </div>
   );
