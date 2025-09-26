@@ -36,5 +36,24 @@ export DATABASE_URL
 
 echo "Running incremental migration for environment: $ENV"
 echo "Database: $DB_NAME on $DB_HOST"
+echo "DATABASE_URL: postgresql://postgres:***@$DB_HOST:5432/$DB_NAME"
+
+# Test the connection before running db-migrate
+echo "Testing connection to database..."
+if [[ -z "$DB_PASSWORD" ]]; then
+    psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "SELECT 1;" > /dev/null 2>&1
+else
+    PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "SELECT 1;" > /dev/null 2>&1
+fi
+
+if [[ $? -eq 0 ]]; then
+    echo "✅ Direct connection successful"
+else
+    echo "❌ Direct connection failed"
+    echo "Trying to diagnose the issue..."
+    echo "DB_HOST: '$DB_HOST'"
+    echo "DB_NAME: '$DB_NAME'"
+    echo "Password set: ${DB_PASSWORD:+YES}"
+fi
 
 npm --prefix=backend run db-migrate up
