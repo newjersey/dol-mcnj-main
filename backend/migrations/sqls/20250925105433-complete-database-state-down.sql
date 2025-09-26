@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:79498643613640db6a449f0d2ccec251245af7031781381ebbfd8150918ad9f5
-size 477
+-- Rollback: Drop all tables and sequences
+DO $$ 
+DECLARE r RECORD;
+BEGIN
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') 
+    LOOP
+        EXECUTE 'DROP TABLE IF EXISTS public.' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+    
+    FOR r IN (SELECT sequencename FROM pg_sequences WHERE schemaname = 'public') 
+    LOOP
+        EXECUTE 'DROP SEQUENCE IF EXISTS public.' || quote_ident(r.sequencename) || ' CASCADE';
+    END LOOP;
+END $$;
