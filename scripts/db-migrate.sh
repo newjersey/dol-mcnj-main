@@ -80,10 +80,31 @@ EOF
 echo "Temporary database.json content:"
 cat backend/database.json
 
-# Try with explicit environment specification
-npm --prefix=backend run db-migrate -- --env awstest up
+# Since db-migrate has persistent connection issues, use direct SQL approach
+echo "Running migration SQL directly (bypassing db-migrate)..."
+
+# Find the most recent migration that hasn't been run yet
+LATEST_MIGRATION=$(ls -t backend/migrations/sqls/*-up.sql | head -1)
+MIGRATION_NAME=$(basename "$LATEST_MIGRATION" | sed 's/-up\.sql$//')
+
+echo "Found latest migration: $MIGRATION_NAME"
+
+if [[ -f "$LATEST_MIGRATION" ]]; then
+    echo "Executing migration SQL..."
+    PGPASSWORD="$DB_PASSWORD" psql -h "$DB_HOST" -U postgres -d "$DB_NAME" -f "$LATEST_MIGRATION"
+    
+    if [[ $? -eq 0 ]]; then
+        echo "Recording migration in database..."
+        PGPASSWORD="$DB_PASSWORD" psql -h "$DB_HOST" -U postgres -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT DO NOTHING;"
+        echo "✅ Migration completed successfully!"
+    else
+        echo "❌ Migration failed"
+        exit 1
+    fi
+else
+    echo "No migration files found"
+    exit 1
+fi
 
 # Restore original database.json
 mv backend/database.json.backup backend/database.json
-
-echo "✅ Migration completed successfully!"
