@@ -53,6 +53,11 @@ echo "Running db-migrate with forced DATABASE_URL usage..."
 mv backend/database.json backend/database.json.backup
 
 # Create a minimal database.json that forces db-migrate to use DATABASE_URL
+echo "Creating temporary database.json with:"
+echo "  Host: $DB_HOST"
+echo "  Database: $DB_NAME"
+echo "  Password set: ${DB_PASSWORD:+YES}"
+
 cat > backend/database.json << EOF
 {
   "dev": {
@@ -71,6 +76,9 @@ cat > backend/database.json << EOF
   }
 }
 EOF
+
+echo "Temporary database.json content:"
+cat backend/database.json
 
 # Try with explicit environment specification
 npm --prefix=backend run db-migrate -- --env awstest up
