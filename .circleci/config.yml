@@ -390,6 +390,18 @@ jobs:
             echo "DB_PASS_TEST=(empty)"
             echo "PostgreSQL status: $(pg_isready -h localhost -p 5432 -U postgres)"
             
+            # Wait for PostgreSQL to be ready
+            echo "Waiting for PostgreSQL to be ready..."
+            while ! pg_isready -h localhost -p 5432 -U postgres -q; do
+              echo "PostgreSQL not ready yet, waiting..."
+              sleep 2
+            done
+            
+            echo "Creating test database..."
+            # Create the test database if it doesn't exist
+            psql -h localhost -U postgres -c "SELECT 1 FROM pg_database WHERE datname = 'd4adtest';" | grep -q 1 || psql -h localhost -U postgres -c "CREATE DATABASE d4adtest;"
+            echo "Test database d4adtest ready."
+            
             echo "=== RUNNING FEATURE TESTS ==="
             DB_ENV=test scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
