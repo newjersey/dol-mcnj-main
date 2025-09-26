@@ -1,5 +1,4 @@
-cd ~/d4ad
-git pull origin main#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 cd $(git rev-parse --show-toplevel)
 
