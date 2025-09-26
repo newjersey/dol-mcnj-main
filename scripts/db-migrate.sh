@@ -104,17 +104,26 @@ if [[ -n "$SCHEMA_MIGRATION" ]]; then
             # Check if this is a Git LFS pointer file
             if head -1 "$SQL_FILE" | grep -q "version https://git-lfs.github.com/spec/v1"; then
                 echo "Detected Git LFS file. Attempting to pull LFS content..."
-                git lfs pull --include="$SQL_FILE" 2>/dev/null || {
-                    echo "Warning: Git LFS pull failed. File may not contain actual SQL content."
-                    echo "Please ensure Git LFS is configured and the file is available."
+                
+                # Try multiple approaches to get the actual content
+                git lfs pull --include="$SQL_FILE" 2>/dev/null || \
+                git lfs checkout "$SQL_FILE" 2>/dev/null || \
+                (echo "Git LFS commands failed, trying git pull..." && git pull origin main) || {
+                    echo "Error: Cannot retrieve actual SQL content from Git LFS."
+                    echo "The migration files appear to be LFS pointers but LFS content is unavailable."
+                    echo "Please ensure:"
+                    echo "  1. Git LFS is installed: git lfs install"
+                    echo "  2. LFS content is available: git lfs pull"
+                    echo "  3. Or pull the latest changes: git pull origin main"
                     exit 1
                 }
             fi
             
-            # Verify the file contains SQL (not LFS pointer)
+            # Verify the file contains SQL (not LFS pointer) after LFS operations
             if head -1 "$SQL_FILE" | grep -q "version https://git-lfs.github.com/spec/v1"; then
-                echo "Error: SQL file is still a Git LFS pointer. Cannot execute migration."
-                echo "Please run 'git lfs pull' to download the actual file content."
+                echo "Error: SQL file is still a Git LFS pointer after attempting to retrieve content."
+                echo "File: $SQL_FILE"
+                echo "Please manually run 'git lfs pull' or 'git pull origin main' to get the actual SQL content."
                 exit 1
             fi
             
