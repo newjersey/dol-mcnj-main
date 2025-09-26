@@ -374,8 +374,24 @@ jobs:
             echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
             echo "Created frontend/package.json:"
             cat frontend/package.json
+            echo "=== SETTING UP DATABASE ENVIRONMENT ==="
+            # Set up environment variables for test database
+            export DB_ENV=test
+            export DB_HOST_TEST=localhost
+            export DB_PASS_TEST=""
+            export PGHOST=localhost
+            export PGPORT=5432
+            export PGUSER=postgres
+            export PGPASSWORD=""
+            
+            echo "Database environment:"
+            echo "DB_ENV=$DB_ENV"
+            echo "DB_HOST_TEST=$DB_HOST_TEST" 
+            echo "DB_PASS_TEST=(empty)"
+            echo "PostgreSQL status: $(pg_isready -h localhost -p 5432 -U postgres)"
+            
             echo "=== RUNNING FEATURE TESTS ==="
-            DB_ENV=$DB_ENV scripts/feature-tests.sh > feature-test-output.txt
+            DB_ENV=test scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
       - store_artifacts:
           path: feature-test-output.txt
