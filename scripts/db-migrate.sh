@@ -202,12 +202,23 @@ if [[ -n "$SCHEMA_MIGRATION" ]]; then
             fi
             
             if [[ $? -eq 0 ]]; then
-                # Record the migration as completed (use INSERT ... ON CONFLICT for safety)
+                # Record the migration as completed (check if already exists first)
                 echo "Recording schema migration as completed..."
+                MIGRATION_EXISTS=0
                 if [[ -z "$DB_PASSWORD" ]]; then
-                    psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT (name) DO NOTHING;"
+                    MIGRATION_EXISTS=$(psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT COUNT(*) FROM migrations WHERE name = '$MIGRATION_NAME';" | xargs)
                 else
-                    PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT (name) DO NOTHING;"
+                    MIGRATION_EXISTS=$(PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT COUNT(*) FROM migrations WHERE name = '$MIGRATION_NAME';" | xargs)
+                fi
+                
+                if [[ "$MIGRATION_EXISTS" -eq 0 ]]; then
+                    if [[ -z "$DB_PASSWORD" ]]; then
+                        psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW());"
+                    else
+                        PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW());"
+                    fi
+                else
+                    echo "Schema migration '$MIGRATION_NAME' already recorded."
                 fi
                 echo "Schema migration completed successfully!"
             else
@@ -274,7 +285,7 @@ if [[ -n "$DATA_MIGRATION" ]]; then
                             if [[ "$confirm" == "DELETE" ]]; then
                                 echo "Clearing existing data..."
                                 # Get list of all tables except migrations
-                                local tables
+                                tables=""
                                 if [[ -z "$DB_PASSWORD" ]]; then
                                     tables=$(psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT tablename FROM pg_tables WHERE schemaname='public' AND tablename != 'migrations';" | xargs)
                                 else
@@ -353,12 +364,23 @@ if [[ -n "$DATA_MIGRATION" ]]; then
         "
         
         if [[ $? -eq 0 ]]; then
-            # Record the migration as completed (use INSERT ... ON CONFLICT for safety)
+            # Record the migration as completed (check if already exists first)
             echo "Recording data migration as completed..."
+            MIGRATION_EXISTS=0
             if [[ -z "$DB_PASSWORD" ]]; then
-                psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT (name) DO NOTHING;"
+                MIGRATION_EXISTS=$(psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT COUNT(*) FROM migrations WHERE name = '$MIGRATION_NAME';" | xargs)
             else
-                PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT (name) DO NOTHING;"
+                MIGRATION_EXISTS=$(PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT COUNT(*) FROM migrations WHERE name = '$MIGRATION_NAME';" | xargs)
+            fi
+            
+            if [[ "$MIGRATION_EXISTS" -eq 0 ]]; then
+                if [[ -z "$DB_PASSWORD" ]]; then
+                    psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW());"
+                else
+                    PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW());"
+                fi
+            else
+                echo "Data migration '$MIGRATION_NAME' already recorded."
             fi
             echo "Data migration completed successfully!"
         else
