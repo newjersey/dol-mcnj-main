@@ -48,14 +48,33 @@ else
     exit 1
 fi
 
-# Force db-migrate to use DATABASE_URL by temporarily renaming database.json
+# Force db-migrate to use DATABASE_URL by creating a minimal database.json
 echo "Running db-migrate with forced DATABASE_URL usage..."
 mv backend/database.json backend/database.json.backup
-echo '{}' > backend/database.json
+
+# Create a minimal database.json that forces db-migrate to use DATABASE_URL
+cat > backend/database.json << EOF
+{
+  "dev": {
+    "driver": "pg",
+    "host": "$DB_HOST",
+    "user": "postgres",
+    "password": "$DB_PASSWORD",
+    "database": "$DB_NAME"
+  },
+  "awstest": {
+    "driver": "pg",
+    "host": "$DB_HOST",
+    "user": "postgres", 
+    "password": "$DB_PASSWORD",
+    "database": "$DB_NAME"
+  }
+}
+EOF
 
 npm --prefix=backend run db-migrate up
 
-# Restore database.json
+# Restore original database.json
 mv backend/database.json.backup backend/database.json
 
 npm --prefix=backend run db-migrate up
