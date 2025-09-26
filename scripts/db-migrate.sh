@@ -72,8 +72,8 @@ if [[ -z "$DB_NAME" ]]; then
     exit 1
 fi
 
-# Validate password for non-local environments
-if [[ "$ENV" != "dev" && -z "$DB_PASSWORD" ]]; then
+# Validate password for remote environments (dev and test can use empty passwords)
+if [[ "$ENV" != "dev" && "$ENV" != "test" && -z "$DB_PASSWORD" ]]; then
     echo "Error: Database password not configured for environment: $ENV"
     echo "Expected environment variable: $PASSWORD_ENV_VAR"
     echo "Available password variables:"
