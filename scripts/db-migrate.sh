@@ -36,6 +36,17 @@ DB_NAME=$(jq -r ".${ENV}.writer.database" backend/database.json 2>/dev/null)
 DB_HOST=${!HOST_ENV_VAR}
 DB_PASSWORD=${!PASSWORD_ENV_VAR}
 
+# Decode URL-encoded passwords if needed
+if [[ "$PASSWORD_ENV_VAR" == *"ENCODED"* && -n "$DB_PASSWORD" ]]; then
+    # Check if password appears to be URL-encoded (contains % followed by hex digits)
+    if [[ "$DB_PASSWORD" =~ %[0-9A-Fa-f]{2} ]]; then
+        echo "Detected URL-encoded password, decoding..."
+        DB_PASSWORD=$(python3 -c "import urllib.parse; print(urllib.parse.unquote('$DB_PASSWORD'))" 2>/dev/null) || {
+            echo "Warning: Failed to URL-decode password, using as-is"
+        }
+    fi
+fi
+
 # For local development, use defaults if environment variables aren't set
 if [[ "$ENV" == "dev" ]]; then
     DB_HOST=${DB_HOST:-"localhost"}
