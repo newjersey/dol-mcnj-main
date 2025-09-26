@@ -10,7 +10,8 @@ if [[ -f "./backend/.env" ]]; then
 fi
 
 # Set default environment if not specified
-ENV=${NODE_ENV:-"dev"}
+# Use DB_ENV if set (for CircleCI), otherwise NODE_ENV, otherwise default to "dev"
+ENV=${DB_ENV:-${NODE_ENV:-"dev"}}
 
 # Validate environment exists in database.json
 CONFIG_CHECK=$(jq -r ".${ENV}" backend/database.json 2>/dev/null)

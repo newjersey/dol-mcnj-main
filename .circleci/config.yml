@@ -376,7 +376,8 @@ jobs:
             cat frontend/package.json
             echo "=== SETTING UP DATABASE ENVIRONMENT ==="
             # Set up environment variables for test database
-            export DB_ENV=test
+            export NODE_ENV=test
+            export DB_ENV=test  # Keep for backward compatibility
             export DB_HOST_TEST=localhost
             export DB_PASS_TEST=""
             export PGHOST=localhost
@@ -385,6 +386,7 @@ jobs:
             export PGPASSWORD=""
             
             echo "Database environment:"
+            echo "NODE_ENV=$NODE_ENV"
             echo "DB_ENV=$DB_ENV"
             echo "DB_HOST_TEST=$DB_HOST_TEST" 
             echo "DB_PASS_TEST=(empty)"
@@ -401,6 +403,23 @@ jobs:
             # Create the test database if it doesn't exist
             psql -h localhost -U postgres -c "SELECT 1 FROM pg_database WHERE datname = 'd4adtest';" | grep -q 1 || psql -h localhost -U postgres -c "CREATE DATABASE d4adtest;"
             echo "Test database d4adtest ready."
+            
+            echo "=== INITIALIZING DB-MIGRATE ==="
+            # Initialize db-migrate metadata table
+            cd backend
+            echo "Creating migrations table for db-migrate..."
+            psql -h localhost -U postgres -d d4adtest -c "CREATE TABLE IF NOT EXISTS migrations (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL UNIQUE,
+                run_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );" || echo "Migrations table already exists or creation failed"
+            
+            # Test db-migrate connection
+            echo "Testing db-migrate connection..."
+            npx db-migrate --version
+            echo "Database config check:"
+            cat database.json | jq '.test'
+            cd ..
             
             echo "=== RUNNING FEATURE TESTS ==="
             DB_ENV=test scripts/feature-tests.sh > feature-test-output.txt
