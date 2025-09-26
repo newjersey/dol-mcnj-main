@@ -9,7 +9,38 @@ jobs:
       - image: cimg/node:20.11.0-browsers
     resource_class: medium
     steps:
+      - run:
+          name: Install Git LFS
+          command: |
+            echo "Installing Git LFS..."
+            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+            sudo apt-get install git-lfs
+            git lfs install
       - checkout
+      - run:
+          name: Pull Git LFS files and verify SQL content
+          command: |
+            echo "Pulling Git LFS files..."
+            git lfs pull || echo "Git LFS pull failed, checking if actual content exists..."
+            
+            echo "Checking SQL migration files..."
+            for sql_file in backend/migrations/sqls/*.sql; do
+              if [ -f "$sql_file" ]; then
+                echo "Checking $sql_file:"
+                head -3 "$sql_file"
+                if head -1 "$sql_file" | grep -q "version https://git-lfs.github.com"; then
+                  echo "⚠️  Found LFS pointer in $sql_file, attempting to get actual content..."
+                  # Try to get actual content from GitHub API
+                  filename=$(basename "$sql_file")
+                  echo "Downloading actual SQL content for $filename..."
+                  curl -H "Accept: application/vnd.github.v3.raw" \
+                       -L "https://api.github.com/repos/newjersey/dol-mcnj-main/contents/backend/migrations/sqls/$filename" \
+                       > "$sql_file.temp" 2>/dev/null && mv "$sql_file.temp" "$sql_file" || echo "Failed to download $filename"
+                else
+                  echo "✅ $sql_file contains actual SQL content"
+                fi
+              fi
+            done
       - run:
           name: Network diagnostics and environment setup
           command: |
@@ -159,7 +190,38 @@ jobs:
           POSTGRES_PASSWORD:
     resource_class: xlarge
     steps:
+      - run:
+          name: Install Git LFS
+          command: |
+            echo "Installing Git LFS..."
+            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+            sudo apt-get install git-lfs
+            git lfs install
       - checkout
+      - run:
+          name: Pull Git LFS files and verify SQL content
+          command: |
+            echo "Pulling Git LFS files..."
+            git lfs pull || echo "Git LFS pull failed, checking if actual content exists..."
+            
+            echo "Checking SQL migration files..."
+            for sql_file in backend/migrations/sqls/*.sql; do
+              if [ -f "$sql_file" ]; then
+                echo "Checking $sql_file:"
+                head -3 "$sql_file"
+                if head -1 "$sql_file" | grep -q "version https://git-lfs.github.com"; then
+                  echo "⚠️  Found LFS pointer in $sql_file, attempting to get actual content..."
+                  # Try to get actual content from GitHub API
+                  filename=$(basename "$sql_file")
+                  echo "Downloading actual SQL content for $filename..."
+                  curl -H "Accept: application/vnd.github.v3.raw" \
+                       -L "https://api.github.com/repos/newjersey/dol-mcnj-main/contents/backend/migrations/sqls/$filename" \
+                       > "$sql_file.temp" 2>/dev/null && mv "$sql_file.temp" "$sql_file" || echo "Failed to download $filename"
+                else
+                  echo "✅ $sql_file contains actual SQL content"
+                fi
+              fi
+            done
       - run:
           name: Network diagnostics and environment setup
           command: |
