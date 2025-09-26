@@ -4,7 +4,7 @@ import { SectionHeading } from "@components/modules/SectionHeading";
 import { useEffect, useState } from "react";
 
 const cardRowClasses =
-  "grid grid-cols-1 mobileLg:grid-cols-2 tabletLg:grid-cols-3 gap-4";
+  "grid grid-cols-1 tablet:grid-cols-2 items-start tabletLg:grid-cols-3 gap-8";
 
 export const ReferenceCards = ({
   heading,

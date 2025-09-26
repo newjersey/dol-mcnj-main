@@ -25,7 +25,7 @@ export async function generateMetadata({}) {
 }
 
 export const cardRowClasses =
-  "grid grid-cols-1 mobileLg:grid-cols-2 tabletLg:grid-cols-3 gap-4";
+  "grid grid-cols-1 tablet:grid-cols-2 items-start tabletLg:grid-cols-3 gap-8";
 
 export default async function MediaPressPage() {
   const cookieStore = await cookies();
@@ -34,11 +34,11 @@ export default async function MediaPressPage() {
   return (
     <div className="page careerNavigator">
       <PageHero {...pageData[lang].pageHero} className="mb-12" />
-      <section className="container flex items-start flex-row-reverse gap-12">
+      <section className="container flex tabletLg:flex-row-reverse flex-col tabletLg:items-start items-center gap-12">
         <SideNav />
         <div
           id="pageCopySection"
-          className="flex flex-col gap-24 mb-24 w-[calc(100%-300px)]"
+          className="flex flex-col gap-24 mb-24 tabletLg:w-[calc(100%-300px)]"
         >
           <div>
             <SectionHeading
