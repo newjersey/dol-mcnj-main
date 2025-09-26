@@ -405,24 +405,37 @@ jobs:
             echo "Test database d4adtest ready."
             
             echo "=== INITIALIZING DB-MIGRATE ==="
-            # Initialize db-migrate metadata table
             cd backend
-            echo "Creating migrations table for db-migrate..."
-            psql -h localhost -U postgres -d d4adtest -c "CREATE TABLE IF NOT EXISTS migrations (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL UNIQUE,
-                run_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            );" || echo "Migrations table already exists or creation failed"
             
-            # Test db-migrate connection
-            echo "Testing db-migrate connection..."
+            # Let db-migrate create its own migrations table by running a no-op command
+            echo "Initializing db-migrate metadata table..."
             npx db-migrate --version
             echo "Database config check:"
             cat database.json | jq '.test'
+            
+            # Force db-migrate to initialize its metadata table by creating it with the exact schema it expects
+            echo "Creating db-migrate metadata table with expected schema..."
+            psql -h localhost -U postgres -d d4adtest -c "
+            CREATE TABLE IF NOT EXISTS migrations (
+                id INTEGER PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                run_on TIMESTAMP NOT NULL
+            );" || echo "Migrations table creation failed"
+            
+            # Verify migrations table exists and show its structure
+            echo "Checking migrations table structure..."
+            psql -h localhost -U postgres -d d4adtest -c "\d migrations" || echo "Migrations table check failed"
             cd ..
             
+            echo "=== FINAL DATABASE CHECK BEFORE FEATURE TESTS ==="
+            echo "Checking database and tables before running feature tests..."
+            psql -h localhost -U postgres -d d4adtest -c "
+            SELECT 'Database d4adtest is accessible' as status;
+            SELECT schemaname, tablename FROM pg_tables WHERE schemaname = 'public' ORDER BY tablename;
+            " || echo "Final database check failed"
+            
             echo "=== RUNNING FEATURE TESTS ==="
-            DB_ENV=test scripts/feature-tests.sh > feature-test-output.txt
+            NODE_ENV=test DB_ENV=test scripts/feature-tests.sh > feature-test-output.txt
           no_output_timeout: 30m
       - store_artifacts:
           path: feature-test-output.txt
