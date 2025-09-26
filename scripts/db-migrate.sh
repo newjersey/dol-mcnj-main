@@ -252,8 +252,60 @@ if [[ -n "$DATA_MIGRATION" ]]; then
                 # In CI environments or test environment, automatically proceed
                 if [[ "$CI" == "true" || "$ENV" == "test" || -n "$GITHUB_ACTIONS" || -n "$CIRCLECI" ]]; then
                     echo "Running in CI/test environment - automatically proceeding with data migration."
+                elif [[ "$ENV" =~ ^aws ]]; then
+                    # For AWS environments, offer options to handle existing data
+                    echo ""
+                    echo "AWS environment detected. Choose how to handle existing data:"
+                    echo "1) Skip data migration (keep existing data)"
+                    echo "2) Clear existing data and reload (DESTRUCTIVE - will delete all data)"
+                    echo "3) Attempt migration anyway (may fail with duplicate key errors)"
+                    echo ""
+                    read -p "Choose option (1-3): " -n 1 -r
+                    echo
+                    
+                    case $REPLY in
+                        1)
+                            echo "Skipping data migration - existing data preserved."
+                            exit 0
+                            ;;
+                        2)
+                            echo "⚠️  WARNING: This will DELETE ALL existing data!"
+                            read -p "Type 'DELETE' to confirm: " confirm
+                            if [[ "$confirm" == "DELETE" ]]; then
+                                echo "Clearing existing data..."
+                                # Get list of all tables except migrations
+                                local tables
+                                if [[ -z "$DB_PASSWORD" ]]; then
+                                    tables=$(psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT tablename FROM pg_tables WHERE schemaname='public' AND tablename != 'migrations';" | xargs)
+                                else
+                                    tables=$(PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -t -c "SELECT tablename FROM pg_tables WHERE schemaname='public' AND tablename != 'migrations';" | xargs)
+                                fi
+                                
+                                # Truncate all tables
+                                for table in $tables; do
+                                    echo "Clearing table: $table"
+                                    if [[ -z "$DB_PASSWORD" ]]; then
+                                        psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "TRUNCATE TABLE \"$table\" RESTART IDENTITY CASCADE;" || echo "Failed to clear $table"
+                                    else
+                                        PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "TRUNCATE TABLE \"$table\" RESTART IDENTITY CASCADE;" || echo "Failed to clear $table"
+                                    fi
+                                done
+                                echo "Existing data cleared. Proceeding with data migration..."
+                            else
+                                echo "Data clearing cancelled. Exiting."
+                                exit 0
+                            fi
+                            ;;
+                        3)
+                            echo "Proceeding with data migration - conflicts may occur..."
+                            ;;
+                        *)
+                            echo "Invalid option. Exiting."
+                            exit 1
+                            ;;
+                    esac
                 else
-                    # Only prompt in interactive environments
+                    # Only prompt in interactive environments for non-AWS
                     read -p "Do you want to continue anyway? (y/N): " -n 1 -r
                     echo
                     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
