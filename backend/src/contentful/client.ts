@@ -1,9 +1,8 @@
-import { GraphQLClient } from "graphql-request";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-export const contentfulClient = ({
+export const contentfulClient = async ({
   query,
   variables,
   includeDrafts,
@@ -17,6 +16,11 @@ export const contentfulClient = ({
   excludeInvalid?: boolean;
   accessToken: string;
 }) => {
+  // Use dynamic import for ES module graphql-request
+  // This ensures we get the actual dynamic import in the compiled JS
+  const graphqlRequestModule = await (eval('import("graphql-request")') as Promise<typeof import("graphql-request")>);
+  const { GraphQLClient } = graphqlRequestModule;
+  
   const headers: {
     authorization: string;
     "X-Include-Drafts"?: string;
