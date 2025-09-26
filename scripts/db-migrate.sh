@@ -86,4 +86,4 @@ npm --prefix=backend run db-migrate -- --env awstest up
 # Restore original database.json
 mv backend/database.json.backup backend/database.json
 
-npm --prefix=backend run db-migrate up
+echo "✅ Migration completed successfully!"
