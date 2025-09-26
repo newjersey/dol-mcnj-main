@@ -380,8 +380,9 @@ jobs:
               sleep 2
             done
             
-            # Create test database if it doesn't exist (suppress verbose output)
-            psql -h localhost -U postgres -c "SELECT 1 FROM pg_database WHERE datname = 'd4adtest';" | grep -q 1 || psql -h localhost -U postgres -c "CREATE DATABASE d4adtest;" >/dev/null 2>&1
+            # Create fresh test database (drop and recreate to avoid data conflicts)
+            psql -h localhost -U postgres -c "DROP DATABASE IF EXISTS d4adtest;" >/dev/null 2>&1
+            psql -h localhost -U postgres -c "CREATE DATABASE d4adtest;" >/dev/null 2>&1
             
             # Run database migration using our consolidated migration system
             echo "Running database migrations..."
