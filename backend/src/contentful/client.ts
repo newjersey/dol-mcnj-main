@@ -20,6 +20,7 @@ export const contentfulClient = async ({
   // This ensures we get the actual dynamic import in the compiled JS
   const graphqlRequestModule = await (eval('import("graphql-request")') as Promise<typeof import("graphql-request")>);
   const { GraphQLClient } = graphqlRequestModule;
+
   
   const headers: {
     authorization: string;

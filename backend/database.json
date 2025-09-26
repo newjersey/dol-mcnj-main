@@ -92,5 +92,18 @@
       "password": { "ENV": "DB_PASS_AWSPROD" },
       "database": "d4adprod"
     }
+  },
+    "migration_test": {
+    "driver": "pg",
+    "user": "postgres",
+    "writer": {
+      "host": {
+        "ENV": "DB_HOST_TEST"
+      },
+      "password": {
+        "ENV": "DB_PASS_TEST"
+      },
+      "database": "dol_mcnj_validation_test"
+    }
   }
 }

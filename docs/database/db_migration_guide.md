@@ -1,8 +1,58 @@
-# Database migrations
+# Database Migrations
 
-Training Explorer has data coming from different sources (see [`data_model`](https://github.com/newjersey/d4ad/blob/master/data_model.md)), which may involve updating our Postgres databases. If you are doing a migration for the ETPL data, then see [this guide](https://github.com/newjersey/d4ad/blob/master/etpl_table_seed_guide.md) instead.
+Training Explorer uses a **two-migration system** for database management: one for schema (tables, constraints) and one for data (compressed INSERT statements). This approach optimizes for GitHub file size limits, build performance, and maintainability.
 
-## Adding DB migrations
+## Current Migration System
+
+Our database uses two consolidated migrations:
+
+1. **Schema Migration** (`*complete-database-state.js`): Database structure, tables, constraints
+2. **Data Migration** (`*load-database-data.js`): Compressed data with automatic decompression
+
+For ETPL data updates, see the [ETPL table seed guide](./etpl_table_seed_guide.md).
+
+## Running Migrations
+
+### Standard Migration Process
+```bash
+# Run both schema and data migrations
+cd /path/to/project
+./scripts/db-migrate.sh up
+
+# This automatically:
+# 1. Creates migrations table if needed
+# 2. Runs schema migration (tables, constraints) 
+# 3. Runs data migration with automatic decompression
+# 4. Records both migrations as completed
+```
+
+### Manual Migration Steps
+```bash
+# Reset database (if needed)
+./scripts/db-migrate.sh reset
+
+# Run migrations
+./scripts/db-migrate.sh up
+```
+
+### Using Database Migration Wizard
+```bash
+# Interactive wizard for migration management
+cd backend
+chmod +x scripts/database-migration-wizard.sh
+./scripts/database-migration-wizard.sh
+
+# Options:
+# 1) Generate Two-Migration System (Schema + Data)
+# 2) Create & Test Database
+# 3) Validate Data Integrity  
+# 4) Initialize Fresh Database
+# 5) Full Workflow (1→2→3)
+```
+
+## Legacy: Adding Individual Migrations
+
+> **Note**: The project now uses a two-migration system. Individual migrations are archived but the process below is preserved for reference.
 
 ```shell script
 npm --prefix=backend run db-migrate create [migration-name] -- --sql-file

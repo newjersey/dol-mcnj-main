@@ -124,7 +124,7 @@ describe("SurveyMonkeyModal", () => {
     });
 
     // Close modal
-    const closeButton = screen.getByLabelText("Close survey modal");
+    const closeButton = screen.getByLabelText("Close survey modal (or swipe down on mobile)");
     fireEvent.click(closeButton);
 
     await waitFor(() => {
@@ -168,7 +168,11 @@ describe("SurveyMonkeyModal", () => {
   });
 
   it("does not show modal if user has already completed survey", () => {
-    localStorageMock.getItem.mockReturnValue("completed");
+    // Set up localStorage mock before rendering
+    localStorageMock.getItem.mockImplementation((key) => {
+      if (key === "test_survey_status") return "completed";
+      return null;
+    });
 
     render(
       <div>
@@ -179,14 +183,17 @@ describe("SurveyMonkeyModal", () => {
 
     const link = screen.getByRole("link", { name: "Test Link" });
     fireEvent.click(link);
-
+    
     const modal = screen.getByRole("dialog", { hidden: true });
     expect(modal).not.toHaveClass("open");
   });
 
   it("does not show modal when already dismissed", async () => {
     // Mock localStorage to return dismissed state
-    localStorageMock.getItem.mockReturnValue("dismissed");
+    localStorageMock.getItem.mockImplementation((key) => {
+      if (key === "test_survey_status") return "dismissed";
+      return null;
+    });
 
     render(
       <div>
@@ -222,7 +229,7 @@ describe("SurveyMonkeyModal", () => {
       expect(modal).toHaveClass("open");
     });
 
-    const closeButton = screen.getByLabelText("Close survey modal");
+    const closeButton = screen.getByLabelText("Close survey modal (or swipe down on mobile)");
     fireEvent.click(closeButton);
 
     await waitFor(() => {

@@ -1,5 +1,0 @@
-insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('31-1131', 'Nursing Assistants',  'CAMDEN', '51.2601', 'Health Aide.', '512601');
-insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('31-1131', 'Nursing Assistants',  'ATLANTIC', '51.2601', 'Health Aide.', '512601');
-insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('31-1131', 'Nursing Assistants',  'CAPE MAY', '51.2601', 'Health Aide.', '512601');
-insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('31-1131', 'Nursing Assistants',  'CUMBERLAND', '51.2601', 'Health Aide.', '512601');
-insert into localexceptioncips (soc, occupation, county, cip, cipdescription, cipcode) values ('31-1131', 'Nursing Assistants',  'SALEM', '51.2601', 'Health Aide.', '512601');
