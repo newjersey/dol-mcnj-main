@@ -24,7 +24,12 @@ echo "starting app"
 echo "Starting backend on port ${BACKEND_PORT}..."
 cd backend
 # Use DB_ENV from environment if set, otherwise default to dev
-DB_ENV=${DB_ENV:-dev} npm start > /dev/null &
+# For test environment, use start:no-migrate since we run migrations separately
+if [[ "${DB_ENV:-dev}" == "test" ]]; then
+  DB_ENV=${DB_ENV:-dev} npm run start:no-migrate > /dev/null &
+else
+  DB_ENV=${DB_ENV:-dev} npm start > /dev/null &
+fi
 BACKEND_PID=$!
 cd ..
 

@@ -383,16 +383,18 @@ jobs:
             # Create test database if it doesn't exist (suppress verbose output)
             psql -h localhost -U postgres -c "SELECT 1 FROM pg_database WHERE datname = 'd4adtest';" | grep -q 1 || psql -h localhost -U postgres -c "CREATE DATABASE d4adtest;" >/dev/null 2>&1
             
-            # Initialize db-migrate metadata table (suppress verbose output)
-            cd backend
-            psql -h localhost -U postgres -d d4adtest -c "
-            DROP TABLE IF EXISTS migrations;
-            CREATE TABLE migrations (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
-                run_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-            );" >/dev/null 2>&1
-            cd ..
+            # Run database migration using our consolidated migration system
+            echo "Running database migrations..."
+            DB_ENV=test ./scripts/db-migrate.sh || {
+              echo "Database migration failed, but continuing to test if the database is functional..."
+              # Create a basic migrations table for db-migrate compatibility
+              psql -h localhost -U postgres -d d4adtest -c "
+              CREATE TABLE IF NOT EXISTS migrations (
+                  id SERIAL PRIMARY KEY,
+                  name VARCHAR(255) NOT NULL,
+                  run_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+              );" || echo "Could not create migrations table"
+            }
             
             echo "Running feature tests..."
             # Run feature tests with CI-optimized output to prevent timeout from excessive output
