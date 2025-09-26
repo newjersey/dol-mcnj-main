@@ -107,18 +107,31 @@ if [[ $? -ne 0 ]]; then
 fi
 echo "✅ Database connection successful"
 
-# Ensure migrations table exists before running db-migrate
+# Create database if it doesn't exist (for test environments)
+if [[ "$ENV" == "test" ]]; then
+    echo "Creating test database if it doesn't exist..."
+    if [[ -z "$DB_PASSWORD" ]]; then
+        psql -U postgres -h "$DB_HOST" -d postgres -c "SELECT 1 FROM pg_database WHERE datname = '$DB_NAME';" | grep -q 1 || \
+        psql -U postgres -h "$DB_HOST" -d postgres -c "CREATE DATABASE $DB_NAME;"
+    else
+        PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d postgres -c "SELECT 1 FROM pg_database WHERE datname = '$DB_NAME';" | grep -q 1 || \
+        PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d postgres -c "CREATE DATABASE $DB_NAME;"
+    fi
+    echo "Test database $DB_NAME ready."
+fi
+
+# Ensure migrations table exists before running db-migrate (matches db-migrate schema)
 echo "Ensuring migrations table exists..."
 if [[ -z "$DB_PASSWORD" ]]; then
     psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "CREATE TABLE IF NOT EXISTS migrations (
         id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL UNIQUE,
         run_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );" 2>/dev/null
 else
     PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "CREATE TABLE IF NOT EXISTS migrations (
         id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL UNIQUE,
         run_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );" 2>/dev/null
 fi
@@ -181,12 +194,12 @@ if [[ -n "$SCHEMA_MIGRATION" ]]; then
             fi
             
             if [[ $? -eq 0 ]]; then
-                # Record the migration as completed
+                # Record the migration as completed (use INSERT ... ON CONFLICT for safety)
                 echo "Recording schema migration as completed..."
                 if [[ -z "$DB_PASSWORD" ]]; then
-                    psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW());"
+                    psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT (name) DO NOTHING;"
                 else
-                    PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW());"
+                    PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT (name) DO NOTHING;"
                 fi
                 echo "Schema migration completed successfully!"
             else
@@ -273,12 +286,12 @@ if [[ -n "$DATA_MIGRATION" ]]; then
         "
         
         if [[ $? -eq 0 ]]; then
-            # Record the migration as completed
+            # Record the migration as completed (use INSERT ... ON CONFLICT for safety)
             echo "Recording data migration as completed..."
             if [[ -z "$DB_PASSWORD" ]]; then
-                psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW());"
+                psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT (name) DO NOTHING;"
             else
-                PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW());"
+                PGPASSWORD="$DB_PASSWORD" psql -U postgres -h "$DB_HOST" -d "$DB_NAME" -c "INSERT INTO migrations (name, run_on) VALUES ('$MIGRATION_NAME', NOW()) ON CONFLICT (name) DO NOTHING;"
             fi
             echo "Data migration completed successfully!"
         else
