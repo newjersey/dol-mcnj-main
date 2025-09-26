@@ -121,14 +121,38 @@ fi
 
 if [[ $? -ne 0 ]]; then
     echo "Error: Cannot connect to database!"
-    echo "Connection error: $CONNECTION_TEST"
+    echo "Connection error details:"
+    echo "$CONNECTION_TEST"
     echo ""
     echo "Common issues:"
-    echo "1. Wrong password - check DB_PASS_ENCODED_AWSTEST vs DB_PASS_AWSTEST"
-    echo "2. Network access - ensure security groups allow connection"
-    echo "3. Database not running - verify RDS instance is available"
-    echo "4. Wrong host/database name - check configuration"
-    exit 1
+    echo "1. Peer authentication error - try setting PGHOST=localhost or use TCP connection"
+    echo "2. Wrong password - check DB_PASS_ENCODED_AWSTEST vs DB_PASS_AWSTEST"
+    echo "3. Network access - ensure security groups allow connection"
+    echo "4. Database not running - verify PostgreSQL/RDS instance is available"
+    echo "5. Wrong host/database name - check configuration"
+    echo ""
+    echo "Attempting alternative connection methods..."
+    
+    # Try with explicit localhost TCP connection
+    if [[ "$DB_HOST" == "localhost" ]]; then
+        echo "Trying TCP connection to localhost..."
+        if [[ -z "$DB_PASSWORD" ]]; then
+            PGHOST=127.0.0.1 psql -U postgres -h 127.0.0.1 -d "$DB_NAME" -c "SELECT 1;" > /dev/null 2>&1
+        else
+            PGHOST=127.0.0.1 PGPASSWORD="$DB_PASSWORD" psql -U postgres -h 127.0.0.1 -d "$DB_NAME" -c "SELECT 1;" > /dev/null 2>&1
+        fi
+        
+        if [[ $? -eq 0 ]]; then
+            echo "✅ TCP connection successful, updating DB_HOST to 127.0.0.1"
+            export DB_HOST="127.0.0.1"
+            export DATABASE_URL="postgres://postgres:${DB_PASSWORD}@127.0.0.1:5432/${DB_NAME}"
+        else
+            echo "❌ TCP connection also failed"
+            exit 1
+        fi
+    else
+        exit 1
+    fi
 fi
 echo "✅ Database connection successful"
 
@@ -332,6 +356,7 @@ if [[ -n "$DATA_MIGRATION" ]]; then
                 fi
             fi
         fi
+    fi
         
         # Change to backend directory and run the Node.js migration script  
         cd "$BACKEND_DIR"
