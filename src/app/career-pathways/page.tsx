@@ -7,6 +7,7 @@ import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import { PageHero } from "@components/blocks/PageHero";
+import { PageLoadTracker } from "@components/utils/PageLoadTracker";
 
 export const revalidate = 86400;
 
@@ -30,6 +31,10 @@ export default async function CareerPathwaysPage() {
 
   return (
     <div className="careerPathwaysLanding">
+      <PageLoadTracker
+        pageName="Career Pathways Landing Page"
+        pageUrl="/career-pathways"
+      />
       <PageHero {...pageData[lang].pageHero} />
       <IndustrySelector {...pageData[lang].industrySelector} />
       <section className="body-copy container">

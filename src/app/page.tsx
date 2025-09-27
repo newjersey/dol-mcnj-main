@@ -5,6 +5,7 @@ import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
 import { SupportedLanguages, ThemeColors } from "@utils/types/types";
 import { cookies } from "next/headers";
 import { Card } from "@components/modules/Card";
+import { PageLoadTracker } from "@components/utils/PageLoadTracker";
 
 export const revalidate = 86400;
 
@@ -35,6 +36,7 @@ export default async function Home() {
 
   return (
     <>
+      <PageLoadTracker pageName="MCNJ Homepage" pageUrl="/" />
       <div className="page home">
         <FancyBanner {...pageData[lang].banner} />
         <div className="container flex-col flex gap-24">
@@ -71,10 +73,13 @@ export default async function Home() {
               ))}
             </div>
           </div>
-          
+
           {/* Exit-intent Survey Modal */}
           <SurveyMonkeyModal
-            surveyUrl={process.env.NEXT_PUBLIC_SURVEY_URL || "https://www.surveymonkey.com/r/Preview/?sm=bTZe7KLw5KwHqgb_2BcXf6rRBzZw0EKbCVPCOGhE6DpTdGdLSkS_2FGF_2BYjAFNSbfqt"}
+            surveyUrl={
+              process.env.NEXT_PUBLIC_SURVEY_URL ||
+              "https://www.surveymonkey.com/r/Preview/?sm=bTZe7KLw5KwHqgb_2BcXf6rRBzZw0EKbCVPCOGhE6DpTdGdLSkS_2FGF_2BYjAFNSbfqt"
+            }
             title="Help Us Improve My Career NJ"
             storageKey="mcnj_landing_survey"
           />
