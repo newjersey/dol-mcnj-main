@@ -73,7 +73,8 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       },
     } as MinimalBannerProps,
     industrySelector: {
-      heading: "Choose an industry below to start exploring.",
+      heading: "Choose an occupation from the list.",
+      secondaryHeading: "Choose an industry below to start exploring.",
       items: [
         {
           image: welder,
@@ -212,7 +213,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
       items: [
         {
           copy: "Contact Us",
-          url: "/contact",
+          url: "?contactModal=true",
         },
       ],
     } as CtaBannerProps,
@@ -257,6 +258,7 @@ export const CAREER_PATHWAYS_PAGE_DATA = {
     } as MinimalBannerProps,
     industrySelector: {
       heading: "Elige una industria a continuación para comenzar a explorar.",
+      secondaryHeading: "Elige una ocupación de la lista.",
       items: [
         {
           image: welder,

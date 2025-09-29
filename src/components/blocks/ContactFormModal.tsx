@@ -72,6 +72,7 @@ export const ContactFormModal = () => {
   return (
     <>
       <button
+        id="contactModalButton"
         className="nav-item contact-us"
         onClick={() => {
           setIsOpen(!isOpen);

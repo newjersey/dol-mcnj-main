@@ -1,5 +1,5 @@
 "use client";
-import { ArrowLeft } from "@phosphor-icons/react";
+import { ArrowLeftIcon } from "@phosphor-icons/react";
 import { colors } from "@utils/settings";
 import { LinkProps } from "@utils/types";
 
@@ -8,10 +8,12 @@ interface BreadcrumbsProps {
   crumbs: LinkProps[];
   pageTitle: string;
   style?: React.CSSProperties;
+  collapsed?: boolean;
 }
 
 const Breadcrumbs = ({
   crumbs,
+  collapsed = true,
   className,
   pageTitle,
   style,
@@ -19,10 +21,12 @@ const Breadcrumbs = ({
   return (
     <nav
       style={style}
-      className={`usa-breadcrumb${className ? ` ${className}` : ""}`}
+      className={`usa-breadcrumb${className ? ` ${className}` : ""}${
+        !collapsed ? " stay-open" : ""
+      }`}
       aria-label="Breadcrumbs"
     >
-      <ArrowLeft className="backIcon" color={colors.primary} />
+      <ArrowLeftIcon className="backIcon" color={colors.primary} />
 
       <ol className="usa-breadcrumb__list">
         {crumbs.map((crumb) => {

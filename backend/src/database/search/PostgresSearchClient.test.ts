@@ -63,6 +63,23 @@ describe.skip("PostgresSearchClient", () => {
     expect(resultIds[1].rank).toBeGreaterThan(resultIds[2].rank);
   });
 
+  it("searches by CIP code when given a valid 6-digit CIP code", async () => {
+    const resultIds = await dataClient.search("123456");
+    // This would need actual test data to verify specific results
+    expect(Array.isArray(resultIds)).toBe(true);
+  });
+
+  it("searches by CIP code when given a formatted CIP code", async () => {
+    const resultIds = await dataClient.search("12.3456");
+    // This would need actual test data to verify specific results
+    expect(Array.isArray(resultIds)).toBe(true);
+  });
+
+  it("uses full-text search for non-CIP code queries", async () => {
+    const resultIds = await dataClient.search("programming");
+    expect(Array.isArray(resultIds)).toBe(true);
+  });
+
   afterAll(async () => {
     await dataClient.disconnect();
   });

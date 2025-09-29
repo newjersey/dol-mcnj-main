@@ -291,6 +291,7 @@ export interface NavItemProps {
   copy: string;
   screenReaderOnlyCopy?: string;
   classes?: string;
+  onClick?: () => void;
   url?: string;
 }
 
@@ -920,5 +921,7 @@ export interface IndustryItemProps {
 
 export interface IndustrySelectorProps {
   heading: string;
+  secondaryHeading?: string;
   items: IndustryItemProps[];
+  list: { label: string; value: string }[];
 }

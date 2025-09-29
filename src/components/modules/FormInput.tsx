@@ -1,5 +1,4 @@
 import { EnvelopeIcon } from "@phosphor-icons/react";
-import { slugify } from "@utils/slugify";
 import { FormInputProps } from "@utils/types";
 
 export const FormInput = (props: FormInputProps) => {
@@ -145,8 +144,11 @@ export const FormInput = (props: FormInputProps) => {
             onChange={onChangeSelect}
           >
             {placeholder && <option value="">{placeholder}</option>}
-            {options?.map((option) => (
-              <option key={option.key} value={option.value}>
+            {options?.map((option, index) => (
+              <option
+                key={option.key + option.value + index}
+                value={option.value}
+              >
                 {option.key}
               </option>
             ))}

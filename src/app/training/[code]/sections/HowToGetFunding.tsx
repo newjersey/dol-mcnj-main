@@ -1,6 +1,6 @@
 import { LabelBox } from "@components/modules/LabelBox";
 import { LinkObject } from "@components/modules/LinkObject";
-import { ArrowSquareOutIcon } from "@phosphor-icons/react";
+import { ArrowSquareOut } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export const HowToGetFunding = ({
@@ -35,7 +35,7 @@ export const HowToGetFunding = ({
         href="https://www.nj.gov/labor/career-services/contact-us/one-stops/"
       >
         New Jersey&apos;s One-Stop Career Centers
-        <ArrowSquareOutIcon size={24} className="inline-block" />
+        <ArrowSquareOut size={24} className="inline-block" />
       </Link>
       <p>You can also check out other tuition assistance opportunities.</p>
       <Link
