@@ -18,6 +18,7 @@ const Button = ({
   iconSuffix,
   ariaLabel,
   iconWeight,
+  autoWidth,
   info,
   label,
   link,
@@ -48,7 +49,9 @@ const Button = ({
     svgFill && svgName ? ` fill` : ""
   }${unstyled ? ` unstyled usa-button--unstyled` : ""}${
     !hasIcon ? ` centered-text` : ""
-  }${type === "link" && disabled ? ` disabled` : ""}`;
+  }${type === "link" && disabled ? ` disabled` : ""}${
+    autoWidth ? ` auto-width` : ""
+  }`;
 
   return type === "button" ? (
     <button

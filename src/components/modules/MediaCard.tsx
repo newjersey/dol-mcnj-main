@@ -47,7 +47,7 @@ export const MediaCard = ({
             }}
           />
         )}
-        {button && <Button {...button} className="mt-0" />}
+        {button && <Button {...button} className="mt-0" autoWidth />}
       </div>
     </div>
   );

@@ -4,7 +4,12 @@ import { SideNav } from "./SideNav";
 // Mock LinkObject component
 jest.mock("../../../components/modules/LinkObject", () => ({
   LinkObject: ({ children, onClick, className, url }: any) => (
-    <a href={url} onClick={onClick} className={className} data-testid="link-object">
+    <a
+      href={url}
+      onClick={onClick}
+      className={className}
+      data-testid="link-object"
+    >
       {children}
     </a>
   ),

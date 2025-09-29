@@ -78,6 +78,7 @@ export const SideNav = ({ label }: { label: string }) => {
       <span className="w-[300px] flex justify-center tabletLg:hidden">
         <Button
           type="button"
+          autoWidth
           iconSuffix="List"
           label={label}
           onClick={() => setOpen(!open)}

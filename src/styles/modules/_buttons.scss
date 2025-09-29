@@ -54,6 +54,10 @@
     }
   }
 
+  &.auto-width {
+    width: auto;
+  }
+
   &.cool {
     &:not(.usa-button--outline):not(.tag):not(.unstyled) {
       background: s.$accent-cool-lighter;
