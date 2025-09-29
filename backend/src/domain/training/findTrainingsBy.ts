@@ -109,8 +109,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
   };
 };
 
-const NAN_INDICATOR = "-99999";
-
 const formatCounty = (county: string): string => {
   const SELECT_ONE = "Select One";
   if (!county || county === SELECT_ONE) {

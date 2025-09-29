@@ -41,8 +41,8 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   return (
     <>
       <div className={`bg-teal-50 rounded-lg p-6 ${className}`}>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+        <div className="mb-6">
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">{title}</h3>
           {showCrcInfoFeature && (
             <button
               onClick={() => setCrcInfoDrawerOpen(true)}
