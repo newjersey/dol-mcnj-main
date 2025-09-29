@@ -72,27 +72,33 @@ const Content = ({ training }: { training: TrainingProps }) => {
           <div className="tabletMd:hidden">
             {hasOutcomeData(training.outcomes) ? (
               <>
-                <div className="bg-primaryLighter rounded-lg p-1 mb-6">
-                  <nav className="flex justify-around">
+                <div className="bg-primary-lighter rounded-lg p-1 mb-6">
+                  <nav className="flex">
                     <button
                       onClick={() => setActiveTab("details")}
-                      className={`py-2.5 text-base font-medium leading-5 border-b-4 w-full ${
+                      className={`py-3 px-4 text-base font-medium leading-5 w-full text-center transition-all duration-200 relative ${
                         activeTab === "details"
-                          ? "text-primary border-primary"
-                          : "text-gray-600 border-transparent hover:text-gray-800"
+                          ? "text-base-darkest"
+                          : "text-base-dark hover:text-base-darkest"
                       }`}
                     >
                       Details
+                      {activeTab === "details" && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary rounded-full"></div>
+                      )}
                     </button>
                     <button
                       onClick={() => setActiveTab("crc")}
-                      className={`py-2.5 text-base font-medium leading-5 border-b-4 w-full ${
+                      className={`py-3 px-4 text-base font-medium leading-5 w-full text-center transition-all duration-200 relative ${
                         activeTab === "crc"
-                          ? "text-primary border-primary"
-                          : "text-gray-600 border-transparent hover:text-gray-800"
+                          ? "text-primary font-semibold"
+                          : "text-base-dark hover:text-base-darkest"
                       }`}
                     >
                       Consumer report card
+                      {activeTab === "crc" && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary rounded-full"></div>
+                      )}
                     </button>
                   </nav>
                 </div>
