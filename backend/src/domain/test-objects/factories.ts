@@ -8,7 +8,7 @@ import {
 } from "../occupations/Occupation";
 import { CalendarLength } from "../CalendarLength";
 import {CipDefinition, LocalException, NullableOccupation, Program, SocDefinition} from "../training/Program";
-import {ProgramOutcome, QuarterlyEmploymentMetrics, NAICSIndustry} from "../training/outcomes/ProgramOutcome";
+import {ProgramOutcome} from "../training/outcomes/ProgramOutcome";
 
 export const randomInt = (): number => Math.floor(Math.random() * Math.floor(10000000));
 export const randomBool = (): boolean => !!Math.round(Math.random());

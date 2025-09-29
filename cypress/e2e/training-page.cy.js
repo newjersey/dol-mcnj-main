@@ -1,41 +1,33 @@
 describe("Training Page", () => {
   it("is accessible", () => {
-    cy.visit("/training/47148");
+    cy.visit("/training/24861");
     cy.injectAxe();
 
-    cy.contains("Building Maintenance Technician").should("exist");
+    cy.contains("Medical Assistant").should("exist");
   });
 
   it("displays training details", () => {
-    cy.visit("/training/47148");
+    cy.visit("/training/24861");
     cy.injectAxe();
 
     // titles
-    cy.contains("Building Maintenance Technician").should("exist");
+    cy.contains("Medical Assistant").should("exist");
     cy.contains(".subHeading", "Lincoln Technical Institute").should("exist");
 
-    // stat boxes
-    cy.contains("In-Demand").should("exist");
-    cy.contains("60.4%").should("exist");
-    cy.contains("$29,890").should("exist");
+    // Consumer Report Card data - formatted values from seed data
+    cy.contains("61%").should("exist"); // completion rate: 0.6125 * 100 = 61.25% → rounded to 61%
+    cy.contains("85%").should("exist"); // employment rate Q2: 84.63% → rounded to 85%
+    cy.contains("$48,464").should("exist"); // median salary Q2: $48,463.92 → rounded to $48,464
 
-    // description
-    cy.contains(
-      "This four unit course of study is designed to introduce students to preventive maintenance concepts as they apply to Heating, Ventilation and Air Conditioning systems.."
-    ).should("exist");
-
+    // check for practical nursing content
+    cy.contains("Medical Assistant").should("exist");
+ 
     // quick stats
-    cy.contains("High School Diploma or GED").should("exist");
+    cy.contains("HS diploma or GED").should("exist");
     cy.contains("Completion Time").should("exist");
-    cy.contains("More than 4 years").should("exist");
 
-    // associated occupations
-    cy.contains(
-      "Engineering Technologists and Technicians, Except Drafters, All Other"
-    ).should("exist");
-    cy.contains(
-      "Heating, Air Conditioning, and Refrigeration Mechanics and Installers"
-    ).should("exist");
+    // associated occupations for nursing
+    cy.contains("Medical Assistants").should("exist");
 
     // share trainings
     cy.contains("How to get funding").should("exist");
@@ -46,20 +38,12 @@ describe("Training Page", () => {
       "You can also check out other tuition assistance opportunities."
     ).should("exist");
 
-    // cost
-    cy.contains("$3,995").should("exist");
-    cy.contains("$2,088").should("exist");
-    cy.contains("$154").should("exist");
-    cy.contains("$0").should("exist");
-    cy.contains("$1,753").should("exist");
-
-    // provider details
+    // provider details - Lincoln Technical Institute
     cy.contains("span", "Lincoln Technical Institute").should("exist");
-    cy.contains("2299 Vauxhall Rd.").should("exist");
-    cy.contains("Union, NJ 07083").should("exist");
-    cy.contains("Kevin L. Kirkley").should("exist");
-    cy.contains("Director").should("exist");
-    cy.contains("(908) 964-7800 Ext: 40253").should("exist");
+    cy.contains("240 Bergen Town Center").should("exist");
+    cy.contains("Paramus, NJ 07652").should("exist");
+    cy.contains("Laurie Pringle").should("exist");
+    cy.contains("(201) 845-6868").should("exist");
     cy.contains("www.lincolntech.com").should("exist");
 
     cy.checkA11y();

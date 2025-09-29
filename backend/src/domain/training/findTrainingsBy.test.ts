@@ -281,7 +281,7 @@ describe("findTrainingsBy", () => {
       // peremployed2: "-99999", // removed - outcomes used instead
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
-    const [training] = await findTrainingsBy(Selector.ID, ["123"]);
+    await findTrainingsBy(Selector.ID, ["123"]);
     // percentEmployed no longer exists - now part of outcomes
   });
 
@@ -291,7 +291,7 @@ describe("findTrainingsBy", () => {
       // avgquarterlywage2: "25000", // removed - outcomes used instead
     });
     stubDataClient.findProgramsBy.mockResolvedValue([program]);
-    const [training] = await findTrainingsBy(Selector.ID, ["123"]);
+    await findTrainingsBy(Selector.ID, ["123"]);
     // averageSalary no longer exists - now part of outcomes
   });
 
