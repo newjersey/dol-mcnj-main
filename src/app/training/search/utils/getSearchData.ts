@@ -3,6 +3,7 @@ import { ResultProps } from "@utils/types";
 import { FilterProps } from "../components/Results";
 import { getZipCodesInRadius } from "@utils/getZipCodesInRadius";
 import { handleFiltering } from "@utils/handleFiltering";
+import { getPercentEmployed } from "@utils/outcomeHelpers";
 
 export async function getSearchData(props: {
   serverSide?: boolean;
@@ -399,8 +400,8 @@ export async function getSearchData(props: {
         break;
       case "rate":
         pageData.sort((a: ResultProps, b: ResultProps) => {
-          const percentEmployedA = a.percentEmployed || 0;
-          const percentEmployedB = b.percentEmployed || 0;
+          const percentEmployedA = getPercentEmployed(a.outcomes) || 0;
+          const percentEmployedB = getPercentEmployed(b.outcomes) || 0;
           return percentEmployedB - percentEmployedA;
         });
         break;

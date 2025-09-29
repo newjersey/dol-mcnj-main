@@ -13,6 +13,7 @@ import { DataClient } from "../../domain/DataClient";
 import { Occupation } from "../../domain/occupations/Occupation";
 import { Selector } from "../../domain/training/Selector";
 import { Error } from "../../domain/Error";
+import {mapProgramOutcomeFromDb, ProgramOutcome} from "../../domain/training/outcomes";
 
 const APPROVED = "Approved";
 
@@ -79,23 +80,45 @@ export class PostgresDataClient implements DataClient {
           "etpl.assistobtainingchildcare",
           "indemandcips.cipcode as indemandcip",
           "onlineprograms.programid as onlineprogramid",
-          "outcomes_cip.peremployed2",
-          "outcomes_cip.avgquarterlywage2",
+          "outcomes_programid.exiters",
+          "outcomes_programid.completers",
+          "outcomes_programid.n_employed_q2",
+          "outcomes_programid.employment_rate_q2",
+          "outcomes_programid.n_employed_q4",
+          "outcomes_programid.employment_rate_q4",
+          "outcomes_programid.median_q2_annual",
+          "outcomes_programid.median_q4_annual",
+          "outcomes_programid.completion_rate",
+          "outcomes_programid.credential_rate",
+          "outcomes_programid.quarter2_naics1_code",
+          "outcomes_programid.quarter2_naics1_title",
+          "outcomes_programid.quarter2_naics2_code",
+          "outcomes_programid.quarter2_naics2_title",
+          "outcomes_programid.quarter2_naics3_code",
+          "outcomes_programid.quarter2_naics3_title",
+          "outcomes_programid.quarter4_naics1_code",
+          "outcomes_programid.quarter4_naics1_title",
+          "outcomes_programid.quarter4_naics2_code",
+          "outcomes_programid.quarter4_naics2_title",
+          "outcomes_programid.quarter4_naics3_code",
+          "outcomes_programid.quarter4_naics3_title",
         )
         .leftOuterJoin("indemandcips", "indemandcips.cipcode", "etpl.cipcode")
         .leftOuterJoin("onlineprograms", "onlineprograms.programid", "etpl.programid")
-        .leftOuterJoin("outcomes_cip", function () {
-          this.on("outcomes_cip.cipcode", "etpl.cipcode").on(
-            "outcomes_cip.providerid",
+        .leftOuterJoin("outcomes_programid", function () {
+          this.on("outcomes_programid.program_id", "etpl.programid").on(
+            "outcomes_programid.provider_id",
             "etpl.providerid",
           );
         })
         .whereIn(`etpl.${column}`, values);
 
-      // Apply the status filtering using the APPROVED constant
       const programs = programsBeforeFilter.filter(
-        (program) => program.statusname === APPROVED && program.providerstatusname === APPROVED,
-      );
+        program => program.statusname === APPROVED && program.providerstatusname === APPROVED
+      ).map(row => ({
+        ...row,
+        outcomes: mapProgramOutcomeFromDb(row) as ProgramOutcome,
+      }));
 
       if (programs.length === 0) {
         console.warn(

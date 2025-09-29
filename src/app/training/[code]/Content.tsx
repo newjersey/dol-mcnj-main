@@ -17,10 +17,14 @@ import { CipDrawer } from "./CipDrawer";
 import { SocDrawer } from "./SocDrawer";
 import { generateJsonLd } from "./jsonLd";
 import { createPortal } from "react-dom";
+import { getPercentEmployed, getAverageSalary, hasOutcomeData } from "@utils/outcomeHelpers";
+import { OutcomeDetails } from "@components/modules/OutcomeDetails";
+import { CrcInfoDrawer } from "./CrcInfoDrawer";
 
 const Content = ({ training }: { training: TrainingProps }) => {
   const [cipDrawerOpen, setCipDrawerOpen] = useState(false);
   const [socDrawerOpen, setSocDrawerOpen] = useState(false);
+  const [crcInfoDrawerOpen, setCrcInfoDrawerOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -61,8 +65,8 @@ const Content = ({ training }: { training: TrainingProps }) => {
           ],
         }}
         inDemand={training.inDemand}
-        employmentRate={training.percentEmployed}
-        salary={training.averageSalary}
+        employmentRate={getPercentEmployed(training.outcomes)}
+        salary={getAverageSalary(training.outcomes)}
       />
 
       <section className="body-copy">
@@ -71,6 +75,13 @@ const Content = ({ training }: { training: TrainingProps }) => {
             <div>
               <Description training={training} />
               <QuickFacts training={training} />
+              {hasOutcomeData(training.outcomes) && (
+                <OutcomeDetails 
+                  outcomes={training.outcomes} 
+                  className="mb-8"
+                  onInfoClick={() => setCrcInfoDrawerOpen(true)}
+                />
+              )}
               <Cost training={training} mobileOnly />
               <LocationContactDetails training={training} mobileOnly />
               <InstructionalPrograms
@@ -118,6 +129,14 @@ const Content = ({ training }: { training: TrainingProps }) => {
           <SocDrawer
             socDrawerOpen={socDrawerOpen}
             setSocDrawerOpen={setSocDrawerOpen}
+          />,
+          document.body
+        )}
+      {mounted &&
+        createPortal(
+          <CrcInfoDrawer
+            isOpen={crcInfoDrawerOpen}
+            onClose={() => setCrcInfoDrawerOpen(false)}
           />,
           document.body
         )}

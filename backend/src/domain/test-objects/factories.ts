@@ -27,7 +27,10 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
       ciptitle: "some-ciptitle-" + randomInt(),
     },
     totalCost: randomInt(),
-    percentEmployed: randomInt(),
+    outcomes: {
+      completion: { completionRate: Math.random() },
+      employment: [{ quarter: 2, employmentRate: Math.random() }]
+    },
     calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
     inDemand: randomBool(),
@@ -52,19 +55,39 @@ export const buildTrainingResult = (overrides: Partial<TrainingResult>): Trainin
 
 export const buildTraining = (overrides: Partial<Training>): Training => {
   return {
+    name: "some name " + randomInt(),
     id: "some-id-" + randomInt(),
-    name: "some-name-" + randomInt(),
     cipDefinition: {
       cipcode: "some-cipcode-" + randomInt(),
       ciptitle: "some-ciptitle-" + randomInt(),
     },
-    provider: buildProvider({}),
-    description: "some-description-" + randomInt(),
-    certifications: "some-certifications-" + randomInt(),
-    prerequisites: "some-certifications-" + randomInt(),
-    occupations: [buildOccupation({})],
+    provider: {
+      id: "some-provider-id-" + randomInt(),
+      name: "some-provider-name-" + randomInt(),
+      url: "http://example.com",
+      address: {
+        street1: "123 Main St",
+        street2: "",
+        city: "some-city-" + randomInt(),
+        state: "NJ",
+        zipCode: "some-zipcode-" + randomInt(),
+      },
+      contactName: "Contact Name",
+      contactTitle: "Contact Title",
+      phoneNumber: "555-1234",
+      phoneExtension: "",
+      county: "some-county-" + randomInt(),
+    },
+    description: "some description",
+    certifications: "some certifications",
+    prerequisites: "some prerequisites",
+    outcomes: {
+      completion: { completionRate: Math.random() },
+      employment: [{ quarter: 2, employmentRate: Math.random() }]
+    },
     calendarLength: randomCalendarLength(),
     totalClockHours: randomInt(),
+    occupations: [],
     inDemand: randomBool(),
     localExceptionCounty: [],
     tuitionCost: randomInt(),
@@ -74,8 +97,6 @@ export const buildTraining = (overrides: Partial<Training>): Training => {
     otherCost: randomInt(),
     totalCost: randomInt(),
     online: randomBool(),
-    percentEmployed: randomInt(),
-    averageSalary: randomInt(),
     hasEveningCourses: randomBool(),
     languages: ["some-language-" + randomInt()],
     isWheelchairAccessible: randomBool(),
@@ -192,8 +213,10 @@ export const buildProgram = (overrides: Partial<Program>): Program => {
     phone: "some-phone-" + randomInt(),
     phoneextension: "some-phoneextension-" + randomInt(),
     indemandcip: "some-indemandcip-" + randomInt(),
-    peremployed2: randomInt().toString(),
-    avgquarterlywage2: randomInt().toString(),
+    outcomes: {
+      completion: { completionRate: Math.random() },
+      employment: [{ quarter: 2, employmentRate: Math.random() }]
+    },
     onlineprogramid: "some-onlineprogramid-" + randomInt(),
     eveningcourses: Math.random() < 0.5 ? "1" : "2",
     languages: "some-languages-" + randomInt(),

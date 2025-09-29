@@ -26,7 +26,7 @@ export const SurveyMonkeyModal = ({
   
   // Touch gesture state for swipe to close
   const [touchStart, setTouchStart] = useState<{ y: number; time: number } | null>(null);
-  const [touchEnd, setTouchEnd] = useState<{ y: number; time: number } | null>(null);
+  const [_touchEnd, setTouchEnd] = useState<{ y: number; time: number } | null>(null);
 
   // Check if user has already completed or dismissed the survey
   const getSurveyStatus = (): "completed" | "dismissed" | null => {

@@ -3,6 +3,7 @@ import { RelatedHeading } from "@components/modules/RelatedHeading";
 import { ResultCard } from "@components/modules/ResultCard";
 import careeronestop from "@images/careeronestop.png";
 import { OccupationPageProps } from "@utils/types";
+import { getPercentEmployed } from "@utils/outcomeHelpers";
 import Image from "next/image";
 
 export const Related = ({
@@ -29,7 +30,7 @@ export const Related = ({
                   trainingId={training.id}
                   url={`/training/${training.id}`}
                   education={training.providerName}
-                  percentEmployed={training.percentEmployed || undefined}
+                  percentEmployed={getPercentEmployed(training.outcomes)}
                   cipDefinition={training.cipDefinition}
                   cost={training.totalCost}
                   timeToComplete={training.calendarLength}
