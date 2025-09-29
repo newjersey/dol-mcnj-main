@@ -9,6 +9,7 @@ import globalOgImage from "@images/globalOgImage.jpeg";
 import { SupportedLanguages } from "@utils/types/types";
 import { Steps } from "app/training/Steps";
 import { cookies } from "next/headers";
+import { PageLoadTracker } from "@components/utils/PageLoadTracker";
 
 export const revalidate = 86400;
 
@@ -32,6 +33,10 @@ export default async function CareerNavigatorPage() {
 
   return (
     <div className="page careerNavigator">
+      <PageLoadTracker
+        pageName="Career Navigator Landing Page"
+        pageUrl="/navigator"
+      />
       <PageHero {...pageData[lang].pageHero} />
       <Steps theme="blue" items={pageData[lang].steps} />
 
