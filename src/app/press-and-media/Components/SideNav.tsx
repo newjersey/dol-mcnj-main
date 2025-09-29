@@ -75,7 +75,7 @@ export const SideNav = ({ label }: { label: string }) => {
 
   return (
     <div className="tabletLg:w-[300px] sticky top-8 z-10">
-      <span className="block w-[300px] flex justify-center tabletLg:hidden">
+      <span className="w-[300px] flex justify-center tabletLg:hidden">
         <Button
           type="button"
           iconSuffix="List"
