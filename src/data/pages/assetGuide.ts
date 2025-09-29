@@ -1,7 +1,9 @@
 import { PageHeroProps } from "@components/blocks/PageHero";
 import { ButtonProps } from "@utils/types";
-import TempImage from "@images/placeholder.png";
 import { ImageProps } from "next/image";
+import Image1 from "@images/MCNJ_30s_still-min.png";
+import Image2 from "@images/MCNJ_Desiree_still-min.png";
+import Image3 from "@images/MCNJ_Kingsley_still-min.png";
 
 export const ASSETGUIDE_PAGE_DATA = {
   seo: {
@@ -42,11 +44,11 @@ export const ASSETGUIDE_PAGE_DATA = {
         {
           title: "My Career NJ commercial: 30s spot",
           image: {
-            src: TempImage.src,
-            width: TempImage.width,
-            height: TempImage.height,
+            src: Image1.src,
+            width: Image1.width,
+            height: Image1.height,
             alt: "Placeholder image",
-            blurDataURL: TempImage.blurDataURL,
+            blurDataURL: Image1.blurDataURL,
           } as ImageProps,
           button: {
             label: "Watch the video",
@@ -57,11 +59,11 @@ export const ASSETGUIDE_PAGE_DATA = {
         {
           title: "My Career NJ: Kingsley's Testimonial",
           image: {
-            src: TempImage.src,
-            width: TempImage.width,
-            height: TempImage.height,
+            src: Image3.src,
+            width: Image3.width,
+            height: Image3.height,
             alt: "Placeholder image",
-            blurDataURL: TempImage.blurDataURL,
+            blurDataURL: Image3.blurDataURL,
           } as ImageProps,
           button: {
             label: "Watch the video",
@@ -72,11 +74,11 @@ export const ASSETGUIDE_PAGE_DATA = {
         {
           title: "My Career NJ: Desiree's Testimonial",
           image: {
-            src: TempImage.src,
-            width: TempImage.width,
-            height: TempImage.height,
+            src: Image2.src,
+            width: Image2.width,
+            height: Image2.height,
             alt: "Placeholder image",
-            blurDataURL: TempImage.blurDataURL,
+            blurDataURL: Image2.blurDataURL,
           } as ImageProps,
           button: {
             label: "Watch the video",
@@ -146,11 +148,11 @@ export const ASSETGUIDE_PAGE_DATA = {
         {
           title: "Comercial de My Career NJ: anuncio de 30 segundos",
           image: {
-            src: TempImage.src,
-            width: TempImage.width,
-            height: TempImage.height,
+            src: Image1.src,
+            width: Image1.width,
+            height: Image1.height,
             alt: "Placeholder image",
-            blurDataURL: TempImage.blurDataURL,
+            blurDataURL: Image1.blurDataURL,
           } as ImageProps,
           button: {
             label: "Ver el video",
@@ -161,11 +163,11 @@ export const ASSETGUIDE_PAGE_DATA = {
         {
           title: "My Career NJ: Testimonio de Kingsley",
           image: {
-            src: TempImage.src,
-            width: TempImage.width,
-            height: TempImage.height,
+            src: Image2.src,
+            width: Image2.width,
+            height: Image2.height,
             alt: "Placeholder image",
-            blurDataURL: TempImage.blurDataURL,
+            blurDataURL: Image2.blurDataURL,
           } as ImageProps,
           button: {
             label: "Ver el video",
@@ -176,11 +178,11 @@ export const ASSETGUIDE_PAGE_DATA = {
         {
           title: "My Career NJ: Testimonio de Desiree",
           image: {
-            src: TempImage.src,
-            width: TempImage.width,
-            height: TempImage.height,
+            src: Image3.src,
+            width: Image3.width,
+            height: Image3.height,
             alt: "Placeholder image",
-            blurDataURL: TempImage.blurDataURL,
+            blurDataURL: Image3.blurDataURL,
           } as ImageProps,
           button: {
             label: "Ver el video",
