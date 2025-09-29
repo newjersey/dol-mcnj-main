@@ -1,3 +1,4 @@
+"use client";
 import { ButtonProps, HeadingLevel, ThemeColors } from "@utils/types";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
@@ -62,6 +63,9 @@ const Cta = ({
                 index > 0 ? " usa-button--outline" : ""
               }${linkDirection === "row" ? " w-auto min-w-[140px]" : ""}`}
               type="link"
+              style={{
+                justifyContent: "center",
+              }}
             />
           );
         })}

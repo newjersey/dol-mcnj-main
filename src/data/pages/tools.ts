@@ -59,7 +59,7 @@ export const TOOLS_PAGE_DATA = {
         },
         items: [
           {
-            title: "Tuition assistance resources",
+            title: "Tuition Assistance Resources",
             message: "Learn about ways to get help paying for education",
             link: {
               href: "/support-resources/tuition-assistance",

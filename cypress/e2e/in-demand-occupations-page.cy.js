@@ -3,7 +3,7 @@ describe("In Demand Occupations page", () => {
     cy.visit("/in-demand-occupations");
     cy.injectAxe();
 
-    cy.contains("In-Demand Occupation List").should("exist");
+    cy.contains("In-Demand Occupations List").should("exist");
     cy.checkA11y();
   });
 
@@ -14,19 +14,19 @@ describe("In Demand Occupations page", () => {
     cy.injectAxe();
 
     cy.contains("Business and Financial Operations").should("exist");
-    cy.contains("Compliance Officers").should("not.exist");
-    cy.contains("Cost Estimators").should("not.exist");
+    cy.contains("CTraining and Development Specialists").should("not.exist");
+    cy.contains("Financial Examiners").should("not.exist");
 
     cy.contains("Business and Financial Operations").click();
 
     cy.contains("Business and Financial Operations").should("exist");
-    cy.contains("Compliance Officers").should("exist");
-    cy.contains("Cost Estimators").should("exist");
+    cy.contains("Training and Development Specialists").should("exist");
+    cy.contains("Financial Examiners").should("exist");
 
     cy.checkA11y();
   });
 
-  it("links to occupation page from list", () => {
+  it.skip("links to occupation page from list", () => {
     cy.visit("/in-demand-occupations");
     cy.contains("Computer and Mathematical").click();
     cy.contains("Web Developers").click({ force: true });

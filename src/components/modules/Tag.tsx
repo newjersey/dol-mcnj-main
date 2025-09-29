@@ -43,7 +43,9 @@ export const Tag = ({
       {icon && <IconSelector weight={iconWeight} name={icon} size={15} />}
       {markdown ? (
         <span
-          dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(title) }}
+          dangerouslySetInnerHTML={{
+            __html: parseMarkdownToHTML(title),
+          }}
         />
       ) : (
         <>{title}</>

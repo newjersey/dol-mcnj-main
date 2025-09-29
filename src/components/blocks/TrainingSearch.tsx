@@ -15,9 +15,14 @@ import { TrainingExplorerHeadingProps } from "app/training/TrainingExplorerHeadi
 export interface TrainingSearchProps {
   className?: string;
   content: TrainingExplorerHeadingProps["search"];
+  onNavigate?: (url: string) => void; // For testing purposes
 }
 
-const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
+const TrainingSearch = ({
+  className,
+  content,
+  onNavigate,
+}: TrainingSearchProps) => {
   const [inPerson, setInPerson] = useState<boolean>(false);
   const [maxCost, setMaxCost] = useState<string>("");
   const [miles, setMiles] = useState<string>("");
@@ -167,8 +172,12 @@ const TrainingSearch = ({ className, content }: TrainingSearchProps) => {
                     | React.MouseEvent<HTMLButtonElement, MouseEvent>
                 ) => {
                   e.preventDefault();
-                  // navigate to searchUrl
-                  window.location.href = searchUrl;
+                  // Use onNavigate prop for testing, otherwise use window.location
+                  if (onNavigate) {
+                    onNavigate(searchUrl);
+                  } else {
+                    window.location.href = searchUrl;
+                  }
                 }}
               >
                 <FormInput

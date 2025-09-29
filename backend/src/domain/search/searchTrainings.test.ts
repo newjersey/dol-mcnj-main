@@ -93,6 +93,38 @@ describe("searchTrainings", () => {
     expect(searchResults).toEqual([]);
   });
 
+  it("searches using CIP code when query is a valid CIP code", async () => {
+    const training1 = buildTraining({ id: "1" });
+    const training2 = buildTraining({ id: "2" });
+    stubSearchClient.search.mockResolvedValue([
+      { id: "1", rank: 1 },
+      { id: "2", rank: 2 },
+    ]);
+    stubSearchClient.getHighlight
+      .mockResolvedValueOnce("some highlight 1")
+      .mockResolvedValueOnce("some highlight 2");
+    stubFindTrainingsBy.mockResolvedValue([training1, training2]);
+
+    const searchResults = await searchTrainings("120501");
+
+    expect(stubSearchClient.search).toHaveBeenCalledWith("120501");
+    expect(stubFindTrainingsBy).toHaveBeenCalledWith(Selector.ID, ["1", "2"]);
+    expect(searchResults).toHaveLength(2);
+  });
+
+  it("searches using formatted CIP code", async () => {
+    const training1 = buildTraining({ id: "1" });
+    stubSearchClient.search.mockResolvedValue([{ id: "1", rank: 1 }]);
+    stubSearchClient.getHighlight.mockResolvedValueOnce("some highlight 1");
+    stubFindTrainingsBy.mockResolvedValue([training1]);
+
+    const searchResults = await searchTrainings("12.0501");
+
+    expect(stubSearchClient.search).toHaveBeenCalledWith("12.0501");
+    expect(stubFindTrainingsBy).toHaveBeenCalledWith(Selector.ID, ["1"]);
+    expect(searchResults).toHaveLength(1);
+  });
+
   describe("error handling", () => {
     it("rejects when search is broken", (done) => {
       stubSearchClient.search.mockRejectedValue({});

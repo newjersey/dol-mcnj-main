@@ -267,8 +267,8 @@ export const buildCipDefinition = (overrides: Partial<CipDefinition>): CipDefini
     cipcode: "some-cipcode-" + randomInt(),
     ciptitle: "some-ciptitle-" + randomInt(),
     ...overrides,
-  }
-}
+  };
+};
 
 export const buildLocalException = (overrides: Partial<LocalException>): LocalException => {
   return {

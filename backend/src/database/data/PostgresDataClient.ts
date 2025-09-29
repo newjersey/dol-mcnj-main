@@ -27,18 +27,18 @@ export class PostgresDataClient implements DataClient {
     });
   }
 
-    findProgramsBy = async (selector: Selector, values: string[]): Promise<Program[]> => {
-        console.log(`Executing findProgramsBy with selector: ${selector}, values: ${values}`);
+  findProgramsBy = async (selector: Selector, values: string[]): Promise<Program[]> => {
+    console.log(`Executing findProgramsBy with selector: ${selector}, values: ${values}`);
 
-        if (values.length === 0) {
-            console.warn("No values provided to findProgramsBy; returning an empty array.");
-            return [];
-        }
+    if (values.length === 0) {
+      console.warn("No values provided to findProgramsBy; returning an empty array.");
+      return [];
+    }
 
-        const column = selector === Selector.CIP_CODE ? "cipcode" : "programid";
+    const column = selector === Selector.CIP_CODE ? "cipcode" : "programid";
 
-        try {
-            console.log(`Querying programs before status filtering...`);
+    try {
+      console.log(`Querying programs before status filtering...`);
 
             const programsBeforeFilter = await this.kdb("etpl")
                 .select(
@@ -121,17 +121,21 @@ export class PostgresDataClient implements DataClient {
                 outcomes: mapProgramOutcomeFromDb(row) as ProgramOutcome,
             }));
 
-           if (programs.length === 0) {
-                console.warn(`No non-suspended programs found for selector: ${selector} and values: ${values}`);
-            }
+      if (programs.length === 0) {
+        console.warn(
+          `No non-suspended programs found for selector: ${selector} and values: ${values}`,
+        );
+      }
 
-            return programs;
-
-        } catch (error) {
-            console.error(`Error while fetching programs with selector: ${selector} and values: ${values}`, error);
-            throw Error;
-        }
-    };
+      return programs;
+    } catch (error) {
+      console.error(
+        `Error while fetching programs with selector: ${selector} and values: ${values}`,
+        error,
+      );
+      throw Error;
+    }
+  };
 
   getLocalExceptionsByCip = (): Promise<LocalException[]> => {
     return this.kdb("localexceptioncips")
@@ -144,14 +148,27 @@ export class PostgresDataClient implements DataClient {
   };
 
   getLocalExceptionsBySoc = (): Promise<LocalException[]> => {
-    return this.kdb
-        .select("localexceptioncips.soc", "localexceptioncips.county", "localexceptioncips.occupation as title")
+    return (
+      this.kdb
+        .select(
+          "localexceptioncips.soc",
+          "localexceptioncips.county",
+          "localexceptioncips.occupation as title",
+        )
         .from("localexceptioncips")
         // Join with the indemandsocs table to exclude in-demand SOCs
         .leftJoin("indemandsocs", "localexceptioncips.soc", "indemandsocs.soc")
         // Left join with a crosswalk table to support both 2010 and 2018 SOC codes
-        .leftJoin("soc2010to2018crosswalk", "localexceptioncips.soc", "soc2010to2018crosswalk.soccode2018")
-        .leftJoin("indemandsocs as indemandsocs2010", "soc2010to2018crosswalk.soccode2010", "indemandsocs2010.soc")
+        .leftJoin(
+          "soc2010to2018crosswalk",
+          "localexceptioncips.soc",
+          "soc2010to2018crosswalk.soccode2018",
+        )
+        .leftJoin(
+          "indemandsocs as indemandsocs2010",
+          "soc2010to2018crosswalk.soccode2010",
+          "indemandsocs2010.soc",
+        )
         // Filter out SOCs that are in the indemandsocs table for both 2010 and 2018 codes
         .whereNull("indemandsocs.soc")
         .whereNull("indemandsocs2010.soc")
@@ -162,7 +179,8 @@ export class PostgresDataClient implements DataClient {
         .catch((e) => {
           console.log("DB error:", e);
           return Promise.reject();
-        });
+        })
+    );
   };
 
   findLocalExceptionsBySoc = (soc: string): Promise<LocalException[]> => {
@@ -213,12 +231,12 @@ export class PostgresDataClient implements DataClient {
 
   findCipDefinitionByCip = (cip: string): Promise<CipDefinition[]> => {
     return this.kdb("soccipcrosswalk")
-        .select("cipcode", "cip2020title as ciptitle")
-        .where("cipcode", cip)
-        .catch((e) => {
-          console.log("db error: ", e);
-          return Promise.reject();
-        });
+      .select("cipcode", "cip2020title as ciptitle")
+      .where("cipcode", cip)
+      .catch((e) => {
+        console.log("db error: ", e);
+        return Promise.reject();
+      });
   };
 
   find2018OccupationsBySoc2010 = (soc2010: string): Promise<Occupation[]> => {

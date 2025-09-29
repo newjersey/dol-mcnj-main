@@ -57,9 +57,9 @@ const IntroBlocks = ({
                   activeSection.index % 4 === 0
                     ? " secondary"
                     : activeSection.index % 4 === 1
-                      ? " tertiary"
+                      ? " primary"
                       : activeSection.index % 4 === 2
-                        ? " primary"
+                        ? " tertiary"
                         : " quaternary"
                 }`}
                 type="link"

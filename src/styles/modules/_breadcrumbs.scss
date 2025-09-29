@@ -50,4 +50,21 @@
       }
     }
   }
+
+  &.stay-open {
+    .usa-breadcrumb__list-item {
+      position: relative;
+      left: 0;
+
+      &:not(:last-child) {
+        &::after {
+          margin: 0 s.$size-8;
+        }
+      }
+    }
+
+    .backIcon {
+      display: none;
+    }
+  }
 }
