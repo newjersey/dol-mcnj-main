@@ -35,7 +35,7 @@ export default async function MediaPressPage() {
     <div className="page careerNavigator">
       <PageHero {...pageData[lang].pageHero} className="mb-12" />
       <section className="container flex tabletLg:flex-row-reverse flex-col tabletLg:items-start items-center gap-12">
-        <SideNav />
+        <SideNav label={pageData[lang].tocLabel} />
         <div
           id="pageCopySection"
           className="flex flex-col gap-24 mb-24 tabletLg:w-[calc(100%-300px)]"
@@ -67,6 +67,12 @@ export default async function MediaPressPage() {
             </div>
           </div>
           <ReferenceCards {...pageData[lang].referenceRow} />
+          <SectionHeading
+            withIds
+            heading={pageData[lang].contactSection.heading}
+            description={pageData[lang].contactSection.description}
+            noDivider
+          />
         </div>
       </section>
     </div>

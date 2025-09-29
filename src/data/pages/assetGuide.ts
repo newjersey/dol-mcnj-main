@@ -34,6 +34,7 @@ export const ASSETGUIDE_PAGE_DATA = {
       subheading: "Welcome to the media resource page for My Career NJ",
       theme: "blue",
     } as PageHeroProps,
+    tocLabel: "On this page",
     cardRow: {
       heading: "Media",
       description: "Check out the spots filmed for My Career NJ.",
@@ -137,6 +138,7 @@ export const ASSETGUIDE_PAGE_DATA = {
         "Bienvenido a la página de recursos para medios de My Career NJ",
       theme: "blue",
     } as PageHeroProps,
+    tocLabel: "En esta página",
     cardRow: {
       heading: "Medios",
       description: "Mira los anuncios filmados para My Career NJ.",

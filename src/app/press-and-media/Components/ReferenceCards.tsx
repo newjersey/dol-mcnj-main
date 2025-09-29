@@ -41,11 +41,9 @@ export const ReferenceCards = ({
           description={logoCard.description}
           button={{
             label: "Download logos",
-            type: "button",
+            type: "link",
+            link: "/Logos.zip",
             iconSuffix: "DownloadSimple",
-            onClick: () => {
-              alert("Download logos");
-            },
           }}
         />
         <MediaCard

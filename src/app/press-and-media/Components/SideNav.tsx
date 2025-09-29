@@ -4,7 +4,7 @@ import { LinkObject } from "@components/modules/LinkObject";
 import { Spinner } from "@components/modules/Spinner";
 import { useEffect, useState } from "react";
 
-export const SideNav = () => {
+export const SideNav = ({ label }: { label: string }) => {
   const [headings, setHeadings] = useState<{ id: string; text: string }[]>([]);
   const [currentId, setCurrentId] = useState<string>("");
   const [isScrolling, setIsScrolling] = useState<boolean>(false);
@@ -79,12 +79,12 @@ export const SideNav = () => {
         <Button
           type="button"
           iconSuffix="List"
-          label="On this page"
+          label={label}
           onClick={() => setOpen(!open)}
         />
       </span>
       <div>
-        <p className="font-bold hidden tabletLg:block">On this page</p>
+        <p className="font-bold hidden tabletLg:block">{label}</p>
         <nav
           aria-label="Secondary navigation"
           className={`bg-white shadow-lg tabletLg:shadow-none tabletLg:bg-transparent ${

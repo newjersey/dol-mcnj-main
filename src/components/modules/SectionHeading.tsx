@@ -1,6 +1,7 @@
 import { HeadingLevel, ThemeColors } from "@utils/types";
 import { Heading } from "./Heading";
 import { slugify } from "@utils/slugify";
+import { parseMarkdownToHTML } from "@utils/parseMarkdownToHTML";
 
 export interface SectionHeadingProps {
   className?: string;
@@ -32,7 +33,12 @@ const SectionHeading = ({
       <Heading id={withIds ? slugify(heading) : undefined} level={headingLevel}>
         {heading}
       </Heading>
-      {description && <p className="description">{description}</p>}
+      {description && (
+        <span
+          className="description text-pretty block"
+          dangerouslySetInnerHTML={{ __html: parseMarkdownToHTML(description) }}
+        />
+      )}
     </div>
   );
 };

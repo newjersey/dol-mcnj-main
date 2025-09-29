@@ -24,12 +24,12 @@ export const Heading = ({
     <HeadingTag
       id={id}
       dangerouslySetInnerHTML={html}
-      className={`heading-tag${className ? ` ${className}` : ""}`}
+      className={`heading-tag text-pretty${className ? ` ${className}` : ""}`}
     />
   ) : (
     <HeadingTag
       id={id}
-      className={`heading-tag${className ? ` ${className}` : ""}`}
+      className={`heading-tag text-pretty${className ? ` ${className}` : ""}`}
     >
       {children}
     </HeadingTag>
