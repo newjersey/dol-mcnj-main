@@ -74,8 +74,8 @@ export const SideNav = ({ label }: { label: string }) => {
   }, [currentId, isScrolling]);
 
   return (
-    <div className="tabletLg:w-[300px] sticky top-8 z-10">
-      <span className="w-[300px] flex justify-center tabletLg:hidden">
+    <div className="tabletXl:w-[300px] sticky top-8 z-10">
+      <span className="w-[300px] flex justify-center tabletXl:hidden">
         <Button
           type="button"
           autoWidth
@@ -85,13 +85,13 @@ export const SideNav = ({ label }: { label: string }) => {
         />
       </span>
       <div>
-        <p className="font-bold hidden tabletLg:block">{label}</p>
+        <p className="font-bold hidden tabletXl:block">{label}</p>
         <nav
           aria-label="Secondary navigation"
-          className={`bg-white shadow-lg tabletLg:shadow-none tabletLg:bg-transparent ${
+          className={`bg-white shadow-lg tabletXl:shadow-none tabletXl:bg-transparent ${
             open
               ? "absolute w-full top-full left-1/2 transform -translate-x-1/2"
-              : "hidden tabletLg:block"
+              : "hidden tabletXl:block"
           }`}
         >
           <ul className="usa-sidenav">
