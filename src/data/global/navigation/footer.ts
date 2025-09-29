@@ -126,6 +126,11 @@ export const FOOTER_NAV_1_DATA = {
                 url: "?contactModal=true",
                 itemId: "2Mi5UQIdSBuhJXl1CckrWA",
               },
+              {
+                copy: "Press and Media",
+                url: "/press-and-media",
+                itemId: "3p1jv1b0gk3J5jYk2t1e8",
+              },
             ],
           },
         },
@@ -278,6 +283,11 @@ export const FOOTER_NAV_1_DATA = {
                 noIndicator: true,
                 url: "/contact",
                 itemId: "2Mi5UQIdSBuhJXl1CckrWA",
+              },
+              {
+                copy: "Prensa y Medios",
+                url: "/press-and-media",
+                itemId: "3p1jv1b0gk3J5jYk2t1e8",
               },
             ],
           },
