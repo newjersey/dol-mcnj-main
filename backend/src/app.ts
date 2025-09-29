@@ -451,7 +451,7 @@ app.get("/", staticFileLimiter, (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.get("*", staticFileLimiter, (req: Request, res: Response) => {
+app.use(staticFileLimiter, (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
