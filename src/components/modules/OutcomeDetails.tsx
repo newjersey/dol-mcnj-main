@@ -11,7 +11,7 @@ import {
   hasOutcomeData 
 } from '@utils/outcomeHelpers';
 import { useState } from 'react';
-import { CrcInfoDrawer } from '../../app/training/[code]/CrcInfoDrawer';
+import { CrcInfoDrawer } from '@components/modules/CrcInfoDrawer';
 import { BriefcaseIcon, BuildingOfficeIcon, GraduationCapIcon, MoneyWavyIcon, Warning } from '@phosphor-icons/react';
 
 interface OutcomeDetailsProps {
