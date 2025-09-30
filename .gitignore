@@ -41,6 +41,10 @@ next-env.d.ts
 cypress/videos/
 cypress/screenshots/
 
+# Security Reports
+reports/
+*-audit.json
+
 # JetBrains IDEs
 .idea/
 
