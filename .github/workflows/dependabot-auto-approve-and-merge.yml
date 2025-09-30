@@ -26,15 +26,26 @@ jobs:
             echo "safe=false" >> $GITHUB_OUTPUT  
             echo "reason=critical-dependency" >> $GITHUB_OUTPUT
             echo "Skipping: Critical dependency detected"
-          # Check for major version jumps (simple pattern like "30.x.x to 31.x.x") 
-          elif echo "$PR_TITLE" | grep -E "from [0-9]+\.[0-9]+\.[0-9]+ to [0-9][0-9]+\.[0-9]+\.[0-9]+"; then
-            echo "safe=false" >> $GITHUB_OUTPUT
-            echo "reason=potential-major-version" >> $GITHUB_OUTPUT
-            echo "Skipping: Potential major version update"
           else
-            echo "safe=true" >> $GITHUB_OUTPUT
-            echo "reason=safe-update" >> $GITHUB_OUTPUT
-            echo "Safe to auto-merge"
+            # Extract version numbers and check for major version changes
+            if echo "$PR_TITLE" | grep -qE "from ([0-9]+)\.[0-9]+\.[0-9]+ to ([0-9]+)\.[0-9]+\.[0-9]+"; then
+              FROM_MAJOR=$(echo "$PR_TITLE" | sed -n 's/.*from \([0-9]\+\)\.[0-9]\+\.[0-9]\+.*/\1/p')
+              TO_MAJOR=$(echo "$PR_TITLE" | sed -n 's/.*to \([0-9]\+\)\.[0-9]\+\.[0-9]\+.*/\1/p')
+              
+              if [ "$FROM_MAJOR" != "$TO_MAJOR" ]; then
+                echo "safe=false" >> $GITHUB_OUTPUT
+                echo "reason=major-version-change" >> $GITHUB_OUTPUT
+                echo "Skipping: Major version change from $FROM_MAJOR.x.x to $TO_MAJOR.x.x"
+              else
+                echo "safe=true" >> $GITHUB_OUTPUT
+                echo "reason=safe-update" >> $GITHUB_OUTPUT
+                echo "Safe to auto-merge: patch/minor update within same major version"
+              fi
+            else
+              echo "safe=true" >> $GITHUB_OUTPUT
+              echo "reason=safe-update" >> $GITHUB_OUTPUT
+              echo "Safe to auto-merge"
+            fi
           fi
 
       - name: Approve and enable auto-merge
