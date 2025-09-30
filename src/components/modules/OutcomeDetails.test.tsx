@@ -18,6 +18,21 @@ jest.mock('@phosphor-icons/react', () => ({
     <div data-testid="warning-icon" className={className} data-weight={weight}>⚠️</div>,
 }));
 
+// Mock the CrcInfoDrawer component to avoid dependency issues
+jest.mock('./CrcInfoDrawer', () => ({
+  CrcInfoDrawer: ({ crcInfoDrawerOpen, setCrcInfoDrawerOpen }: { 
+    crcInfoDrawerOpen: boolean; 
+    setCrcInfoDrawerOpen: (value: boolean) => void; 
+  }) => (
+    <div data-testid="crc-info-drawer" data-open={crcInfoDrawerOpen}>
+      <button onClick={() => setCrcInfoDrawerOpen(!crcInfoDrawerOpen)}>
+        Toggle Drawer
+      </button>
+      <div>Consumer Report Card Information</div>
+    </div>
+  )
+}));
+
 describe('OutcomeDetails', () => {
   const mockOutcome: ProgramOutcome = {
     completion: {
