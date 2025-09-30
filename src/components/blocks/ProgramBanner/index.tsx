@@ -1,5 +1,8 @@
 import { LinkProps } from "@utils/types";
+import { ProgramOutcome } from "@utils/types/components";
 import { InfoBlocks } from "../PageBanner/InfoBlocks";
+import { OutcomeDetails } from "@components/modules/OutcomeDetails";
+import { hasOutcomeData } from "@utils/outcomeHelpers";
 import { CrumbSearch } from "./CrumbSearch";
 import { TitleBox } from "./TitleBox";
 
@@ -10,9 +13,13 @@ interface ProgramBannerProps {
   printHandler: () => void;
   breadcrumbsCollection?: { items: LinkProps[] };
   inDemand?: boolean;
+  outcomes?: ProgramOutcome;
 }
 
 export const ProgramBanner = (props: ProgramBannerProps) => {
+  // Always show outcomes component - it will handle "Data unreported" internally
+  const showOutcomes = true;
+  
   return (
     <>
       <CrumbSearch
@@ -28,21 +35,66 @@ export const ProgramBanner = (props: ProgramBannerProps) => {
       />
       <div className="programBanner">
         <div className="container blocksContainer">
-          <InfoBlocks
-            titleBlock={
-              props.inDemand
-                ? {
-                    copy: "In-Demand in New Jersey",
-                    message:
-                      "This training may be eligible for funding from your",
-                    link: {
-                      url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
-                      copy: "One-Stop Career Center.",
-                    },
+          {/* Mobile: Stack vertically */}
+          <div className="tabletMd:hidden">
+            <InfoBlocks
+              titleBlock={
+                props.inDemand
+                  ? {
+                      copy: "In-Demand in New Jersey",
+                      message:
+                        "This training may be eligible for funding from your",
+                      link: {
+                        url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
+                        copy: "One-Stop Career Center.",
+                      },
+                    }
+                  : undefined
+              }
+            />
+            
+            {showOutcomes && (
+              <div className="mt-6">
+                <OutcomeDetails 
+                  outcomes={props.outcomes!} 
+                  horizontal={false}
+                />
+              </div>
+            )}
+          </div>
+          
+          {/* Desktop: Side by side */}
+          <div className="hidden tabletMd:block">
+            <div className="flex gap-6 items-stretch">
+              <div className="flex-shrink-0">
+                <InfoBlocks
+                  titleBlock={
+                    props.inDemand
+                      ? {
+                          copy: "In-Demand in New Jersey",
+                          message:
+                            "This training may be eligible for funding from your",
+                          link: {
+                            url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
+                            copy: "One-Stop Career Center.",
+                          },
+                        }
+                      : undefined
                   }
-                : undefined
-            }
-          />
+                />
+              </div>
+              
+              {showOutcomes && (
+                <div className="flex-1">
+                  <OutcomeDetails 
+                    outcomes={props.outcomes!} 
+                    horizontal={true}
+                    className="mb-0 h-full"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>

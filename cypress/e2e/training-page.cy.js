@@ -15,8 +15,8 @@ describe("Training Page", () => {
     cy.contains(".subHeading", "Lincoln Technical Institute").should("exist");
 
     // Consumer Report Card data - formatted values from seed data
-    cy.contains("61%").should("exist"); // completion rate: 0.6125 * 100 = 61.25% → rounded to 61%
-    cy.contains("85%").should("exist"); // employment rate Q2: 84.63% → rounded to 85%
+    cy.contains("61.3%").should("exist"); // completion rate: 0.6125 * 100 = 61.25% → rounded to 61%
+    cy.contains("84.6%").should("exist"); // employment rate Q2: 84.63% → rounded to 85%
     cy.contains("$48,464").should("exist"); // median salary Q2: $48,463.92 → rounded to $48,464
 
     // check for practical nursing content

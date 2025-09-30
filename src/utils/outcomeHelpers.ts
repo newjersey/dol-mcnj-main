@@ -93,7 +93,7 @@ export const formatPercentage = (
   if (rate === undefined || rate === null || typeof rate !== 'number') return 'N/A';
   // If isDecimal is true, convert decimal to percentage (0.6125 = 61.25%)
   const percentage = isDecimal ? rate * 100 : rate;
-  return `${Math.round(percentage)}%`;
+  return `${percentage.toFixed(1)}%`;
 };
 
 export const formatSalary = (salary: number | undefined): string => {
