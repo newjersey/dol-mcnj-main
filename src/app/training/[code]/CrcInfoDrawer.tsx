@@ -52,7 +52,7 @@ export const CrcInfoDrawer = ({
 
       <div className="small sources">
         <p>
-          Data is compiled from training providers  to provide transparency about program outcomes and help prospective students make informed decisions.
+          Data is compiled from training providers to provide transparency about program outcomes and help prospective students make informed decisions.
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export const CrcInfoDrawer = ({
       
       <div className="mt-4 text-sm text-gray-600">
         <p>
-          1. New Jersey State law (C:34:IA  86) mandates the collection and display of specific provider and program performance data on the Consumer Report Card.
+          1. New Jersey State law (C:34:IA 86) mandates the collection and display of specific provider and program performance data on the Consumer Report Card.
         </p>
       </div>
     </Drawer>
