@@ -22,6 +22,7 @@ jobs:
         uses: dependabot/fetch-metadata@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
 
       - name: Wait for tests to complete
         uses: lewagon/wait-on-check-action@v1.3.4
@@ -41,22 +42,46 @@ jobs:
           wait-interval: 30
           allowed-conclusions: success
 
+      - name: Check if safe to auto-merge
+        id: check-safety
+        run: |
+          # Get PR title and check for major version updates or critical dependencies
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "Checking PR: $PR_TITLE"
+          
+          # Check for critical frameworks (be conservative)
+          if echo "$PR_TITLE" | grep -iE "\b(next|react|typescript|webpack|babel)\b"; then
+            echo "safe=false" >> $GITHUB_OUTPUT  
+            echo "reason=critical-dependency" >> $GITHUB_OUTPUT
+            echo "Skipping: Critical dependency detected"
+          # Check for major version jumps (simple pattern like "30.x.x to 31.x.x") 
+          elif echo "$PR_TITLE" | grep -E "from [0-9]+\.[0-9]+\.[0-9]+ to [0-9][0-9]+\.[0-9]+\.[0-9]+"; then
+            echo "safe=false" >> $GITHUB_OUTPUT
+            echo "reason=potential-major-version" >> $GITHUB_OUTPUT
+            echo "Skipping: Potential major version update"
+          else
+            echo "safe=true" >> $GITHUB_OUTPUT
+            echo "reason=safe-update" >> $GITHUB_OUTPUT
+            echo "Safe to auto-merge"
+          fi
+
       - name: Approve PR
-        if: |
-          steps.metadata.outputs.update-type != 'version-update:semver-major' &&
-          !contains(steps.metadata.outputs.dependency-names, 'next') &&
-          !contains(steps.metadata.outputs.dependency-names, 'react')
+        if: steps.check-safety.outputs.safe == 'true'
         run: |
           gh pr review --approve "${{ github.event.pull_request.html_url }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable auto-merge for safe updates
-        if: |
-          steps.metadata.outputs.update-type != 'version-update:semver-major' &&
-          !contains(steps.metadata.outputs.dependency-names, 'next') &&
-          !contains(steps.metadata.outputs.dependency-names, 'react')
+        if: steps.check-safety.outputs.safe == 'true'
         run: |
           gh pr merge --auto --squash "${{ github.event.pull_request.html_url }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on skipped PR
+        if: steps.check-safety.outputs.safe == 'false'
+        run: |
+          gh pr comment "${{ github.event.pull_request.html_url }}" --body "🤖 Auto-merge skipped: ${{ steps.check-safety.outputs.reason }}. Manual review required."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
