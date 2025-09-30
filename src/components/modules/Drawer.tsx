@@ -16,19 +16,21 @@ export const Drawer = ({
   setOpen: (open: boolean) => void;
 }) => {
   useEffect(() => {
-    document.addEventListener("click", (e) => {
+    const handleClick = (e: Event) => {
       const clickedElement = e.target as HTMLElement;
 
       if (clickedElement.classList.contains("overlay")) {
         setOpen(false);
       }
-    });
+    };
 
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpen(false);
       }
     };
+
+    document.addEventListener("click", handleClick);
     document.addEventListener("keydown", handleEscape);
 
     if (open) {
@@ -42,7 +44,15 @@ export const Drawer = ({
       const panel = document.querySelector(".panel.open");
       (panel as HTMLElement)?.focus();
     }
-  }, [open]);
+
+    // Cleanup function to remove event listeners
+    return () => {
+      document.removeEventListener("click", handleClick);
+      document.removeEventListener("keydown", handleEscape);
+      // Reset body overflow when component unmounts
+      document.body.style.overflow = "auto";
+    };
+  }, [open, setOpen]);
 
   return (
     <div
