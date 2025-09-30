@@ -10,16 +10,6 @@ permissions:
   checks: read
 
 jobs:
-  debug-context:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Debug GitHub context
-        run: |
-          echo "Event: ${{ github.event_name }}"
-          echo "Actor: ${{ github.actor }}"
-          echo "PR Author: ${{ github.event.pull_request.user.login }}"
-          echo "PR User Type: ${{ github.event.pull_request.user.type }}"
-
   auto-approve-and-merge:
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]' || github.event.pull_request.user.login == 'dependabot[bot]'
