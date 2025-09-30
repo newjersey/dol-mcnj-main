@@ -12,6 +12,10 @@
     "test": "jest --maxWorkers=2",
     "db-migrate": "db-migrate",
     "prettier": "prettier --write . --ignore-path=./.eslintignore",
+    "security:audit": "npm audit --audit-level moderate",
+    "security:audit:fix": "npm audit fix",
+    "security:outdated": "npm outdated",
+    "security:licenses": "npm ls --depth=0",
     "fences": "gf",
     "start:wiremock": "wiremock --root-dir ./wiremock --port 8090 --verbose",
     "data-export": "ts-node src/scripts/data-export-cli.ts"
