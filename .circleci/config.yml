@@ -4,7 +4,7 @@ version: 2.1
 # With comprehensive debugging to identify configuration issues - BUILD TRIGGER
 
 jobs:
-  lint-and-test:
+  node-tests:
     docker:
       - image: cimg/node:20.11.0-browsers
     resource_class: medium
@@ -358,5 +358,5 @@ jobs:
 workflows:
   build-test-deploy:
     jobs:
-      - lint-and-test
+      - node-tests
       - build-and-feature-tests
