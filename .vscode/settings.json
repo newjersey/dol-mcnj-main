@@ -37,5 +37,16 @@
     "Žáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþ",
     "Zaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzb"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "sqltools.connections": [
+    {
+      "ssh": "Disabled",
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "d4adlocal",
+      "database": "d4adlocal",
+      "username": "postgres"
+    }
+  ]
 }

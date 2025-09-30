@@ -2,7 +2,6 @@ import { LinkProps } from "@utils/types";
 import { ProgramOutcome } from "@utils/types/components";
 import { InfoBlocks } from "../PageBanner/InfoBlocks";
 import { OutcomeDetails } from "@components/modules/OutcomeDetails";
-import { hasOutcomeData } from "@utils/outcomeHelpers";
 import { CrumbSearch } from "./CrumbSearch";
 import { TitleBox } from "./TitleBox";
 
@@ -35,7 +34,7 @@ export const ProgramBanner = (props: ProgramBannerProps) => {
       />
       <div className="programBanner">
         <div className="container blocksContainer">
-          {/* Mobile: Stack vertically */}
+          {/* Mobile: Only show InfoBlocks, OutcomeDetails handled by tab interface */}
           <div className="tabletMd:hidden">
             <InfoBlocks
               titleBlock={
@@ -52,15 +51,6 @@ export const ProgramBanner = (props: ProgramBannerProps) => {
                   : undefined
               }
             />
-            
-            {showOutcomes && (
-              <div className="mt-6">
-                <OutcomeDetails 
-                  outcomes={props.outcomes!} 
-                  horizontal={false}
-                />
-              </div>
-            )}
           </div>
           
           {/* Desktop: Side by side */}
