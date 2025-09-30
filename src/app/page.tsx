@@ -5,20 +5,62 @@ import { HOMEPAGE_DATA as pageData } from "@data/pages/home";
 import { SupportedLanguages, ThemeColors } from "@utils/types/types";
 import { cookies } from "next/headers";
 import { Card } from "@components/modules/Card";
+import { generatePageMetadata, generateStructuredData } from "@utils/seo";
+import Script from "next/script";
 
 export const revalidate = 86400;
 
 export async function generateMetadata({}) {
+  const baseUrl = process.env.REACT_APP_SITE_URL || 'https://mycareer.nj.gov';
+  
   return {
     title: process.env.REACT_APP_SITE_NAME,
     description: pageData.seo.pageDescription,
-    keywords: pageData.seo.keywords,
+    keywords: pageData.seo.keywords?.join(', '),
     icons: {
       icon: "/favicon.ico",
     },
     openGraph: {
-      images: [globalOgImage.src],
+      title: `${process.env.REACT_APP_SITE_NAME} - New Jersey Career Resources`,
+      description: pageData.seo.pageDescription,
+      url: baseUrl,
+      siteName: process.env.REACT_APP_SITE_NAME,
+      images: [
+        {
+          url: `${baseUrl}/stateSeal.png`,
+          width: 1200,
+          height: 630,
+          alt: 'My Career NJ - New Jersey Department of Labor'
+        }
+      ],
+      locale: 'en_US',
+      type: 'website',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${process.env.REACT_APP_SITE_NAME} - New Jersey Career Resources`,
+      description: pageData.seo.pageDescription,
+      images: [`${baseUrl}/stateSeal.png`],
+      site: '@NewJerseyDOL'
+    },
+    alternates: {
+      canonical: baseUrl,
+      languages: {
+        'en-US': baseUrl,
+        'es-US': `${baseUrl}?lang=es`
+      },
+      types: {
+        'application/rss+xml': `${baseUrl}/rss.xml`
+      }
+    },
+    other: {
+      'geo.region': 'US-NJ',
+      'geo.placename': 'New Jersey',
+      'DC.Title': process.env.REACT_APP_SITE_NAME,
+      'DC.Description': pageData.seo.pageDescription,
+      'DC.Subject': 'Career Resources, Job Training, Employment Services',
+      'DC.Language': 'en'
+    }
   };
 }
 
@@ -33,8 +75,23 @@ export default async function Home() {
   const cookieStore = await cookies();
   const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
 
+  // Generate breadcrumb structured data for homepage
+  const breadcrumbStructuredData = generateStructuredData({
+    type: 'BreadcrumbList',
+    data: {
+      items: [{ name: 'Home', url: '/' }]
+    }
+  });
+
   return (
     <>
+      <Script
+        id="homepage-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: breadcrumbStructuredData
+        }}
+      />
       <div className="page home">
         <FancyBanner {...pageData[lang].banner} />
         <div className="container flex-col flex gap-24">

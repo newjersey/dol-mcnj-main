@@ -1,0 +1,41 @@
+# My Career NJ - Robots.txt
+# Helping job seekers and employers connect in New Jersey
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://mycareer.nj.gov/sitemap.xml
+
+# Specific crawl directives for better indexing
+Allow: /training*
+Allow: /occupation*
+Allow: /career-pathways*
+Allow: /in-demand-occupations*
+Allow: /navigator*
+Allow: /support-resources*
+Allow: /training-provider-resources*
+
+# Disallow admin and private areas
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /.well-known/
+
+# Allow crawling of important static assets
+Allow: /favicon.ico
+Allow: /sitemap.xml
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Host directive for canonical domain
+Host: https://mycareer.nj.gov

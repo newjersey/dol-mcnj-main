@@ -17,6 +17,7 @@ import { GLOBAL_NAV_DATA as globalNav } from "@data/global/navigation/global";
 import { SupportedLanguages } from "@utils/types/types";
 import { Metadata } from "next";
 import { LangSelector } from "@components/global/LangSelector";
+import { seoConfig, generateStructuredData, performanceOptimizations } from "@utils/seo";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -25,6 +26,73 @@ const publicSans = Public_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.REACT_APP_SITE_URL as string),
+  title: {
+    default: seoConfig.defaultTitle,
+    template: '%s | My Career NJ'
+  },
+  description: seoConfig.defaultDescription,
+  keywords: seoConfig.defaultKeywords,
+  authors: [{ name: 'New Jersey Department of Labor' }],
+  creator: 'New Jersey Department of Labor',
+  publisher: 'New Jersey Department of Labor',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: seoConfig.siteUrl,
+    siteName: seoConfig.siteName,
+    title: seoConfig.defaultTitle,
+    description: seoConfig.defaultDescription,
+    images: [{
+      url: `${seoConfig.siteUrl}/stateSeal.png`,
+      width: 1200,
+      height: 630,
+      alt: 'My Career NJ - New Jersey Department of Labor'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: seoConfig.defaultTitle,
+    description: seoConfig.defaultDescription,
+    site: '@NewJerseyDOL',
+    creator: '@NewJerseyDOL',
+    images: [`${seoConfig.siteUrl}/stateSeal.png`]
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/stateSeal.png'
+  },
+  manifest: '/manifest.json',
+  alternates: {
+    canonical: seoConfig.siteUrl,
+    languages: {
+      'en-US': seoConfig.siteUrl,
+      'es-US': `${seoConfig.siteUrl}?lang=es`
+    }
+  },
+  category: 'government',
+  classification: 'Career Resources, Job Training, Government Services',
+  other: {
+    'google-site-verification': process.env.GOOGLE_SITE_VERIFICATION || '',
+    'msvalidate.01': process.env.BING_SITE_VERIFICATION || '',
+    'DC.Title': seoConfig.defaultTitle,
+    'DC.Description': seoConfig.defaultDescription,
+    'DC.Publisher': seoConfig.organizationName,
+    'DC.Language': 'en',
+    'geo.region': 'US-NJ',
+    'geo.placename': 'New Jersey'
+  }
 };
 
 export default async function RootLayout({
@@ -37,6 +105,38 @@ export default async function RootLayout({
 
   return (
     <html lang={lang || "en"}>
+      <head>
+        {/* Performance Optimization Hints */}
+        {performanceOptimizations.preconnect.map((url) => (
+          <link key={url} rel="preconnect" href={url} crossOrigin="anonymous" />
+        ))}
+        {performanceOptimizations.dnsPrefetch.map((url) => (
+          <link key={url} rel="dns-prefetch" href={url} />
+        ))}
+        {performanceOptimizations.preload.map((url) => (
+          <link key={url} rel="preload" href={url} as="image" />
+        ))}
+        
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: generateStructuredData({
+              type: 'WebSite',
+              data: {}
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: generateStructuredData({
+              type: 'GovernmentOrganization',
+              data: {}
+            })
+          }}
+        />
+      </head>
       <body className={publicSans.className}>
         <Script src="https://newjersey.github.io/njwds/dist/js/uswds.min.js" />
         <Script id="google-tag-manager" strategy="afterInteractive">
