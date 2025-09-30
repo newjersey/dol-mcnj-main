@@ -1,5 +1,5 @@
 import { X } from "@phosphor-icons/react";
-import { slugify } from "@utils/slugify";
+import { slugify } from "../../utils/slugify";
 import { ReactNode, useEffect } from "react";
 
 export const Drawer = ({

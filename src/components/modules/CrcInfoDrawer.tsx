@@ -1,5 +1,5 @@
-import { Drawer } from "@components/modules/Drawer";
-import { Heading } from "@components/modules/Heading";
+import { Drawer } from "./Drawer";
+import { Heading } from "./Heading";
 
 export const CrcInfoDrawer = ({
   crcInfoDrawerOpen,
