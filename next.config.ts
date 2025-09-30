@@ -23,10 +23,13 @@ const nextConfig: NextConfig = {
     domains: ["images.ctfassets.net", "www.nj.gov"],
   },
   async rewrites() {
+    const apiHost = process.env.API_HOST || "localhost";
+    const apiPort = process.env.API_PORT || "8080";
+    
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:8080/api/:path*",
+        destination: `http://${apiHost}:${apiPort}/api/:path*`,
       },
     ];
   },
