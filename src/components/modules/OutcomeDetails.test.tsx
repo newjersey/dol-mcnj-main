@@ -5,7 +5,7 @@ import { OutcomeDetails } from './OutcomeDetails';
 import { ProgramOutcome } from '../../utils/types/components';
 
 // Mock Phosphor icons
-jest.mock('@phosphor-icons/react/dist/ssr', () => ({
+jest.mock('@phosphor-icons/react', () => ({
   BriefcaseIcon: ({ className, weight }: { className?: string; weight?: string }) => 
     <div data-testid="briefcase-icon" className={className} data-weight={weight}>💼</div>,
   MoneyWavyIcon: ({ className, weight }: { className?: string; weight?: string }) => 
