@@ -17,7 +17,7 @@ describe("Box component", () => {
     const { getByTestId } = render(
       <Box componentId="box-id" testId="box">
         Content
-      </Box>,
+      </Box>
     );
     expect(getByTestId("box")).toHaveAttribute("id", "box-id");
   });
@@ -31,7 +31,7 @@ describe("Box component", () => {
     const { container } = render(
       <Box radius={10} overflow>
         Content
-      </Box>,
+      </Box>
     );
     expect(container.firstChild).toHaveClass("radius-10-overflow");
   });
@@ -49,7 +49,9 @@ describe("Box component", () => {
   it("applies custom style correctly", () => {
     const style = { backgroundColor: "red" };
     const { container } = render(<Box style={style}>Content</Box>);
-    expect(container.firstChild).toHaveStyle("background-color: red");
+    expect(container.firstChild).toHaveStyle(
+      "background-color: rgb(255, 0, 0)"
+    );
   });
 
   it("applies testId correctly", () => {

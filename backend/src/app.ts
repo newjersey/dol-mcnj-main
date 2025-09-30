@@ -24,8 +24,42 @@ import { getOccupationDetailByCIPFactory } from "./domain/occupations/getOccupat
 import helmet from "helmet";
 // import { rateLimiter } from "./utils/rateLimiter";
 import rateLimit from "express-rate-limit";
+import { validateEncryptionSetup, validateEnvironmentConfig } from "./utils/startupValidation";
+import { createSafeLogger } from "./utils/piiSafety";
+
 dotenv.config();
-// console.log(process.env);
+
+// Initialize safe logger
+const logger = createSafeLogger(console.log);
+
+// Startup validation
+async function validateStartup() {
+  try {
+    // Basic environment validation
+    validateEnvironmentConfig();
+    
+    // Skip encryption setup validation in development/test modes to prevent hanging
+    const isDevOrTest = !process.env.NODE_ENV || 
+                       process.env.NODE_ENV === 'dev' || 
+                       process.env.NODE_ENV === 'test' ||
+                       process.env.IS_CI === 'true';
+    
+    if (isDevOrTest) {
+      logger.info("Skipping encryption validation in development/test environment");
+    } else {
+      // Only validate encryption in AWS environments
+      await validateEncryptionSetup();
+    }
+    
+    logger.info("Application startup validation completed successfully");
+  } catch (error) {
+    logger.error("Application startup validation failed", error);
+    // Don't exit in development - just log the error
+    if (process.env.NODE_ENV && process.env.NODE_ENV.startsWith('aws')) {
+      throw error;
+    }
+  }
+}
 
 const app = express();
 
@@ -44,16 +78,18 @@ Sentry.init({
 
 // Error handling for uncaught exceptions and unhandled rejections...
 process.on("uncaughtException", function (exception) {
+  logger.error("Uncaught exception", exception);
   Sentry.captureException(exception);
 });
 
 process.on("unhandledRejection", (reason) => {
+  logger.error("Unhandled rejection", reason);
   Sentry.captureException(reason);
 });
 
 // CORS options
 const corsOptions = {
-  origin: ["https://mycareer.nj.gov", "http://localhost:3000"],
+  origin: ["https://mycareer.nj.gov", "https://test.mycareer.nj.gov","https://dev.mycareer.nj.gov", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
   optionsSuccessStatus: 200,
@@ -229,6 +265,11 @@ const awsConfig = new AWS.Config({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID || undefined,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || undefined,
   region: process.env.AWS_REGION,
+  // Disable AWS SDK logging to prevent PII exposure
+  logger: undefined,
+  // Ensure no debug information is logged
+  correctClockSkew: true,
+  maxRetries: 3,
 });
 
 type PostgresConnectionConfig = {
@@ -372,6 +413,28 @@ app.use("/api/signup", signUpRouter);
 app.use("/api/emails", emailSubmissionRouter);
 app.use("/api/contentful", contentfulRouter);
 
+// Health check endpoint including encryption status
+app.get("/health", async (req, res) => {
+  try {
+    const { getEncryptionHealthStatus } = await import("./utils/startupValidation");
+    const healthStatus = await getEncryptionHealthStatus();
+    
+    res.status(healthStatus.status === 'healthy' ? 200 : 503).json({
+      status: healthStatus.status,
+      encryption: healthStatus.encryption,
+      timestamp: new Date().toISOString(),
+      errors: healthStatus.errors.length > 0 ? healthStatus.errors : undefined
+    });
+  } catch (error) {
+    logger.error("Health check failed", error);
+    res.status(503).json({
+      status: 'unhealthy',
+      error: 'Health check failed',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 app.get("/faq", (req, res) => {
   res.status(503).send("Service Unavailable: The FAQ page is down for maintenance.");
 });
@@ -388,12 +451,18 @@ app.get("/", staticFileLimiter, (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.get("*", staticFileLimiter, (req: Request, res: Response) => {
+app.use(staticFileLimiter, (req: Request, res: Response) => {
   res.setHeader("Cache-Control", "no-cache");
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 // Error handler for Sentry...
 app.use(Sentry.Handlers.errorHandler());
+
+// Run startup validation asynchronously - don't block app export
+validateStartup().catch((error) => {
+  logger.error("Startup validation failed, but continuing in development mode", error);
+  // In production AWS environments, we might want to exit, but for now log and continue
+});
 
 export default app;
