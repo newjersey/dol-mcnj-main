@@ -3,9 +3,9 @@ describe("Support Resources Page", () => {
     cy.visit("/support-resources");
     cy.injectAxe();
 
-    cy.contains("Browse support and assistance resources by category.").should(
-      "exist",
-    );
+    cy.contains(
+      "Helpful links to programs, resources, and services beyond My Career NJ"
+    ).should("exist");
     cy.checkA11y();
   });
 });
