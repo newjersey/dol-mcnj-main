@@ -97,12 +97,13 @@ describe("Header Component", () => {
     expect(navMenu).not.toHaveClass("open");
   });
 
-  it("renders contact us link correctly", () => {
+  it("renders contact us button correctly", () => {
     const { getByText } = render(
       <Header mainNav={mainNav} globalNav={globalNav} />
     );
-    const contactLink = getByText("Contact Us") as HTMLAnchorElement;
-    expect(contactLink).toBeInTheDocument();
-    expect(contactLink).toHaveAttribute("href", "/contact");
+    const contactButton = getByText("Contact Us") as HTMLButtonElement;
+    expect(contactButton).toBeInTheDocument();
+    expect(contactButton.tagName).toBe("BUTTON");
+    expect(contactButton).toHaveClass("nav-item", "contact-us");
   });
 });
