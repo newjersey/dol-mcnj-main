@@ -13,6 +13,10 @@ cd backend && npm run lint && cd ..
 # Run fence checks (only backend has fences in this structure)
 npm --prefix=backend run fences
 
+# Run security audit
+echo "Running security audit..."
+./scripts/security-audit.sh
+
 # Run Jest tests and ensure failure on error
 npm run test -- --watchAll=false
 npm --prefix=backend run test -- --no-cache

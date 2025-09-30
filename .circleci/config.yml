@@ -122,11 +122,38 @@ jobs:
             echo "Running fence checks..."
             cd backend && npm run fences
       - run:
-          name: Run security audit
+          name: Run comprehensive security audit
           command: |
-            echo "Running npm audit checks..."
+            echo "=== COMPREHENSIVE SECURITY AUDIT ==="
+            echo "Running npm audit checks for frontend..."
+            
+            # Frontend security audit
+            echo "Frontend vulnerabilities (moderate and above):"
+            npm audit --audit-level moderate --omit=dev || echo "Frontend audit completed with findings"
+            
+            echo "Frontend outdated packages:"
+            npm outdated || echo "Outdated check completed"
+            
+            # Backend security audit
+            echo "Backend vulnerabilities (moderate and above):"
+            npm --prefix=backend audit --audit-level moderate --omit=dev || echo "Backend audit completed with findings"
+            
+            echo "Backend outdated packages:"
+            npm --prefix=backend outdated || echo "Backend outdated check completed"
+            
+            # License check
+            echo "Frontend license summary:"
+            npm ls --depth=0 --json | jq -r '.dependencies | to_entries[] | "\(.key): \(.value.version)"' | head -20 || echo "License check completed"
+            
+            echo "Backend license summary:"
+            npm --prefix=backend ls --depth=0 --json | jq -r '.dependencies | to_entries[] | "\(.key): \(.value.version)"' | head -20 || echo "Backend license check completed"
+            
+            # Fail on high/critical vulnerabilities
+            echo "Checking for critical/high vulnerabilities..."
             npm audit --audit-level high --omit=dev
             npm --prefix=backend audit --audit-level high --omit=dev
+            
+            echo "=== SECURITY AUDIT COMPLETED ==="
       - run:
           name: Run Next.js unit tests with coverage
           command: |
