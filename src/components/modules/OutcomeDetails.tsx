@@ -1,4 +1,5 @@
 "use client";
+// Updated with Phosphor icons and horizontal layout
 import { ProgramOutcome } from '@utils/types/components';
 import { 
   getCompletionRate, 
@@ -11,14 +12,16 @@ import {
 } from '@utils/outcomeHelpers';
 import { useState } from 'react';
 import { CrcInfoDrawer } from '../../app/training/[code]/CrcInfoDrawer';
+import { BriefcaseIcon, BuildingOfficeIcon, GraduationCapIcon, MoneyWavyIcon, Warning } from '@phosphor-icons/react';
 
 interface OutcomeDetailsProps {
   outcomes: ProgramOutcome;
   title?: string;
   className?: string;
+  horizontal?: boolean;
 }
 
-export const OutcomeDetails = ({ outcomes, title = "Consumer report card", className = "" }: OutcomeDetailsProps) => {
+export const OutcomeDetails = ({ outcomes, title = "Consumer report card", className = "", horizontal = false }: OutcomeDetailsProps) => {
   const [crcInfoDrawerOpen, setCrcInfoDrawerOpen] = useState(false);
   
   // Feature flag for CRC info drawer
@@ -27,10 +30,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   // Ensure consistent data handling
   const safeOutcomes = outcomes || undefined;
   
-  if (!hasOutcomeData(safeOutcomes)) {
-    return null;
-  }
-
+  // Always show the component, but check if there's any data to show cards
   const completionRate = getCompletionRate(safeOutcomes);
   const employmentQ2 = getEmploymentRate(safeOutcomes, 2);
   const employmentQ4 = getEmploymentRate(safeOutcomes, 4);
@@ -38,11 +38,158 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   const salaryQ4 = getMedianSalary(safeOutcomes, 4);
   const industriesQ2 = getTopIndustries(safeOutcomes, 2);
 
+  // Check if there's any data at all
+  const hasAnyData = hasOutcomeData(safeOutcomes);
+
+  // If no data at all, show warning message
+  if (!hasAnyData) {
+    return (
+      <>
+        <div className={`bg-teal-50 rounded-lg p-3 ${className}`}>
+          <div className="mb-2">
+            <h3 className={horizontal ? "text-base font-bold text-black mb-1" : "font-bold text-gray-900 mb-2"}>{title}</h3>
+            {showCrcInfoFeature && (
+              <button
+                onClick={() => setCrcInfoDrawerOpen(true)}
+                className="text-primary hover:text-primaryDark text-sm font-medium underline"
+              >
+                Learn more about the consumer report card
+              </button>
+            )}
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <Warning className="w-5 h-5 text-gray-600 flex-shrink-0" weight="regular" />
+            <span className="text-base font-bold text-black">Data unreported</span>
+          </div>
+        </div>
+        
+        {showCrcInfoFeature && (
+          <CrcInfoDrawer
+            crcInfoDrawerOpen={crcInfoDrawerOpen}
+            setCrcInfoDrawerOpen={setCrcInfoDrawerOpen}
+          />
+        )}
+      </>
+    );
+  }
+
+  // Horizontal layout for display with InfoBlocks
+  if (horizontal) {
+    return (
+      <>
+        <div className={`bg-teal-50 rounded-lg p-3 ${className}`}>
+          <div className="mb-2">
+            <h3 className="text-base font-bold text-black mb-1">{title}</h3>
+            {showCrcInfoFeature && (
+              <button
+                onClick={() => setCrcInfoDrawerOpen(true)}
+                className="text-primary hover:text-primaryDark text-sm font-medium underline"
+              >
+                Learn more about the consumer report card
+              </button>
+            )}
+          </div>
+          
+          <div className="flex gap-4 items-start">
+            {/* FIXED ORDER: Employment → Wage → Completion → Industries */}
+            
+            {/* 1st: Percent of employed graduates */}
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-0 flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                {!employmentQ2 && !employmentQ4 ? (
+                  <Warning className="w-4 h-4 text-gray-600 flex-shrink-0" weight="regular" />
+                ) : (
+                  <BriefcaseIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
+                )}
+                <span className="text-sm font-normal text-black leading-tight">Percent of employed graduates</span>
+              </div>
+              {!employmentQ2 && !employmentQ4 ? (
+                <div className="text-base font-bold text-black">Data unreported</div>
+              ) : (
+                <div className="space-y-1">
+                  <div className="text-base font-bold text-black">{employmentQ2 ? `${parseFloat(employmentQ2.toString()).toFixed(1)}%` : 'N/A'} <span className="text-sm text-black font-normal">at 6 months</span></div>
+                  <div className="text-base font-bold text-black">{employmentQ4 ? `${parseFloat(employmentQ4.toString()).toFixed(1)}%` : 'N/A'} <span className="text-sm text-black font-normal">at 12 months</span></div>
+                </div>
+              )}
+            </div>
+
+            {/* 2nd: Median wage */}
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-0 flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                {!salaryQ2 && !salaryQ4 ? (
+                  <Warning className="w-4 h-4 text-gray-600 flex-shrink-0" weight="regular" />
+                ) : (
+                  <MoneyWavyIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
+                )}
+                <span className="text-sm font-normal text-black leading-tight">Median wage</span>
+              </div>
+              {!salaryQ2 && !salaryQ4 ? (
+                <div className="text-base font-bold text-black">Data unreported</div>
+              ) : (
+                <div className="space-y-1">
+                  <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-sm text-black font-normal">at 6 months</span></div>
+                  <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-sm text-black font-normal">at 12 months</span></div>
+                </div>
+              )}
+            </div>
+
+            {/* 3rd: Completion percentage */}
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-0 flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                {!completionRate ? (
+                  <Warning className="w-4 h-4 text-gray-600 flex-shrink-0" weight="regular" />
+                ) : (
+                  <GraduationCapIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
+                )}
+                <span className="text-sm font-normal text-black leading-tight">Completion percentage</span>
+              </div>
+              <div className="text-base font-bold text-black">
+                {completionRate ? `${(completionRate * 100).toFixed(1)}%` : 'Data unreported'}
+              </div>
+            </div>
+
+            {/* 4th: Top three industries for completers */}
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-0 flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                {industriesQ2.length === 0 ? (
+                  <Warning className="w-4 h-4 text-gray-600 flex-shrink-0" weight="regular" />
+                ) : (
+                  <BuildingOfficeIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
+                )}
+                <span className="text-sm font-normal text-black leading-tight">Leading industries for graduates</span>
+              </div>
+              {industriesQ2.length === 0 ? (
+                <div className="text-base font-bold text-black">Data unreported</div>
+              ) : (
+                <ul className="space-y-0.5 list-none">
+                  {industriesQ2.slice(0, 3).map((industry, index) => (
+                    <li key={industry.code} className="text-base font-bold text-black leading-tight">
+                      • {industry.title || `Sector ${index + 1}`}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        {showCrcInfoFeature && (
+          <CrcInfoDrawer
+            crcInfoDrawerOpen={crcInfoDrawerOpen}
+            setCrcInfoDrawerOpen={setCrcInfoDrawerOpen}
+          />
+        )}
+      </>
+    );
+  }
+
+  // Default vertical layout
   return (
     <>
       <div className={`bg-teal-50 rounded-lg p-6 ${className}`}>
         <div className="mb-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">{title}</h3>
+          <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
           {showCrcInfoFeature && (
             <button
               onClick={() => setCrcInfoDrawerOpen(true)}
@@ -54,92 +201,90 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
         </div>
         
         <div className="grid grid-cols-1 tabletMd:grid-cols-4 gap-4">
-          {/* Completion percentage */}
-          <div className="bg-white rounded-lg p-4 shadow-sm">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
-                </svg>
-              </div>
-              <span className="text-sm font-medium text-gray-900 leading-tight">Completion percentage</span>
-            </div>
-            <div className="text-2xl font-bold text-gray-900">
-              {formatPercentage(completionRate)}
-            </div>
-          </div>
-
           {/* Percent of employed graduates */}
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M10 16V8a6 6 0 0 1 12 0v8a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2Z"/>
-                  <path d="M6 16.326A7 7 0 0 1 3 10a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6.326"/>
-                  <path d="M2 21h20v-2H2z"/>
-                </svg>
+                {!employmentQ2 && !employmentQ4 ? (
+                  <Warning className="w-5 h-5 text-gray-600" weight="regular" />
+                ) : (
+                  <BriefcaseIcon className="w-5 h-5 text-blue-600" weight="duotone" />
+                )}
               </div>
-              <span className="text-sm font-medium text-gray-900 leading-tight">Percent of employed graduates</span>
+              <span className="text-sm font-medium text-black leading-tight">Percent of employed graduates</span>
             </div>
-            <div className="space-y-1">
-              <div>
-                <div className="text-2xl font-bold text-gray-900">{formatPercentage(employmentQ2, false)}</div>
-                <div className="text-sm text-gray-600">at 6 months</div>
+            {!employmentQ2 && !employmentQ4 ? (
+              <div className="text-base font-bold text-black">Data unreported</div>
+            ) : (
+              <div className="space-y-1">
+                <div className="text-base font-bold text-black">{formatPercentage(employmentQ2, false)} <span className="text-sm text-black font-normal">at 6 months</span></div>
+                <div className="text-base font-bold text-black">{formatPercentage(employmentQ4, false)} <span className="text-sm text-black font-normal">at 12 months</span></div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">{formatPercentage(employmentQ4, false)}</div>
-                <div className="text-sm text-gray-600">at 12 months</div>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Median wage */}
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M16 8v8H8V8h8zm2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z"/>
-                  <path d="M12 10v4m-2-2h4"/>
-                </svg>
+                {!salaryQ2 && !salaryQ4 ? (
+                  <Warning className="w-5 h-5 text-gray-600" weight="regular" />
+                ) : (
+                  <MoneyWavyIcon className="w-5 h-5 text-blue-600" weight="duotone" />
+                )}
               </div>
-              <span className="text-sm font-medium text-gray-900 leading-tight">Median wage</span>
+              <span className="text-sm font-medium text-black leading-tight">Median wage</span>
             </div>
-            <div className="space-y-1">
-              <div>
-                <div className="text-2xl font-bold text-gray-900">{formatSalary(salaryQ2)}</div>
-                <div className="text-sm text-gray-600">at 6 months</div>
+            {!salaryQ2 && !salaryQ4 ? (
+              <div className="text-base font-bold text-black">Data unreported</div>
+            ) : (
+              <div className="space-y-1">
+                <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-sm text-black font-normal">at 6 months</span></div>
+                <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-sm text-black font-normal">at 12 months</span></div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">{formatSalary(salaryQ4)}</div>
-                <div className="text-sm text-gray-600">at 12 months</div>
-              </div>
-            </div>
+            )}
           </div>
 
-          
+          {/* Completion percentage */}
+          <div className="bg-white rounded-lg p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                {!completionRate ? (
+                  <Warning className="w-5 h-5 text-gray-600" weight="regular" />
+                ) : (
+                  <GraduationCapIcon className="w-5 h-5 text-blue-600" weight="duotone" />
+                )}
+              </div>
+              <span className="text-sm font-medium text-black leading-tight">Completion percentage</span>
+            </div>
+            <div className="text-base font-bold text-black">
+              {completionRate ? `${(completionRate * 100).toFixed(1)}%` : 'Data unreported'}
+            </div>
+          </div>
 
           {/* Top three industries for completers */}
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 21V8l5-3 5 3v2h5v11H3Z"/>
-                  <path d="M8 10h2v2H8v-2Zm0 4h2v2H8v-2Zm4-4h2v2h-2v-2Zm0 4h2v2h-2v-2Zm6 0h2v2h-2v-2Zm0 4h2v2h-2v-2Z"/>
-                </svg>
+                {industriesQ2.length === 0 ? (
+                  <Warning className="w-5 h-5 text-gray-600" weight="regular" />
+                ) : (
+                  <BuildingOfficeIcon className="w-5 h-5 text-blue-600" weight="duotone" />
+                )}
               </div>
-              <span className="text-sm font-medium text-gray-900 leading-tight">Top three industries for completers</span>
+              <span className="text-sm font-medium text-black leading-tight">Leading industries for graduates</span>
             </div>
-            <ul className="space-y-1 list-none">
-              {industriesQ2.length > 0 ? (
-                industriesQ2.slice(0, 3).map((industry, index) => (
-                  <li key={industry.code} className="text-sm text-gray-700 leading-tight">
+            {industriesQ2.length === 0 ? (
+              <div className="text-base font-bold text-black">Data unreported</div>
+            ) : (
+              <ul className="space-y-0.5 list-none">
+                {industriesQ2.slice(0, 3).map((industry, index) => (
+                  <li key={industry.code} className="text-base font-bold text-black leading-tight">
                     • {industry.title || `Sector ${index + 1}`}
                   </li>
-                ))
-              ) : (
-                <li className="text-sm text-gray-500 italic leading-tight">No industry data available.</li>
-              )}
-            </ul>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>

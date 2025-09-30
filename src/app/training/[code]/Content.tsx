@@ -64,6 +64,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
           ],
         }}
         inDemand={training.inDemand}
+        outcomes={training.outcomes}
       />
 
       <section className="body-copy">
@@ -170,7 +171,6 @@ const Content = ({ training }: { training: TrainingProps }) => {
 
           {/* Desktop View: No Tabs */}
           <div className="hidden tabletMd:block">
-            {hasOutcomeData(training.outcomes) && <OutcomeDetails outcomes={training.outcomes} />}
             <div className="inner mt-6">
               <div>
                 <Description training={training} />
