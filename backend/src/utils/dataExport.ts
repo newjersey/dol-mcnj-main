@@ -165,7 +165,7 @@ export async function exportSubscribersAsCSV(
                 item.encryptedEmail as EncryptedData, 
                 opId
               );
-            } catch (standardError) {
+            } catch {
               // Fall back to legacy decryption for older data
               logger.info("Standard decryption failed, trying legacy decryption", { 
                 operationId: opId,
@@ -196,7 +196,7 @@ export async function exportSubscribersAsCSV(
                 item.encryptedFname as EncryptedData, 
                 opId
               );
-            } catch (standardError) {
+            } catch {
               // Fall back to legacy decryption for older data
               logger.info("Standard decryption failed, trying legacy decryption", { 
                 operationId: opId,
@@ -227,7 +227,7 @@ export async function exportSubscribersAsCSV(
                 item.encryptedLname as EncryptedData, 
                 opId
               );
-            } catch (standardError) {
+            } catch {
               // Fall back to legacy decryption for older data
               logger.info("Standard decryption failed, trying legacy decryption", { 
                 operationId: opId,

@@ -1,9 +1,8 @@
-import { GraphQLClient } from "graphql-request";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-export const contentfulClient = ({
+export const contentfulClient = async ({
   query,
   variables,
   includeDrafts,
@@ -17,6 +16,8 @@ export const contentfulClient = ({
   excludeInvalid?: boolean;
   accessToken: string;
 }) => {
+  const { GraphQLClient } = await import("graphql-request");
+  
   const headers: {
     authorization: string;
     "X-Include-Drafts"?: string;
