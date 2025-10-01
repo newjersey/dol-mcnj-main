@@ -45,9 +45,9 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   if (!hasAnyData) {
     return (
       <>
-        <div className={`bg-teal-50 rounded-lg p-3 ${className}`}>
-          <div className="mb-2">
-            <h3 className={horizontal ? "text-base font-bold text-black mb-1" : "font-bold text-gray-900 mb-2"}>{title}</h3>
+        <div className={`bg-teal-50 rounded-lg p-4 ${className}`}>
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
             {showCrcInfoFeature && (
               <button
                 onClick={() => setCrcInfoDrawerOpen(true)}
@@ -59,8 +59,8 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
           </div>
           
           <div className="flex items-center gap-2">
-            <Warning className="w-5 h-5 text-gray-600 flex-shrink-0" weight="regular" />
-            <span className="text-base font-bold text-black">Data unreported</span>
+            <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+            <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
           </div>
         </div>
         
@@ -78,9 +78,9 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   if (horizontal) {
     return (
       <>
-        <div className={`bg-teal-50 rounded-lg p-3 ${className}`}>
-          <div className="mb-2">
-            <h3 className="text-base font-bold text-black mb-1">{title}</h3>
+        <div className={`bg-teal-50 rounded-lg p-4 ${className}`}>
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
             {showCrcInfoFeature && (
               <button
                 onClick={() => setCrcInfoDrawerOpen(true)}
@@ -91,21 +91,20 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             )}
           </div>
           
-          <div className="flex gap-4 items-start">
+          <div className="flex flex-wrap gap-4 items-start">
             {/* FIXED ORDER: Employment → Wage → Completion → Industries */}
             
             {/* 1st: Percent of employed graduates */}
-            <div className="bg-white rounded-lg p-3 shadow-sm min-w-0 flex-1">
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
-                {!employmentQ2 && !employmentQ4 ? (
-                  <Warning className="w-4 h-4 text-gray-600 flex-shrink-0" weight="regular" />
-                ) : (
-                  <BriefcaseIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                )}
+                <BriefcaseIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
                 <span className="text-sm font-normal text-black leading-tight">Percent of employed graduates</span>
               </div>
               {!employmentQ2 && !employmentQ4 ? (
-                <div className="text-base font-bold text-black">Data unreported</div>
+                <div className="flex items-center gap-2">
+                  <Warning className="w-4 h-4 text-black flex-shrink-0" weight="regular" />
+                  <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
+                </div>
               ) : (
                 <div className="space-y-1">
                   <div className="text-base font-bold text-black">{employmentQ2 ? `${parseFloat(employmentQ2.toString()).toFixed(1)}%` : 'N/A'} <span className="text-sm text-black font-normal">at 6 months</span></div>
@@ -115,17 +114,16 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             </div>
 
             {/* 2nd: Median wage */}
-            <div className="bg-white rounded-lg p-3 shadow-sm min-w-0 flex-1">
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
-                {!salaryQ2 && !salaryQ4 ? (
-                  <Warning className="w-4 h-4 text-gray-600 flex-shrink-0" weight="regular" />
-                ) : (
-                  <MoneyWavyIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                )}
+                <MoneyWavyIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
                 <span className="text-sm font-normal text-black leading-tight">Median wage</span>
               </div>
               {!salaryQ2 && !salaryQ4 ? (
-                <div className="text-base font-bold text-black">Data unreported</div>
+                <div className="flex items-center gap-2">
+                  <Warning className="w-4 h-4 text-black flex-shrink-0" weight="regular" />
+                  <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
+                </div>
               ) : (
                 <div className="space-y-1">
                   <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-sm text-black font-normal">at 6 months</span></div>
@@ -135,32 +133,32 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             </div>
 
             {/* 3rd: Completion percentage */}
-            <div className="bg-white rounded-lg p-3 shadow-sm min-w-0 flex-1">
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
-                {!completionRate ? (
-                  <Warning className="w-4 h-4 text-gray-600 flex-shrink-0" weight="regular" />
-                ) : (
-                  <GraduationCapIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                )}
+                <GraduationCapIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
                 <span className="text-sm font-normal text-black leading-tight">Completion percentage</span>
               </div>
-              <div className="text-base font-bold text-black">
-                {completionRate ? `${(completionRate * 100).toFixed(1)}%` : 'Data unreported'}
-              </div>
+              {!completionRate ? (
+                <div className="flex items-center gap-2">
+                  <Warning className="w-4 h-4 text-black flex-shrink-0" weight="regular" />
+                  <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
+                </div>
+              ) : (
+                <div className="text-lg font-bold text-black">{(completionRate * 100).toFixed(1)}%</div>
+              )}
             </div>
 
             {/* 4th: Top three industries for completers */}
-            <div className="bg-white rounded-lg p-3 shadow-sm min-w-0 flex-1">
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
-                {industriesQ2.length === 0 ? (
-                  <Warning className="w-4 h-4 text-gray-600 flex-shrink-0" weight="regular" />
-                ) : (
-                  <BuildingOfficeIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                )}
+                <BuildingOfficeIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
                 <span className="text-sm font-normal text-black leading-tight">Leading industries for graduates</span>
               </div>
               {industriesQ2.length === 0 ? (
-                <div className="text-base font-bold text-black">Data unreported</div>
+                <div className="flex items-center gap-2">
+                  <Warning className="w-4 h-4 text-black flex-shrink-0" weight="regular" />
+                  <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
+                </div>
               ) : (
                 <ul className="space-y-0.5 list-none">
                   {industriesQ2.slice(0, 3).map((industry, index) => (
@@ -189,7 +187,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
     <>
       <div className={`bg-teal-50 rounded-lg p-6 ${className}`}>
         <div className="mb-6">
-          <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">{title}</h2>
           {showCrcInfoFeature && (
             <button
               onClick={() => setCrcInfoDrawerOpen(true)}
@@ -205,16 +203,15 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                {!employmentQ2 && !employmentQ4 ? (
-                  <Warning className="w-5 h-5 text-gray-600" weight="regular" />
-                ) : (
-                  <BriefcaseIcon className="w-5 h-5 text-blue-600" weight="duotone" />
-                )}
+                <BriefcaseIcon className="w-5 h-5 text-blue-600" weight="duotone" />
               </div>
               <span className="text-sm font-medium text-black leading-tight">Percent of employed graduates</span>
             </div>
             {!employmentQ2 && !employmentQ4 ? (
-              <div className="text-base font-bold text-black">Data unreported</div>
+              <div className="flex items-center gap-2">
+                <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+                <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
+              </div>
             ) : (
               <div className="space-y-1">
                 <div className="text-base font-bold text-black">{formatPercentage(employmentQ2, false)} <span className="text-sm text-black font-normal">at 6 months</span></div>
@@ -227,16 +224,15 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                {!salaryQ2 && !salaryQ4 ? (
-                  <Warning className="w-5 h-5 text-gray-600" weight="regular" />
-                ) : (
-                  <MoneyWavyIcon className="w-5 h-5 text-blue-600" weight="duotone" />
-                )}
+                <MoneyWavyIcon className="w-5 h-5 text-blue-600" weight="duotone" />
               </div>
               <span className="text-sm font-medium text-black leading-tight">Median wage</span>
             </div>
             {!salaryQ2 && !salaryQ4 ? (
-              <div className="text-base font-bold text-black">Data unreported</div>
+              <div className="flex items-center gap-2">
+                <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+                <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
+              </div>
             ) : (
               <div className="space-y-1">
                 <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-sm text-black font-normal">at 6 months</span></div>
@@ -249,33 +245,33 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                {!completionRate ? (
-                  <Warning className="w-5 h-5 text-gray-600" weight="regular" />
-                ) : (
-                  <GraduationCapIcon className="w-5 h-5 text-blue-600" weight="duotone" />
-                )}
+                <GraduationCapIcon className="w-5 h-5 text-blue-600" weight="duotone" />
               </div>
               <span className="text-sm font-medium text-black leading-tight">Completion percentage</span>
             </div>
-            <div className="text-base font-bold text-black">
-              {completionRate ? `${(completionRate * 100).toFixed(1)}%` : 'Data unreported'}
-            </div>
+            {!completionRate ? (
+              <div className="flex items-center gap-2">
+                <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+                <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
+              </div>
+            ) : (
+              <div className="text-lg font-bold text-black">{(completionRate * 100).toFixed(1)}%</div>
+            )}
           </div>
 
           {/* Top three industries for completers */}
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                {industriesQ2.length === 0 ? (
-                  <Warning className="w-5 h-5 text-gray-600" weight="regular" />
-                ) : (
-                  <BuildingOfficeIcon className="w-5 h-5 text-blue-600" weight="duotone" />
-                )}
+                <BuildingOfficeIcon className="w-5 h-5 text-blue-600" weight="duotone" />
               </div>
               <span className="text-sm font-medium text-black leading-tight">Leading industries for graduates</span>
             </div>
             {industriesQ2.length === 0 ? (
-              <div className="text-base font-bold text-black">Data unreported</div>
+              <div className="flex items-center gap-2">
+                <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+                <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
+              </div>
             ) : (
               <ul className="space-y-0.5 list-none">
                 {industriesQ2.slice(0, 3).map((industry, index) => (

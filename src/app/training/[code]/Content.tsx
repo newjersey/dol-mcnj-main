@@ -6,7 +6,7 @@ import { TrainingProps } from "@utils/types";
 import { Button } from "@components/modules/Button";
 import { ProgramBanner } from "@components/blocks/ProgramBanner";
 import { OutcomeDetails } from "@components/modules/OutcomeDetails";
-import { hasOutcomeData } from "@utils/outcomeHelpers";
+
 import { AssociatedOccupationsIndustries } from "./sections/AssociatedOccupationsIndustries";
 import { Cost } from "./sections/Cost";
 import { Description } from "./sections/Description";
@@ -64,81 +64,54 @@ const Content = ({ training }: { training: TrainingProps }) => {
           ],
         }}
         inDemand={training.inDemand}
-        outcomes={training.outcomes}
+        outcomes={(training as any).outcomes}
       />
 
       <section className="body-copy">
         <div className="container">
           {/* Mobile View: Tabs */}
           <div className="tabletMd:hidden">
-            {hasOutcomeData(training.outcomes) ? (
-              <>
-                <div className="bg-primary-lighter rounded-lg p-1 mb-6">
-                  <nav className="flex">
-                    <button
-                      onClick={() => setActiveTab("details")}
-                      className={`py-3 px-4 text-base font-medium leading-5 w-full text-center transition-all duration-200 relative ${
-                        activeTab === "details"
-                          ? "text-base-darkest"
-                          : "text-base-dark hover:text-base-darkest"
-                      }`}
-                    >
-                      Details
-                      {activeTab === "details" && (
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary rounded-full"></div>
-                      )}
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("crc")}
-                      className={`py-3 px-4 text-base font-medium leading-5 w-full text-center transition-all duration-200 relative ${
-                        activeTab === "crc"
-                          ? "text-primary font-semibold"
-                          : "text-base-dark hover:text-base-darkest"
-                      }`}
-                    >
-                      Consumer report card
-                      {activeTab === "crc" && (
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary rounded-full"></div>
-                      )}
-                    </button>
-                  </nav>
-                </div>
+            <div className="bg-primary-lighter rounded-lg p-1 mb-6">
+              <nav className="flex" role="tablist" aria-label="Training information tabs">
+                <button
+                  id="details-tab"
+                  role="tab"
+                  aria-selected={activeTab === "details"}
+                  aria-controls="details-panel"
+                  onClick={() => setActiveTab("details")}
+                  className={`py-3 px-4 text-base font-medium leading-5 w-full text-center transition-all duration-200 relative ${
+                    activeTab === "details"
+                      ? "text-base-darkest"
+                      : "text-base-dark hover:text-base-darkest"
+                  }`}
+                >
+                  Details
+                  {activeTab === "details" && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary rounded-full"></div>
+                  )}
+                </button>
+                <button
+                  id="crc-tab"
+                  role="tab"
+                  aria-selected={activeTab === "crc"}
+                  aria-controls="crc-panel"
+                  onClick={() => setActiveTab("crc")}
+                  className={`py-3 px-4 text-base font-medium leading-5 w-full text-center transition-all duration-200 relative ${
+                    activeTab === "crc"
+                      ? "text-primary font-semibold"
+                      : "text-base-dark hover:text-base-darkest"
+                  }`}
+                >
+                  Consumer report card
+                  {activeTab === "crc" && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary rounded-full"></div>
+                  )}
+                </button>
+              </nav>
+            </div>
 
-                {activeTab === "details" && (
-                  <div className="inner">
-                    <div>
-                      <Description training={training} />
-                      <QuickFacts training={training} />
-                      <Cost training={training} />
-                      <LocationContactDetails training={training} />
-                      <InstructionalPrograms
-                        training={training}
-                        setCipDrawerOpen={setCipDrawerOpen}
-                        cipDrawerOpen={cipDrawerOpen}
-                      />
-                      <AssociatedOccupationsIndustries
-                        training={training}
-                        setSocDrawerOpen={setSocDrawerOpen}
-                        socDrawerOpen={socDrawerOpen}
-                      />
-                      <SupportServices training={training} />
-                      <HowToGetFunding />
-                      <Button
-                        type="link"
-                        highlight="orange"
-                        label="See something wrong? Report an issue."
-                        link={`/contact?path=/training/${training.id}&title=${training.name}`}
-                        newTab
-                        iconPrefix="Flag"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === "crc" && <OutcomeDetails outcomes={training.outcomes} />}
-              </>
-            ) : (
-              <div className="inner">
+            {activeTab === "details" && (
+              <div className="inner" role="tabpanel" id="details-panel" aria-labelledby="details-tab">
                 <div>
                   <Description training={training} />
                   <QuickFacts training={training} />
@@ -167,6 +140,12 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 </div>
               </div>
             )}
+
+            {activeTab === "crc" && (
+              <div role="tabpanel" id="crc-panel" aria-labelledby="crc-tab">
+                <OutcomeDetails outcomes={(training as any).outcomes} />
+              </div>
+            )}
           </div>
 
           {/* Desktop View: No Tabs */}
@@ -191,6 +170,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 <Cost training={training} />
                 <LocationContactDetails training={training} />
                 <SupportServices training={training} />
+                <OutcomeDetails outcomes={(training as any).outcomes} />
                 <Button
                   type="link"
                   highlight="orange"
