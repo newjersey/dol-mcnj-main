@@ -98,7 +98,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <BriefcaseIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                <span className="text-sm font-normal text-black leading-tight">Percent of employed graduates</span>
+                <span className="font-normal text-black leading-tight">Percent of employed graduates</span>
               </div>
               {!employmentQ2 && !employmentQ4 ? (
                 <div className="flex items-center gap-2">
@@ -107,8 +107,8 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
                 </div>
               ) : (
                 <div className="space-y-1">
-                  <div className="text-base font-bold text-black">{employmentQ2 ? `${parseFloat(employmentQ2.toString()).toFixed(1)}%` : 'N/A'} <span className="text-sm text-black font-normal">at 6 months</span></div>
-                  <div className="text-base font-bold text-black">{employmentQ4 ? `${parseFloat(employmentQ4.toString()).toFixed(1)}%` : 'N/A'} <span className="text-sm text-black font-normal">at 12 months</span></div>
+                  <div className="text-base font-bold text-black">{employmentQ2 ? `${parseFloat(employmentQ2.toString()).toFixed(1)}%` : 'N/A'} <span className="text-black font-normal">at 6 months</span></div>
+                  <div className="text-base font-bold text-black">{employmentQ4 ? `${parseFloat(employmentQ4.toString()).toFixed(1)}%` : 'N/A'} <span className="text-black font-normal">at 12 months</span></div>
                 </div>
               )}
             </div>
@@ -117,7 +117,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <MoneyWavyIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                <span className="text-sm font-normal text-black leading-tight">Median wage</span>
+                <span className="font-normal text-black leading-tight">Median wage</span>
               </div>
               {!salaryQ2 && !salaryQ4 ? (
                 <div className="flex items-center gap-2">
@@ -126,8 +126,8 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
                 </div>
               ) : (
                 <div className="space-y-1">
-                  <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-sm text-black font-normal">at 6 months</span></div>
-                  <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-sm text-black font-normal">at 12 months</span></div>
+                  <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-black font-normal">at 6 months</span></div>
+                  <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-black font-normal">at 12 months</span></div>
                 </div>
               )}
             </div>
@@ -136,7 +136,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <GraduationCapIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                <span className="text-sm font-normal text-black leading-tight">Completion percentage</span>
+                <span className="font-normal text-black leading-tight">Completion percentage</span>
               </div>
               {!completionRate ? (
                 <div className="flex items-center gap-2">
@@ -152,7 +152,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <BuildingOfficeIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                <span className="text-sm font-normal text-black leading-tight">Leading industries for graduates</span>
+                <span className="font-normal text-black leading-tight">Leading industries for graduates</span>
               </div>
               {industriesQ2.length === 0 ? (
                 <div className="flex items-center gap-2">
@@ -205,7 +205,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <BriefcaseIcon className="w-5 h-5 text-blue-600" weight="duotone" />
               </div>
-              <span className="text-sm font-medium text-black leading-tight">Percent of employed graduates</span>
+              <span className="font-normal text-black leading-tight">Percent of employed graduates</span>
             </div>
             {!employmentQ2 && !employmentQ4 ? (
               <div className="flex items-center gap-2">
@@ -214,8 +214,8 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
               </div>
             ) : (
               <div className="space-y-1">
-                <div className="text-base font-bold text-black">{formatPercentage(employmentQ2, false)} <span className="text-sm text-black font-normal">at 6 months</span></div>
-                <div className="text-base font-bold text-black">{formatPercentage(employmentQ4, false)} <span className="text-sm text-black font-normal">at 12 months</span></div>
+                <div className="text-base font-bold text-black">{formatPercentage(employmentQ2, false)} <span className="text-black font-normal">at 6 months</span></div>
+                <div className="text-base font-bold text-black">{formatPercentage(employmentQ4, false)} <span className="text-black font-normal">at 12 months</span></div>
               </div>
             )}
           </div>
@@ -226,7 +226,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <MoneyWavyIcon className="w-5 h-5 text-blue-600" weight="duotone" />
               </div>
-              <span className="text-sm font-medium text-black leading-tight">Median wage</span>
+              <span className="font-normal text-black leading-tight">Median wage</span>
             </div>
             {!salaryQ2 && !salaryQ4 ? (
               <div className="flex items-center gap-2">
@@ -235,8 +235,8 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
               </div>
             ) : (
               <div className="space-y-1">
-                <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-sm text-black font-normal">at 6 months</span></div>
-                <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-sm text-black font-normal">at 12 months</span></div>
+                <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-black font-normal">at 6 months</span></div>
+                <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-black font-normal">at 12 months</span></div>
               </div>
             )}
           </div>
@@ -247,7 +247,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <GraduationCapIcon className="w-5 h-5 text-blue-600" weight="duotone" />
               </div>
-              <span className="text-sm font-medium text-black leading-tight">Completion percentage</span>
+              <span className="font-normal text-black leading-tight">Completion percentage</span>
             </div>
             {!completionRate ? (
               <div className="flex items-center gap-2">
@@ -265,7 +265,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <BuildingOfficeIcon className="w-5 h-5 text-blue-600" weight="duotone" />
               </div>
-              <span className="text-sm font-medium text-black leading-tight">Leading industries for graduates</span>
+              <span className="font-normal text-black leading-tight">Leading industries for graduates</span>
             </div>
             {industriesQ2.length === 0 ? (
               <div className="flex items-center gap-2">
