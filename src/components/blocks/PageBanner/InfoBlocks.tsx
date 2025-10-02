@@ -42,14 +42,6 @@ const InfoBlocks = ({
     >
       {titleBlock && (
         <Box radius={5} className="box title">
-          <p>
-            {titleBlock.message}&nbsp;
-            {titleBlock.link?.url && (
-              <LinkObject noIndicator url={titleBlock.link.url}>
-                {titleBlock.link.copy}
-              </LinkObject>
-            )}
-          </p>
           <Flex
             elementTag="p"
             alignItems="center"
@@ -60,6 +52,14 @@ const InfoBlocks = ({
             <Fire size={24} weight="bold" />
             {titleBlock.copy}
           </Flex>
+          <p>
+            {titleBlock.message}&nbsp;
+            {titleBlock.link?.url && (
+              <LinkObject noIndicator url={titleBlock.link.url}>
+                {titleBlock.link.copy}
+              </LinkObject>
+            )}
+          </p>
         </Box>
       )}
       {costBlock && (
