@@ -84,14 +84,44 @@ describe("LinkObject", () => {
   });
 
   it("handles hash links correctly and scrolls to the element", () => {
-    document.body.innerHTML = '<div id="hash-element">Hash Element</div>';
+    // Mock requestAnimationFrame to prevent infinite loop
+    let animationCallback: ((time: number) => void) | null = null;
+    const mockRequestAnimationFrame = jest.fn((callback) => {
+      animationCallback = callback;
+      return 1;
+    });
+    global.requestAnimationFrame = mockRequestAnimationFrame;
+
+    // Mock window.scrollTo
+    const mockScrollTo = jest.fn();
+    global.scrollTo = mockScrollTo;
+
+    // Mock window.pageYOffset
+    Object.defineProperty(window, "pageYOffset", {
+      value: 0,
+      writable: true,
+    });
+
+    document.body.innerHTML =
+      '<div id="hash-element" style="offsetTop: 100px;">Hash Element</div>';
+    const element = document.getElementById("hash-element");
+    if (element) {
+      Object.defineProperty(element, "offsetTop", { value: 100 });
+    }
+
     const { getByText } = render(
       <LinkObject url="#hash-element">Hash Link</LinkObject>
     );
     fireEvent.click(getByText("Hash Link"));
-    expect(
-      document.getElementById("hash-element")?.scrollIntoView
-    ).toHaveBeenCalled();
+
+    // Verify that requestAnimationFrame was called (indicating custom scroll animation)
+    expect(mockRequestAnimationFrame).toHaveBeenCalled();
+
+    // Manually call the animation callback once to test it runs
+    if (animationCallback) {
+      (animationCallback as (time: number) => void)(1000);
+      expect(mockScrollTo).toHaveBeenCalled();
+    }
   });
 
   it("executes the onClick handler when provided", () => {

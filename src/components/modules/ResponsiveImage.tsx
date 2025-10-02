@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface ImageProps {
+export interface ResponsiveImageProps {
   alt?: string;
   height?: number;
   isBackground?: boolean;
@@ -24,7 +24,7 @@ const ResponsiveImage = ({
   sizes,
   src,
   width,
-}: ImageProps) => {
+}: ResponsiveImageProps) => {
   return (
     <>
       {noContainer ? (

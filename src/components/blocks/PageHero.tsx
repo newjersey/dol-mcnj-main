@@ -35,7 +35,7 @@ export const PageHero = (props: PageHeroProps) => {
           <div className="heroContent">
             <Heading level={1}>{props.heading}</Heading>
             {props.subheading && (
-              <p className="subheading">{props.subheading}</p>
+              <p className="subheading text-pretty">{props.subheading}</p>
             )}
             {props.ctaButtons && (
               <div className="buttons">

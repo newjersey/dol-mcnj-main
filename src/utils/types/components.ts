@@ -278,6 +278,7 @@ export interface ButtonProps {
   buttonId?: string;
   children?: ReactNode;
   className?: string;
+  autoWidth?: boolean;
   loading?: boolean;
   customBgColor?: string;
   customBorderColor?: string;

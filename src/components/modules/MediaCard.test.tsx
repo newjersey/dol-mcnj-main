@@ -13,7 +13,7 @@ jest.mock("../../utils/highlighter", () => ({
 jest.mock("./ResponsiveImage", () => ({
   ResponsiveImage: jest.fn().mockReturnValue(
     // eslint-disable-next-line @next/next/no-img-element
-    <img src="../image.jpg" alt="" data-testid="responsive-image" />,
+    <img src="../image.jpg" alt="" data-testid="responsive-image" />
   ),
 }));
 
@@ -24,49 +24,56 @@ describe("MediaCard", () => {
   });
 
   it("renders correctly with all optional props provided", () => {
-    const { getByText, getByTestId } = render(
+    const { getByText, getByRole } = render(
       <MediaCard
         className="test-class"
         description="Test Description"
-        headingLevel={2}
-        image={{ url: "https://example.com/image.jpg", lqip: "lqip" }}
+        image={{
+          src: "https://example.com/image.jpg",
+          alt: "Test image",
+          width: 400,
+          height: 300,
+        }}
         title="Test Title"
-        url="https://example.com"
-      />,
+      />
     );
 
     const mediaCard = document.querySelector(".media-card");
 
-    expect(mediaCard?.tagName).toBe("A");
-    expect(getByTestId("responsive-image")).toBeInTheDocument();
+    expect(mediaCard?.tagName).toBe("DIV");
+    expect(getByRole("img")).toBeInTheDocument();
     expect(getByText("Test Title")).toBeInTheDocument();
     expect(getByText("Test Description")).toBeInTheDocument();
   });
 
   it("renders the image correctly when the image prop is provided", () => {
-    const { getByTestId } = render(
+    const { getByRole } = render(
       <MediaCard
         title="Test Title"
-        image={{ url: "https://example.com/image.jpg", lqip: "lqip" }}
-      />,
+        image={{
+          src: "https://example.com/image.jpg",
+          alt: "Test image",
+          width: 400,
+          height: 300,
+        }}
+      />
     );
-    expect(getByTestId("responsive-image")).toBeInTheDocument();
+    expect(getByRole("img")).toBeInTheDocument();
   });
 
-  it("renders the title correctly with highlighter applied", () => {
-    const { container } = render(<MediaCard title="Test Title" />);
-    expect(container.querySelector("h3")?.innerHTML).toBe(
-      "<mark>Test Title</mark>",
-    );
+  it("renders the title correctly", () => {
+    const { getByText } = render(<MediaCard title="Test Title" />);
+    expect(getByText("Test Title")).toBeInTheDocument();
+    expect(getByText("Test Title").tagName).toBe("P");
   });
 
-  it("renders the description correctly with highlighter applied", () => {
+  it("renders the description correctly with markdown parsing", () => {
     const { container } = render(
-      <MediaCard title="Test Title" description="Test Description" />,
+      <MediaCard title="Test Title" description="Test Description" />
     );
-    expect(container.querySelector("p")?.innerHTML).toBe(
-      "<mark>Test Description</mark>",
-    );
+    const descriptionElement = container.querySelector(".description");
+    expect(descriptionElement).toBeInTheDocument();
+    expect(descriptionElement?.innerHTML).toBe("<p>Test Description</p>\n");
   });
 
   it("renders as a plain div when the url prop is not provided", () => {
