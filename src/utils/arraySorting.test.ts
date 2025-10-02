@@ -8,7 +8,7 @@ describe("arraySorting Function", () => {
       name: "test1",
       zipCode: "08330",
       totalCost: 1000,
-      percentEmployed: 80,
+      outcomes: { employment: [{ quarter: 2, employmentRate: 80 }] },
       cipDefinition: {
         cipCode: "12345",
         cipTitle: "CIP Title",
@@ -20,7 +20,7 @@ describe("arraySorting Function", () => {
       name: "test2",
       zipCode: "08330",
       totalCost: 500,
-      percentEmployed: 60,
+      outcomes: { employment: [{ quarter: 2, employmentRate: 60 }] },
       cipDefinition: {
         cipCode: "12345",
         cipTitle: "CIP Title",
@@ -32,7 +32,7 @@ describe("arraySorting Function", () => {
       name: "test3",
       zipCode: "08330",
       totalCost: 1500,
-      percentEmployed: 90,
+      outcomes: { employment: [{ quarter: 2, employmentRate: 90 }] },
       cipDefinition: {
         cipCode: "12345",
         cipTitle: "CIP Title",
@@ -44,7 +44,7 @@ describe("arraySorting Function", () => {
       name: "test4",
       zipCode: "08330",
       totalCost: 750,
-      percentEmployed: 70,
+      outcomes: { employment: [{ quarter: 2, employmentRate: 70 }] },
       cipDefinition: "definition4",
     },
   ];
@@ -60,9 +60,9 @@ describe("arraySorting Function", () => {
       {
         id: "2",
         name: "test2",
-        percentEmployed: 60,
-        totalCost: 500,
         zipCode: "08330",
+        totalCost: 500,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 60 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",
@@ -72,17 +72,17 @@ describe("arraySorting Function", () => {
       {
         id: "4",
         name: "test4",
-        percentEmployed: 70,
-        totalCost: 750,
         zipCode: "08330",
+        totalCost: 750,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 70 }] },
         cipDefinition: "definition4",
       },
       {
         id: "1",
         name: "test1",
-        percentEmployed: 80,
-        totalCost: 1000,
         zipCode: "08330",
+        totalCost: 1000,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 80 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",
@@ -92,9 +92,9 @@ describe("arraySorting Function", () => {
       {
         id: "3",
         name: "test3",
-        percentEmployed: 90,
-        totalCost: 1500,
         zipCode: "08330",
+        totalCost: 1500,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 90 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",
@@ -110,9 +110,9 @@ describe("arraySorting Function", () => {
       {
         id: "3",
         name: "test3",
-        percentEmployed: 90,
-        totalCost: 1500,
         zipCode: "08330",
+        totalCost: 1500,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 90 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",
@@ -122,9 +122,9 @@ describe("arraySorting Function", () => {
       {
         id: "1",
         name: "test1",
-        percentEmployed: 80,
-        totalCost: 1000,
         zipCode: "08330",
+        totalCost: 1000,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 80 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",
@@ -134,17 +134,17 @@ describe("arraySorting Function", () => {
       {
         id: "4",
         name: "test4",
-        percentEmployed: 70,
-        totalCost: 750,
         zipCode: "08330",
+        totalCost: 750,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 70 }] },
         cipDefinition: "definition4",
       },
       {
         id: "2",
         name: "test2",
-        percentEmployed: 60,
-        totalCost: 500,
         zipCode: "08330",
+        totalCost: 500,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 60 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",
@@ -160,9 +160,9 @@ describe("arraySorting Function", () => {
       {
         id: "3",
         name: "test3",
-        percentEmployed: 90,
-        totalCost: 1500,
         zipCode: "08330",
+        totalCost: 1500,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 90 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",
@@ -172,9 +172,9 @@ describe("arraySorting Function", () => {
       {
         id: "1",
         name: "test1",
-        percentEmployed: 80,
-        totalCost: 1000,
         zipCode: "08330",
+        totalCost: 1000,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 80 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",
@@ -184,17 +184,17 @@ describe("arraySorting Function", () => {
       {
         id: "4",
         name: "test4",
-        percentEmployed: 70,
-        totalCost: 750,
         zipCode: "08330",
+        totalCost: 750,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 70 }] },
         cipDefinition: "definition4",
       },
       {
         id: "2",
         name: "test2",
-        percentEmployed: 60,
-        totalCost: 500,
         zipCode: "08330",
+        totalCost: 500,
+        outcomes: { employment: [{ quarter: 2, employmentRate: 60 }] },
         cipDefinition: {
           cipCode: "12345",
           cipTitle: "CIP Title",

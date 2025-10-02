@@ -16,8 +16,6 @@ describe("Training Page", () => {
 
     // stat boxes
     cy.contains("In-Demand").should("exist");
-    cy.contains("60.4%").should("exist");
-    cy.contains("$29,890").should("exist");
 
     // description
     cy.contains(
@@ -62,6 +60,13 @@ describe("Training Page", () => {
     cy.contains("(908) 964-7800 Ext: 40253").should("exist");
     cy.contains("www.lincolntech.com").should("exist");
 
-    cy.checkA11y();
+    cy.checkA11y(null, null, (violations) => {
+      if (violations.length > 0) {
+        const violationDetails = violations.map(violation => 
+          `Rule: ${violation.id}\nImpact: ${violation.impact}\nDescription: ${violation.description}\nHelp: ${violation.help}\nElements: ${violation.nodes.map(node => `${node.target.join(' > ')} - HTML: ${node.html}`).join(', ')}`
+        ).join('\n\n');
+        throw new Error(`Accessibility violations found:\n${violationDetails}`);
+      }
+    });
   });
 });

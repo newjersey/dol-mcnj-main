@@ -33,6 +33,22 @@ export const SEARCH_RESULTS_PAGE_DATA = {
         key: "Employment Rate",
         value: "rate",
       },
+      {
+        key: "Completion Rate",
+        value: "completion",
+      },
+      {
+        key: "Credential Rate",
+        value: "credential",
+      },
+      {
+        key: "Salary: High to Low",
+        value: "salary-high",
+      },
+      {
+        key: "Salary: Low to High",
+        value: "salary-low",
+      },
     ],
     perPageOptions: [
       {
@@ -90,6 +106,22 @@ export const SEARCH_RESULTS_PAGE_DATA = {
       {
         key: "Tasa de Empleo",
         value: "rate",
+      },
+      {
+        key: "Tasa de Finalización",
+        value: "completion",
+      },
+      {
+        key: "Tasa de Credenciales",
+        value: "credential",
+      },
+      {
+        key: "Salario: Mayor a Menor",
+        value: "salary-high",
+      },
+      {
+        key: "Salario: Menor a Mayor",
+        value: "salary-low",
       },
     ],
     perPageOptions: [

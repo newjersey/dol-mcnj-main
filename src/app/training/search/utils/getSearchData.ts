@@ -1,5 +1,6 @@
 import { baking, digitalMarketing } from "../../../../mockData/index";
 import { ResultProps } from "@utils/types";
+import { getPercentEmployed, getCompletionRate, getCredentialRate, getAverageSalary } from "@utils/outcomeHelpers";
 import { FilterProps } from "../components/Results";
 import { getZipCodesInRadius } from "@utils/getZipCodesInRadius";
 import { handleFiltering } from "@utils/handleFiltering";
@@ -399,9 +400,52 @@ export async function getSearchData(props: {
         break;
       case "rate":
         pageData.sort((a: ResultProps, b: ResultProps) => {
-          const percentEmployedA = a.percentEmployed || 0;
-          const percentEmployedB = b.percentEmployed || 0;
+          const percentEmployedA = getPercentEmployed(a.outcomes);
+          const percentEmployedB = getPercentEmployed(b.outcomes);
+          if (percentEmployedA == null && percentEmployedB == null) return 0;
+          if (percentEmployedA == null) return 1;
+          if (percentEmployedB == null) return -1;
           return percentEmployedB - percentEmployedA;
+        });
+        break;
+      case "completion":
+        pageData.sort((a: ResultProps, b: ResultProps) => {
+          const completionRateA = getCompletionRate(a.outcomes);
+          const completionRateB = getCompletionRate(b.outcomes);
+          if (completionRateA == null && completionRateB == null) return 0;
+          if (completionRateA == null) return 1;
+          if (completionRateB == null) return -1;
+          return completionRateB - completionRateA;
+        });
+        break;
+      case "credential":
+        pageData.sort((a: ResultProps, b: ResultProps) => {
+          const credentialRateA = getCredentialRate(a.outcomes);
+          const credentialRateB = getCredentialRate(b.outcomes);
+          if (credentialRateA == null && credentialRateB == null) return 0;
+          if (credentialRateA == null) return 1;
+          if (credentialRateB == null) return -1;
+          return credentialRateB - credentialRateA;
+        });
+        break;
+      case "salary-high":
+        pageData.sort((a: ResultProps, b: ResultProps) => {
+          const salaryA = getAverageSalary(a.outcomes);
+          const salaryB = getAverageSalary(b.outcomes);
+          if (salaryA == null && salaryB == null) return 0;
+          if (salaryA == null) return 1;
+          if (salaryB == null) return -1;
+          return salaryB - salaryA;
+        });
+        break;
+      case "salary-low":
+        pageData.sort((a: ResultProps, b: ResultProps) => {
+          const salaryA = getAverageSalary(a.outcomes);
+          const salaryB = getAverageSalary(b.outcomes);
+          if (salaryA == null && salaryB == null) return 0;
+          if (salaryA == null) return 1;
+          if (salaryB == null) return -1;
+          return salaryA - salaryB;
         });
         break;
       default:

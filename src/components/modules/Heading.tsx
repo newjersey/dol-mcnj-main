@@ -1,4 +1,4 @@
-import { HeadingLevel } from "@utils/types";
+import { HeadingLevel } from "../../utils/types";
 import { ReactNode, JSX } from "react";
 
 export interface HeadingProps {

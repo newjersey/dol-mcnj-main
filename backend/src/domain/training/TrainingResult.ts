@@ -1,12 +1,13 @@
 import { CalendarLength } from "../CalendarLength";
-import { CipDefinition } from "./Program";
+import {CipDefinition} from "./Program";
+import {ProgramOutcome} from "./outcomes";
 
 export interface TrainingResult {
   id: string;
   name: string;
   cipDefinition?: CipDefinition | null;
   totalCost: number;
-  percentEmployed: number | null;
+  outcomes: ProgramOutcome;
   calendarLength: CalendarLength;
   totalClockHours: number;
   inDemand: boolean;

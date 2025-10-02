@@ -1,4 +1,5 @@
 import { ResultProps } from "./types";
+import { getPercentEmployed } from "./outcomeHelpers";
 
 export const arraySorting = ({
   array,
@@ -33,8 +34,10 @@ export const arraySorting = ({
 
   if (sortBy === "rate") {
     return copyArray.sort((a, b) => {
-      if (a.percentEmployed && b.percentEmployed) {
-        return b.percentEmployed - a.percentEmployed;
+      const aRate = getPercentEmployed(a.outcomes);
+      const bRate = getPercentEmployed(b.outcomes);
+      if (aRate && bRate) {
+        return bRate - aRate;
       }
       return 0;
     });

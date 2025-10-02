@@ -2,6 +2,7 @@
 import { ResultCard } from "@components/modules/ResultCard";
 import { Filter } from "./Filter";
 import { FetchResultsProps, ResultProps } from "@utils/types";
+import { getPercentEmployed } from "@utils/outcomeHelpers";
 import { createContext, useEffect, useState } from "react";
 import { ResultsHeader } from "./ResultsHeader";
 import { CompareTable } from "./CompareTable";
@@ -136,7 +137,8 @@ const Results = ({
                 cipDefinition={item.cipDefinition}
                 cost={item.totalCost}
                 description={item.highlight}
-                percentEmployed={item.percentEmployed}
+                outcomes={item.outcomes}
+                percentEmployed={getPercentEmployed(item.outcomes) ?? undefined}
                 education={item.providerName}
                 timeToComplete={item.calendarLength}
                 location={`${item.city}, ${item.county}`}

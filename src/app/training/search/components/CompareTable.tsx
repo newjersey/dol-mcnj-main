@@ -4,6 +4,7 @@ import { Tag } from "@components/modules/Tag";
 import { X } from "@phosphor-icons/react";
 import { calendarLength } from "@utils/calendarLength";
 import { toUsCurrency } from "@utils/toUsCurrency";
+import { getPercentEmployed, getCompletionRate, getCredentialRate, getAverageSalary, formatPercentage, formatSalary } from "@utils/outcomeHelpers";
 import { useContext, useState } from "react";
 import { ResultsContext } from "./Results";
 
@@ -63,13 +64,62 @@ export const CompareTable = () => {
                   {compare.map((item) => (
                     <td key={item.id}>
                       {" "}
-                      {item.percentEmployed
-                        ? `${Math.round(item.percentEmployed * 100)}% Employed`
+                      {formatPercentage(getPercentEmployed(item.outcomes), false) !== 'N/A'
+                        ? `${formatPercentage(getPercentEmployed(item.outcomes), false)} Employed`
                         : "--"}
                     </td>
                   ))}
                   {remainingBoxesArray.map((item) => (
                     <td key={`emptyTablebox2${item}`}></td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>Completion Rate %</td>
+                  {compare.map((item) => {
+                    const completionRate = getCompletionRate(item.outcomes);
+                    return (
+                      <td key={item.id}>
+                        {formatPercentage(completionRate) !== 'N/A'
+                          ? `${formatPercentage(completionRate)} Completed`
+                          : "--"}
+                      </td>
+                    );
+                  })}
+                  {remainingBoxesArray.map((item) => (
+                    <td key={`emptyTableboxCompletion${item}`}></td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>Credential Rate %</td>
+                  {compare.map((item) => {
+                    const credentialRate = getCredentialRate(item.outcomes);
+                    const formattedCredentialRate = formatPercentage(credentialRate, false);
+                    return (
+                      <td key={item.id}>
+                        {formattedCredentialRate !== 'N/A'
+                          ? `${formattedCredentialRate} Credentialed`
+                          : "--"}
+                      </td>
+                    );
+                  })}
+                  {remainingBoxesArray.map((item) => (
+                    <td key={`emptyTableboxCredential${item}`}></td>
+                  ))}
+                </tr>
+                <tr>
+                  <td>Average Salary</td>
+                  {compare.map((item) => {
+                    const avgSalary = getAverageSalary(item.outcomes);
+                    return (
+                      <td key={item.id}>
+                        {formatSalary(avgSalary) !== 'N/A'
+                          ? formatSalary(avgSalary)
+                          : "--"}
+                      </td>
+                    );
+                  })}
+                  {remainingBoxesArray.map((item) => (
+                    <td key={`emptyTableboxSalary${item}`}></td>
                   ))}
                 </tr>
                 <tr>

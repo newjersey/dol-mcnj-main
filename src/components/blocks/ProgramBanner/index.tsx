@@ -1,7 +1,7 @@
 import { LinkProps } from "@utils/types";
+import { ProgramOutcome } from "@utils/types/components";
 import { InfoBlocks } from "../PageBanner/InfoBlocks";
-import { formatPercentEmployed } from "@utils/formatPercentEmployed";
-import { toUsCurrency } from "@utils/toUsCurrency";
+import { OutcomeDetails } from "@components/modules/OutcomeDetails";
 import { CrumbSearch } from "./CrumbSearch";
 import { TitleBox } from "./TitleBox";
 
@@ -12,11 +12,13 @@ interface ProgramBannerProps {
   printHandler: () => void;
   breadcrumbsCollection?: { items: LinkProps[] };
   inDemand?: boolean;
-  employmentRate?: number;
-  salary?: number;
+  outcomes?: ProgramOutcome;
 }
 
 export const ProgramBanner = (props: ProgramBannerProps) => {
+  // Always show outcomes component - it will handle "Data unreported" internally
+  const showOutcomes = true;
+  
   return (
     <>
       <CrumbSearch
@@ -32,37 +34,57 @@ export const ProgramBanner = (props: ProgramBannerProps) => {
       />
       <div className="programBanner">
         <div className="container blocksContainer">
-          <InfoBlocks
-            titleBlock={
-              props.inDemand
-                ? {
-                    copy: "In-Demand in New Jersey",
-                    message:
-                      "This training may be eligible for funding from your",
-                    link: {
-                      url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
-                      copy: "One-Stop Career Center.",
-                    },
+          {/* Mobile: Only show InfoBlocks, OutcomeDetails handled by tab interface */}
+          <div className="tabletMd:hidden">
+            <InfoBlocks
+              titleBlock={
+                props.inDemand
+                  ? {
+                      copy: "In-Demand in New Jersey",
+                      message:
+                        "This training may be eligible for funding from your",
+                      link: {
+                        url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
+                        copy: "One-Stop Career Center.",
+                      },
+                    }
+                  : undefined
+              }
+            />
+          </div>
+          
+          {/* Desktop: Side by side */}
+          <div className="hidden tabletMd:block">
+            <div className="flex gap-6 items-stretch">
+              <div className="flex-shrink-0">
+                <InfoBlocks
+                  titleBlock={
+                    props.inDemand
+                      ? {
+                          copy: "In-Demand in New Jersey",
+                          message:
+                            "This training may be eligible for funding from your",
+                          link: {
+                            url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
+                            copy: "One-Stop Career Center.",
+                          },
+                        }
+                      : undefined
                   }
-                : undefined
-            }
-            costBlock={{
-              copy: "Avg Salary after Program",
-              number: props.salary
-                ? toUsCurrency(props.salary)
-                : "Not available",
-              definition:
-                "Average salary 6 months after completion of this class or classes like it at this provider. * This information is missing because we haven't received enough data from this institute.",
-            }}
-            rateBlock={{
-              copy: "Program Employment Rate",
-              number: props.employmentRate
-                ? formatPercentEmployed(props.employmentRate)
-                : "Not available",
-              definition:
-                "Percentage of enrolled students employed within 6 months of this class or classes like it at this provider. * This information is missing because we haven't received enough data from this institute.",
-            }}
-          />
+                />
+              </div>
+              
+              {showOutcomes && (
+                <div className="flex-1">
+                  <OutcomeDetails 
+                    outcomes={props.outcomes!} 
+                    horizontal={true}
+                    className="mb-0 h-full"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>
