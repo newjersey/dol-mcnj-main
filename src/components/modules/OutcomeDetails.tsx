@@ -45,7 +45,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   if (!hasAnyData) {
     return (
       <>
-        <div className={`bg-teal-50 rounded-lg p-4 ${className}`}>
+        <div className={`bg-teal-50 rounded-lg p-4 tabletMd:-ml-8 ${className}`}>
           <div className="mb-4">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
             {showCrcInfoFeature && (
@@ -185,7 +185,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   // Default vertical layout
   return (
     <>
-      <div className={`bg-teal-50 rounded-lg p-6 ${className}`}>
+      <div className={`bg-teal-50 rounded-lg p-6 tabletMd:-ml-8 ${className}`}>
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">{title}</h2>
           {showCrcInfoFeature && (
