@@ -18,6 +18,7 @@ import { SupportedLanguages } from "@utils/types/types";
 import { Metadata } from "next";
 import { LangSelector } from "@components/global/LangSelector";
 import { seoConfig, generateStructuredData, performanceOptimizations } from "@utils/seo";
+import { ErrorBoundary } from "@components/modules/ErrorBoundary";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -176,7 +177,9 @@ export default async function RootLayout({
           {process.env.REACT_APP_FEATURE_MULTILANG === "true" && (
             <LangSelector />
           )}
-          <div id="main-content">{children}</div>
+          <ErrorBoundary>
+            <div id="main-content">{children}</div>
+          </ErrorBoundary>
           <Footer
             lang={lang}
             items={{
