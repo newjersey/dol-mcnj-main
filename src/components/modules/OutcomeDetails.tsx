@@ -149,7 +149,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             </div>
 
             {/* 4th: Top three industries for completers */}
-            <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
+            <div className="bg-white rounded-lg p-3 shadow-sm min-w-[300px] flex-[1_1_100%]">
               <div className="flex items-center gap-2 mb-2">
                 <BuildingOfficeIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
                 <span className="font-normal text-black leading-tight">Leading industries for graduates</span>

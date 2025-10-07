@@ -53,35 +53,31 @@ export const ProgramBanner = (props: ProgramBannerProps) => {
             />
           </div>
           
-          {/* Desktop: Side by side */}
+          {/* Tablet and Desktop: Always stacked */}
           <div className="hidden tabletMd:block">
-            <div className="flex gap-6 items-stretch">
-              <div className="flex-shrink-0">
-                <InfoBlocks
-                  titleBlock={
-                    props.inDemand
-                      ? {
-                          copy: "In-Demand in New Jersey",
-                          message:
-                            "This training may be eligible for funding from your",
-                          link: {
-                            url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
-                            copy: "One-Stop Career Center.",
-                          },
-                        }
-                      : undefined
-                  }
-                />
-              </div>
+            <div className="space-y-6">
+              <InfoBlocks
+                titleBlock={
+                  props.inDemand
+                    ? {
+                        copy: "In-Demand in New Jersey",
+                        message:
+                          "This training may be eligible for funding from your",
+                        link: {
+                          url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
+                          copy: "One-Stop Career Center.",
+                        },
+                      }
+                    : undefined
+                }
+              />
               
               {showOutcomes && (
-                <div className="flex-1">
-                  <OutcomeDetails 
-                    outcomes={props.outcomes!} 
-                    horizontal={true}
-                    className="mb-0 h-full"
-                  />
-                </div>
+                <OutcomeDetails 
+                  outcomes={props.outcomes!} 
+                  horizontal={true}
+                  className="mb-0"
+                />
               )}
             </div>
           </div>
