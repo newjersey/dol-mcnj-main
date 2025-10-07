@@ -33,7 +33,8 @@
 
     &.title {
       background-color: s.$accent-warm-light;
-      gap: s.$size-8;
+      gap: 0;
+      justify-content: flex-start !important;
 
       @media screen and (min-width: (s.$tablet-md)) {
         max-width: s.$size-300;
