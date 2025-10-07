@@ -45,23 +45,17 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   if (!hasAnyData) {
     return (
       <>
-        <div className={`bg-teal-50 rounded-lg p-4 tabletMd:-ml-8 ${className}`}>
-          <div className="mb-4">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
-            {showCrcInfoFeature && (
-              <button
-                onClick={() => setCrcInfoDrawerOpen(true)}
-                className="text-primary hover:text-primaryDark text-sm font-medium underline"
-              >
-                Learn more about the consumer report card
-              </button>
-            )}
-          </div>
+        <div className={`bg-teal-50 rounded-lg flex flex-col justify-between ${horizontal ? 'p-4 min-h-24 gap-2' : 'p-4 tabletMd:-ml-8'} ${className}`}>
+          <h3 className="text-2xl font-bold text-gray-900 m-0 leading-tight">
+            {title}
+          </h3>
           
-          <div className="flex items-center gap-2">
-            <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
-            <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
-          </div>
+          <p className="m-0" style={{ lineHeight: '1.1' }}>
+            <span className="flex items-center gap-2">
+              <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
+              <span className="font-bold text-black">Data unreported</span>
+            </span>
+          </p>
         </div>
         
         {showCrcInfoFeature && (
@@ -78,9 +72,9 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   if (horizontal) {
     return (
       <>
-        <div className={`bg-teal-50 rounded-lg p-4 ${className}`}>
-          <div className="mb-4">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
+        <div className={`bg-teal-50 rounded-lg px-12 py-6 ${className}`}>
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">{title}</h3>
             {showCrcInfoFeature && (
               <button
                 onClick={() => setCrcInfoDrawerOpen(true)}
@@ -91,24 +85,24 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             )}
           </div>
           
-          <div className="flex flex-wrap gap-4 items-start">
+          <div className="flex flex-wrap gap-4 items-stretch">
             {/* FIXED ORDER: Employment → Wage → Completion → Industries */}
             
             {/* 1st: Percent of employed graduates */}
             <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <BriefcaseIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                <span className="font-normal text-black leading-tight">Percent of employed graduates</span>
+                <BriefcaseIcon className="w-6 h-6 text-blue-600 flex-shrink-0" weight="duotone" />
+                <span className="text-sm font-normal text-black leading-tight">Percent of employed graduates</span>
               </div>
               {!employmentQ2 && !employmentQ4 ? (
                 <div className="flex items-center gap-2">
-                  <Warning className="w-4 h-4 text-black flex-shrink-0" weight="regular" />
+                  <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
                   <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
                 </div>
               ) : (
                 <div className="space-y-1">
-                  <div className="text-base font-bold text-black">{employmentQ2 ? `${parseFloat(employmentQ2.toString()).toFixed(1)}%` : 'N/A'} <span className="text-black font-normal">at 6 months</span></div>
-                  <div className="text-base font-bold text-black">{employmentQ4 ? `${parseFloat(employmentQ4.toString()).toFixed(1)}%` : 'N/A'} <span className="text-black font-normal">at 12 months</span></div>
+                  <div className="text-base font-bold text-black">{employmentQ2 ? `${parseFloat(employmentQ2.toString()).toFixed(1)}%` : 'N/A'} <span className="text-sm text-black font-normal">at 6 months</span></div>
+                  <div className="text-base font-bold text-black">{employmentQ4 ? `${parseFloat(employmentQ4.toString()).toFixed(1)}%` : 'N/A'} <span className="text-sm text-black font-normal">at 12 months</span></div>
                 </div>
               )}
             </div>
@@ -116,18 +110,18 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             {/* 2nd: Median wage */}
             <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <MoneyWavyIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                <span className="font-normal text-black leading-tight">Median wage</span>
+                <MoneyWavyIcon className="w-6 h-6 text-blue-600 flex-shrink-0" weight="duotone" />
+                <span className="text-sm font-normal text-black leading-tight">Median wage</span>
               </div>
               {!salaryQ2 && !salaryQ4 ? (
                 <div className="flex items-center gap-2">
-                  <Warning className="w-4 h-4 text-black flex-shrink-0" weight="regular" />
+                  <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
                   <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
                 </div>
               ) : (
                 <div className="space-y-1">
-                  <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-black font-normal">at 6 months</span></div>
-                  <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-black font-normal">at 12 months</span></div>
+                  <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-sm text-black font-normal">at 6 months</span></div>
+                  <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-sm text-black font-normal">at 12 months</span></div>
                 </div>
               )}
             </div>
@@ -135,12 +129,12 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             {/* 3rd: Completion percentage */}
             <div className="bg-white rounded-lg p-3 shadow-sm min-w-[200px] flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <GraduationCapIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                <span className="font-normal text-black leading-tight">Completion percentage</span>
+                <GraduationCapIcon className="w-6 h-6 text-blue-600 flex-shrink-0" weight="duotone" />
+                <span className="text-sm font-normal text-black leading-tight">Completion percentage</span>
               </div>
               {!completionRate ? (
                 <div className="flex items-center gap-2">
-                  <Warning className="w-4 h-4 text-black flex-shrink-0" weight="regular" />
+                  <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
                   <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
                 </div>
               ) : (
@@ -151,12 +145,12 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
             {/* 4th: Top three industries for completers */}
             <div className="bg-white rounded-lg p-3 shadow-sm min-w-[300px] flex-[1_1_100%]">
               <div className="flex items-center gap-2 mb-2">
-                <BuildingOfficeIcon className="w-4 h-4 text-blue-600 flex-shrink-0" weight="duotone" />
-                <span className="font-normal text-black leading-tight">Leading industries for graduates</span>
+                <BuildingOfficeIcon className="w-6 h-6 text-blue-600 flex-shrink-0" weight="duotone" />
+                <span className="text-sm font-normal text-black leading-tight">Leading industries for graduates</span>
               </div>
               {industriesQ2.length === 0 ? (
                 <div className="flex items-center gap-2">
-                  <Warning className="w-4 h-4 text-black flex-shrink-0" weight="regular" />
+                  <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
                   <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
                 </div>
               ) : (
@@ -186,8 +180,8 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
   return (
     <>
       <div className={`bg-teal-50 rounded-lg p-6 tabletMd:-ml-8 ${className}`}>
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">{title}</h2>
+        <div className="mb-4">
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">{title}</h3>
           {showCrcInfoFeature && (
             <button
               onClick={() => setCrcInfoDrawerOpen(true)}
@@ -203,19 +197,19 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <BriefcaseIcon className="w-5 h-5 text-blue-600" weight="duotone" />
+                <BriefcaseIcon className="w-6 h-6 text-blue-600" weight="duotone" />
               </div>
-              <span className="font-normal text-black leading-tight">Percent of employed graduates</span>
+              <span className="text-sm font-normal text-black leading-tight">Percent of employed graduates</span>
             </div>
             {!employmentQ2 && !employmentQ4 ? (
               <div className="flex items-center gap-2">
-                <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+                <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
                 <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
               </div>
             ) : (
               <div className="space-y-1">
-                <div className="text-base font-bold text-black">{formatPercentage(employmentQ2, false)} <span className="text-black font-normal">at 6 months</span></div>
-                <div className="text-base font-bold text-black">{formatPercentage(employmentQ4, false)} <span className="text-black font-normal">at 12 months</span></div>
+                <div className="text-base font-bold text-black">{formatPercentage(employmentQ2, false)} <span className="text-sm text-black font-normal">at 6 months</span></div>
+                <div className="text-base font-bold text-black">{formatPercentage(employmentQ4, false)} <span className="text-sm text-black font-normal">at 12 months</span></div>
               </div>
             )}
           </div>
@@ -224,19 +218,19 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <MoneyWavyIcon className="w-5 h-5 text-blue-600" weight="duotone" />
+                <MoneyWavyIcon className="w-6 h-6 text-blue-600" weight="duotone" />
               </div>
-              <span className="font-normal text-black leading-tight">Median wage</span>
+              <span className="text-sm font-normal text-black leading-tight">Median wage</span>
             </div>
             {!salaryQ2 && !salaryQ4 ? (
               <div className="flex items-center gap-2">
-                <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+                <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
                 <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
               </div>
             ) : (
               <div className="space-y-1">
-                <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-black font-normal">at 6 months</span></div>
-                <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-black font-normal">at 12 months</span></div>
+                <div className="text-base font-bold text-black">{formatSalary(salaryQ2)} <span className="text-sm text-black font-normal">at 6 months</span></div>
+                <div className="text-base font-bold text-black">{formatSalary(salaryQ4)} <span className="text-sm text-black font-normal">at 12 months</span></div>
               </div>
             )}
           </div>
@@ -245,13 +239,13 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <GraduationCapIcon className="w-5 h-5 text-blue-600" weight="duotone" />
+                <GraduationCapIcon className="w-6 h-6 text-blue-600" weight="duotone" />
               </div>
-              <span className="font-normal text-black leading-tight">Completion percentage</span>
+              <span className="text-sm font-normal text-black leading-tight">Completion percentage</span>
             </div>
             {!completionRate ? (
               <div className="flex items-center gap-2">
-                <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+                <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
                 <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
               </div>
             ) : (
@@ -263,13 +257,13 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <BuildingOfficeIcon className="w-5 h-5 text-blue-600" weight="duotone" />
+                <BuildingOfficeIcon className="w-6 h-6 text-blue-600" weight="duotone" />
               </div>
-              <span className="font-normal text-black leading-tight">Leading industries for graduates</span>
+              <span className="text-sm font-normal text-black leading-tight">Leading industries for graduates</span>
             </div>
             {industriesQ2.length === 0 ? (
               <div className="flex items-center gap-2">
-                <Warning className="w-5 h-5 text-black flex-shrink-0" weight="regular" />
+                <Warning className="w-6 h-6 text-black flex-shrink-0" weight="regular" />
                 <span className="text-lg font-bold text-black m-0 leading-tight">Data unreported</span>
               </div>
             ) : (

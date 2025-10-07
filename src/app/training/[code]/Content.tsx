@@ -171,7 +171,7 @@ const Content = ({ training }: { training: TrainingProps }) => {
 
           {/* Desktop View: No Tabs */}
           <div className="hidden tabletMd:block">
-            <div className="inner mt-6">
+            <div className="inner mt-2">
               <div>
                 <Description training={training} />
                 <QuickFacts training={training} />
