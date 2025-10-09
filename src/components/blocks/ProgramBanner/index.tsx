@@ -55,69 +55,65 @@ export const ProgramBanner = (props: ProgramBannerProps) => {
             />
           </div>
           
-          {/* Tablet and Desktop: Stacked when has data, horizontal when no data */}
-          <div className="hidden tabletMd:block">
-            {hasData ? (
-              // When there's data, stack vertically
-              <div className="space-y-6">
-                <div className="w-full tabletMd:w-1/2 [&_.infoBlocks_.box.title]:!max-w-full">
+          {/* Tablet: Stack vertically with in-demand taking 1/2 width */}
+          <div className="hidden tabletMd:block desktop:hidden">
+            <div className="space-y-6">
+              {props.inDemand && (
+                <div className="!w-1/2 !max-w-1/2">
                   <InfoBlocks
-                    titleBlock={
-                      props.inDemand
-                        ? {
-                            copy: "In-Demand in New Jersey",
-                            message:
-                              "This training may be eligible for funding from your",
-                            link: {
-                              url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
-                              copy: "One-Stop Career Center.",
-                            },
-                          }
-                        : undefined
-                    }
+                    className="[&>div]:!w-full [&_.box.title]:!max-w-full"
+                    titleBlock={{
+                      copy: "In-Demand in New Jersey",
+                      message:
+                        "This training may be eligible for funding from your",
+                      link: {
+                        url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
+                        copy: "One-Stop Career Center.",
+                      },
+                    }}
                   />
                 </div>
-                
-                {showOutcomes && (
+              )}
+              
+              {showOutcomes && (
+                <OutcomeDetails 
+                  outcomes={props.outcomes!} 
+                  horizontal={true}
+                  className="mb-0 w-full"
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Desktop: Display side by side with in-demand block having min width */}
+          <div className="hidden desktop:block">
+            <div className="flex flex-wrap gap-4 items-start">
+              {props.inDemand && (
+                <div className="flex-shrink-0 min-w-[300px]">
+                  <InfoBlocks
+                    titleBlock={{
+                      copy: "In-Demand in New Jersey",
+                      message:
+                        "This training may be eligible for funding from your",
+                      link: {
+                        url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
+                        copy: "One-Stop Career Center.",
+                      },
+                    }}
+                  />
+                </div>
+              )}
+              
+              {showOutcomes && (
+                <div className="flex-1 min-w-0">
                   <OutcomeDetails 
                     outcomes={props.outcomes!} 
                     horizontal={true}
                     className="mb-0"
                   />
-                )}
-              </div>
-            ) : (
-              // When there's no data, display side by side
-              <div className="flex flex-wrap gap-4 items-start">
-                <div className="flex-shrink-0">
-                  <InfoBlocks
-                    titleBlock={
-                      props.inDemand
-                        ? {
-                            copy: "In-Demand in New Jersey",
-                            message:
-                              "This training may be eligible for funding from your",
-                            link: {
-                              url: "https://www.nj.gov/labor/career-services/contact-us/one-stops/",
-                              copy: "One-Stop Career Center.",
-                            },
-                          }
-                        : undefined
-                    }
-                  />
                 </div>
-                
-                {showOutcomes && (
-                  <div className="flex-1 min-w-0">
-                    <OutcomeDetails 
-                      outcomes={props.outcomes!} 
-                      horizontal={true}
-                      className="mb-0"
-                    />
-                  </div>
-                )}
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>
