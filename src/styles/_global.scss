@@ -713,3 +713,25 @@ iframe:focus {
     }
   }
 }
+
+// Mobile tabs fix - override aggressive CSS reset
+.mobile-tabs-wrapper {
+  display: block !important;
+
+  > div {
+    display: block !important;
+  }
+
+  nav {
+    display: flex !important;
+  }
+
+  button {
+    display: block !important;
+    cursor: pointer !important;
+  }
+
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+}
