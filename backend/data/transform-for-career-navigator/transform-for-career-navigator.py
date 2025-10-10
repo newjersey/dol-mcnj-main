@@ -4,6 +4,8 @@ import logging
 from requests.exceptions import RequestException
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import boto3
+from botocore.exceptions import BotoCoreError, ClientError
 
 # Setup logging
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -43,8 +45,38 @@ adapter = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
 session.mount('http://', adapter)
 session.mount('https://', adapter)
 
+# Initialize AWS Translate client
+translate_client = boto3.client('translate', region_name='us-east-1')
+
 # Cache for storing previously fetched SOC values
 soc_cache = {}
+
+# Cache for storing translations
+translation_cache = {}
+
+def translate_text(text, target_language):
+    """Translate text using AWS Translate with caching."""
+    if not text or text == "Unknown" or text == "Not Available":
+        return text
+    
+    cache_key = f"{text}:{target_language}"
+    if cache_key in translation_cache:
+        logging.debug(f"Using cached translation for '{text}' to {target_language}")
+        return translation_cache[cache_key]
+    
+    try:
+        logging.debug(f"Translating '{text}' to {target_language}")
+        response = translate_client.translate_text(
+            Text=text,
+            SourceLanguageCode='en',
+            TargetLanguageCode=target_language
+        )
+        translated_text = response['TranslatedText']
+        translation_cache[cache_key] = translated_text
+        return translated_text
+    except (BotoCoreError, ClientError) as e:
+        logging.error(f"Error translating '{text}' to {target_language}: {e}")
+        return text  # Return original text if translation fails
 
 def fetch_socs(cip):
     """Fetch the SOC values from the API for a given CIP, with caching."""
@@ -75,11 +107,26 @@ def process_row(row):
         soc_code = soc["soc"].replace("-", "")
         soc_name = soc.get("title", "Unknown")
         duration = float(calendarlength_dict.get(row.get("calendarlengthid"), 0.0))
-
+        
+        # Get training title
+        title_en = row["officialname"]
+        
+        # Translate to other languages
+        title_es = translate_text(title_en, 'es')  # Spanish
+        title_tl = translate_text(title_en, 'tl')  # Tagalog
+        title_zh = translate_text(title_en, 'zh')  # Chinese (Simplified)
+        title_ja = translate_text(title_en, 'ja')  # Japanese
+        
+        # Translate SOC names
+        soc_name_en = soc_name
+        soc_name_es = translate_text(soc_name, 'es')
+        soc_name_tl = translate_text(soc_name, 'tl')
+        soc_name_zh = translate_text(soc_name, 'zh')
+        soc_name_ja = translate_text(soc_name, 'ja')
 
         output_row = {
             "training_id": row["programid"],
-            "title": row["officialname"],
+            "title": title_en,
             "area": row["city"],
             "link": f'https://mycareer.nj.gov/training/{row["programid"]}',
             "duration": duration,
@@ -88,18 +135,18 @@ def process_row(row):
             "soc3": soc_code[:3],
             "id": f'training#{row["programid"]}',
             "method": "classroom",
-            "soc_name": soc_name,
+            "soc_name": soc_name_en,
             "location": row["county"],
-            "title_en": row["officialname"],
-            "soc_name_en": soc_name,
-            "title_es": row["officialname"],
-            "soc_name_es": soc_name,
-            "title_tl": row["officialname"],
-            "soc_name_tl": soc_name,
-            "title_zh": row["officialname"],
-            "soc_name_zh": soc_name,
-            "title_ja": row["officialname"],
-            "soc_name_ja": soc_name,
+            "title_en": title_en,
+            "soc_name_en": soc_name_en,
+            "title_es": title_es,
+            "soc_name_es": soc_name_es,
+            "title_tl": title_tl,
+            "soc_name_tl": soc_name_tl,
+            "title_zh": title_zh,
+            "soc_name_zh": soc_name_zh,
+            "title_ja": title_ja,
+            "soc_name_ja": soc_name_ja,
             "duration_units": "Weeks",
             "duration_slider_val_min": duration,
             "duration_slider_val_max": duration,
