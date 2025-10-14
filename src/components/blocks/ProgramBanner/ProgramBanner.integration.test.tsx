@@ -89,30 +89,33 @@ describe('ProgramBanner Integration Tests', () => {
     it('renders InfoBlocks for mobile (OutcomeDetails handled by tab interface)', () => {
       render(<ProgramBanner {...mockProps} />);
       
-      // InfoBlocks should be rendered for both mobile and desktop
+      // InfoBlocks should be rendered for mobile only (desktop only shows if inDemand)
       const infoBlocksComponents = screen.getAllByTestId('info-blocks');
-      expect(infoBlocksComponents).toHaveLength(2); // Mobile + Desktop
+      expect(infoBlocksComponents).toHaveLength(1); // Mobile only
       
-      // OutcomeDetails should only be rendered for desktop (mobile uses tab interface)
+      // OutcomeDetails should be rendered for tablet and desktop (2 instances)
       const outcomeComponents = screen.getAllByTestId('outcome-details');
-      expect(outcomeComponents).toHaveLength(1); // Only desktop
+      expect(outcomeComponents).toHaveLength(2); // Tablet + Desktop
       expect(outcomeComponents[0]).toHaveAttribute('data-horizontal', 'true');
     });
 
     it('renders side-by-side layout for desktop with height matching', () => {
       render(<ProgramBanner {...mockProps} />);
       
-      // Should have only desktop layout rendered (mobile uses tab interface)
+      // Should have tablet and desktop layouts rendered
       const outcomeComponents = screen.getAllByTestId('outcome-details');
-      expect(outcomeComponents).toHaveLength(1);
+      expect(outcomeComponents).toHaveLength(2); // Tablet + Desktop
       
-      // The single component should be the horizontal (desktop) version
-      const desktopOutcomes = outcomeComponents[0];
-      expect(desktopOutcomes).toHaveAttribute('data-horizontal', 'true');
-      expect(desktopOutcomes).toHaveTextContent('Horizontal');
+      // Both components should be horizontal versions
+      outcomeComponents.forEach(component => {
+        expect(component).toHaveAttribute('data-horizontal', 'true');
+        expect(component).toHaveTextContent('Horizontal');
+      });
       
-      // Check that it has height matching classes
-      expect(desktopOutcomes).toHaveClass('mb-0', 'h-full');
+      // Check that they have the mb-0 class
+      outcomeComponents.forEach(component => {
+        expect(component).toHaveClass('mb-0');
+      });
     });
   });
 
@@ -120,9 +123,9 @@ describe('ProgramBanner Integration Tests', () => {
     it('passes outcomes data to OutcomeDetails component', () => {
       render(<ProgramBanner {...mockProps} />);
       
-      // Only desktop OutcomeDetails should be rendered (mobile uses tab interface)
+      // Tablet and desktop OutcomeDetails should be rendered (mobile uses tab interface)
       const outcomeComponents = screen.getAllByTestId('outcome-details');
-      expect(outcomeComponents).toHaveLength(1);
+      expect(outcomeComponents).toHaveLength(2); // Tablet + Desktop
     });
 
     it('renders OutcomeDetails even without outcomes data', () => {
@@ -130,7 +133,7 @@ describe('ProgramBanner Integration Tests', () => {
       
       // Should still render OutcomeDetails (it handles empty data internally)
       const outcomeComponents = screen.getAllByTestId('outcome-details');
-      expect(outcomeComponents).toHaveLength(1); // Only desktop
+      expect(outcomeComponents).toHaveLength(2); // Tablet + Desktop
     });
 
     it('passes outcomes to desktop version (mobile handled by tab interface)', () => {
@@ -138,9 +141,11 @@ describe('ProgramBanner Integration Tests', () => {
       
       const outcomeComponents = screen.getAllByTestId('outcome-details');
       
-      // Should have only desktop version
-      expect(outcomeComponents).toHaveLength(1);
-      expect(outcomeComponents[0].getAttribute('data-horizontal')).toBe('true');
+      // Should have tablet and desktop versions
+      expect(outcomeComponents).toHaveLength(2);
+      outcomeComponents.forEach(component => {
+        expect(component.getAttribute('data-horizontal')).toBe('true');
+      });
     });
   });
 
@@ -151,8 +156,8 @@ describe('ProgramBanner Integration Tests', () => {
       // All core components should be present
       expect(screen.getByTestId('crumb-search')).toBeInTheDocument();
       expect(screen.getByTestId('title-box')).toBeInTheDocument();
-      expect(screen.getAllByTestId('info-blocks')).toHaveLength(2); // Mobile + Desktop
-      expect(screen.getAllByTestId('outcome-details')).toHaveLength(1); // Desktop only
+      expect(screen.getAllByTestId('info-blocks')).toHaveLength(1); // Mobile only (desktop only if inDemand)
+      expect(screen.getAllByTestId('outcome-details')).toHaveLength(2); // Tablet + Desktop
     });
   });
 });

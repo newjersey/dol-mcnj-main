@@ -46,7 +46,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
     return (
       <>
         <div className={`bg-teal-50 rounded-lg flex flex-col justify-between ${horizontal ? 'p-4 min-h-24 gap-2' : 'p-4 tabletMd:-ml-8'} ${className}`}>
-          <h2 className="text-2xl font-bold text-gray-900 m-0 leading-tight">
+          <h2 className="text-xl font-bold text-gray-900 m-0 leading-tight">
             {title}
           </h2>
           
@@ -74,7 +74,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
       <>
         <div className={`bg-teal-50 rounded-lg px-12 py-6 ${className}`}>
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">{title}</h2>
             {showCrcInfoFeature && (
               <button
                 onClick={() => setCrcInfoDrawerOpen(true)}
@@ -181,7 +181,7 @@ export const OutcomeDetails = ({ outcomes, title = "Consumer report card", class
     <>
       <div className={`bg-teal-50 rounded-lg p-6 tabletMd:-ml-8 ${className}`}>
         <div className="mb-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">{title}</h2>
           {showCrcInfoFeature && (
             <button
               onClick={() => setCrcInfoDrawerOpen(true)}
