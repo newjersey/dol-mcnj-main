@@ -29,8 +29,8 @@ module.exports = {
         NODE_ENV: process.env.NODE_ENV || 'production',
         PORT: 8080
       },
-      instances: 2, // Use 2 instances for better zero-downtime reloads
-      exec_mode: 'cluster', // Use cluster mode for zero-downtime reloads
+      instances: process.env.NODE_ENV === 'awstest' ? 1 : 2, // Use 1 instance only for awstest to avoid port conflicts
+      exec_mode: 'cluster', // Keep cluster mode for zero-downtime reloads
       watch: false,
       max_memory_restart: '512M',
       // Zero-downtime deployment settings
@@ -40,7 +40,7 @@ module.exports = {
       // Health monitoring
       min_uptime: '10s',
       max_restarts: 3,
-      // Graceful shutdown
+      // Graceful shutdown for zero-downtime deployments
       increment_var: 'PORT'
     }
   ],

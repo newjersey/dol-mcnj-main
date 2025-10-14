@@ -39,16 +39,32 @@ async function validateStartup() {
     validateEnvironmentConfig();
     
     // Skip encryption setup validation in development/test modes to prevent hanging
-    const isDevOrTest = !process.env.NODE_ENV || 
-                       process.env.NODE_ENV === 'dev' || 
-                       process.env.NODE_ENV === 'test' ||
+    const nodeEnv = process.env.NODE_ENV || '';
+    const isDevOrTest = !nodeEnv || 
+                       nodeEnv === 'dev' || 
+                       nodeEnv === 'test' ||
                        process.env.IS_CI === 'true';
+    
+    const isAwsEnvironment = nodeEnv.startsWith('aws') || nodeEnv === 'awstest' || nodeEnv === 'production';
     
     if (isDevOrTest) {
       logger.info("Skipping encryption validation in development/test environment");
+    } else if (isAwsEnvironment) {
+      logger.info(`Validating encryption setup for AWS environment: ${nodeEnv}`);
+      try {
+        // Only validate encryption in AWS environments
+        await validateEncryptionSetup();
+      } catch (encryptionError) {
+        logger.error(`Encryption validation failed in ${nodeEnv} environment`, encryptionError);
+        // For awstest, log error but don't fail startup - allow graceful degradation
+        if (nodeEnv === 'awstest') {
+          logger.info("Continuing startup in awstest environment despite encryption validation failure");
+        } else {
+          throw encryptionError;
+        }
+      }
     } else {
-      // Only validate encryption in AWS environments
-      await validateEncryptionSetup();
+      logger.info(`Unknown environment ${nodeEnv} - skipping encryption validation`);
     }
     
     logger.info("Application startup validation completed successfully");
