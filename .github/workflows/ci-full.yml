@@ -286,7 +286,7 @@ jobs:
       - name: Install PostgreSQL client and setup database
         run: |
           sudo apt-get update
-          sudo apt-get install -y postgresql-client
+          sudo apt-get install -y postgresql-client netcat-openbsd
           # Wait for PostgreSQL to be ready
           until pg_isready -h localhost -p 5432 -U postgres; do
             echo "Waiting for PostgreSQL to be ready..."
@@ -297,7 +297,18 @@ jobs:
       
       - name: Install required dependencies for Cypress
         run: |
-          sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+          # Install Cypress system dependencies for Ubuntu 24.04
+          sudo apt-get install -y \
+            libgtk2.0-0 \
+            libgtk-3-0 \
+            libgbm-dev \
+            libnotify-dev \
+            libnss3 \
+            libxss1 \
+            libasound2t64 \
+            libxtst6 \
+            xauth \
+            xvfb
       
       - name: Install Node.js dependencies
         run: |
