@@ -38,3 +38,6 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
+      with:
+        upload: ${{ github.repository_owner == 'njdol-ori' && github.event_name == 'push' }}
+      continue-on-error: true
