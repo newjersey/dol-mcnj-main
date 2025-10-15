@@ -193,12 +193,15 @@ jobs:
       
       - name: Setup PostgreSQL database
         run: |
-          # Wait for PostgreSQL to be ready
-          until pg_isready -h localhost -p 5432 -U postgres; do
+          # Wait for PostgreSQL to be ready (specify host and user to avoid 'root' role error)
+          until PGPASSWORD='' pg_isready -h localhost -p 5432 -U postgres -d postgres; do
             echo "Waiting for PostgreSQL to be ready..."
             sleep 2
           done
-          createdb -h localhost -p 5432 ${{ env.DB_NAME }} -U postgres
+          echo "PostgreSQL is ready"
+          
+          # Create database
+          PGPASSWORD='' createdb -h localhost -p 5432 -U postgres ${{ env.DB_NAME }}
           echo "Database ${{ env.DB_NAME }} created successfully"
       
       - name: Install Node.js dependencies
@@ -214,9 +217,8 @@ jobs:
       - name: Run backend tests with PostgreSQL
         run: |
           echo "Running backend tests..."
-          echo "PostgreSQL status: $(pg_isready -h localhost -p 5432 -U postgres)"
-          echo "Backend test command: PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=\"\" NODE_OPTIONS=\"--max_old_space_size=4096\" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit"
-          PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD="" NODE_OPTIONS="--max_old_space_size=4096" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit
+          echo "PostgreSQL status: $(PGPASSWORD='' pg_isready -h localhost -p 5432 -U postgres -d postgres && echo 'Ready' || echo 'Not ready')"
+          NODE_OPTIONS="--max_old_space_size=4096" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit
       
       - name: Execute feature tests script
         run: |
