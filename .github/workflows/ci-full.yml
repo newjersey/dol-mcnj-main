@@ -10,6 +10,11 @@ on:
     branches: [main, develop]
   workflow_dispatch:
 
+# Optimize concurrency - cancel old runs when new commits are pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   NODE_VERSION: '20.11.0'
   DB_NAME: d4adlocal
@@ -28,33 +33,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Network diagnostics and environment setup
+      - name: Environment info
         run: |
-          echo "=== NETWORK DIAGNOSTICS ==="
-          echo "Date: $(date)"
-          echo "Internet connectivity test:"
-          ping -c 3 8.8.8.8 || echo "Warning: Ping to 8.8.8.8 failed"
-          echo "DNS resolution test:"
-          nslookup registry.npmjs.org || echo "Warning: DNS lookup failed"
-          echo "NPM registry connectivity:"
-          curl -I https://registry.npmjs.org/ || echo "Warning: NPM registry unreachable"
-          echo "Network interfaces:"
-          ip addr show || echo "Network interface info unavailable"
-          echo "=== END NETWORK DIAGNOSTICS ==="
-      
-      - name: Branch and environment debugging
-        run: |
-          echo "=== BRANCH AND ENVIRONMENT DEBUGGING ==="
-          echo "Current branch: $(git branch --show-current)"
-          echo "All branches: $(git branch -a)"
-          echo "Current commit: $(git rev-parse HEAD)"
-          echo "GitHub ref: ${{ github.ref }}"
-          echo "GitHub ref name: ${{ github.ref_name }}"
-          echo "GitHub head ref: ${{ github.head_ref }}"
-          echo "GitHub base ref: ${{ github.base_ref }}"
-          echo "Origin branches: $(git ls-remote --heads origin)"
-          echo "Working on branch: $(git branch --show-current || echo ${{ github.ref_name }})"
-          echo "=== END BRANCH DEBUGGING ==="
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: $(git rev-parse --short HEAD)"
+          echo "Node: $(node --version)"
+          echo "NPM: $(npm --version)"
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -64,76 +48,9 @@ jobs:
       
       - name: Install dependencies with skip Cypress
         run: |
-          echo "=== NPM INSTALL WITH RETRY LOGIC ==="
-          
-          # Function to retry npm install with exponential backoff
-          retry_npm_install() {
-            local max_attempts=3
-            local attempt=1
-            local delay=5
-            
-            while [ $attempt -le $max_attempts ]; do
-              echo "Attempt $attempt of $max_attempts for: $1"
-              if eval "$1"; then
-                echo "✓ Success on attempt $attempt"
-                return 0
-              else
-                echo "✗ Failed attempt $attempt"
-                if [ $attempt -lt $max_attempts ]; then
-                  echo "Waiting ${delay} seconds before retry..."
-                  sleep $delay
-                  delay=$((delay * 2))  # Exponential backoff
-                fi
-              fi
-              attempt=$((attempt + 1))
-            done
-            
-            echo "All attempts failed for: $1"
-            return 1
-          }
-          
-          # Configure npm for better reliability
-          npm config set fetch-retry-mintimeout 20000
-          npm config set fetch-retry-maxtimeout 120000
-          npm config set fetch-retries 5
-          npm config set registry https://registry.npmjs.org/
-          
-          # Try with alternative registries if main fails
-          install_with_fallback() {
-            local cmd="$1"
-            
-            # Try primary registry first
-            if eval "$cmd"; then
-              return 0
-            fi
-            
-            echo "Primary registry failed, trying Yarn registry..."
-            npm config set registry https://registry.yarnpkg.com/
-            if eval "$cmd"; then
-              npm config set registry https://registry.npmjs.org/  # Reset
-              return 0
-            fi
-            
-            echo "Yarn registry failed, trying npmjs.com directly..."
-            npm config set registry https://registry.npmjs.com/
-            if eval "$cmd"; then
-              npm config set registry https://registry.npmjs.org/  # Reset
-              return 0
-            fi
-            
-            # Reset to original and fail
-            npm config set registry https://registry.npmjs.org/
-            return 1
-          }
-          
-          echo "NPM configuration:"
-          npm config list
-          
-          # Install root dependencies with retry and fallback
-          retry_npm_install "CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile" || install_with_fallback "CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile"
-          
-          # Install backend dependencies with retry and fallback
-          retry_npm_install "npm --prefix=backend ci --frozen-lockfile" || install_with_fallback "npm --prefix=backend ci --frozen-lockfile"
+          # GitHub Actions runners have excellent connectivity - simpler install
+          CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile --prefer-offline
+          npm --prefix=backend ci --frozen-lockfile --prefer-offline
       
       - name: Run linting and formatting checks
         run: |
@@ -184,17 +101,15 @@ jobs:
       
       - name: Run Next.js unit tests with coverage
         run: |
-          echo "=== DEBUGGING JEST EXECUTION ==="
-          echo "Current working directory: $(pwd)"
-          echo "Node version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          echo "Jest location: $(which jest || echo 'jest not found in PATH')"
-          echo "NPX location: $(which npx)"
-          echo "Package.json scripts:"
-          cat package.json | grep -A 10 -B 2 '"scripts"'
-          echo "=== RUNNING JEST DIRECTLY ==="
-          echo "Command: NODE_OPTIONS=\"--max_old_space_size=6144\" npx jest --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --watchAll=false --maxWorkers=1 --forceExit --logHeapUsage"
-          NODE_OPTIONS="--max_old_space_size=6144" npx jest --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --watchAll=false --maxWorkers=1 --forceExit --logHeapUsage
+          # Use 2 workers on GitHub Actions (more CPU available than CircleCI medium)
+          NODE_OPTIONS="--max_old_space_size=6144" npx jest \
+            --coverage \
+            --coverageDirectory=coverage \
+            --coverageReporters=text \
+            --coverageReporters=lcov \
+            --watchAll=false \
+            --maxWorkers=2 \
+            --forceExit
       
       - name: Upload Next.js coverage
         uses: actions/upload-artifact@v4
@@ -246,36 +161,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Network diagnostics and environment setup
+      - name: Setup legacy frontend directory
         run: |
-          echo "=== NETWORK DIAGNOSTICS (BUILD JOB) ==="
-          echo "Date: $(date)"
-          echo "Internet connectivity test:"
-          ping -c 3 8.8.8.8 || echo "Warning: Ping to 8.8.8.8 failed"
-          echo "DNS resolution test:"
-          nslookup registry.npmjs.org || echo "Warning: DNS lookup failed"
-          echo "NPM registry connectivity:"
-          curl -I https://registry.npmjs.org/ || echo "Warning: NPM registry unreachable"
-          echo "Network interfaces:"
-          ip addr show || echo "Network interface info unavailable"
-          echo "=== END NETWORK DIAGNOSTICS ==="
-      
-      - name: Branch and environment debugging and cache cleanup
-        run: |
-          echo "=== BRANCH AND ENVIRONMENT DEBUGGING (BUILD JOB) ==="
-          echo "Current branch: $(git branch --show-current)"
-          echo "GitHub ref: ${{ github.ref }}"
-          echo "GitHub ref name: ${{ github.ref_name }}"
-          echo "Current commit: $(git rev-parse HEAD)"
-          echo "Working on branch: $(git branch --show-current || echo ${{ github.ref_name }})"
-          echo "=== CLEANING UP CACHE AND LEGACY DIRECTORIES ==="
-          rm -rf node_modules backend/node_modules
-          rm -rf frontend || true
-          echo "Current commit: $(git rev-parse HEAD)"
           # Create dummy frontend directory to prevent legacy script errors
           mkdir -p frontend
           echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
-          echo "=== END BRANCH DEBUGGING ==="
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -313,80 +203,9 @@ jobs:
       
       - name: Install Node.js dependencies
         run: |
-          echo "=== NPM INSTALL WITH RETRY LOGIC (BUILD JOB) ==="
-          
-          # Function to retry npm install with exponential backoff
-          retry_npm_install() {
-            local max_attempts=3
-            local attempt=1
-            local delay=5
-            
-            while [ $attempt -le $max_attempts ]; do
-              echo "Attempt $attempt of $max_attempts for: $1"
-              if eval "$1"; then
-                echo "✓ Success on attempt $attempt"
-                return 0
-              else
-                echo "✗ Failed attempt $attempt"
-                if [ $attempt -lt $max_attempts ]; then
-                  echo "Waiting ${delay} seconds before retry..."
-                  sleep $delay
-                  delay=$((delay * 2))  # Exponential backoff
-                fi
-              fi
-              attempt=$((attempt + 1))
-            done
-            
-            echo "All attempts failed for: $1"
-            return 1
-          }
-          
-          # Configure npm for better reliability
-          npm config set fetch-retry-mintimeout 20000
-          npm config set fetch-retry-maxtimeout 120000
-          npm config set fetch-retries 5
-          npm config set registry https://registry.npmjs.org/
-          
-          # Try with alternative registries if main fails
-          install_with_fallback() {
-            local cmd="$1"
-            
-            # Try primary registry first
-            if eval "$cmd"; then
-              return 0
-            fi
-            
-            echo "Primary registry failed, trying Yarn registry..."
-            npm config set registry https://registry.yarnpkg.com/
-            if eval "$cmd"; then
-              npm config set registry https://registry.npmjs.org/  # Reset
-              return 0
-            fi
-            
-            echo "Yarn registry failed, trying npmjs.com directly..."
-            npm config set registry https://registry.npmjs.com/
-            if eval "$cmd"; then
-              npm config set registry https://registry.npmjs.org/  # Reset
-              return 0
-            fi
-            
-            # Reset to original and fail
-            npm config set registry https://registry.npmjs.org/
-            return 1
-          }
-          
-          # Test network connectivity
-          echo "Testing network connectivity..."
-          curl -I https://registry.npmjs.org/ || echo "Warning: Direct registry access failed"
-          
-          echo "NPM configuration:"
-          npm config list
-          
-          # Install root dependencies with retry and fallback
-          retry_npm_install "npm ci --frozen-lockfile" || install_with_fallback "npm ci --frozen-lockfile"
-          
-          # Install backend dependencies with retry and fallback
-          retry_npm_install "npm --prefix=backend ci --frozen-lockfile" || install_with_fallback "npm --prefix=backend ci --frozen-lockfile"
+          # GitHub Actions runners have excellent connectivity
+          npm ci --frozen-lockfile --prefer-offline
+          npm --prefix=backend ci --frozen-lockfile --prefer-offline
       
       - name: Build Next.js application
         run: |
@@ -401,23 +220,6 @@ jobs:
       
       - name: Execute feature tests script
         run: |
-          echo "=== DEBUGGING FEATURE TESTS ==="
-          echo "Current working directory: $(pwd)"
-          echo "Directory contents:"
-          ls -la
-          echo "Frontend directory exists? $([ -d frontend ] && echo 'YES' || echo 'NO')"
-          if [ -d frontend ]; then
-            echo "Frontend directory contents:"
-            ls -la frontend/
-          fi
-          echo "Scripts directory contents:"
-          ls -la scripts/
-          echo "=== ENSURING FRONTEND DUMMY DIR ==="
-          mkdir -p frontend
-          echo '{"name": "frontend-deprecated", "scripts": {"start": "echo ERROR: frontend deprecated, use root directory"}}' > frontend/package.json
-          echo "Created frontend/package.json:"
-          cat frontend/package.json
-          echo "=== RUNNING FEATURE TESTS ==="
           DB_ENV=dev scripts/feature-tests.sh | tee feature-test-output.txt
       
       - name: Upload feature test output
