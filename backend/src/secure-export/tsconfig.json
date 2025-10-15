@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "outDir": "../../dist-lambda",
+    "baseUrl": "../",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "declaration": false,
+    "sourceMap": true,
+    "types": ["node", "aws-lambda"],
+    "noImplicitAny": false
+  },
+  "include": [
+    "*.ts",
+    "../utils/dataExport.ts",
+    "../utils/piiEncryption.ts",
+    "../utils/piiSafety.ts",
+    "../utils/global.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts"
+  ]
+}
