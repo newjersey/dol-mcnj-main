@@ -283,22 +283,13 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
       
-      - name: Install PostgreSQL client and setup database
+      - name: Install system dependencies (PostgreSQL client + Cypress)
         run: |
           sudo apt-get update
-          sudo apt-get install -y postgresql-client netcat-openbsd
-          # Wait for PostgreSQL to be ready
-          until pg_isready -h localhost -p 5432 -U postgres; do
-            echo "Waiting for PostgreSQL to be ready..."
-            sleep 2
-          done
-          createdb -h localhost -p 5432 ${{ env.DB_NAME }} -U postgres
-          echo "Database ${{ env.DB_NAME }} created successfully"
-      
-      - name: Install required dependencies for Cypress
-        run: |
-          # Install Cypress system dependencies for Ubuntu 24.04
+          # Install all dependencies in one go for speed
           sudo apt-get install -y \
+            postgresql-client \
+            netcat-openbsd \
             libgtk2.0-0 \
             libgtk-3-0 \
             libgbm-dev \
@@ -309,6 +300,16 @@ jobs:
             libxtst6 \
             xauth \
             xvfb
+      
+      - name: Setup PostgreSQL database
+        run: |
+          # Wait for PostgreSQL to be ready
+          until pg_isready -h localhost -p 5432 -U postgres; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 2
+          done
+          createdb -h localhost -p 5432 ${{ env.DB_NAME }} -U postgres
+          echo "Database ${{ env.DB_NAME }} created successfully"
       
       - name: Install Node.js dependencies
         run: |
