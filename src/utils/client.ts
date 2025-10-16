@@ -30,31 +30,42 @@ export const client = async ({
   }
   // If the excludeInvalid flag is set, add the corresponding header to exclude invalid items
 
+  const url = `https://${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`;
+  
   try {
-    const response = await fetch(
-      `https://${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...headers,
-        },
-        body: JSON.stringify({ query, variables }),
-      }
-    );
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+      body: JSON.stringify({ query, variables }),
+    });
     // Making a POST request to the specified endpoint URL with the query, variables, and headers
 
     const responseData = await response.json();
     // Parsing the response data as JSON
 
     if (!response.ok) {
-      throw new Error("GraphQL request failed");
+      console.error('GraphQL request failed:', {
+        status: response.status,
+        statusText: response.statusText,
+        url,
+        response: responseData,
+      });
+      throw new Error(`GraphQL request failed: ${response.status} ${response.statusText}`);
     }
 
     return responseData.data;
     // Returning the response data
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    throw new Error("GraphQL request failed");
+    console.error('GraphQL request error:', {
+      error,
+      url,
+      baseUrl: process.env.REACT_APP_BASE_URL,
+      spaceId: process.env.REACT_APP_SPACE_ID,
+      environment: process.env.REACT_APP_ENVIRONMENT,
+    });
+    throw new Error(`GraphQL request failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 };

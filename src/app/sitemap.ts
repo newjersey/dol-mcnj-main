@@ -2,10 +2,24 @@ import { MetadataRoute } from "next";
 import { client } from "@utils/client";
 import { SITEMAP_QUERY } from "queries/sitemap";
 
+// Make this route dynamic to avoid build-time failures
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Revalidate every hour
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { resourceCategories, industries } = await client({
-    query: SITEMAP_QUERY,
-  });
+  let resourceCategories = { items: [] };
+  let industries = { items: [] };
+  
+  try {
+    const data = await client({
+      query: SITEMAP_QUERY,
+    });
+    resourceCategories = data.resourceCategories;
+    industries = data.industries;
+  } catch (error) {
+    console.error('Failed to fetch sitemap data from CMS:', error);
+    // Return a basic sitemap if CMS is unavailable
+  }
 
   return [
     {

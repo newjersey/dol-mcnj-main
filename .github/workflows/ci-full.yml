@@ -226,6 +226,38 @@ jobs:
       PGUSER: postgres
       PGPASSWORD: ''
       PGDATABASE: d4adlocal
+      # Contentful / CMS environment variables
+      REACT_APP_SITE_NAME: ${{ secrets.REACT_APP_SITE_NAME }}
+      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+      REACT_APP_SITE_URL: ${{ secrets.REACT_APP_SITE_URL }}
+      REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+      REACT_APP_SPACE_ID: ${{ secrets.REACT_APP_SPACE_ID }}
+      REACT_APP_ENVIRONMENT: ${{ secrets.REACT_APP_ENVIRONMENT }}
+      REACT_APP_DELIVERY_API: ${{ secrets.REACT_APP_DELIVERY_API }}
+      REACT_APP_PREVIEW_API: ${{ secrets.REACT_APP_PREVIEW_API }}
+      # Feature flags
+      REACT_APP_FEATURE_CAREER_PATHWAYS: ${{ secrets.REACT_APP_FEATURE_CAREER_PATHWAYS }}
+      REACT_APP_FEATURE_MULTILANG: ${{ secrets.REACT_APP_FEATURE_MULTILANG }}
+      REACT_APP_FEATURE_PINPOINT: ${{ secrets.REACT_APP_FEATURE_PINPOINT }}
+      REACT_APP_FEATURE_CAREER_NAVIGATOR: ${{ secrets.REACT_APP_FEATURE_CAREER_NAVIGATOR }}
+      REACT_APP_FEATURE_LP_CAREER_ROW: ${{ secrets.REACT_APP_FEATURE_LP_CAREER_ROW }}
+      REACT_APP_FEATURE_MAINTENANCE: ${{ secrets.REACT_APP_FEATURE_MAINTENANCE }}
+      REACT_APP_FEATURE_BETA: ${{ secrets.REACT_APP_FEATURE_BETA }}
+      REACT_APP_FEATURE_BETA_MESSAGE: ${{ secrets.REACT_APP_FEATURE_BETA_MESSAGE }}
+      REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS: ${{ secrets.REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS }}
+      # Google & Other APIs
+      REACT_APP_GOOGLE_CLIENTID: ${{ secrets.REACT_APP_GOOGLE_CLIENTID }}
+      REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
+      REACT_APP_SIGNUP_FOR_UPDATES: ${{ secrets.REACT_APP_SIGNUP_FOR_UPDATES }}
+      NEXT_PUBLIC_SURVEY_URL: ${{ secrets.NEXT_PUBLIC_SURVEY_URL }}
+      NEXT_PUBLIC_FEATURE_CRC_INFO: ${{ secrets.NEXT_PUBLIC_FEATURE_CRC_INFO }}
+      # O*NET Integration
+      ONET_BASEURL: ${{ secrets.ONET_BASEURL }}
+      ONET_USERNAME: ${{ secrets.ONET_USERNAME }}
+      ONET_PASSWORD: ${{ secrets.ONET_PASSWORD }}
+      # Credential Engine
+      CE_AUTH_TOKEN: ${{ secrets.CE_AUTH_TOKEN }}
+      CE_ENVIRONMENT: ${{ secrets.CE_ENVIRONMENT }}
     
     services:
       postgres:
@@ -378,35 +410,14 @@ jobs:
           retry_npm_install "npm --prefix=backend ci --frozen-lockfile" || install_with_fallback "npm --prefix=backend ci --frozen-lockfile"
       
       - name: Build Next.js application
-        env:
-          REACT_APP_SITE_NAME: ${{ secrets.REACT_APP_SITE_NAME }}
-          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          REACT_APP_SITE_URL: ${{ secrets.REACT_APP_SITE_URL }}
-          REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
-          REACT_APP_SPACE_ID: ${{ secrets.REACT_APP_SPACE_ID }}
-          REACT_APP_ENVIRONMENT: ${{ secrets.REACT_APP_ENVIRONMENT }}
-          REACT_APP_DELIVERY_API: ${{ secrets.REACT_APP_DELIVERY_API }}
-          REACT_APP_PREVIEW_API: ${{ secrets.REACT_APP_PREVIEW_API }}
-          REACT_APP_FEATURE_CAREER_PATHWAYS: ${{ secrets.REACT_APP_FEATURE_CAREER_PATHWAYS }}
-          REACT_APP_FEATURE_MULTILANG: ${{ secrets.REACT_APP_FEATURE_MULTILANG }}
-          REACT_APP_FEATURE_PINPOINT: ${{ secrets.REACT_APP_FEATURE_PINPOINT }}
-          REACT_APP_FEATURE_CAREER_NAVIGATOR: ${{ secrets.REACT_APP_FEATURE_CAREER_NAVIGATOR }}
-          REACT_APP_FEATURE_LP_CAREER_ROW: ${{ secrets.REACT_APP_FEATURE_LP_CAREER_ROW }}
-          REACT_APP_FEATURE_MAINTENANCE: ${{ secrets.REACT_APP_FEATURE_MAINTENANCE }}
-          REACT_APP_FEATURE_BETA: ${{ secrets.REACT_APP_FEATURE_BETA }}
-          REACT_APP_FEATURE_BETA_MESSAGE: ${{ secrets.REACT_APP_FEATURE_BETA_MESSAGE }}
-          REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS: ${{ secrets.REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS }}
-          REACT_APP_GOOGLE_CLIENTID: ${{ secrets.REACT_APP_GOOGLE_CLIENTID }}
-          REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
-          REACT_APP_SIGNUP_FOR_UPDATES: ${{ secrets.REACT_APP_SIGNUP_FOR_UPDATES }}
-          NEXT_PUBLIC_SURVEY_URL: ${{ secrets.NEXT_PUBLIC_SURVEY_URL }}
-          NEXT_PUBLIC_FEATURE_CRC_INFO: ${{ secrets.NEXT_PUBLIC_FEATURE_CRC_INFO }}
-          ONET_BASEURL: ${{ secrets.ONET_BASEURL }}
-          ONET_USERNAME: ${{ secrets.ONET_USERNAME }}
-          ONET_PASSWORD: ${{ secrets.ONET_PASSWORD }}
-          CE_AUTH_TOKEN: ${{ secrets.CE_AUTH_TOKEN }}
-          CE_ENVIRONMENT: ${{ secrets.CE_ENVIRONMENT }}
         run: |
+          echo "=== ENVIRONMENT VARIABLE CHECK ==="
+          echo "REACT_APP_BASE_URL is set: $( [ -n "$REACT_APP_BASE_URL" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_SPACE_ID is set: $( [ -n "$REACT_APP_SPACE_ID" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_ENVIRONMENT is set: $( [ -n "$REACT_APP_ENVIRONMENT" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_DELIVERY_API is set: $( [ -n "$REACT_APP_DELIVERY_API" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_SITE_URL is set: $( [ -n "$REACT_APP_SITE_URL" ] && echo 'YES' || echo 'NO' )"
+          echo "=== END ENVIRONMENT CHECK ==="
           npm run build:prod
       
       - name: Run backend tests with PostgreSQL
