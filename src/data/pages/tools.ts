@@ -1,6 +1,38 @@
 import { ThemeColors } from "@utils/types";
 
 export const TOOLS_PAGE_DATA = {
+  seo: {
+    title: `Tools and Resources | ${process.env.REACT_APP_SITE_NAME}`,
+    pageDescription:
+      "Discover My Career NJ's comprehensive collection of tools and resources organized by category. Find job search tools, training resources, career exploration guides, and support services all in one place.",
+    keywords: [
+      "New Jersey",
+      "Career Tools",
+      "Job Search Tools",
+      "Training Resources",
+      "Career Resources",
+      "Career Navigator",
+      "Training Explorer",
+      "Job Board",
+      "Career Pathways",
+      "Support Resources",
+      "My Career NJ",
+      "NJ Department of Labor",
+      "Employment Resources",
+      "Career Guidance",
+      "Professional Development",
+    ],
+    ogImage: {
+      sys: {
+        id: "buiOl5KtlbWd2n75TzD61",
+      },
+      url: "https://images.ctfassets.net/jbdk7q9c827d/buiOl5KtlbWd2n75TzD61/8614058229c32e1d4cfe2bb035b7746c/0d4a1adf-de41-46a6-b45a-75015bf737b3.png",
+      title: "My Career NJ Title Card",
+      description: "My Career NJ Tools and Resources",
+      width: 1200,
+      height: 630,
+    },
+  },
   en: {
     banner: {
       heading: "Tools and Resources by Category",

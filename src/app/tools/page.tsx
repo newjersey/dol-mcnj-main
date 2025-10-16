@@ -4,8 +4,25 @@ import { SectionHeading } from "@components/modules/SectionHeading";
 import { TOOLS_PAGE_DATA as pageData } from "@data/pages/tools";
 import { SupportedLanguages } from "@utils/types/types";
 import { cookies } from "next/headers";
+import globalOgImage from "@images/globalOgImage.jpeg";
 
-export default async function ToolsPageMetadata() {
+export const revalidate = 86400;
+
+export async function generateMetadata({}) {
+  return {
+    title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
+    description: pageData.seo.pageDescription,
+    keywords: pageData.seo.keywords,
+    icons: {
+      icon: "/favicon.ico",
+    },
+    openGraph: {
+      images: [globalOgImage.src],
+    },
+  };
+}
+
+export default async function ToolsPage() {
   const cookieStore = await cookies();
   const lang = (cookieStore.get("lang")?.value as SupportedLanguages) || "en";
 
