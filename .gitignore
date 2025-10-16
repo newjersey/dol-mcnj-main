@@ -139,3 +139,4 @@ OverlayTool.tsx
 overlayImages
 frontend
 backend/dist
+backend/dist_old
