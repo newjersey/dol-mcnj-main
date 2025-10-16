@@ -11,7 +11,8 @@ describe("client function", () => {
     }
   `;
   const variables = { testVariable: "testValue" };
-  const apiUrl = `https://${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`;
+  // REACT_APP_BASE_URL already includes https://
+  const apiUrl = `${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`;
   const headers = {
     "Content-Type": "application/json",
     authorization: `Bearer ${process.env.REACT_APP_DELIVERY_API}`,
