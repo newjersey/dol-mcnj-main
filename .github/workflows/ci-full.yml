@@ -277,6 +277,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          lfs: true
       
       - name: Network diagnostics and environment setup
         run: |
@@ -441,6 +443,14 @@ jobs:
       - name: Run database migrations and seeding
         run: |
           echo "=== RUNNING DATABASE MIGRATIONS ==="
+          # Create backend/.env file for db-migrate.sh
+          cat > backend/.env << EOF
+          DB_HOST_DEV=localhost
+          DB_PASS_DEV=
+          DB_HOST_TEST=localhost
+          DB_PASS_TEST=
+          EOF
+          echo "Created backend/.env for migrations"
           export NODE_ENV=dev
           ./scripts/db-migrate.sh
           echo "=== MIGRATIONS COMPLETED ==="
