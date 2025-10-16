@@ -30,8 +30,11 @@ export const client = async ({
   }
   // If the excludeInvalid flag is set, add the corresponding header to exclude invalid items
 
-  // Construct the URL - REACT_APP_BASE_URL already includes https://
-  const url = `${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`;
+  // Construct the URL - ensure it has a protocol
+  const baseUrl = process.env.REACT_APP_BASE_URL || '';
+  const url = baseUrl.startsWith('http://') || baseUrl.startsWith('https://')
+    ? `${baseUrl}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`
+    : `https://${baseUrl}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`;
   
   try {
     const response = await fetch(url, {
