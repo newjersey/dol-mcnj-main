@@ -20,6 +20,16 @@ set -e
 echo "starting app"
 ./scripts/build.sh
 
+# Initialize migrations table if it doesn't exist (prevents db-migrate errors on PostgreSQL 12+)
+echo "Ensuring migrations table exists..."
+psql -h ${PGHOST:-localhost} -p ${PGPORT:-5432} -U ${PGUSER:-postgres} -d ${PGDATABASE:-d4adlocal} -c "
+  CREATE TABLE IF NOT EXISTS migrations (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    run_on TIMESTAMP NOT NULL
+  );
+" 2>/dev/null || echo "Migrations table already exists or could not be created"
+
 # Start backend
 echo "Starting backend on port ${BACKEND_PORT}..."
 cd backend
