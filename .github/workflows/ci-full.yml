@@ -278,7 +278,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: false
+      
+      - name: Setup Git LFS and pull selective files
+        run: |
+          echo "=== SETTING UP GIT LFS ==="
+          git lfs install
+          # Pull only small LFS files, skip the huge ETPL update files
+          # The update-etpl migrations are 74MB each and not needed for CI
+          git lfs pull --exclude="backend/migrations/sqls/*update-etpl*.sql"
+          echo "=== GIT LFS SETUP COMPLETE ==="
       
       - name: Network diagnostics and environment setup
         run: |
