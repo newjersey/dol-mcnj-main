@@ -326,6 +326,17 @@ jobs:
           done
           createdb -h localhost -p 5432 ${{ env.DB_NAME }} -U postgres
           echo "Database ${{ env.DB_NAME }} created successfully"
+          
+          # Initialize db-migrate migrations table with properly quoted column names
+          echo "Initializing migrations table..."
+          psql -h localhost -p 5432 -U postgres -d ${{ env.DB_NAME }} -c "
+            CREATE TABLE IF NOT EXISTS migrations (
+              id SERIAL PRIMARY KEY,
+              name VARCHAR(255) NOT NULL,
+              run_on TIMESTAMP NOT NULL
+            );
+          "
+          echo "Migrations table initialized successfully"
       
       - name: Install required dependencies for Cypress
         run: |
