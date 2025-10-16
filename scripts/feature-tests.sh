@@ -20,16 +20,10 @@ set -e
 echo "starting app"
 ./scripts/build.sh
 
-# Run database migrations separately to avoid startup issues
-echo "Running database migrations..."
-cd backend
-DB_ENV=dev npm run db-migrate up 2>&1 | grep -v "syntax error" || true
-cd ..
-
-# Start backend (without migrations since we just ran them)
+# Start backend
 echo "Starting backend on port ${BACKEND_PORT}..."
 cd backend
-# Override the start script to skip migrations
+# Override the start script to skip migrations (they should be run separately before this script)
 node ./dist/server.js --env=production > /dev/null &
 BACKEND_PID=$!
 cd ..

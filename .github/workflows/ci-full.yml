@@ -438,6 +438,13 @@ jobs:
           echo "Backend test command: PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=\"\" NODE_OPTIONS=\"--max_old_space_size=4096\" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit"
           PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD="" NODE_OPTIONS="--max_old_space_size=4096" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit
       
+      - name: Run database migrations and seeding
+        run: |
+          echo "=== RUNNING DATABASE MIGRATIONS ==="
+          export NODE_ENV=dev
+          ./scripts/db-migrate.sh
+          echo "=== MIGRATIONS COMPLETED ==="
+      
       - name: Execute feature tests script
         run: |
           echo "=== DEBUGGING FEATURE TESTS ==="
