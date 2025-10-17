@@ -278,7 +278,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: false
+      
+      - name: Checkout Git LFS files selectively
+        run: |
+          echo "=== CONFIGURING GIT LFS ==="
+          git lfs install
+          # Skip large migration SQL files that cause checkout failures
+          # These are massive ETPL update files (50MB+) not needed for CI
+          git lfs pull --exclude="backend/migrations/sqls/202501*.sql,backend/migrations/sqls/202502*.sql"
+          echo "=== GIT LFS SELECTIVE CHECKOUT COMPLETE ==="
       
       - name: Network diagnostics and environment setup
         run: |
@@ -440,20 +449,31 @@ jobs:
           echo "Backend test command: PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=\"\" NODE_OPTIONS=\"--max_old_space_size=4096\" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit"
           PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD="" NODE_OPTIONS="--max_old_space_size=4096" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit
       
-      - name: Run database migrations and seeding
+      - name: Verify schema snapshot is up-to-date
         run: |
-          echo "=== RUNNING DATABASE MIGRATIONS ==="
-          # Create backend/.env file for db-migrate.sh
-          cat > backend/.env << EOF
-          DB_HOST_DEV=localhost
-          DB_PASS_DEV=
-          DB_HOST_TEST=localhost
-          DB_PASS_TEST=
-          EOF
-          echo "Created backend/.env for migrations"
-          export NODE_ENV=dev
-          ./scripts/db-migrate.sh
-          echo "=== MIGRATIONS COMPLETED ==="
+          echo "=== VERIFYING SCHEMA SNAPSHOT ==="
+          ./scripts/verify-schema-snapshot.sh
+      
+      - name: Load database schema from snapshot
+        run: |
+          echo "=== LOADING DATABASE SCHEMA FROM SNAPSHOT ==="
+          echo "Using pre-generated schema snapshot instead of running migrations"
+          echo "This avoids downloading large Git LFS migration files (50MB+)"
+          
+          # Check if snapshot exists
+          if [ ! -f backend/schema-snapshot.sql ]; then
+            echo "ERROR: Schema snapshot not found!"
+            echo "Please run ./scripts/generate-schema-snapshot.sh locally and commit the result"
+            exit 1
+          fi
+          
+          echo "Loading schema snapshot..."
+          PGPASSWORD="" psql -h localhost -U postgres -d d4adlocal -f backend/schema-snapshot.sql
+          
+          echo "Schema loaded successfully!"
+          echo "Verifying tables..."
+          PGPASSWORD="" psql -h localhost -U postgres -d d4adlocal -c "\dt" | head -20
+          echo "=== SCHEMA LOAD COMPLETED ==="
       
       - name: Execute feature tests script
         run: |
