@@ -140,3 +140,11 @@ overlayImages
 frontend
 backend/dist
 backend/dist_old
+
+# Test output logs
+backend-test-results.log
+cypress-test-results.log
+backend/test-output.log
+
+# Database backups
+backend/database.json.backup

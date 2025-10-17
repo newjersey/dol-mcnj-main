@@ -220,12 +220,12 @@ jobs:
     env:
       IS_CI: 'true'
       NODE_ENV: test
-      DB_ENV: dev
+      DB_ENV: test
       PGHOST: localhost
       PGPORT: 5432
       PGUSER: postgres
       PGPASSWORD: ''
-      PGDATABASE: d4adlocal
+      PGDATABASE: d4adtest
       # Contentful / CMS environment variables
       REACT_APP_SITE_NAME: ${{ secrets.REACT_APP_SITE_NAME }}
       REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
@@ -449,31 +449,26 @@ jobs:
           echo "Backend test command: PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=\"\" NODE_OPTIONS=\"--max_old_space_size=4096\" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit"
           PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD="" NODE_OPTIONS="--max_old_space_size=4096" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit
       
-      - name: Verify schema snapshot is up-to-date
+      - name: Setup test database schema
         run: |
-          echo "=== VERIFYING SCHEMA SNAPSHOT ==="
-          ./scripts/verify-schema-snapshot.sh
-      
-      - name: Load database schema from snapshot
-        run: |
-          echo "=== LOADING DATABASE SCHEMA FROM SNAPSHOT ==="
-          echo "Using pre-generated schema snapshot instead of running migrations"
-          echo "This avoids downloading large Git LFS migration files (50MB+)"
+          echo "=== SETTING UP TEST DATABASE ==="
+          echo "Using minimal test schema instead of running all migrations"
+          echo "This avoids downloading 50MB+ Git LFS migration files"
           
-          # Check if snapshot exists
-          if [ ! -f backend/schema-snapshot.sql ]; then
-            echo "ERROR: Schema snapshot not found!"
-            echo "Please run ./scripts/generate-schema-snapshot.sh locally and commit the result"
+          # Check if test schema exists
+          if [ -f backend/test-schema.sql ]; then
+            echo "Loading test schema into d4adtest..."
+            PGPASSWORD="" psql -h localhost -U postgres -d d4adtest -f backend/test-schema.sql
+            echo "✓ Test schema loaded successfully"
+          else
+            echo "ERROR: backend/test-schema.sql not found!"
+            echo "Please run ./scripts/generate-test-schema.sh locally and commit the result"
             exit 1
           fi
           
-          echo "Loading schema snapshot..."
-          PGPASSWORD="" psql -h localhost -U postgres -d d4adlocal -f backend/schema-snapshot.sql
-          
-          echo "Schema loaded successfully!"
-          echo "Verifying tables..."
-          PGPASSWORD="" psql -h localhost -U postgres -d d4adlocal -c "\dt" | head -20
-          echo "=== SCHEMA LOAD COMPLETED ==="
+          echo "Verifying database tables..."
+          PGPASSWORD="" psql -h localhost -U postgres -d d4adtest -c "\dt" | head -20
+          echo "=== DATABASE SETUP COMPLETED ==="
       
       - name: Execute feature tests script
         run: |
