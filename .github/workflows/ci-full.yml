@@ -280,15 +280,6 @@ jobs:
         with:
           lfs: false
       
-      - name: Checkout Git LFS files selectively
-        run: |
-          echo "=== CONFIGURING GIT LFS ==="
-          git lfs install
-          # Skip large migration SQL files that cause checkout failures
-          # These are massive ETPL update files (50MB+) not needed for CI
-          git lfs pull --exclude="backend/migrations/sqls/202501*.sql,backend/migrations/sqls/202502*.sql"
-          echo "=== GIT LFS SELECTIVE CHECKOUT COMPLETE ==="
-      
       - name: Network diagnostics and environment setup
         run: |
           echo "=== NETWORK DIAGNOSTICS (BUILD JOB) ==="
