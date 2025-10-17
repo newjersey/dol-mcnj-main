@@ -20,6 +20,7 @@ export const ContactForm = ({
     path?: string;
     title?: string;
     type?: string;
+    referringPage?: string;
   };
 }) => {
   const [messageCharacterCount, setMessageCharacterCount] = useState<number>(0);
@@ -71,34 +72,44 @@ export const ContactForm = ({
   }, [messageCharacterCount]);
 
   useEffect(() => {
+    let prefilledMessage = "";
+
     if (content?.path) {
       setSelectedTopic("training-details");
 
       const trainingId = content.path.split("/").pop() || "Unknown";
-
-      let prefilledMessage = "";
 
       if (content.type === "issue") {
         prefilledMessage = `Training Program Name: ${content.title}
 Training Program ID: ${trainingId}
 
 Issue Report - Training Details Page: ${content.path}
+Referring Page: ${content.referringPage || "Direct Access – No Referrer"}
 ---
 Please provide a description of the issue.`;
       } else {
         prefilledMessage = `Training Program Name: ${content.title}
 Training Program ID: ${trainingId}
 
+Referring Page: ${content.referringPage || "Direct Access – No Referrer"}
+
 `;
       }
+    } else if (content?.referringPage) {
+      // Non-training page context but has referring page
+      prefilledMessage = `Referring Page: ${content.referringPage}
 
-      setMessage(prefilledMessage);
-      setMessageCharacterCount(prefilledMessage.length);
+`;
     } else {
+      // No context - clear form
       setSelectedTopic("");
       setMessage("");
       setMessageCharacterCount(0);
+      return;
     }
+
+    setMessage(prefilledMessage);
+    setMessageCharacterCount(prefilledMessage.length);
   }, [content]);
 
   const resetObject = {

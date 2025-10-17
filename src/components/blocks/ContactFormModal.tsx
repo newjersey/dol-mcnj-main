@@ -9,7 +9,8 @@ export const ContactFormModal = () => {
   const [lang, setLang] = useState<SupportedLanguages>("en");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [contactContext, setContactContext] = useState<
-    { path: string; title: string; type: string } | undefined
+    | { path: string; title: string; type: string; referringPage: string }
+    | undefined
   >(undefined);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -27,6 +28,7 @@ export const ContactFormModal = () => {
 
   const detectPageContext = (isIssueReport: boolean = false) => {
     const currentPath = window.location.pathname;
+    const currentUrl = window.location.href;
     const isTrainingPage = currentPath.match(/^\/training\/(.+)$/);
 
     if (isTrainingPage) {
@@ -41,10 +43,16 @@ export const ContactFormModal = () => {
         path: `/training/${trainingId}`,
         title: trainingName,
         type: isIssueReport ? "issue" : "contact",
+        referringPage: currentUrl,
       };
     }
 
-    return undefined;
+    return {
+      path: "",
+      title: "",
+      type: "contact",
+      referringPage: currentUrl,
+    };
   };
 
   useEffect(() => {
@@ -146,6 +154,7 @@ export const ContactFormModal = () => {
                       path: contactContext.path,
                       title: contactContext.title,
                       type: contactContext.type,
+                      referringPage: contactContext.referringPage,
                     }
                   : undefined
               }
