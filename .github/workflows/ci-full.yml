@@ -446,6 +446,11 @@ jobs:
           echo "Using minimal test schema instead of running all migrations"
           echo "This avoids downloading 50MB+ Git LFS migration files"
           
+          # Create d4adtest database
+          echo "Creating d4adtest database..."
+          PGPASSWORD="" psql -h localhost -U postgres -c "CREATE DATABASE d4adtest;"
+          echo "✓ Database created"
+          
           # Check if test schema exists
           if [ -f backend/test-schema.sql ]; then
             echo "Loading test schema into d4adtest..."
