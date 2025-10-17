@@ -95,9 +95,13 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 highlight="orange"
                 label="See something wrong? Report an issue."
                 onClick={() => {
-                  window.location.href = `?contactModal=true&path=/training/${training.id}&title=${training.name}`;
+                  const issueButton = document.getElementById(
+                    "contactModalIssueButton"
+                  );
+                  if (issueButton) {
+                    issueButton.click();
+                  }
                 }}
-                newTab
                 iconPrefix="Flag"
               />
             </div>

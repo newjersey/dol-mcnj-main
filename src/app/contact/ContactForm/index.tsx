@@ -19,6 +19,7 @@ export const ContactForm = ({
   content?: {
     path?: string;
     title?: string;
+    type?: string;
   };
 }) => {
   const [messageCharacterCount, setMessageCharacterCount] = useState<number>(0);
@@ -72,13 +73,31 @@ export const ContactForm = ({
   useEffect(() => {
     if (content?.path) {
       setSelectedTopic("training-details");
-      setMessage(
-        content?.path
-          ? `Issue Report - Training Details Page: ${content.path}, ${content.title}
+
+      const trainingId = content.path.split("/").pop() || "Unknown";
+
+      let prefilledMessage = "";
+
+      if (content.type === "issue") {
+        prefilledMessage = `Training Program Name: ${content.title}
+Training Program ID: ${trainingId}
+
+Issue Report - Training Details Page: ${content.path}
 ---
-Please provide a description of the issue.`
-          : ""
-      );
+Please provide a description of the issue.`;
+      } else {
+        prefilledMessage = `Training Program Name: ${content.title}
+Training Program ID: ${trainingId}
+
+`;
+      }
+
+      setMessage(prefilledMessage);
+      setMessageCharacterCount(prefilledMessage.length);
+    } else {
+      setSelectedTopic("");
+      setMessage("");
+      setMessageCharacterCount(0);
     }
   }, [content]);
 
