@@ -13,8 +13,10 @@ import { DataClient } from "../../domain/DataClient";
 import { Occupation } from "../../domain/occupations/Occupation";
 import { Selector } from "../../domain/training/Selector";
 import { Error } from "../../domain/Error";
+import { createSafeLogger } from "../../utils/piiSafety";
 
 const APPROVED = "Approved";
+const logger = createSafeLogger(console.log);
 
 export class PostgresDataClient implements DataClient {
   kdb: Knex;
@@ -27,17 +29,17 @@ export class PostgresDataClient implements DataClient {
   }
 
   findProgramsBy = async (selector: Selector, values: string[]): Promise<Program[]> => {
-    console.log(`Executing findProgramsBy with selector: ${selector}, values: ${values}`);
+    logger.info(`Executing findProgramsBy with selector: ${selector}`);
 
     if (values.length === 0) {
-      console.warn("No values provided to findProgramsBy; returning an empty array.");
+      logger.info("No values provided to findProgramsBy; returning an empty array");
       return [];
     }
 
     const column = selector === Selector.CIP_CODE ? "cipcode" : "programid";
 
     try {
-      console.log(`Querying programs before status filtering...`);
+      logger.info("Querying programs before status filtering");
 
       const programsBeforeFilter = await this.kdb("etpl")
         .select(
@@ -98,17 +100,12 @@ export class PostgresDataClient implements DataClient {
       );
 
       if (programs.length === 0) {
-        console.warn(
-          `No non-suspended programs found for selector: ${selector} and values: ${values}`,
-        );
+        logger.info(`No approved programs found for selector: ${selector}`);
       }
 
       return programs;
     } catch (error) {
-      console.error(
-        `Error while fetching programs with selector: ${selector} and values: ${values}`,
-        error,
-      );
+      logger.error(`Error while fetching programs with selector: ${selector}`, error);
       throw Error;
     }
   };
@@ -118,7 +115,7 @@ export class PostgresDataClient implements DataClient {
       .distinctOn(["cipcode", "county"])
       .select("cipcode", "county")
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in getLocalExceptionsByCip", e);
         return Promise.reject();
       });
   };
@@ -149,11 +146,11 @@ export class PostgresDataClient implements DataClient {
         .whereNull("indemandsocs.soc")
         .whereNull("indemandsocs2010.soc")
         .then((result) => {
-          console.log("Local exceptions:", result);
+          logger.info("Retrieved local exceptions");
           return result;
         })
         .catch((e) => {
-          console.log("DB error:", e);
+          logger.error("Database error in getLocalExceptionsBySoc", e);
           return Promise.reject();
         })
     );
@@ -165,11 +162,11 @@ export class PostgresDataClient implements DataClient {
       .where("soc", soc)
       .distinctOn("soc")
       .then((result) => {
-        console.log("Local exceptions:", result);
+        logger.info("Retrieved local exceptions by SOC");
         return result;
       })
       .catch((e) => {
-        console.log("DB error:", e);
+        logger.error("Database error in findLocalExceptionsBySoc", e);
         return Promise.reject();
       });
   };
@@ -179,7 +176,7 @@ export class PostgresDataClient implements DataClient {
       .select("soc2018code as soc", "soc2018title as title")
       .where("cipcode", cip)
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in findOccupationsByCip", e);
         return Promise.reject();
       });
   };
@@ -190,7 +187,7 @@ export class PostgresDataClient implements DataClient {
       .where("soccode", soc)
       .first()
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in findSocDefinitionBySoc", e);
         return Promise.reject();
       });
   };
@@ -200,7 +197,7 @@ export class PostgresDataClient implements DataClient {
       .select("cipcode", "cip2020title as ciptitle")
       .where("soc2018code", soc)
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in findCipDefinitionBySoc2018", e);
         return Promise.reject();
       });
   };
@@ -210,7 +207,7 @@ export class PostgresDataClient implements DataClient {
       .select("cipcode", "cip2020title as ciptitle")
       .where("cipcode", cip)
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in findCipDefinitionByCip", e);
         return Promise.reject();
       });
   };
@@ -225,7 +222,7 @@ export class PostgresDataClient implements DataClient {
         "soc2010to2018crosswalk.soccode2018",
       )
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in find2018OccupationsBySoc2010", e);
         return Promise.reject();
       });
   };
@@ -235,7 +232,7 @@ export class PostgresDataClient implements DataClient {
       .select("soccode2010 as soc", "soctitle2010 as title")
       .where("soccode2018", soc2018)
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in find2010OccupationsBySoc2018", e);
         return Promise.reject();
       });
   };
@@ -245,7 +242,7 @@ export class PostgresDataClient implements DataClient {
       .select("soc", "socdefinitions.soctitle as title")
       .leftOuterJoin("socdefinitions", "socdefinitions.soccode", "indemandsocs.soc")
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in getOccupationsInDemand", e);
         return Promise.reject();
       });
   };
@@ -256,7 +253,7 @@ export class PostgresDataClient implements DataClient {
       .where("occupation_soc_coverage_soc_code", soc)
       .first()
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in getEducationTextBySoc", e);
         return Promise.reject();
       });
   };
@@ -268,7 +265,7 @@ export class PostgresDataClient implements DataClient {
       .where("area_title", "New Jersey")
       .first()
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in getSalaryEstimateBySoc", e);
         return Promise.reject();
       });
   };
@@ -279,7 +276,7 @@ export class PostgresDataClient implements DataClient {
       .where("soccode2018", soc)
       .first()
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in getOESOccupationBySoc", e);
         return Promise.reject();
       });
   };
@@ -292,7 +289,7 @@ export class PostgresDataClient implements DataClient {
       .andWhere("socgroup", "Detailed")
       .andWhereNot("soccode", soc)
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in getNeighboringOccupations", e);
         return Promise.reject();
       });
   };
