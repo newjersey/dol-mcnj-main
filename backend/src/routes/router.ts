@@ -11,6 +11,9 @@ import { Training } from "../domain/training/Training";
 import { TrainingResult } from "../domain/training/TrainingResult";
 import { Selector } from "../domain/training/Selector";
 import { CareerOneStopClient } from "../careeronestop/CareerOneStopClient";
+import { createSafeLogger } from "../utils/piiSafety";
+
+const logger = createSafeLogger(console.log);
 
 interface RouterActions {
   searchTrainings: SearchTrainings;
@@ -34,23 +37,27 @@ export const routerFactory = ({
     (req: Request, res: Response<TrainingResult[] | { error: string }>) => {
       searchTrainings(req.query.query as string)
         .then((trainings: TrainingResult[]) => {
-          console.log(`Successfully retrieved training programs: `, trainings);
+          logger.info("Successfully retrieved training programs", { 
+            resultCount: trainings.length 
+          });
 
           if (!req.query.query) {
-            console.warn("Empty search query provided; returning an empty array.");
+            logger.info("Empty search query provided; returning an empty array");
             return res.status(200).json(trainings);
           }
 
           if (trainings.length === 0) {
             res.set("X-Robots-Tag", "noindex");
-            console.log(`No trainings found for the query: ${req.query.query}`);
+            logger.info("No trainings found for query", { 
+              queryLength: (req.query.query as string)?.length 
+            });
             return res.status(404).json({ error: "No trainings found for the given query" });
           }
 
           res.status(200).json(trainings);
         })
         .catch((error: unknown) => {
-          console.error(`Error caught in catch block:`, error);
+          logger.error("Error in training search", error);
           return res.status(500).json({ error: "Internal server error" });
         });
     },

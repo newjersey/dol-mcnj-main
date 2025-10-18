@@ -1,4 +1,7 @@
 import Nodemailer from "nodemailer";
+import { createSafeLogger } from "./piiSafety";
+
+const logger = createSafeLogger(console.log);
 
 interface EmailParams {
   subject: string;
@@ -30,6 +33,6 @@ export async function sendEmail(emailParams: EmailParams): Promise<void> {
       text: emailParams.body,
     });
   } catch (error) {
-    console.log("Error Sending Email Via SES", error);
+    logger.error("Error sending email via SMTP", error);
   }
 }
