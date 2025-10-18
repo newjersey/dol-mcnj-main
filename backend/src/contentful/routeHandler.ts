@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { useClient } from "./useClient";
+import { createSafeLogger } from "../utils/piiSafety";
+
+const logger = createSafeLogger(console.log);
 
 export const routeHandler =
   <TVariables extends Record<string, unknown>>(query: string) =>
@@ -13,7 +16,7 @@ export const routeHandler =
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (variables as any)[key] = JSON.parse(variables[key] as string);
         } catch (error) {
-          console.error(error);
+          logger.error("Failed to parse JSON variable", error);
         }
       }
     });
@@ -22,7 +25,7 @@ export const routeHandler =
       const result = await useClient({ query, variables });
       res.send(result);
     } catch (error) {
-      console.error(error);
+      logger.error("Contentful request failed", error);
       res.status(500).send("An error occurred while processing your Contentful request.");
     }
   };
