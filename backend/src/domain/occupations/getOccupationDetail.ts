@@ -14,6 +14,7 @@ import { Training } from "../training/Training";
 import { TrainingResult } from "../training/TrainingResult";
 import { LocalException, NullableOccupation } from "../training/Program";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
+import * as Sentry from "@sentry/node";
 
 export const getOccupationDetailFactory = (
   getOccupationDetailFromOnet: GetOccupationDetailPartial,
@@ -123,8 +124,8 @@ export const getOccupationDetailFactory = (
           },
         );
       })
-      .catch(async () => {
-        console.log("getOccupationDetailFromOnet failed");
+      .catch(async (error) => {
+        Sentry.captureException(error);
         const occupationTitles2010 = await dataClient.find2010OccupationsBySoc2018(soc);
 
         if (occupationTitles2010.length === 1) {
