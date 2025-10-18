@@ -4,7 +4,6 @@ import * as Sentry from "@sentry/node";
 import express, { Request, Response } from "express";
 import path from "path";
 import cors from "cors";
-import AWS from "aws-sdk";
 import { routerFactory } from "./routes/router";
 import emailSubmissionRouter from "./routes/emailRoutes";
 import contentfulRouter from "./contentful/index";
@@ -259,18 +258,6 @@ app.use(cors(corsOptions));
 // RequestHandler and TracingHandler configuration...
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const awsConfig = new AWS.Config({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID || undefined,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || undefined,
-  region: process.env.AWS_REGION,
-  // Disable AWS SDK logging to prevent PII exposure
-  logger: undefined,
-  // Ensure no debug information is logged
-  correctClockSkew: true,
-  maxRetries: 3,
-});
 
 type PostgresConnectionConfig = {
   user: string;
