@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import { sendEmail } from "../utils/emailService";
+import { createSafeLogger } from "../utils/piiSafety";
+
+const logger = createSafeLogger(console.log);
 
 interface ContactFormRequest extends Request {
   body: {
@@ -26,7 +29,7 @@ export const submitContactForm = async (req: ContactFormRequest, res: Response):
     });
     res.status(200).json({ message: "Your message has been sent successfully." });
   } catch (error: unknown) {
-    console.error(error);
+    logger.error("Error sending contact form email", error);
     res.status(500).json({ message: "There was an error sending your message.", error: error });
   }
 };

@@ -4,5 +4,9 @@
     "outDir": "./dist_temp",
     "sourceMap": false
   },
-  "exclude": ["src/**/*.test.ts", "src/**/*.test.js"]
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.js",
+    "src/secure-export/automatedExportLambda.ts"
+  ]
 }

@@ -148,3 +148,4 @@ backend/test-output.log
 
 # Database backups
 backend/database.json.backup
+backend/dist_old

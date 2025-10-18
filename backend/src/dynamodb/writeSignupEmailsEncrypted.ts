@@ -40,7 +40,6 @@ export const addSubscriberToDynamoEncrypted = async (
 ) => {
   const operationId = crypto.randomUUID();
   const TABLE_NAME = process.env.DDB_TABLE_NAME;
-  console.log(TABLE_NAME)
   const KMS_KEY_ID = process.env.KMS_KEY_ID;
 
   if (!TABLE_NAME) {

@@ -14,6 +14,7 @@ import { convertTrainingToTrainingResult } from "../training/convertTrainingToTr
 import { Training } from "../training/Training";
 import { Selector } from "../training/Selector";
 import { TrainingResult } from "../training/TrainingResult";
+import * as Sentry from "@sentry/node";
 
 export const getOccupationDetailByCIPFactory = (
   getOccupationDetailFromOnet: GetOccupationDetailPartial,
@@ -130,7 +131,10 @@ export const getOccupationDetailByCIPFactory = (
           };
         })
         .catch(async (error) => {
-          console.error("Error fetching occupation detail for SOC: " + soc + "; Error: ", error);
+          Sentry.withScope((scope) => {
+            scope.setContext("occupation", { soc });
+            Sentry.captureException(error);
+          });
 
           // Return a default OccupationDetail object
           return {
