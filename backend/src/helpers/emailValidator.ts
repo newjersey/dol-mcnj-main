@@ -1,4 +1,7 @@
 import dns from "dns";
+import { createSafeLogger } from "../utils/piiSafety";
+
+const logger = createSafeLogger(console.log);
 
 const emailTester =
   /^[-!#$%&'*+/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
@@ -28,7 +31,7 @@ const validateEmailFormat = (email: string): boolean => {
 
 export const isValidEmail = async (email: string): Promise<boolean> => {
   if (!validateEmailFormat(email)) {
-    console.log("Invalid email format");
+    logger.info("Invalid email format provided");
     return false;
   }
 
@@ -36,7 +39,7 @@ export const isValidEmail = async (email: string): Promise<boolean> => {
     const isValidDomain = await validateDomainMX(email);
     return isValidDomain;
   } catch (error) {
-    console.error("Error during MX record validation:", error);
+    logger.error("Error during MX record validation", error);
     return false;
   }
 };
@@ -50,28 +53,25 @@ const validateDomainMX = (email: string): Promise<boolean> => {
     // Trying full domain first
     dns.resolveMx(domain, (err, addresses) => {
       if (err) {
-        console.error("DNS error while resolving MX for domain", domain, ":", err.message);
+        logger.error("DNS error while resolving MX for domain", err, { domain: "[REDACTED]" });
       }
       if (!err && addresses.length > 0) {
-        console.log("Valid MX records found for", domain, ":", addresses);
+        logger.info("Valid MX records found for domain");
         return resolve(true);
       }
 
       // Fallback to root domain if the full domain fails
       dns.resolveMx(rootDomain, (rootErr, rootAddresses) => {
         if (rootErr) {
-          console.error(
-            "DNS error while resolving MX for root domain",
-            rootDomain,
-            ":",
-            rootErr.message,
-          );
+          logger.error("DNS error while resolving MX for root domain", rootErr, {
+            rootDomain: "[REDACTED]",
+          });
         }
         if (!rootErr && rootAddresses.length > 0) {
-          console.log("Valid MX records found for", rootDomain, ":", rootAddresses);
+          logger.info("Valid MX records found for root domain");
           resolve(true);
         } else {
-          console.log("Invalid domain or no MX records for:", domain);
+          logger.info("Invalid domain or no MX records found");
           resolve(false);
         }
       });

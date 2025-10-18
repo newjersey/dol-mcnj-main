@@ -1,6 +1,10 @@
+import { createSafeLogger } from "../utils/piiSafety";
+
+const logger = createSafeLogger(console.log);
+
 export const isValidPhoneNumber = (phoneNumber: string): boolean => {
   if (!phoneNumber || typeof phoneNumber !== "string") {
-    console.error("Invalid input: phone number must be a string.");
+    logger.error("Invalid input: phone number must be a string");
     return false;
   }
 
@@ -9,7 +13,7 @@ export const isValidPhoneNumber = (phoneNumber: string): boolean => {
 
   // Ensure it's exactly 10 digits long
   if (cleanedNumber.length !== 10) {
-    console.error("Invalid phone number: must be exactly 10 digits.");
+    logger.info("Invalid phone number: must be exactly 10 digits");
     return false;
   }
 
