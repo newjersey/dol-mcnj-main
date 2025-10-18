@@ -11,7 +11,11 @@ describe("client function", () => {
     }
   `;
   const variables = { testVariable: "testValue" };
-  const apiUrl = `https://${process.env.REACT_APP_BASE_URL}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`;
+  // Construct URL with protocol handling
+  const baseUrl = process.env.REACT_APP_BASE_URL || '';
+  const apiUrl = baseUrl.startsWith('http://') || baseUrl.startsWith('https://')
+    ? `${baseUrl}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`
+    : `https://${baseUrl}/${process.env.REACT_APP_SPACE_ID}/environments/${process.env.REACT_APP_ENVIRONMENT}`;
   const headers = {
     "Content-Type": "application/json",
     authorization: `Bearer ${process.env.REACT_APP_DELIVERY_API}`,

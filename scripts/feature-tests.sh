@@ -23,7 +23,8 @@ echo "starting app"
 # Start backend
 echo "Starting backend on port ${BACKEND_PORT}..."
 cd backend
-DB_ENV=dev npm start > /dev/null &
+# Override the start script to skip migrations (they should be run separately before this script)
+node ./dist/server.js --env=production > /dev/null &
 BACKEND_PID=$!
 cd ..
 

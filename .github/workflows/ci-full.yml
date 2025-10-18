@@ -220,12 +220,44 @@ jobs:
     env:
       IS_CI: 'true'
       NODE_ENV: test
-      DB_ENV: dev
+      DB_ENV: test
       PGHOST: localhost
       PGPORT: 5432
       PGUSER: postgres
       PGPASSWORD: ''
-      PGDATABASE: d4adlocal
+      PGDATABASE: d4adtest
+      # Contentful / CMS environment variables
+      REACT_APP_SITE_NAME: ${{ secrets.REACT_APP_SITE_NAME }}
+      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+      REACT_APP_SITE_URL: ${{ secrets.REACT_APP_SITE_URL }}
+      REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+      REACT_APP_SPACE_ID: ${{ secrets.REACT_APP_SPACE_ID }}
+      REACT_APP_ENVIRONMENT: ${{ secrets.REACT_APP_ENVIRONMENT }}
+      REACT_APP_DELIVERY_API: ${{ secrets.REACT_APP_DELIVERY_API }}
+      REACT_APP_PREVIEW_API: ${{ secrets.REACT_APP_PREVIEW_API }}
+      # Feature flags
+      REACT_APP_FEATURE_CAREER_PATHWAYS: ${{ secrets.REACT_APP_FEATURE_CAREER_PATHWAYS }}
+      REACT_APP_FEATURE_MULTILANG: ${{ secrets.REACT_APP_FEATURE_MULTILANG }}
+      REACT_APP_FEATURE_PINPOINT: ${{ secrets.REACT_APP_FEATURE_PINPOINT }}
+      REACT_APP_FEATURE_CAREER_NAVIGATOR: ${{ secrets.REACT_APP_FEATURE_CAREER_NAVIGATOR }}
+      REACT_APP_FEATURE_LP_CAREER_ROW: ${{ secrets.REACT_APP_FEATURE_LP_CAREER_ROW }}
+      REACT_APP_FEATURE_MAINTENANCE: ${{ secrets.REACT_APP_FEATURE_MAINTENANCE }}
+      REACT_APP_FEATURE_BETA: ${{ secrets.REACT_APP_FEATURE_BETA }}
+      REACT_APP_FEATURE_BETA_MESSAGE: ${{ secrets.REACT_APP_FEATURE_BETA_MESSAGE }}
+      REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS: ${{ secrets.REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS }}
+      # Google & Other APIs
+      REACT_APP_GOOGLE_CLIENTID: ${{ secrets.REACT_APP_GOOGLE_CLIENTID }}
+      REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
+      REACT_APP_SIGNUP_FOR_UPDATES: ${{ secrets.REACT_APP_SIGNUP_FOR_UPDATES }}
+      NEXT_PUBLIC_SURVEY_URL: ${{ secrets.NEXT_PUBLIC_SURVEY_URL }}
+      NEXT_PUBLIC_FEATURE_CRC_INFO: ${{ secrets.NEXT_PUBLIC_FEATURE_CRC_INFO }}
+      # O*NET Integration
+      ONET_BASEURL: ${{ secrets.ONET_BASEURL }}
+      ONET_USERNAME: ${{ secrets.ONET_USERNAME }}
+      ONET_PASSWORD: ${{ secrets.ONET_PASSWORD }}
+      # Credential Engine
+      CE_AUTH_TOKEN: ${{ secrets.CE_AUTH_TOKEN }}
+      CE_ENVIRONMENT: ${{ secrets.CE_ENVIRONMENT }}
     
     services:
       postgres:
@@ -245,6 +277,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          lfs: false
       
       - name: Network diagnostics and environment setup
         run: |
@@ -294,10 +328,22 @@ jobs:
           done
           createdb -h localhost -p 5432 ${{ env.DB_NAME }} -U postgres
           echo "Database ${{ env.DB_NAME }} created successfully"
+          
+          # Initialize db-migrate migrations table with properly quoted column names
+          echo "Initializing migrations table..."
+          psql -h localhost -p 5432 -U postgres -d ${{ env.DB_NAME }} -c "
+            CREATE TABLE IF NOT EXISTS migrations (
+              id SERIAL PRIMARY KEY,
+              name VARCHAR(255) NOT NULL,
+              run_on TIMESTAMP NOT NULL
+            );
+          "
+          echo "Migrations table initialized successfully"
       
       - name: Install required dependencies for Cypress
         run: |
-          sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+          sudo apt-get update
+          sudo apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb
       
       - name: Install Node.js dependencies
         run: |
@@ -378,6 +424,13 @@ jobs:
       
       - name: Build Next.js application
         run: |
+          echo "=== ENVIRONMENT VARIABLE CHECK ==="
+          echo "REACT_APP_BASE_URL is set: $( [ -n "$REACT_APP_BASE_URL" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_SPACE_ID is set: $( [ -n "$REACT_APP_SPACE_ID" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_ENVIRONMENT is set: $( [ -n "$REACT_APP_ENVIRONMENT" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_DELIVERY_API is set: $( [ -n "$REACT_APP_DELIVERY_API" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_SITE_URL is set: $( [ -n "$REACT_APP_SITE_URL" ] && echo 'YES' || echo 'NO' )"
+          echo "=== END ENVIRONMENT CHECK ==="
           npm run build:prod
       
       - name: Run backend tests with PostgreSQL
@@ -386,6 +439,32 @@ jobs:
           echo "PostgreSQL status: $(pg_isready -h localhost -p 5432 -U postgres)"
           echo "Backend test command: PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=\"\" NODE_OPTIONS=\"--max_old_space_size=4096\" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit"
           PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD="" NODE_OPTIONS="--max_old_space_size=4096" npm --prefix=backend run test -- --coverage --coverageDirectory=coverage --coverageReporters=text --coverageReporters=lcov --maxWorkers=2 --forceExit
+      
+      - name: Setup test database schema
+        run: |
+          echo "=== SETTING UP TEST DATABASE ==="
+          echo "Using minimal test schema instead of running all migrations"
+          echo "This avoids downloading 50MB+ Git LFS migration files"
+          
+          # Create d4adtest database
+          echo "Creating d4adtest database..."
+          PGPASSWORD="" psql -h localhost -U postgres -c "CREATE DATABASE d4adtest;"
+          echo "✓ Database created"
+          
+          # Check if test schema exists
+          if [ -f backend/test-schema.sql ]; then
+            echo "Loading test schema into d4adtest..."
+            PGPASSWORD="" psql -h localhost -U postgres -d d4adtest -f backend/test-schema.sql
+            echo "✓ Test schema loaded successfully"
+          else
+            echo "ERROR: backend/test-schema.sql not found!"
+            echo "Please run ./scripts/generate-test-schema.sh locally and commit the result"
+            exit 1
+          fi
+          
+          echo "Verifying database tables..."
+          PGPASSWORD="" psql -h localhost -U postgres -d d4adtest -c "\dt" | head -20
+          echo "=== DATABASE SETUP COMPLETED ==="
       
       - name: Execute feature tests script
         run: |
