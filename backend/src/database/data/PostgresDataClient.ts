@@ -29,7 +29,9 @@ export class PostgresDataClient implements DataClient {
   }
 
   findProgramsBy = async (selector: Selector, values: string[]): Promise<Program[]> => {
-    logger.info(`Executing findProgramsBy with selector: ${selector}`);
+    logger.info(`Executing findProgramsBy with selector: ${selector}`, { 
+      valueCount: values.length 
+    });
 
     if (values.length === 0) {
       logger.info("No values provided to findProgramsBy; returning an empty array");
@@ -39,7 +41,7 @@ export class PostgresDataClient implements DataClient {
     const column = selector === Selector.CIP_CODE ? "cipcode" : "programid";
 
     try {
-      logger.info("Querying programs before status filtering");
+      logger.info(`Querying programs by ${column}`, { valueCount: values.length });
 
       const programsBeforeFilter = await this.kdb("etpl")
         .select(
@@ -100,12 +102,16 @@ export class PostgresDataClient implements DataClient {
       );
 
       if (programs.length === 0) {
-        logger.info(`No approved programs found for selector: ${selector}`);
+        logger.info(`No approved programs found for selector: ${selector}`, {
+          totalBeforeFilter: programsBeforeFilter.length
+        });
       }
 
       return programs;
     } catch (error) {
-      logger.error(`Error while fetching programs with selector: ${selector}`, error);
+      logger.error(`Error while fetching programs with selector: ${selector}`, error, {
+        valueCount: values.length
+      });
       throw Error;
     }
   };

@@ -68,7 +68,6 @@ export const searchTrainingsFactory = (
         }),
       );
     } catch (error) {
-      console.error(`Failed to search for trainings with the query: ${searchQuery}`, error);
       Sentry.captureException(error);
       throw error;
     }

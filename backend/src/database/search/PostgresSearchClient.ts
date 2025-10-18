@@ -3,6 +3,9 @@ import { type Knex } from "knex";
 import { CareerTrackEntity, HeadlineEntity, SearchEntity } from "./Entities";
 import { SearchClient, SearchResult } from "../../domain/search/SearchClient";
 import { isCipCodeQuery, normalizeCipCode } from "../../domain/search/cipCodeUtils";
+import { createSafeLogger } from "../../utils/piiSafety";
+
+const logger = createSafeLogger(console.log);
 
 export class PostgresSearchClient implements SearchClient {
   kdb: Knex;
@@ -15,7 +18,7 @@ export class PostgresSearchClient implements SearchClient {
   }
 
   search = (searchQuery: string): Promise<SearchResult[]> => {
-    console.log(`Executing search for query: "${searchQuery}"`);
+    logger.info("Executing search for training programs", { queryLength: searchQuery.length });
 
     // Check if the search query is a CIP code
     if (isCipCodeQuery(searchQuery)) {
@@ -28,24 +31,26 @@ export class PostgresSearchClient implements SearchClient {
 
   private searchByCipCode = (searchQuery: string): Promise<SearchResult[]> => {
     const normalizedCipCode = normalizeCipCode(searchQuery);
-    console.log(`Searching by CIP code: "${normalizedCipCode}"`);
+    logger.info("Searching by CIP code", { normalizedCipCode });
 
     return this.kdb("etpl")
       .select("programid")
       .where("cipcode", normalizedCipCode)
       .then((data: { programid: string }[]) => {
-        console.log(`CIP code search results for "${normalizedCipCode}":`, data);
+        logger.info("CIP code search completed", { 
+          normalizedCipCode, 
+          resultCount: data.length 
+        });
 
         const results = data.map((entity, index) => ({
           id: entity.programid,
           rank: data.length - index, // Higher rank for earlier results
         }));
 
-        console.log(`Processed CIP code search results:`, results);
         return results;
       })
       .catch((e) => {
-        console.error("Error during CIP code search operation: ", e);
+        logger.error("Error during CIP code search operation", e, { normalizedCipCode });
         return Promise.reject(new Error("SEARCH_FAILURE"));
       });
   };
@@ -59,16 +64,19 @@ export class PostgresSearchClient implements SearchClient {
       .whereRaw("tokens @@ websearch_to_tsquery(?)", searchQuery)
       .orderBy("rank", "desc")
       .then((data: SearchEntity[]) => {
-        console.log(`Raw search results for query "${searchQuery}":`, data);
+        logger.info("Full-text search completed", { 
+          queryLength: searchQuery.length,
+          resultCount: data.length 
+        });
 
         if (data.length === 0) {
-          console.error(`No results found for query: ${searchQuery}`);
+          logger.info("No results found for search query");
         }
 
         const results = data.map((entity) => {
           const rank = entity.rank || 0;
           if (rank === 0) {
-            console.warn(`Rank is 0 for program ID: ${entity.programid}`);
+            logger.info("Search result has rank of 0", { programId: entity.programid });
           }
           return {
             id: entity.programid,
@@ -76,11 +84,12 @@ export class PostgresSearchClient implements SearchClient {
           };
         });
 
-        console.log(`Processed search results:`, results);
         return results;
       })
       .catch((e) => {
-        console.error("Error during search operation: ", e);
+        logger.error("Error during full-text search operation", e, { 
+          queryLength: searchQuery.length 
+        });
         if (e.message === "NOT_FOUND") {
           return Promise.reject(new Error("NOT_FOUND"));
         }
@@ -94,7 +103,7 @@ export class PostgresSearchClient implements SearchClient {
       .whereRaw("soccipcrosswalk.cipcode = (select cipcode from etpl where programid = ?)", id)
       .then((data: CareerTrackEntity[]) => data.map((it) => it.soc2018title).join(", "))
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in getHighlight career tracks query", e);
         return Promise.reject();
       });
 
@@ -138,7 +147,7 @@ export class PostgresSearchClient implements SearchClient {
         return "";
       })
       .catch((e) => {
-        console.log("db error: ", e);
+        logger.error("Database error in getHighlight headline query", e);
         return Promise.reject();
       });
   };

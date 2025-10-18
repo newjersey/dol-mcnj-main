@@ -83,8 +83,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
                   mapStrNumToBool(program.assistobtainingchildcare),
               };
             } catch (error) {
-              console.error(`Error while processing program id ${program.programid}: `, error);
-
               Sentry.withScope((scope) => {
                 scope.setLevel("error");
                 scope.setExtra("programId", program.programid);
@@ -97,8 +95,6 @@ export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy 
         )
       ).filter((item): item is Training => item !== null);
     } catch (error) {
-      console.error(`Error while fetching programs: `, error);
-
       Sentry.withScope((scope) => {
         scope.setLevel("error");
         scope.setExtra("selector", selector);
