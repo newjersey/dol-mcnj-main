@@ -1,0 +1,84 @@
+name: Build
+
+on:
+  workflow_call:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  NODE_VERSION: '20.11.0'
+
+jobs:
+  build:
+    name: Next.js Production Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    env:
+      IS_CI: 'true'
+      NODE_ENV: production
+      # Contentful / CMS environment variables
+      REACT_APP_SITE_NAME: ${{ secrets.REACT_APP_SITE_NAME }}
+      REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+      REACT_APP_SITE_URL: ${{ secrets.REACT_APP_SITE_URL }}
+      REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+      REACT_APP_SPACE_ID: ${{ secrets.REACT_APP_SPACE_ID }}
+      REACT_APP_ENVIRONMENT: ${{ secrets.REACT_APP_ENVIRONMENT }}
+      REACT_APP_DELIVERY_API: ${{ secrets.REACT_APP_DELIVERY_API }}
+      REACT_APP_PREVIEW_API: ${{ secrets.REACT_APP_PREVIEW_API }}
+      # Feature flags
+      REACT_APP_FEATURE_CAREER_PATHWAYS: ${{ secrets.REACT_APP_FEATURE_CAREER_PATHWAYS }}
+      REACT_APP_FEATURE_MULTILANG: ${{ secrets.REACT_APP_FEATURE_MULTILANG }}
+      REACT_APP_FEATURE_PINPOINT: ${{ secrets.REACT_APP_FEATURE_PINPOINT }}
+      REACT_APP_FEATURE_CAREER_NAVIGATOR: ${{ secrets.REACT_APP_FEATURE_CAREER_NAVIGATOR }}
+      REACT_APP_FEATURE_LP_CAREER_ROW: ${{ secrets.REACT_APP_FEATURE_LP_CAREER_ROW }}
+      REACT_APP_FEATURE_MAINTENANCE: ${{ secrets.REACT_APP_FEATURE_MAINTENANCE }}
+      REACT_APP_FEATURE_BETA: ${{ secrets.REACT_APP_FEATURE_BETA }}
+      REACT_APP_FEATURE_BETA_MESSAGE: ${{ secrets.REACT_APP_FEATURE_BETA_MESSAGE }}
+      REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS: ${{ secrets.REACT_APP_FEATURE_SHOW_PINPOINT_SEGMENTS }}
+      # Google & Other APIs
+      REACT_APP_GOOGLE_CLIENTID: ${{ secrets.REACT_APP_GOOGLE_CLIENTID }}
+      REACT_APP_GOOGLE_CLIENT_SECRET: ${{ secrets.REACT_APP_GOOGLE_CLIENT_SECRET }}
+      REACT_APP_SIGNUP_FOR_UPDATES: ${{ secrets.REACT_APP_SIGNUP_FOR_UPDATES }}
+      NEXT_PUBLIC_SURVEY_URL: ${{ secrets.NEXT_PUBLIC_SURVEY_URL }}
+      NEXT_PUBLIC_FEATURE_CRC_INFO: ${{ secrets.NEXT_PUBLIC_FEATURE_CRC_INFO }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+          npm config set fetch-retries 5
+          CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile
+          npm --prefix=backend ci --frozen-lockfile
+      
+      - name: Verify environment variables
+        run: |
+          echo "=== ENVIRONMENT VARIABLE CHECK ==="
+          echo "REACT_APP_BASE_URL is set: $( [ -n "$REACT_APP_BASE_URL" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_SPACE_ID is set: $( [ -n "$REACT_APP_SPACE_ID" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_ENVIRONMENT is set: $( [ -n "$REACT_APP_ENVIRONMENT" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_DELIVERY_API is set: $( [ -n "$REACT_APP_DELIVERY_API" ] && echo 'YES' || echo 'NO' )"
+          echo "REACT_APP_SITE_URL is set: $( [ -n "$REACT_APP_SITE_URL" ] && echo 'YES' || echo 'NO' )"
+          echo "=== END ENVIRONMENT CHECK ==="
+      
+      - name: Build Next.js application
+        run: npm run build:prod
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: .next/
+          retention-days: 7

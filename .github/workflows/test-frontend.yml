@@ -1,0 +1,58 @@
+name: Test Frontend (Unit)
+
+on:
+  workflow_call:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  NODE_VERSION: '20.11.0'
+
+jobs:
+  test-frontend:
+    name: Next.js Jest Tests with Coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    env:
+      IS_CI: 'true'
+      NODE_ENV: test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+          npm config set fetch-retries 5
+          CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile
+      
+      - name: Run Next.js unit tests with coverage
+        run: |
+          NODE_OPTIONS="--max_old_space_size=6144" npx jest \
+            --coverage \
+            --coverageDirectory=coverage \
+            --coverageReporters=text \
+            --coverageReporters=lcov \
+            --watchAll=false \
+            --maxWorkers=1 \
+            --forceExit \
+            --logHeapUsage
+      
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nextjs-coverage
+          path: coverage/
+          retention-days: 30

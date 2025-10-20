@@ -1,0 +1,52 @@
+name: Lint & Format
+
+on:
+  workflow_call:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  NODE_VERSION: '20.11.0'
+
+jobs:
+  lint:
+    name: ESLint, Prettier, Fences
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+          npm config set fetch-retries 5
+          CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile
+          npm --prefix=backend ci --frozen-lockfile
+      
+      - name: Run ESLint (Frontend)
+        run: npm run lint
+      
+      - name: Run ESLint (Backend)
+        run: cd backend && npm run lint
+      
+      - name: Run Prettier (Frontend)
+        run: npx prettier --check . --ignore-path=./.prettierignore
+        continue-on-error: true
+      
+      - name: Run Prettier (Backend)
+        run: cd backend && npx prettier --check . --ignore-path=./.eslintignore
+        continue-on-error: true
+      
+      - name: Run Good-Fences (Backend)
+        run: cd backend && npm run fences
