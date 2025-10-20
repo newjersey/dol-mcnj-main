@@ -17,6 +17,41 @@ export interface AlertProps {
   type: "info" | "success" | "warning" | "error" | "global";
 }
 
+/**
+ * Alert/notification component with multiple variants and interactive features.
+ * 
+ * Displays important messages, warnings, and notifications throughout the app.
+ * Supports dismissible alerts (stored in sessionStorage), collapsable content,
+ * and various types (info, success, warning, error, global). Based on USWDS Alert.
+ * 
+ * @param props.type - Alert type: "info" | "success" | "warning" | "error" | "global" (required)
+ * @param props.heading - Bold heading text displayed at top of alert
+ * @param props.copy - Main alert message (supports markdown)
+ * @param props.children - React children for custom alert content
+ * @param props.dismissible - Whether user can dismiss alert (requires alertId)
+ * @param props.alertId - Unique ID for storing dismissed state in sessionStorage
+ * @param props.collapsable - Whether alert content can be collapsed/expanded
+ * @param props.slim - Whether to use slim variant (less padding)
+ * @param props.noIcon - Whether to hide the default icon
+ * @param props.className - Additional CSS classes
+ * 
+ * @example
+ * ```tsx
+ * // Success message
+ * <Alert type="success" heading="Application Submitted" 
+ *        copy="Your application has been received." />
+ * 
+ * // Dismissible warning (persists across page loads)
+ * <Alert type="warning" alertId="covid-alert" dismissible
+ *        heading="COVID-19 Updates" 
+ *        copy="Some programs may be offered virtually." />
+ * 
+ * // Collapsable info with custom content
+ * <Alert type="info" collapsable heading="Program Details">
+ *   <p>Additional information here...</p>
+ * </Alert>
+ * ```
+ */
 export const Alert = ({
   alertId,
   children,

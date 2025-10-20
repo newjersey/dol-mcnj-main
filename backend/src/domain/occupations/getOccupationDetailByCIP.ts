@@ -16,6 +16,30 @@ import { Selector } from "../training/Selector";
 import { TrainingResult } from "../training/TrainingResult";
 import * as Sentry from "@sentry/node";
 
+/**
+ * Factory function that creates an occupation lookup function by CIP code.
+ * 
+ * CIP codes (Classification of Instructional Programs) map to multiple occupations.
+ * This function returns all occupations associated with a training program's CIP code,
+ * with full details for each occupation including training programs, salaries, and job counts.
+ * 
+ * @param getOccupationDetailFromOnet - Function to fetch occupation data from O*NET API
+ * @param getEducationText - Function to generate education requirement text
+ * @param getSalaryEstimate - Function to calculate salary estimates for NJ
+ * @param getOpenJobsCount - Function to fetch current job openings from CareerOneStop
+ * @param findTrainingsBy - Function to find related training programs
+ * @param dataClient - Database client for local data queries
+ * @returns Function that retrieves all occupations associated with a CIP code
+ * 
+ * @example
+ * ```typescript
+ * const getOccupationDetailByCIP = getOccupationDetailByCIPFactory(...dependencies);
+ * const occupations = await getOccupationDetailByCIP('11.0101'); // Computer Science
+ * // Returns: [{ soc: '15-1252', title: 'Software Developers', ... }, ...]
+ * ```
+ * 
+ * @see {@link getOccupationDetailFactory} for single occupation lookup
+ */
 export const getOccupationDetailByCIPFactory = (
   getOccupationDetailFromOnet: GetOccupationDetailPartial,
   getEducationText: GetEducationText,

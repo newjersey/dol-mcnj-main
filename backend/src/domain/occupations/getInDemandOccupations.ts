@@ -5,6 +5,22 @@ import { stripOccupations } from "../utils/stripOccupations";
 import { NullableOccupation } from "../training/Program";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 
+/**
+ * Factory function that creates a function to fetch in-demand occupations for New Jersey.
+ * 
+ * Handles the complexity of SOC code transitions (2010 → 2018) and local exceptions.
+ * Some occupations are statewide in-demand, while others are in-demand only in specific counties.
+ * 
+ * @param dataClient - Database client for querying occupation and local exception data
+ * @returns Function that retrieves all in-demand occupations with county-specific data
+ * 
+ * @example
+ * ```typescript
+ * const getInDemandOccupations = getInDemandOccupationsFactory(postgresClient);
+ * const occupations = await getInDemandOccupations();
+ * // Returns: [{ soc: '15-1252', title: 'Software Developers', counties: ['Bergen', 'Essex'] }, ...]
+ * ```
+ */
 export const getInDemandOccupationsFactory = (dataClient: DataClient): GetInDemandOccupations => {
   const removeDuplicateSocs = (occupationTitles: Occupation[]): Occupation[] => {
     return occupationTitles.filter(
