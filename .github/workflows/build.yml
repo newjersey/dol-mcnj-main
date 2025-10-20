@@ -18,7 +18,8 @@ jobs:
     
     env:
       IS_CI: 'true'
-      NODE_ENV: production
+      # Note: NODE_ENV is NOT set here to allow devDependencies installation
+      # It will be set in the build step where it's actually needed
       # Contentful / CMS environment variables
       REACT_APP_SITE_NAME: ${{ secrets.REACT_APP_SITE_NAME }}
       REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
@@ -60,15 +61,16 @@ jobs:
           npm config set fetch-retry-mintimeout 20000
           npm config set fetch-retry-maxtimeout 120000
           npm config set fetch-retries 5
+          # Install all dependencies including devDependencies (TypeScript, etc.)
           CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile
           npm --prefix=backend ci --frozen-lockfile
       
       - name: Verify TypeScript installation
         run: |
           echo "Checking TypeScript installation..."
-          npx tsc --version || echo "TypeScript not found in path"
-          ls -la node_modules/.bin/tsc || echo "tsc binary not found"
-          test -f node_modules/typescript/lib/tsc.js && echo "TypeScript module found" || echo "TypeScript module missing"
+          npx tsc --version
+          ls -la node_modules/.bin/tsc
+          test -f node_modules/typescript/lib/tsc.js && echo "TypeScript module found"
       
       - name: Verify environment variables
         run: |
@@ -81,6 +83,8 @@ jobs:
           echo "=== END ENVIRONMENT CHECK ==="
       
       - name: Build Next.js application
+        env:
+          NODE_ENV: production
         run: |
           # Ensure TypeScript is available
           npm ls typescript || npm install --no-save typescript@5.9.3
