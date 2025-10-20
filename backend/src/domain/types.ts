@@ -16,5 +16,14 @@ export type GetOccupationDetailByCIP = (cip: string) => Promise<OccupationDetail
 export type GetOccupationDetailPartial = (soc: string) => Promise<OccupationDetailPartial>;
 export type GetEducationText = (soc: string) => Promise<string>;
 export type GetSalaryEstimate = (soc: string) => Promise<number | null>;
+
+/**
+ * Fetches job count from CareerOneStop API for a given SOC code.
+ *
+ * NOTE: The returned count may differ slightly from CareerOneStop's website
+ * due to caching, real-time changes, or different data sources. This is expected.
+ * See docs/project/CAREERONESTOP_API_QUIRKS.md for details.
+ */
 export type GetOpenJobsCount = (soc: string) => Promise<number | null>;
+
 export type Convert2010SocTo2018Occupations = (soc2010: string) => Promise<Occupation[]>;
