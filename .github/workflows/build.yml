@@ -85,10 +85,7 @@ jobs:
       - name: Build Next.js application
         env:
           NODE_ENV: production
-        run: |
-          # Ensure TypeScript is available
-          npm ls typescript || npm install --no-save typescript@5.9.3
-          npm run build:prod
+        run: npm run build:prod
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
