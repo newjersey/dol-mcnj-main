@@ -53,7 +53,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          # Removed cache: 'npm' due to TypeScript resolution issues with Next.js config
       
       - name: Install dependencies
         run: |
@@ -62,6 +62,13 @@ jobs:
           npm config set fetch-retries 5
           CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile
           npm --prefix=backend ci --frozen-lockfile
+      
+      - name: Verify TypeScript installation
+        run: |
+          echo "Checking TypeScript installation..."
+          npx tsc --version || echo "TypeScript not found in path"
+          ls -la node_modules/.bin/tsc || echo "tsc binary not found"
+          test -f node_modules/typescript/lib/tsc.js && echo "TypeScript module found" || echo "TypeScript module missing"
       
       - name: Verify environment variables
         run: |
@@ -74,7 +81,10 @@ jobs:
           echo "=== END ENVIRONMENT CHECK ==="
       
       - name: Build Next.js application
-        run: npm run build:prod
+        run: |
+          # Ensure TypeScript is available
+          npm ls typescript || npm install --no-save typescript@5.9.3
+          npm run build:prod
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
