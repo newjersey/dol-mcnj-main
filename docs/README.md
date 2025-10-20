@@ -73,6 +73,7 @@ Project management, governance, and meta-documentation.
 |----------|---------|----------|
 | [`CONTRIBUTORS.md`](project/CONTRIBUTORS.md) | Contributor guidelines | Developers |
 | [`decision_log.md`](project/decision_log.md) | Technical decision log | Team, Architects |
+| [`CAREERONESTOP_API_QUIRKS.md`](project/CAREERONESTOP_API_QUIRKS.md) | Known CareerOneStop API behaviors | Developers |
 
 ## 🔍 Finding What You Need
 

@@ -81,9 +81,18 @@ export const Content = ({
 
       <section className="body-copy">
         <div className="container">
+          {/* 
+            Uses openJobsSoc (if available) to ensure the link uses the same SOC code
+            that was used to fetch the job count displayed above. This is critical for
+            consistency when the backend falls back to 2010 SOC codes for certain occupations.
+            
+            Note: The job count on CareerOneStop's website may differ slightly from what
+            we display due to real-time changes, caching differences, or varying data sources
+            between their API and website. Minor discrepancies are expected and acceptable.
+          */}
           <LinkObject
             className="openingsLink"
-            url={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${occupation.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
+            url={`https://www.careeronestop.org/Toolkit/Jobs/find-jobs-results.aspx?keyword=${occupation.openJobsSoc || occupation.soc}&location=New%20Jersey&radius=0&source=NLX&currentpage=1`}
           >
             <span>Search job openings in New Jersey</span>
           </LinkObject>
