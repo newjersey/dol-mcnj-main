@@ -10,6 +10,21 @@ import { DataClient } from "../DataClient";
 import { Selector } from "./Selector";
 import * as Sentry from "@sentry/node";
 
+/**
+ * Factory function that creates a training search function using dependency injection.
+ * 
+ * This is a core domain function that queries the ETPL (Eligible Training Provider List)
+ * database and enriches training programs with occupations, certifications, and local exceptions.
+ * 
+ * @param dataClient - Database client for querying training programs and related data
+ * @returns Function that searches for training programs by various selectors (ID, CIP code, etc.)
+ * 
+ * @example
+ * ```typescript
+ * const findTrainingsBy = findTrainingsByFactory(postgresClient);
+ * const trainings = await findTrainingsBy(Selector.CIP_CODE, ['11.0101']);
+ * ```
+ */
 export const findTrainingsByFactory = (dataClient: DataClient): FindTrainingsBy => {
   return async (selector: Selector, values: string[]): Promise<Training[]> => {
     try {

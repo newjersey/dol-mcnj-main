@@ -4,6 +4,51 @@ import { IconSelector } from "./IconSelector";
 import { LinkObject } from "./LinkObject";
 import { Flex } from "@components/utility/Flex";
 
+/**
+ * Versatile button component supporting multiple types and extensive styling options.
+ * 
+ * Can render as button, submit button, or link styled as button. Supports icons, custom colors,
+ * outlined variants, and various preset styles. Based on USWDS Button with extensions.
+ * One of the most-used interactive components in the application.
+ * 
+ * @param props.type - Button type: "button" | "submit" | "link" (determines rendered element)
+ * @param props.label - Button text label (alternative to children)
+ * @param props.children - React children (alternative to label)
+ * @param props.onClick - Click handler function
+ * @param props.link - URL to navigate to (when type="link")
+ * @param props.defaultStyle - Preset style: "primary" | "secondary" | "accent" | etc.
+ * @param props.outlined - Whether to use outline variant
+ * @param props.disabled - Whether button is disabled
+ * @param props.unstyled - Whether to remove all default styling
+ * @param props.iconPrefix - Icon to display before label (Phosphor icon name)
+ * @param props.iconSuffix - Icon to display after label
+ * @param props.svgName - SVG icon name (alternative to Phosphor icons)
+ * @param props.iconWeight - Icon weight for Phosphor icons
+ * @param props.customBgColor - Custom background color (hex or CSS color)
+ * @param props.customTextColor - Custom text color
+ * @param props.customBorderColor - Custom border color
+ * @param props.newTab - Whether link opens in new tab (when type="link")
+ * @param props.ariaLabel - Accessibility label
+ * @param props.className - Additional CSS classes
+ * 
+ * @example
+ * ```tsx
+ * // Primary action button
+ * <Button type="button" label="Save" onClick={handleSave} />
+ * 
+ * // Outlined secondary button with icon
+ * <Button type="button" defaultStyle="secondary" outlined 
+ *         iconPrefix="Plus" label="Add Item" />
+ * 
+ * // Link styled as button
+ * <Button type="link" link="/training/search" 
+ *         label="Browse Programs" iconSuffix="ArrowRight" />
+ * 
+ * // Submit button with custom colors
+ * <Button type="submit" label="Submit Application" 
+ *         customBgColor="#1e3a8a" customTextColor="#ffffff" />
+ * ```
+ */
 const Button = ({
   buttonId,
   children,

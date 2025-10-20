@@ -16,6 +16,36 @@ import { LocalException, NullableOccupation } from "../training/Program";
 import { convertToTitleCaseIfUppercase } from "../utils/convertToTitleCaseIfUppercase";
 import * as Sentry from "@sentry/node";
 
+/**
+ * Factory function that creates a comprehensive occupation detail fetcher.
+ * 
+ * This is the primary function for occupation detail pages. It aggregates data from multiple sources:
+ * - O*NET (occupation descriptions, tasks, knowledge, skills)
+ * - CareerOneStop (open job counts)
+ * - Local database (in-demand status, related training programs, salary estimates)
+ * - Handles SOC 2010 → 2018 transitions automatically
+ * 
+ * @param getOccupationDetailFromOnet - Function to fetch occupation data from O*NET API
+ * @param getEducationText - Function to generate education requirement text
+ * @param getSalaryEstimate - Function to calculate salary estimates for NJ
+ * @param getOpenJobsCount - Function to fetch current job openings from CareerOneStop
+ * @param findTrainingsBy - Function to find related training programs
+ * @param dataClient - Database client for local data queries
+ * @returns Function that retrieves complete occupation details by SOC code
+ * 
+ * @example
+ * ```typescript
+ * const getOccupationDetail = getOccupationDetailFactory(
+ *   onetClient.getOccupation,
+ *   getEducationText,
+ *   getSalaryEstimate,
+ *   careerOneStopClient.getOpenJobsCount,
+ *   findTrainingsBy,
+ *   postgresClient
+ * );
+ * const detail = await getOccupationDetail('15-1252'); // Software Developers
+ * ```
+ */
 export const getOccupationDetailFactory = (
   getOccupationDetailFromOnet: GetOccupationDetailPartial,
   getEducationText: GetEducationText,

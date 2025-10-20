@@ -6,6 +6,27 @@ import { SearchClient } from "./SearchClient";
 import { Selector } from "../training/Selector";
 import * as Sentry from "@sentry/node";
 
+/**
+ * Factory function that creates a full-text training program search function.
+ * 
+ * Powers the main training search experience. Executes PostgreSQL full-text search,
+ * retrieves matching programs, and enriches results with search highlights and relevance ranks.
+ * Handles both keyword search and CIP code lookup.
+ * 
+ * @param findTrainingsBy - Function to retrieve full training details by IDs
+ * @param searchClient - PostgreSQL search client for full-text and CIP code searches
+ * @returns Function that searches for training programs and returns simplified results with highlights
+ * 
+ * @example
+ * ```typescript
+ * const searchTrainings = searchTrainingsFactory(findTrainingsBy, postgresSearchClient);
+ * const results = await searchTrainings('web development');
+ * // Returns: [{ id, name, highlight: 'Learn <b>web development</b>...', rank: 1, ... }]
+ * ```
+ * 
+ * @see {@link findTrainingsByFactory} for retrieving training details
+ * @see {@link PostgresSearchClient} for search implementation
+ */
 export const searchTrainingsFactory = (
   findTrainingsBy: FindTrainingsBy,
   searchClient: SearchClient,

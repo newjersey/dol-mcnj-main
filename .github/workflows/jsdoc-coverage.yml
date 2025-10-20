@@ -1,0 +1,284 @@
+name: JSDoc Coverage Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20.11.0'
+
+jobs:
+  jsdoc-coverage:
+    name: Check JSDoc Documentation Coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm ci --frozen-lockfile
+          npm --prefix=backend ci --frozen-lockfile
+      
+      - name: Install documentation tools
+        run: |
+          npm install -g typedoc documentation
+      
+      - name: Check JSDoc coverage for backend
+        id: backend-coverage
+        run: |
+          echo "=== BACKEND JSDOC COVERAGE CHECK ==="
+          
+          # Create coverage check script
+          cat > check-jsdoc-coverage.js << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+          
+          function countJSDocInFile(filePath) {
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const lines = content.split('\n');
+            
+            let totalExports = 0;
+            let documentedExports = 0;
+            let previousLineWasJSDoc = false;
+            
+            for (let i = 0; i < lines.length; i++) {
+              const line = lines[i].trim();
+              
+              // Check if this line starts a JSDoc comment
+              if (line.startsWith('/**')) {
+                previousLineWasJSDoc = true;
+                continue;
+              }
+              
+              // Check if JSDoc comment ends
+              if (previousLineWasJSDoc && line.includes('*/')) {
+                // Look ahead for export on next few lines
+                for (let j = i + 1; j < Math.min(i + 5, lines.length); j++) {
+                  const nextLine = lines[j].trim();
+                  if (nextLine.startsWith('export ')) {
+                    documentedExports++;
+                    break;
+                  }
+                  if (nextLine && !nextLine.startsWith('//')) break;
+                }
+                previousLineWasJSDoc = false;
+                continue;
+              }
+              
+              // Count exported functions/classes/types
+              if (line.startsWith('export const') || 
+                  line.startsWith('export function') || 
+                  line.startsWith('export class') ||
+                  line.startsWith('export interface') ||
+                  line.startsWith('export type')) {
+                totalExports++;
+                
+                // Check if previous non-empty line was JSDoc end
+                for (let j = i - 1; j >= 0; j--) {
+                  const prevLine = lines[j].trim();
+                  if (!prevLine) continue;
+                  if (prevLine.includes('*/')) {
+                    // Already counted above
+                  }
+                  break;
+                }
+              }
+            }
+            
+            return { totalExports, documentedExports };
+          }
+          
+          function scanDirectory(dir, stats = { files: 0, totalExports: 0, documentedExports: 0 }) {
+            const files = fs.readdirSync(dir);
+            
+            for (const file of files) {
+              const fullPath = path.join(dir, file);
+              const stat = fs.statSync(fullPath);
+              
+              if (stat.isDirectory()) {
+                if (!file.includes('node_modules') && 
+                    !file.includes('dist') && 
+                    !file.includes('coverage') &&
+                    !file.includes('test') &&
+                    !file.endsWith('.test.ts') &&
+                    !file.endsWith('.test.tsx')) {
+                  scanDirectory(fullPath, stats);
+                }
+              } else if (file.endsWith('.ts') || file.endsWith('.tsx')) {
+                if (!file.endsWith('.test.ts') && 
+                    !file.endsWith('.test.tsx') &&
+                    !file.includes('test-objects')) {
+                  const counts = countJSDocInFile(fullPath);
+                  stats.files++;
+                  stats.totalExports += counts.totalExports;
+                  stats.documentedExports += counts.documentedExports;
+                }
+              }
+            }
+            
+            return stats;
+          }
+          
+          // Scan backend
+          const backendStats = scanDirectory('./backend/src');
+          const backendCoverage = backendStats.totalExports > 0 
+            ? ((backendStats.documentedExports / backendStats.totalExports) * 100).toFixed(1)
+            : 0;
+          
+          console.log('\n=== BACKEND JSDOC COVERAGE ===');
+          console.log(`Files scanned: ${backendStats.files}`);
+          console.log(`Total exports: ${backendStats.totalExports}`);
+          console.log(`Documented exports: ${backendStats.documentedExports}`);
+          console.log(`Coverage: ${backendCoverage}%`);
+          
+          // Scan frontend
+          const frontendStats = scanDirectory('./src');
+          const frontendCoverage = frontendStats.totalExports > 0
+            ? ((frontendStats.documentedExports / frontendStats.totalExports) * 100).toFixed(1)
+            : 0;
+          
+          console.log('\n=== FRONTEND JSDOC COVERAGE ===');
+          console.log(`Files scanned: ${frontendStats.files}`);
+          console.log(`Total exports: ${frontendStats.totalExports}`);
+          console.log(`Documented exports: ${frontendStats.documentedExports}`);
+          console.log(`Coverage: ${frontendCoverage}%`);
+          
+          // Overall
+          const totalExports = backendStats.totalExports + frontendStats.totalExports;
+          const totalDocumented = backendStats.documentedExports + frontendStats.documentedExports;
+          const overallCoverage = totalExports > 0
+            ? ((totalDocumented / totalExports) * 100).toFixed(1)
+            : 0;
+          
+          console.log('\n=== OVERALL JSDOC COVERAGE ===');
+          console.log(`Total exports: ${totalExports}`);
+          console.log(`Documented exports: ${totalDocumented}`);
+          console.log(`Coverage: ${overallCoverage}%`);
+          
+          // Write to GitHub Actions output
+          fs.writeFileSync(process.env.GITHUB_OUTPUT || '/tmp/output.txt', 
+            `backend_coverage=${backendCoverage}\n` +
+            `frontend_coverage=${frontendCoverage}\n` +
+            `overall_coverage=${overallCoverage}\n` +
+            `backend_documented=${backendStats.documentedExports}\n` +
+            `backend_total=${backendStats.totalExports}\n` +
+            `frontend_documented=${frontendStats.documentedExports}\n` +
+            `frontend_total=${frontendStats.totalExports}\n`
+          );
+          
+          // Generate badge data
+          const badgeData = {
+            schemaVersion: 1,
+            label: 'JSDoc Coverage',
+            message: `${overallCoverage}%`,
+            color: overallCoverage >= 50 ? 'green' : overallCoverage >= 30 ? 'yellow' : 'red'
+          };
+          
+          fs.writeFileSync('jsdoc-badge.json', JSON.stringify(badgeData, null, 2));
+          
+          console.log('\n✓ Coverage check completed');
+          EOF
+          
+          node check-jsdoc-coverage.js
+          
+          echo "=== END BACKEND JSDOC COVERAGE CHECK ==="
+      
+      - name: Comment coverage on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            const backendCoverage = '${{ steps.backend-coverage.outputs.backend_coverage }}';
+            const frontendCoverage = '${{ steps.backend-coverage.outputs.frontend_coverage }}';
+            const overallCoverage = '${{ steps.backend-coverage.outputs.overall_coverage }}';
+            const backendDocumented = '${{ steps.backend-coverage.outputs.backend_documented }}';
+            const backendTotal = '${{ steps.backend-coverage.outputs.backend_total }}';
+            const frontendDocumented = '${{ steps.backend-coverage.outputs.frontend_documented }}';
+            const frontendTotal = '${{ steps.backend-coverage.outputs.frontend_total }}';
+            
+            const body = `## 📚 JSDoc Coverage Report
+            
+            | Category | Documented | Total Exports | Coverage |
+            |----------|-----------|---------------|----------|
+            | **Backend** | ${backendDocumented} | ${backendTotal} | **${backendCoverage}%** |
+            | **Frontend** | ${frontendDocumented} | ${frontendTotal} | **${frontendCoverage}%** |
+            | **Overall** | ${parseInt(backendDocumented) + parseInt(frontendDocumented)} | ${parseInt(backendTotal) + parseInt(frontendTotal)} | **${overallCoverage}%** |
+            
+            ### 📊 Coverage Guidelines
+            - 🟢 **≥50%**: Excellent documentation
+            - 🟡 **30-49%**: Good, but room for improvement
+            - 🔴 **<30%**: Needs attention
+            
+            ### 💡 Tips for Improving Coverage
+            - Add JSDoc comments above exported functions, classes, and types
+            - Include \`@param\`, \`@returns\`, and \`@example\` tags
+            - Document complex business logic with inline comments
+            
+            See our [JSDoc standards](https://github.com/${{ github.repository }}/blob/main/.github/copilot-instructions.md) for guidelines.
+            `;
+            
+            // Find existing comment
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.data.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('JSDoc Coverage Report')
+            );
+            
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }
+      
+      - name: Upload coverage badge
+        uses: actions/upload-artifact@v4
+        with:
+          name: jsdoc-coverage-badge
+          path: jsdoc-badge.json
+          retention-days: 90
+      
+      - name: Check minimum coverage threshold
+        run: |
+          OVERALL_COVERAGE=${{ steps.backend-coverage.outputs.overall_coverage }}
+          MINIMUM_THRESHOLD=20
+          
+          echo "Overall JSDoc coverage: ${OVERALL_COVERAGE}%"
+          echo "Minimum threshold: ${MINIMUM_THRESHOLD}%"
+          
+          if (( $(echo "$OVERALL_COVERAGE < $MINIMUM_THRESHOLD" | bc -l) )); then
+            echo "❌ JSDoc coverage (${OVERALL_COVERAGE}%) is below minimum threshold (${MINIMUM_THRESHOLD}%)"
+            echo "Please add documentation to your code before merging."
+            exit 1
+          else
+            echo "✓ JSDoc coverage meets minimum threshold"
+          fi
+        continue-on-error: true  # Don't fail builds initially, just warn

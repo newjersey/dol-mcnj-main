@@ -23,6 +23,33 @@ interface RouterActions {
   getOccupationDetailByCIP: GetOccupationDetailByCIP;
 }
 
+/**
+ * Factory function that creates the Express router with all API endpoints.
+ * 
+ * Uses dependency injection to wire domain functions to HTTP routes. All domain logic
+ * is passed in as parameters, making the router easily testable and maintaining clean
+ * separation between HTTP handling and business logic.
+ * 
+ * @param actions - Object containing all domain functions to be exposed via API
+ * @param actions.searchTrainings - Full-text search function for training programs
+ * @param actions.findTrainingsBy - Function to find trainings by specific selectors
+ * @param actions.getInDemandOccupations - Function to retrieve in-demand occupations
+ * @param actions.getOccupationDetail - Function to get complete occupation details
+ * @param actions.getOccupationDetailByCIP - Function to find occupations by CIP code
+ * @returns Express Router with all API endpoints configured
+ * 
+ * @example
+ * ```typescript
+ * const router = routerFactory({
+ *   searchTrainings,
+ *   findTrainingsBy,
+ *   getInDemandOccupations,
+ *   getOccupationDetail,
+ *   getOccupationDetailByCIP,
+ * });
+ * app.use('/api', router);
+ * ```
+ */
 export const routerFactory = ({
   searchTrainings,
   findTrainingsBy,
