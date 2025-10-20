@@ -2,7 +2,7 @@
 
 > *Empowering New Jersey residents with data-driven career insights and training opportunities*
 
-[![build](https://circleci.com/gh/newjersey/dol-mcnj-main.svg?style=shield)](https://circleci.com/gh/newjersey/dol-mcnj-main)
+[![CI Pipeline](https://github.com/njdol-ori/mcnj-main/actions/workflows/ci.yml/badge.svg)](https://github.com/njdol-ori/mcnj-main/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -55,11 +55,11 @@ This platform is developed and maintained by the New Jersey Department of Labor 
 
 ### Technology Stack
 
-- **Frontend**: [TypeScript](https://www.typescriptlang.org/) single-page application built with [React](https://reactjs.org/) using [`create-react-app`](https://create-react-app.dev/)
+- **Frontend**: [Next.js 15](https://nextjs.org/) with [React 19](https://reactjs.org/) and [TypeScript](https://www.typescriptlang.org/)
 - **Backend**: [TypeScript](https://www.typescriptlang.org/) with [Express](https://expressjs.com/)-based server API
 - **Database**: Multiple [PostgreSQL](https://www.postgresql.org/) tables (imported from CSV files in `backend/data` directory)
-- **Deployment**: [Amazon Web Services (AWS)](https://aws.amazon.com/) instances running [Node.js](https://nodejs.org/en/) 18
-- **CI/CD**: [CircleCI](https://circleci.com/) for continuous integration and deployment
+- **Deployment**: [Amazon Web Services (AWS)](https://aws.amazon.com/) instances running [Node.js](https://nodejs.org/en/) 20
+- **CI/CD**: [GitHub Actions](https://github.com/features/actions) for continuous integration and deployment
 
 ### System Architecture
 
@@ -152,16 +152,15 @@ To verify your setup is working correctly:
 
 ```
 dol-mcnj-main/
-├── 📁 frontend/                 # React TypeScript application
-│   ├── 📁 public/              # Static assets
-│   ├── 📁 src/                 # Source code
-│   │   ├── 📁 components/      # Reusable React components
-│   │   ├── 📁 pages/           # Page components
-│   │   ├── 📁 styles/          # SCSS styling
-│   │   ├── 📁 locales/         # i18n translation files
-│   │   └── 📁 utils/           # Utility functions
-│   ├── 📁 cypress/             # End-to-end tests
-│   └── 📄 package.json         # Frontend dependencies
+├── 📁 src/                      # Next.js application source
+│   ├── 📁 app/                 # Next.js App Router pages
+│   ├── 📁 components/          # React components
+│   │   ├── 📁 utility/         # Generic UI components
+│   │   ├── 📁 modules/         # Reusable features
+│   │   ├── 📁 blocks/          # Complex composites
+│   │   └── 📁 global/          # Site-wide components
+│   ├── 📁 data/                # Static data files
+│   └── � utils/               # Utility functions
 ├── 📁 backend/                  # Express TypeScript API
 │   ├── 📁 src/                 # Source code
 │   │   ├── 📁 routes/          # API route handlers
@@ -170,21 +169,20 @@ dol-mcnj-main/
 │   ├── 📁 data/                # CSV data files
 │   ├── 📁 migrations/          # Database migrations
 │   └── 📄 package.json         # Backend dependencies
+├── 📁 cypress/                  # End-to-end tests
 ├── 📁 scripts/                  # Build and deployment scripts
-├── 📁 .circleci/               # CI/CD configuration
-├── 📄 decision_log.md          # Architectural decisions
-├── 📄 data_model.md            # Database schema documentation
-├── 📄 db_migration_guide.md    # Database migration guide
-├── 📄 etpl_table_seed_guide.md # ETPL database seeding guide
+├── 📁 .github/                 # GitHub Actions workflows
+├── � docs/                    # Documentation
 └── 📄 README.md                # This file
 ```
 
 ### Key Configuration Files
 
 - **Frontend Configuration**
-    - `frontend/package.json` - Dependencies and scripts
-    - `frontend/tsconfig.json` - TypeScript configuration
-    - `frontend/.eslintrc.json` - ESLint rules
+    - `package.json` - Root dependencies and scripts
+    - `next.config.ts` - Next.js configuration
+    - `tsconfig.json` - TypeScript configuration
+    - `eslint.config.mjs` - ESLint rules
 
 - **Backend Configuration**
     - `backend/package.json` - Dependencies and scripts
@@ -192,7 +190,7 @@ dol-mcnj-main/
     - `backend/tsconfig.json` - TypeScript configuration
 
 - **CI/CD Configuration**
-    - `.circleci/config.yml` - CircleCI pipeline configuration
+    - `.github/workflows/` - GitHub Actions workflows
 
 ## 💻 Development
 
@@ -241,14 +239,22 @@ npm --prefix=frontend run fences
 
 ### CI/CD Pipeline
 
-We use [CircleCI](https://circleci.com/gh/newjersey/dol-mcnj-main) for automated deployments:
+We use [GitHub Actions](https://github.com/njdol-ori/mcnj-main/actions) for automated deployments:
 
-1. 📦 **Install** - `npm install` (frontend and backend)
-2. 🧪 **Test** - Run all unit tests
-3. 🏗️ **Build** - Build code and run feature tests
-4. 🚀 **Deploy to Staging** - Automatic deployment to staging environment [disabled; to be migrated to GH Actions]
-5. ⏸️ **Manual Approval** - Manual gate for production deployment [disabled; to be migrated to GH Actions]
-6. 🌟 **Deploy to Production** - Deploy to production environment [disabled; to be migrated to GH Actions]
+**Phase 1: Parallel Checks**
+1. 📝 **Lint & Format** - Code quality checks
+2. 🔐 **Security Audit** - Vulnerability scanning
+3. � **JSDoc Coverage** - Documentation coverage
+4. 🧪 **Frontend Tests** - Next.js unit tests
+5. 🧪 **Backend Tests** - API unit tests with PostgreSQL
+
+**Phase 2: Build**
+6. �️ **Build** - Next.js production build
+
+**Phase 3: E2E**
+7. 🎭 **E2E Tests** - Cypress feature tests
+
+See [`.github/workflows/README.md`](.github/workflows/README.md) for detailed workflow documentation.
 
 ### Environment Variables
 
@@ -397,7 +403,7 @@ psql -U postgres -c "ALTER USER postgres PASSWORD 'your_password';"
 npm cache clean --force
 
 # Delete node_modules and reinstall
-rm -rf frontend/node_modules backend/node_modules
+rm -rf node_modules backend/node_modules
 ./scripts/install-all.sh
 ```
 
@@ -434,9 +440,9 @@ npx cypress install
 ```
 
 **Tests fail in CI**
-- Check CircleCI environment variables
+- Check GitHub Actions secrets configuration
 - Verify test database configuration
-- Review test logs for specific failures
+- Review workflow logs for specific failures
 
 ### Getting Help
 
@@ -522,7 +528,7 @@ We extend our heartfelt gratitude to all contributors who have dedicated their t
 - **O*NET Program** - Occupational data and career information
 - **CareerOneStop** - Labor market and training program data
 - **Amazon Web Services** - Cloud infrastructure
-- **CircleCI** - Continuous integration and deployment
+- **GitHub Actions** - Continuous integration and deployment
 
 ---
 
