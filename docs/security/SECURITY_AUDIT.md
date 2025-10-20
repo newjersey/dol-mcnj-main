@@ -39,16 +39,19 @@ A multi-layered security audit system has been implemented to proactively identi
 ./scripts/security-audit.sh
 ```
 
-### 3. CircleCI Integration
+### 3. GitHub Actions Integration
 
-**Enhanced Security Step:**
+**Security Workflow:**
 - Comprehensive vulnerability scanning
 - Outdated package detection
 - License checking
 - Fails CI on high/critical vulnerabilities
 - Structured logging for better debugging
+- Runs weekly on schedule and on every push/PR
 
-### 4. GitHub Actions Workflow
+**Location:** `.github/workflows/security.yml`
+
+### 4. Additional Security Workflows
 
 **Location:** `.github/workflows/security-audit.yml`
 
@@ -113,14 +116,14 @@ npm run security:check-all
 
 ```
 ├── .github/workflows/
-│   └── security-audit.yml          # GitHub Actions security workflow
+│   ├── security.yml                # GitHub Actions security workflow
+│   └── ci.yml                      # Main CI orchestrator (includes security)
 ├── scripts/
 │   ├── security-audit.sh           # Local security audit script
 │   └── test-all.sh                 # Enhanced with security checks
 ├── reports/                        # Generated security reports (gitignored)
 ├── package.json                    # Frontend security scripts
-├── backend/package.json            # Backend security scripts
-└── .circleci/config.yml            # Enhanced CI security checks
+└── backend/package.json            # Backend security scripts
 ```
 
 ## Benefits

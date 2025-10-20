@@ -1,6 +1,7 @@
 name: JSDoc Coverage Check
 
 on:
+  workflow_call:
   push:
     branches: [main, develop]
   pull_request:

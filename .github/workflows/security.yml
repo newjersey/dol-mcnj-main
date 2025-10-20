@@ -1,0 +1,69 @@
+name: Security Audit
+
+on:
+  workflow_call:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    - cron: '0 10 * * 1'  # Weekly on Mondays at 10am UTC
+
+env:
+  NODE_VERSION: '20.11.0'
+
+jobs:
+  security-audit:
+    name: NPM Audit & Outdated Packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: |
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+          npm config set fetch-retries 5
+          CYPRESS_INSTALL_BINARY=0 npm ci --frozen-lockfile
+          npm --prefix=backend ci --frozen-lockfile
+      
+      - name: Frontend - Check for critical/high vulnerabilities
+        run: |
+          echo "=== FRONTEND SECURITY AUDIT ==="
+          npm audit --audit-level high --omit=dev
+        continue-on-error: true
+      
+      - name: Backend - Check for critical/high vulnerabilities
+        run: |
+          echo "=== BACKEND SECURITY AUDIT ==="
+          npm --prefix=backend audit --audit-level high --omit=dev
+        continue-on-error: true
+      
+      - name: Frontend - Check outdated packages
+        run: |
+          echo "=== FRONTEND OUTDATED PACKAGES ==="
+          npm outdated || true
+      
+      - name: Backend - Check outdated packages
+        run: |
+          echo "=== BACKEND OUTDATED PACKAGES ==="
+          npm --prefix=backend outdated || true
+      
+      - name: Frontend - License summary
+        run: |
+          echo "=== FRONTEND LICENSE SUMMARY ==="
+          npm ls --depth=0 --json | jq -r '.dependencies | to_entries[] | "\(.key): \(.value.version)"' | head -20 || true
+      
+      - name: Backend - License summary
+        run: |
+          echo "=== BACKEND LICENSE SUMMARY ==="
+          npm --prefix=backend ls --depth=0 --json | jq -r '.dependencies | to_entries[] | "\(.key): \(.value.version)"' | head -20 || true

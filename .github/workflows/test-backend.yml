@@ -1,0 +1,104 @@
+name: Test Backend (Unit)
+
+on:
+  workflow_call:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  NODE_VERSION: '20.11.0'
+  DB_NAME: d4adlocal
+
+jobs:
+  test-backend:
+    name: Backend Jest Tests with PostgreSQL
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    env:
+      IS_CI: 'true'
+      NODE_ENV: test
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: ''
+      PGDATABASE: d4adlocal
+    
+    services:
+      postgres:
+        image: postgres:12.7
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ''
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install PostgreSQL client and setup database
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+          
+          # Wait for PostgreSQL to be ready
+          until pg_isready -h localhost -p 5432 -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+          
+          # Create test database
+          createdb -h localhost -p 5432 ${{ env.DB_NAME }} -U postgres
+          echo "Database ${{ env.DB_NAME }} created"
+          
+          # Initialize migrations table
+          psql -h localhost -p 5432 -U postgres -d ${{ env.DB_NAME }} -c "
+            CREATE TABLE IF NOT EXISTS migrations (
+              id SERIAL PRIMARY KEY,
+              name VARCHAR(255) NOT NULL,
+              run_on TIMESTAMP NOT NULL
+            );
+          "
+      
+      - name: Install dependencies
+        run: |
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+          npm config set fetch-retries 5
+          npm --prefix=backend ci --frozen-lockfile
+      
+      - name: Run backend tests with coverage
+        run: |
+          echo "PostgreSQL status: $(pg_isready -h localhost -p 5432 -U postgres)"
+          PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD="" \
+          NODE_OPTIONS="--max_old_space_size=4096" \
+          npm --prefix=backend run test -- \
+            --coverage \
+            --coverageDirectory=coverage \
+            --coverageReporters=text \
+            --coverageReporters=lcov \
+            --maxWorkers=2 \
+            --forceExit
+      
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-coverage-unit
+          path: backend/coverage/
+          retention-days: 30
