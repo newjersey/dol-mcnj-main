@@ -1,0 +1,47 @@
+name: CI Pipeline
+
+# Main CI orchestrator - calls modular workflows
+# Replaces the monolithic ci-full.yml with composable pieces
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  # Fast checks that can run in parallel
+  lint:
+    name: Lint & Format
+    uses: ./.github/workflows/lint.yml
+  
+  security:
+    name: Security Audit
+    uses: ./.github/workflows/security.yml
+  
+  jsdoc:
+    name: JSDoc Coverage
+    uses: ./.github/workflows/jsdoc-coverage.yml
+  
+  test-frontend:
+    name: Frontend Unit Tests
+    uses: ./.github/workflows/test-frontend.yml
+  
+  test-backend:
+    name: Backend Unit Tests
+    uses: ./.github/workflows/test-backend.yml
+  
+  # Build after tests pass
+  build:
+    name: Build Application
+    needs: [lint, test-frontend, test-backend]
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+  
+  # E2E tests run last (slowest, most resource intensive)
+  test-e2e:
+    name: E2E Tests
+    needs: [build]
+    uses: ./.github/workflows/test-e2e.yml
+    secrets: inherit
