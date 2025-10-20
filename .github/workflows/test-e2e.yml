@@ -129,8 +129,8 @@ jobs:
           echo "=== SETTING UP TEST DATABASE ==="
           echo "Using minimal test schema for d4adtest"
           
-          # Create d4adtest database
-          PGPASSWORD="" psql -h localhost -U postgres -c "CREATE DATABASE d4adtest;"
+          # Create d4adtest database (connect to postgres database, not d4adtest)
+          PGPASSWORD="" psql -h localhost -U postgres -d postgres -c "CREATE DATABASE d4adtest;"
           
           # Load test schema
           if [ -f backend/test-schema.sql ]; then
