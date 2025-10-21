@@ -42,6 +42,8 @@ export const ContactFormModal = () => {
         setIsOpen(false);
         const url = new URL(window.location.href);
         url.searchParams.delete("contactModal");
+        url.searchParams.delete("path");
+        url.searchParams.delete("title");
         window.history.replaceState({}, document.title, url.toString());
       }
     };
@@ -53,6 +55,8 @@ export const ContactFormModal = () => {
       setIsOpen(false);
       const url = new URL(window.location.href);
       url.searchParams.delete("contactModal");
+      url.searchParams.delete("path");
+      url.searchParams.delete("title");
       window.history.replaceState({}, document.title, url.toString());
     });
   }, []);
@@ -76,6 +80,15 @@ export const ContactFormModal = () => {
         className="nav-item contact-us"
         onClick={() => {
           setIsOpen(!isOpen);
+
+          // Update params when opening the modal to capture any new URL parameters
+          if (!isOpen) {
+            const urlParams = new URLSearchParams(window.location.search);
+            setParams({
+              path: urlParams.get("path"),
+              title: urlParams.get("title"),
+            });
+          }
         }}
       >
         Contact Us
@@ -108,6 +121,8 @@ export const ContactFormModal = () => {
                 setIsOpen(false);
                 const url = new URL(window.location.href);
                 url.searchParams.delete("contactModal");
+                url.searchParams.delete("path");
+                url.searchParams.delete("title");
                 window.history.replaceState({}, document.title, url.toString());
               }}
               className="close"
