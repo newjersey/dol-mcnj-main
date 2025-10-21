@@ -8,8 +8,9 @@ import { CONTACT_FORM as contentData } from "@data/global/contactForm";
 export const ContactFormModal = () => {
   const [lang, setLang] = useState<SupportedLanguages>("en");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [params, setParams] = useState<
-    { path: string | null; title: string | null } | undefined
+  const [contactContext, setContactContext] = useState<
+    | { path: string; title: string; type: string; referringPage: string }
+    | undefined
   >(undefined);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -23,6 +24,35 @@ export const ContactFormModal = () => {
         element.setAttribute("tabindex", enable ? "0" : "-1");
       });
     }
+  };
+
+  const detectPageContext = (isIssueReport: boolean = false) => {
+    const currentPath = window.location.pathname;
+    const currentUrl = window.location.href;
+    const isTrainingDetailPage = currentPath.match(/^\/training\/(.+)$/) && !currentPath.startsWith('/training/search');
+
+    if (isTrainingDetailPage) {
+      const trainingId = currentPath.match(/^\/training\/(.+)$/)![1];
+      const titleElement = document.querySelector("h1.heading-tag");
+      const trainingName = titleElement
+        ? titleElement.textContent?.replace(" | My Career NJ", "").trim() ||
+          "Unknown Training Program"
+        : "Unknown Training Program";
+
+      return {
+        path: `/training/${trainingId}`,
+        title: trainingName,
+        type: isIssueReport ? "issue" : "contact",
+        referringPage: currentUrl,
+      };
+    }
+
+    return {
+      path: "",
+      title: "",
+      type: "contact",
+      referringPage: currentUrl,
+    };
   };
 
   useEffect(() => {
@@ -40,11 +70,7 @@ export const ContactFormModal = () => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsOpen(false);
-        const url = new URL(window.location.href);
-        url.searchParams.delete("contactModal");
-        url.searchParams.delete("path");
-        url.searchParams.delete("title");
-        window.history.replaceState({}, document.title, url.toString());
+        setContactContext(undefined);
       }
     };
 
@@ -53,24 +79,8 @@ export const ContactFormModal = () => {
     const overlay = document.querySelector(".overlay-contact");
     overlay?.addEventListener("click", () => {
       setIsOpen(false);
-      const url = new URL(window.location.href);
-      url.searchParams.delete("contactModal");
-      url.searchParams.delete("path");
-      url.searchParams.delete("title");
-      window.history.replaceState({}, document.title, url.toString());
+      setContactContext(undefined);
     });
-  }, []);
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    setParams({
-      path: urlParams.get("path"),
-      title: urlParams.get("title"),
-    });
-
-    if (urlParams.get("contactModal") === "true") {
-      setIsOpen(true);
-    }
   }, []);
 
   return (
@@ -79,19 +89,29 @@ export const ContactFormModal = () => {
         id="contactModalButton"
         className="nav-item contact-us"
         onClick={() => {
-          setIsOpen(!isOpen);
-
-          // Update params when opening the modal to capture any new URL parameters
           if (!isOpen) {
-            const urlParams = new URLSearchParams(window.location.search);
-            setParams({
-              path: urlParams.get("path"),
-              title: urlParams.get("title"),
-            });
+            const context = detectPageContext(false);
+            setContactContext(context);
           }
+          setIsOpen(!isOpen);
         }}
       >
         Contact Us
+      </button>
+
+      <button
+        id="contactModalIssueButton"
+        style={{ display: "none" }}
+        onClick={() => {
+          if (!isOpen) {
+            const context = detectPageContext(true);
+            setContactContext(context);
+          }
+          setIsOpen(true);
+        }}
+        aria-hidden="true"
+      >
+        Issue Report
       </button>
 
       <div
@@ -119,11 +139,7 @@ export const ContactFormModal = () => {
             <button
               onClick={() => {
                 setIsOpen(false);
-                const url = new URL(window.location.href);
-                url.searchParams.delete("contactModal");
-                url.searchParams.delete("path");
-                url.searchParams.delete("title");
-                window.history.replaceState({}, document.title, url.toString());
+                setContactContext(undefined);
               }}
               className="close"
             >
@@ -133,10 +149,12 @@ export const ContactFormModal = () => {
             <ContactForm
               lang={lang}
               content={
-                params
+                contactContext
                   ? {
-                      path: params.path ?? undefined,
-                      title: params.title ?? undefined,
+                      path: contactContext.path,
+                      title: contactContext.title,
+                      type: contactContext.type,
+                      referringPage: contactContext.referringPage,
                     }
                   : undefined
               }

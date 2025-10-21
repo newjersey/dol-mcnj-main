@@ -95,18 +95,11 @@ const Content = ({ training }: { training: TrainingProps }) => {
                 highlight="orange"
                 label="See something wrong? Report an issue."
                 onClick={() => {
-                  // Update URL with contact modal parameters without navigation
-                  const url = new URL(window.location.href);
-                  url.searchParams.set("contactModal", "true");
-                  url.searchParams.set("path", `/training/${training.id}`);
-                  url.searchParams.set("title", training.name);
-                  window.history.pushState({}, document.title, url.toString());
-
-                  // Trigger the contact modal to open
-                  const contactButton =
-                    document.getElementById("contactModalButton");
-                  if (contactButton) {
-                    contactButton.click();
+                  const issueButton = document.getElementById(
+                    "contactModalIssueButton"
+                  );
+                  if (issueButton) {
+                    issueButton.click();
                   }
                 }}
                 iconPrefix="Flag"
