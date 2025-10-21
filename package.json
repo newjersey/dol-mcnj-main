@@ -40,7 +40,7 @@
     "@contentful/rich-text-types": "^17.1.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@formatjs/intl-localematcher": "^0.6.1",
+    "@formatjs/intl-localematcher": "^0.6.2",
     "@meronex/icons": "^4.0.0",
     "@mui/material": "^7.3.4",
     "@newjersey/njwds": "^2.6.1",
