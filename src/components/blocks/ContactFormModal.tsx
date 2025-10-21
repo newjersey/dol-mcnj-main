@@ -29,7 +29,9 @@ export const ContactFormModal = () => {
   const detectPageContext = (isIssueReport: boolean = false) => {
     const currentPath = window.location.pathname;
     const currentUrl = window.location.href;
-    const isTrainingDetailPage = currentPath.match(/^\/training\/(.+)$/) && !currentPath.startsWith('/training/search');
+    const isTrainingDetailPage =
+      currentPath.match(/^\/training\/(.+)$/) &&
+      !currentPath.startsWith("/training/search");
 
     if (isTrainingDetailPage) {
       const trainingId = currentPath.match(/^\/training\/(.+)$/)![1];
