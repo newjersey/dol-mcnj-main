@@ -8,7 +8,7 @@ import globalOgImage from "@images/globalOgImage.jpeg";
 
 export const revalidate = 86400;
 
-export async function generateMetadata({}) {
+export async function generateMetadata() {
   return {
     title: pageData.seo.title,
     description: pageData.seo.pageDescription,
