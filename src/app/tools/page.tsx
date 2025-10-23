@@ -10,7 +10,7 @@ export const revalidate = 86400;
 
 export async function generateMetadata({}) {
   return {
-    title: `${pageData.seo.title} | ${process.env.REACT_APP_SITE_NAME}`,
+    title: pageData.seo.title,
     description: pageData.seo.pageDescription,
     keywords: pageData.seo.keywords,
     icons: {
