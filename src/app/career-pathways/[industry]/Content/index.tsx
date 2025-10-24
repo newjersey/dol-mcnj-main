@@ -302,7 +302,7 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                               <Fragment key={pathItem.sys.id}>
                                 <p className="path-title">{pathItem.title}</p>
                                 <ul className="single-path">
-                                  {pathways.map((path) => {
+                                  {pathways.map((path, index) => {
                                     const isTall = path.length > 1;
                                     return (
                                       <li
@@ -339,7 +339,10 @@ export const Content = ({ thisIndustry }: { thisIndustry: IndustryProps }) => {
                                               {!!occupation.salaryRangeStart && (
                                                 <div className="salary">
                                                   <p>
-                                                    Expected Entry Level Salary
+                                                    {index === 0
+                                                      ? "Expected Entry Level Salary"
+                                                      : "Salary Range"}
+                                                    <br />
                                                   </p>
                                                   <p>
                                                     <strong>

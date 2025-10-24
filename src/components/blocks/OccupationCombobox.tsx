@@ -63,6 +63,12 @@ export const OccupationCombobox = ({
           <TextField
             {...params}
             placeholder={loading ? "Loading..." : placeholder}
+            slotProps={{
+              htmlInput: {
+                ...params.inputProps,
+                "aria-label": "Search for job titles",
+              },
+            }}
           />
         )}
         autoHighlight
