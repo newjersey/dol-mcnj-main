@@ -1,6 +1,12 @@
 import { baking, digitalMarketing } from "../../../../mockData/index";
 import { ResultProps } from "@utils/types";
-import { getPercentEmployed, getCompletionRate, getCredentialRate, getAverageSalary } from "@utils/outcomeHelpers";
+import {
+  getPercentEmployed,
+  getCompletionRate,
+  getCredentialRate,
+  getAverageSalary,
+  hasOutcomeData,
+} from "@utils/outcomeHelpers";
 import { FilterProps } from "../components/Results";
 import { getZipCodesInRadius } from "@utils/getZipCodesInRadius";
 import { handleFiltering } from "@utils/handleFiltering";
@@ -16,7 +22,7 @@ export async function getSearchData(props: {
   const searchData = await fetch(
     `${
       props.serverSide ? process.env.REACT_APP_API_URL : ""
-    }/api/trainings/search?query=${searchParams.q}`,
+    }/api/trainings/search?query=${searchParams.q}`
   );
 
   if (!searchData.ok) {
@@ -52,8 +58,8 @@ export async function getSearchData(props: {
     searchParams.mockData === "baking"
       ? baking
       : searchParams.mockData === "digitalMarketing"
-        ? digitalMarketing
-        : undefined;
+      ? digitalMarketing
+      : undefined;
 
   const pageData = mockData || searchDataItems;
 
@@ -69,7 +75,7 @@ export async function getSearchData(props: {
   if (searchParams.miles && searchParams.zip) {
     const zipCodes = getZipCodesInRadius(
       searchParams.zip,
-      parseInt(searchParams.miles),
+      parseInt(searchParams.miles)
     );
 
     filterObject = {
@@ -351,7 +357,7 @@ export async function getSearchData(props: {
     if (searchParams.socCode.length === 6) {
       const socCode = `${searchParams.socCode.slice(
         0,
-        2,
+        2
       )}-${searchParams.socCode.slice(2)}`;
       filterObject = {
         ...filterObject,
@@ -382,24 +388,36 @@ export async function getSearchData(props: {
       .join("&");
   };
 
+  const pageNumber = searchParams.p ? parseInt(searchParams.p) : 1;
+  const itemsPerPage = searchParams.limit ? parseInt(searchParams.limit) : 10;
+  const start = (pageNumber - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+
+  // Apply filters first
+  const filteredItems =
+    searchParamsArray.length === 0
+      ? pageData
+      : handleFiltering(pageData, filterObject);
+
+  // Apply user-selected sort if specified
   if (searchParams.sort) {
     switch (searchParams.sort) {
       case "low":
-        pageData.sort((a: ResultProps, b: ResultProps) => {
+        filteredItems.sort((a: ResultProps, b: ResultProps) => {
           const totalCostA = a.totalCost || 0;
           const totalCostB = b.totalCost || 0;
           return totalCostA - totalCostB;
         });
         break;
       case "high":
-        pageData.sort((a: ResultProps, b: ResultProps) => {
+        filteredItems.sort((a: ResultProps, b: ResultProps) => {
           const totalCostA = a.totalCost || 0;
           const totalCostB = b.totalCost || 0;
           return totalCostB - totalCostA;
         });
         break;
       case "rate":
-        pageData.sort((a: ResultProps, b: ResultProps) => {
+        filteredItems.sort((a: ResultProps, b: ResultProps) => {
           const percentEmployedA = getPercentEmployed(a.outcomes);
           const percentEmployedB = getPercentEmployed(b.outcomes);
           if (percentEmployedA == null && percentEmployedB == null) return 0;
@@ -409,7 +427,7 @@ export async function getSearchData(props: {
         });
         break;
       case "completion":
-        pageData.sort((a: ResultProps, b: ResultProps) => {
+        filteredItems.sort((a: ResultProps, b: ResultProps) => {
           const completionRateA = getCompletionRate(a.outcomes);
           const completionRateB = getCompletionRate(b.outcomes);
           if (completionRateA == null && completionRateB == null) return 0;
@@ -419,7 +437,7 @@ export async function getSearchData(props: {
         });
         break;
       case "credential":
-        pageData.sort((a: ResultProps, b: ResultProps) => {
+        filteredItems.sort((a: ResultProps, b: ResultProps) => {
           const credentialRateA = getCredentialRate(a.outcomes);
           const credentialRateB = getCredentialRate(b.outcomes);
           if (credentialRateA == null && credentialRateB == null) return 0;
@@ -429,7 +447,7 @@ export async function getSearchData(props: {
         });
         break;
       case "salary-high":
-        pageData.sort((a: ResultProps, b: ResultProps) => {
+        filteredItems.sort((a: ResultProps, b: ResultProps) => {
           const salaryA = getAverageSalary(a.outcomes);
           const salaryB = getAverageSalary(b.outcomes);
           if (salaryA == null && salaryB == null) return 0;
@@ -439,7 +457,7 @@ export async function getSearchData(props: {
         });
         break;
       case "salary-low":
-        pageData.sort((a: ResultProps, b: ResultProps) => {
+        filteredItems.sort((a: ResultProps, b: ResultProps) => {
           const salaryA = getAverageSalary(a.outcomes);
           const salaryB = getAverageSalary(b.outcomes);
           if (salaryA == null && salaryB == null) return 0;
@@ -453,24 +471,30 @@ export async function getSearchData(props: {
     }
   }
 
-  const pageNumber = searchParams.p ? parseInt(searchParams.p) : 1;
-  const itemsPerPage = searchParams.limit ? parseInt(searchParams.limit) : 10;
-  const start = (pageNumber - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
+  let finalItems = filteredItems;
+  if (!searchParams.sort) {
+    const itemsWithOutcomes: ResultProps[] = [];
+    const itemsWithoutOutcomes: ResultProps[] = [];
 
-  const returnedItems =
-    searchParamsArray.length === 0
-      ? pageData
-      : handleFiltering(pageData, filterObject);
+    filteredItems.forEach((item: ResultProps) => {
+      if (hasOutcomeData(item.outcomes)) {
+        itemsWithOutcomes.push(item);
+      } else {
+        itemsWithoutOutcomes.push(item);
+      }
+    });
 
-  const slicedItems = returnedItems.slice(start, end);
+    finalItems = [...itemsWithOutcomes, ...itemsWithoutOutcomes];
+  }
+
+  const slicedItems = finalItems.slice(start, end);
 
   return {
     pageData: slicedItems,
     searchParams: convertSearchParamsToUrlString(searchParams),
     searchParamsArray,
-    itemCount: returnedItems.length,
-    totalPages: Math.ceil(returnedItems.length / itemsPerPage),
+    itemCount: finalItems.length,
+    totalPages: Math.ceil(finalItems.length / itemsPerPage),
     pageNumber,
   };
 }
