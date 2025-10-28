@@ -12,6 +12,7 @@ import { RelatedTrainingCard } from "./RelatedTrainingCard";
 import { Flex } from "@components/utility/Flex";
 import { Spinner } from "@components/modules/Spinner";
 import { colors } from "@utils/settings";
+import { hasOutcomeData } from "@utils/outcomeHelpers";
 
 export const Details = ({
   content,
@@ -123,8 +124,21 @@ export const Details = ({
       const trainingArray = await training.json();
 
       if (trainingArray && trainingArray.length > 0) {
+        const itemsWithOutcomes: TrainingResult[] = [];
+        const itemsWithoutOutcomes: TrainingResult[] = [];
+
+        trainingArray.forEach((item: TrainingResult) => {
+          if (hasOutcomeData(item.outcomes)) {
+            itemsWithOutcomes.push(item);
+          } else {
+            itemsWithoutOutcomes.push(item);
+          }
+        });
+
+        const sortedTraining = [...itemsWithOutcomes, ...itemsWithoutOutcomes];
+
         setLoadingTraining(false);
-        setTrainingData(trainingArray.slice(0, 3));
+        setTrainingData(sortedTraining.slice(0, 3));
       }
 
       setLoadingTraining(false);
