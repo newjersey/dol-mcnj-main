@@ -40,6 +40,8 @@ export const InstructionalPrograms = ({
                 href={`https://nces.ed.gov/ipeds/cipcode/cipdetail.aspx?y=56&cip=${formatCip(
                   training.cipDefinition?.cipcode
                 )}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2"
               >
                 {`${training.cipDefinition?.ciptitle.replace(

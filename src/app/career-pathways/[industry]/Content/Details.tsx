@@ -169,9 +169,14 @@ export const Details = ({
 
             <Markdown content={content.description} />
           </div>
+
           <div className="meta">
             <InfoBox
-              eyebrow="Expected Entry Level Salary"
+              eyebrow={
+                content.level === 1
+                  ? "Expected Entry Level Salary"
+                  : "Salary Range"
+              }
               number={content.salaryRangeStart}
               numberEnd={content.salaryRangeEnd}
               currency
