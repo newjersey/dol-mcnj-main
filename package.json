@@ -62,7 +62,7 @@
     "react-to-print": "^3.2.0",
     "react-tooltip": "^5.30.0",
     "run": "^1.5.0",
-    "sass": "^1.93.2"
+    "sass": "^1.93.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
