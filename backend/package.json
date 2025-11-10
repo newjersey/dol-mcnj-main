@@ -40,7 +40,7 @@
     "@aws-sdk/lib-storage": "^3.913.0",
     "@aws-sdk/s3-request-presigner": "^3.913.0",
     "@contentful/rich-text-types": "^17.0.0",
-    "@sentry/node": "^7.120.4",
+    "@sentry/node": "^10.24.0",
     "@types/archiver": "^6.0.3",
     "@types/dotenv": "^8.2.0",
     "@types/winston": "^2.4.4",
