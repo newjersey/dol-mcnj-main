@@ -3,6 +3,7 @@ export const OCCUPATION_QUERY = `query Occupation($id: String!) {
     sys {
       id
     }
+    level
     title
     inDemand
     shortTitle

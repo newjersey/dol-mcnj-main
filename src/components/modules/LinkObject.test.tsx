@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { LinkObject } from "./LinkObject";
+import * as smoothScroll from "../../utils/smoothScroll";
 
 // Mock the icons
 jest.mock("@phosphor-icons/react", () => ({
@@ -11,7 +12,10 @@ jest.mock("@phosphor-icons/react", () => ({
   House: jest.fn().mockReturnValue(<svg data-testid="house-icon" />),
 }));
 
-window.HTMLElement.prototype.scrollIntoView = jest.fn();
+// Mock the smoothScroll utility
+jest.mock("../../utils/smoothScroll", () => ({
+  smoothScrollToAnchor: jest.fn(),
+}));
 
 describe("LinkObject", () => {
   it("renders correctly with minimal props", () => {
@@ -89,9 +93,7 @@ describe("LinkObject", () => {
       <LinkObject url="#hash-element">Hash Link</LinkObject>
     );
     fireEvent.click(getByText("Hash Link"));
-    expect(
-      document.getElementById("hash-element")?.scrollIntoView
-    ).toHaveBeenCalled();
+    expect(smoothScroll.smoothScrollToAnchor).toHaveBeenCalledWith("hash-element");
   });
 
   it("executes the onClick handler when provided", () => {

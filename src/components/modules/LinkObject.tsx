@@ -1,6 +1,7 @@
 "use client";
 import { ArrowSquareOut, House } from "@phosphor-icons/react";
 import Link from "next/link";
+import { smoothScrollToAnchor } from "@utils/smoothScroll";
 
 interface LinkObjectProps {
   children: React.ReactNode;
@@ -50,15 +51,9 @@ const LinkObject = ({
           }
         }
         if (url.startsWith("#")) {
-          // scroll to anchor
-          const id = url.replace("#", "");
-          const element = document.getElementById(id);
-          if (element) {
-            element.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
+          // Simple smooth scroll to anchor using native scrollIntoView
+          const targetId = url.replace("#", "");
+          smoothScrollToAnchor(targetId);
         }
         if (onClick) {
           onClick();
@@ -88,15 +83,9 @@ const LinkObject = ({
       onClick={(e) => {
         if (url.startsWith("#")) {
           e.preventDefault();
-          // scroll to anchor
-          const id = url.replace("#", "");
-          const element = document.getElementById(id);
-          if (element) {
-            element.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
+          // Simple smooth scroll to anchor using native scrollIntoView
+          const targetId = url.replace("#", "");
+          smoothScrollToAnchor(targetId);
         }
         if (onClick) {
           onClick();

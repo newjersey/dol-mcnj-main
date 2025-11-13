@@ -74,7 +74,7 @@ export const IndustryItem = ({
           gap="xs"
           alignItems="flex-start"
         >
-          <p className="title">{title}</p>
+          <h4 className="title">{title}</h4>
           <Tag
             color={active ? "purple" : "navy"}
             title={`Pathways ${active ? "included" : "coming soon"}`}
